@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Collection Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .message {
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        }
+
+        .message-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .message-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .message-warning { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .message-info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .collection-controls {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .collection-controls select, .collection-controls input {
+            padding: 8px 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 8px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+
+        .tab {
+            flex: 1;
+            min-width: 140px;
+            padding: 12px 16px;
+            background: none;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .content-section {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-right: 12px;
+            margin-bottom: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary { background: linear-gradient(135deg, #6c757d, #828a91); }
+        .btn-success { background: linear-gradient(135deg, #28a745, #34ce57); }
+        .btn-danger { background: linear-gradient(135deg, #dc3545, #e4606d); }
+        .btn-warning { background: linear-gradient(135deg, #ffc107, #ffcd39); color: #333; }
+        .btn-sm { padding: 8px 16px; font-size: 12px; }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .image-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .image-preview:hover img {
+            transform: scale(1.05);
+        }
+
+        .image-preview .placeholder {
+            color: #6c757d;
+            font-size: 48px;
+        }
+
+        .image-info {
+            padding: 16px;
+        }
+
+        .image-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .image-meta {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .image-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .tag {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            color: #1565c0;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .image-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .category-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .category-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .category-item {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .category-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .category-item.active {
+            background: linear-gradient(135deg, #28a745, #34ce57);
+        }
+
+        .category-count {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .bulk-actions {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .view-btn {
+            padding: 8px 12px;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .view-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .list-view .image-grid {
+            display: block;
+        }
+
+        .list-view .image-card {
+            display: flex;
+            margin-bottom: 16px;
+            height: 120px;
+        }
+
+        .list-view .image-preview {
+            width: 150px;
+            height: 100%;
+        }
+
+        .list-view .image-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 16px; }
+            .header h1 { font-size: 2rem; }
+            .tabs { flex-direction: column; }
+            .collection-controls { flex-direction: column; align-items: stretch; }
+            .image-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+            .bulk-actions { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Image Collection Manager</h1>
+            <p>Organize and manage your images across multiple collections and categories</p>
+        </div>
+
+        <div class="collection-controls">
+            <div style="flex: 1;">
+                <label style="font-weight: 600; margin-bottom: 8px; display: block;">Collection:</label>
+                <select id="collectionSelect" onchange="switchCollection()">
+                    <option value="default">Default Collection</option>
+                </select>
+            </div>
+            <div>
+                <button class="btn btn-sm" onclick="createNewCollection()">
+                    <i class="fas fa-plus"></i> New Collection
+                </button>
+                <button class="btn btn-sm btn-warning" onclick="renameCollection()">
+                    <i class="fas fa-edit"></i> Rename
+                </button>
+                <button class="btn btn-sm btn-danger" onclick="deleteCollection()">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalImages">0</div>
+                <div class="stat-label">Total Images</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalCollections">1</div>
+                <div class="stat-label">Collections</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalCategories">0</div>
+                <div class="stat-label">Categories</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="currentCollectionImages">0</div>
+                <div class="stat-label">Current Collection</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('gallery')">
+                <i class="fas fa-images"></i> Gallery
+            </button>
+            <button class="tab" onclick="showTab('upload')">
+                <i class="fas fa-plus"></i> Add Images
+            </button>
+            <button class="tab" onclick="showTab('categories')">
+                <i class="fas fa-tags"></i> Categories
+            </button>
+            <button class="tab" onclick="showTab('manage')">
+                <i class="fas fa-cog"></i> Manage
+            </button>
+        </div>
+
+        <!-- Gallery Section -->
+        <div id="gallery" class="content-section active">
+            <div class="bulk-actions">
+                <div style="flex: 1;">
+                    <input type="text" id="searchInput" placeholder="Search images by title, description, tags..." onkeyup="searchImages()" style="width: 100%; margin: 0;">
+                </div>
+                <div class="view-toggle">
+                    <button class="view-btn active" onclick="setView('grid')">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button class="view-btn" onclick="setView('list')">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+                <select id="sortBy" onchange="sortImages()">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="title">Title A-Z</option>
+                    <option value="category">Category</option>
+                </select>
+            </div>
+
+            <div class="category-section">
+                <h3>Filter by Category:</h3>
+                <div class="category-list" id="categoryFilter">
+                    <div class="category-item active" onclick="filterByCategory('all')">
+                        <span>All Images</span>
+                        <span class="category-count" id="allCount">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="imageGallery" class="image-grid"></div>
+        </div>
+
+        <!-- Upload Section -->
+        <div id="upload" class="content-section">
+            <h2>Add New Images</h2>
+            
+            <form id="imageForm">
+                <div class="form-group">
+                    <label for="imageTitle">Image Title *</label>
+                    <input type="text" id="imageTitle" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="imageUrl">Image URL *</label>
+                    <input type="url" id="imageUrl" required placeholder="https://example.com/image.jpg">
+                </div>
+
+                <div class="form-group">
+                    <label for="imageCategory">Category *</label>
+                    <select id="imageCategory" required>
+                        <option value="">Select category</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="imageTags">Tags (comma separated)</label>
+                    <input type="text" id="imageTags" placeholder="nature, landscape, mountains">
+                </div>
+
+                <div class="form-group">
+                    <label for="imageDescription">Description</label>
+                    <textarea id="imageDescription" rows="4"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="imageAlt">Alt Text</label>
+                    <input type="text" id="imageAlt" placeholder="Descriptive text for accessibility">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn">
+                        <i class="fas fa-save"></i> <span id="saveBtnText">Add Image</span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="clearForm()">
+                        <i class="fas fa-times"></i> Clear
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Categories Section -->
+        <div id="categories" class="content-section">
+            <h2>Category Management</h2>
+            
+            <div class="category-section">
+                <h3>Current Categories</h3>
+                <div class="category-list" id="categoryList"></div>
+                
+                <div class="add-category-form">
+                    <div style="flex: 1;">
+                        <label for="newCategoryInput">Add New Category:</label>
+                        <input type="text" id="newCategoryInput" placeholder="Enter category name">
+                    </div>
+                    <button class="btn" onclick="addCategory()">
+                        <i class="fas fa-plus"></i> Add
+                    </button>
+                </div>
+            </div>
+
+            <div id="categoryStats"></div>
+        </div>
+
+        <!-- Manage Section -->
+        <div id="manage" class="content-section">
+            <h2>Collection Management</h2>
+            
+            <!-- Current Collection Block -->
+            <div class="management-section current-collection-block">
+                <h3><i class="fas fa-folder-open"></i> Current Collection</h3>
+                <div style="text-align: center; margin-bottom: 16px;">
+                    <div style="font-size: 1.4rem; font-weight: 700; color: #667eea;" id="currentCollectionName">Default Collection</div>
+                </div>
+                <div class="collection-info">
+                    <div class="info-item">
+                        <span class="info-label">Images</span>
+                        <span class="info-value" id="currentCollectionCount">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Categories</span>
+                        <span class="info-value" id="currentCollectionCategories">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Created</span>
+                        <span class="info-value" id="currentCollectionDate" style="font-size: 16px;">-</span>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn" onclick="exportCurrentCollection()">
+                        <i class="fas fa-download"></i> Export This Collection
+                    </button>
+                    <button class="btn btn-warning" onclick="importIntoCurrentCollection()">
+                        <i class="fas fa-upload"></i> Import Into This Collection
+                    </button>
+                    <button class="btn btn-danger" onclick="clearCurrentCollection()">
+                        <i class="fas fa-trash"></i> Clear This Collection
+                    </button>
+                </div>
+            </div>
+
+            <!-- Section Divider -->
+            <div class="section-divider"></div>
+
+            <!-- All Collections Block -->
+            <div class="management-section all-collections-block">
+                <h3><i class="fas fa-folder"></i> All Collections Overview</h3>
+                <div id="allCollectionsGrid"></div>
+                <div class="action-buttons">
+                    <button class="btn btn-success" onclick="exportAllCollections()">
+                        <i class="fas fa-download"></i> Export All Collections
+                    </button>
+                    <button class="btn btn-warning" onclick="importAllCollections()">
+                        <i class="fas fa-upload"></i> Import Collections File
+                    </button>
+                </div>
+            </div>
+
+            <!-- Section Divider -->
+            <div class="section-divider"></div>
+
+            <!-- System Actions Block -->
+            <div class="management-section system-actions-block">
+                <h3><i class="fas fa-cog"></i> System Operations</h3>
+                <div style="text-align: center; margin-bottom: 20px; color: #dc3545; font-weight: 600;">
+                    <i class="fas fa-exclamation-triangle"></i> Advanced system operations - use with caution
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="downloadBackup()">
+                        <i class="fas fa-archive"></i> Create Full Backup
+                    </button>
+                    <button class="btn btn-warning" onclick="restoreFromBackup()">
+                        <i class="fas fa-upload"></i> Restore From Backup
+                    </button>
+                    <button class="btn btn-danger" onclick="clearAllData()">
+                        <i class="fas fa-exclamation-triangle"></i> Clear All Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class ImageCollectionManager {
+            constructor() {
+                this.collections = this.loadCollections();
+                this.currentCollection = 'default';
+                this.currentEditingImage = null;
+                this.currentFilter = 'all';
+                this.currentView = 'grid';
+                this.currentSort = 'newest';
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                this.updateCollectionSelector();
+                this.updateCategories(); // Make sure this is called before displayImages
+                this.updateStats();
+                this.displayImages();
+                this.updateCollectionOverview();
+            }
+
+            loadCollections() {
+                const stored = localStorage.getItem('imageCollections');
+                return stored ? JSON.parse(stored) : {
+                    'default': {
+                        name: 'Default Collection',
+                        images: [],
+                        categories: ['nature', 'people', 'architecture', 'art'],
+                        created: new Date().toISOString()
+                    }
+                };
+            }
+
+            saveCollections() {
+                localStorage.setItem('imageCollections', JSON.stringify(this.collections));
+                this.updateStats();
+                this.updateCollectionOverview();
+                this.updateCollectionSelector();
+            }
+
+            bindEvents() {
+                document.getElementById('imageForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.saveImage();
+                });
+
+                document.getElementById('newCategoryInput').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.addCategory();
+                    }
+                });
+            }
+
+            generateId() {
+                return 'img-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+            }
+
+            getCurrentImages() {
+                return this.collections[this.currentCollection]?.images || [];
+            }
+
+            getCurrentCategories() {
+                return this.collections[this.currentCollection]?.categories || [];
+            }
+
+            setCurrentImages(images) {
+                if (!this.collections[this.currentCollection]) {
+                    this.collections[this.currentCollection] = {
+                        name: this.currentCollection,
+                        images: [],
+                        categories: [],
+                        created: new Date().toISOString()
+                    };
+                }
+                this.collections[this.currentCollection].images = images;
+            }
+
+            saveImage() {
+                const title = document.getElementById('imageTitle').value.trim();
+                const url = document.getElementById('imageUrl').value.trim();
+                const category = document.getElementById('imageCategory').value;
+
+                if (!title || !url || !category) {
+                    this.showMessage('Please fill in all required fields', 'error');
+                    return;
+                }
+
+                const images = this.getCurrentImages();
+                const image = {
+                    id: this.currentEditingImage ? this.currentEditingImage.id : this.generateId(),
+                    title,
+                    url,
+                    category,
+                    tags: document.getElementById('imageTags').value.split(',').map(t => t.trim()).filter(t => t),
+                    description: document.getElementById('imageDescription').value.trim(),
+                    alt: document.getElementById('imageAlt').value.trim(),
+                    created: this.currentEditingImage ? this.currentEditingImage.created : new Date().toISOString(),
+                    modified: new Date().toISOString()
+                };
+
+                if (this.currentEditingImage) {
+                    const index = images.findIndex(img => img.id === this.currentEditingImage.id);
+                    if (index !== -1) {
+                        images[index] = image;
+                    }
+                    this.showMessage('Image updated successfully!', 'success');
+                } else {
+                    images.push(image);
+                    this.showMessage('Image added successfully!', 'success');
+                }
+
+                this.setCurrentImages(images);
+                this.saveCollections();
+                this.clearForm();
+                this.displayImages();
+                this.updateCategories();
+                this.updateStats(); // Make sure stats are updated
+            }
+
+            editImage(id) {
+                const images = this.getCurrentImages();
+                const image = images.find(img => img.id === id);
+                if (!image) return;
+
+                this.currentEditingImage = image;
+                document.getElementById('imageTitle').value = image.title;
+                document.getElementById('imageUrl').value = image.url;
+                document.getElementById('imageCategory').value = image.category;
+                document.getElementById('imageTags').value = image.tags.join(', ');
+                document.getElementById('imageDescription').value = image.description || '';
+                document.getElementById('imageAlt').value = image.alt || '';
+
+                document.getElementById('saveBtnText').textContent = 'Update Image';
+                showTab('upload');
+            }
+
+            deleteImage(id) {
+                if (confirm('Are you sure you want to delete this image?')) {
+                    const images = this.getCurrentImages();
+                    const filtered = images.filter(img => img.id !== id);
+                    this.setCurrentImages(filtered);
+                    this.saveCollections();
+                    this.displayImages();
+                    this.updateCategories();
+                    this.showMessage('Image deleted successfully!', 'success');
+                }
+            }
+
+            clearForm() {
+                document.getElementById('imageForm').reset();
+                this.currentEditingImage = null;
+                document.getElementById('saveBtnText').textContent = 'Add Image';
+            }
+
+            displayImages() {
+                const container = document.getElementById('imageGallery');
+                let images = this.getCurrentImages();
+
+                // Apply filter
+                if (this.currentFilter !== 'all') {
+                    images = images.filter(img => img.category === this.currentFilter);
+                }
+
+                // Apply sorting
+                images = this.sortImageArray(images);
+
+                if (images.length === 0) {
+                    container.innerHTML = `<div class="no-images-placeholder">
+                        <i class="fas fa-images"></i>
+                        <p>No images found. ${this.currentFilter !== 'all' ? 'Try a different category filter.' : 'Add your first image!'}</p>
+                    </div>`;
+                    return;
+                }
+
+                container.innerHTML = images.map(image => `
+                    <div class="image-card">
+                        <div class="image-preview">
+                            <img src="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/web%20content%20manager/${image.url}" alt="${image.alt || image.title}" 
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="placeholder" style="display:none;">
+                                <i class="fas fa-image"></i>
+                            </div>
+                        </div>
+                        <div class="image-info">
+                            <div class="image-title">${this.escapeHtml(image.title)}</div>
+                            <div class="image-meta">
+                                <strong>Category:</strong> ${image.category}<br>
+                                <strong>Added:</strong> ${new Date(image.created).toLocaleDateString()}
+                            </div>
+                            ${image.tags.length > 0 ? `
+                                <div class="image-tags">
+                                    ${image.tags.map(tag => `<span class="tag">${this.escapeHtml(tag)}</span>`).join('')}
+                                </div>
+                            ` : ''}
+                            ${image.description ? `<p style="color: #666; font-size: 14px; margin-bottom: 12px;">${this.escapeHtml(image.description)}</p>` : ''}
+                            <div class="image-actions">
+                                <button class="btn btn-sm btn-secondary" onclick="imageManager.editImage('${image.id}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="imageManager.deleteImage('${image.id}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            sortImageArray(images) {
+                switch(this.currentSort) {
+                    case 'oldest':
+                        return [...images].sort((a, b) => new Date(a.created) - new Date(b.created));
+                    case 'title':
+                        return [...images].sort((a, b) => a.title.localeCompare(b.title));
+                    case 'category':
+                        return [...images].sort((a, b) => a.category.localeCompare(b.category));
+                    default: // newest
+                        return [...images].sort((a, b) => new Date(b.created) - new Date(a.created));
+                }
+            }
+
+            searchImages() {
+                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                const images = this.getCurrentImages();
+                
+                if (!searchTerm) {
+                    this.displayImages();
+                    return;
+                }
+
+                const filtered = images.filter(img => 
+                    img.title.toLowerCase().includes(searchTerm) ||
+                    img.category.toLowerCase().includes(searchTerm) ||
+                    (img.description && img.description.toLowerCase().includes(searchTerm)) ||
+                    img.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+                );
+
+                const container = document.getElementById('imageGallery');
+                if (filtered.length === 0) {
+                    container.innerHTML = `<div class="search-no-results">
+                        <p>No images match your search.</p>
+                    </div>`;
+                } else {
+                    // Temporarily display filtered results
+                    const originalImages = this.collections[this.currentCollection].images;
+                    this.collections[this.currentCollection].images = filtered;
+                    this.displayImages();
+                    this.collections[this.currentCollection].images = originalImages;
+                }
+            }
+
+            filterByCategory(category) {
+                this.currentFilter = category;
+                
+                // Update active category button
+                document.querySelectorAll('#categoryFilter .category-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                event.target.classList.add('active');
+                
+                this.displayImages();
+            }
+
+            sortImages() {
+                this.currentSort = document.getElementById('sortBy').value;
+                this.displayImages();
+            }
+
+            setView(viewType) {
+                this.currentView = viewType;
+                
+                // Update view buttons
+                document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+                
+                // Apply view class to gallery
+                const gallery = document.getElementById('imageGallery');
+                if (viewType === 'list') {
+                    gallery.parentElement.classList.add('list-view');
+                } else {
+                    gallery.parentElement.classList.remove('list-view');
+                }
+            }
+
+            addCategory() {
+                const input = document.getElementById('newCategoryInput');
+                const categoryName = input.value.trim().toLowerCase();
+                
+                if (!categoryName) {
+                    this.showMessage('Please enter a category name', 'warning');
+                    return;
+                }
+
+                const categories = this.getCurrentCategories();
+                if (categories.includes(categoryName)) {
+                    this.showMessage('Category already exists!', 'warning');
+                    return;
+                }
+
+                categories.push(categoryName);
+                this.collections[this.currentCollection].categories = categories.sort();
+                this.saveCollections();
+                this.updateCategories();
+                this.updateStats(); // Add this to update stats
+                input.value = '';
+                this.showMessage(`Category "${categoryName}" added!`, 'success');
+            }
+
+            removeCategory(categoryName) {
+                if (confirm(`Delete category "${categoryName}"? Images in this category will become uncategorized.`)) {
+                    const categories = this.getCurrentCategories();
+                    const images = this.getCurrentImages();
+                    
+                    // Remove category from list
+                    const filteredCategories = categories.filter(cat => cat !== categoryName);
+                    this.collections[this.currentCollection].categories = filteredCategories;
+                    
+                    // Update images in this category to 'uncategorized'
+                    images.forEach(img => {
+                        if (img.category === categoryName) {
+                            img.category = 'uncategorized';
+                        }
+                    });
+                    
+                    // Add 'uncategorized' to categories if it doesn't exist and there are uncategorized images
+                    const uncategorizedImages = images.filter(img => img.category === 'uncategorized');
+                    if (uncategorizedImages.length > 0 && !filteredCategories.includes('uncategorized')) {
+                        filteredCategories.push('uncategorized');
+                        this.collections[this.currentCollection].categories = filteredCategories.sort();
+                    }
+                    
+                    this.setCurrentImages(images);
+                    this.saveCollections();
+                    this.updateCategories();
+                    this.updateStats();
+                    this.displayImages();
+                    this.showMessage(`Category "${categoryName}" removed!`, 'success');
+                }
+            }
+
+            updateCategories() {
+                const categories = this.getCurrentCategories();
+                const images = this.getCurrentImages();
+                
+                // Update category dropdown in form
+                const categorySelect = document.getElementById('imageCategory');
+                if (categorySelect) {
+                    const currentValue = categorySelect.value;
+                    categorySelect.innerHTML = '<option value="">Select category</option>';
+                    categories.forEach(cat => {
+                        const option = document.createElement('option');
+                        option.value = cat;
+                        option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+                        categorySelect.appendChild(option);
+                    });
+                    if (currentValue) categorySelect.value = currentValue;
+                }
+
+                // Update category filter with live counts
+                const filterContainer = document.getElementById('categoryFilter');
+                if (filterContainer) {
+                    const allCount = images.length;
+                    const categoryButtons = categories.map(cat => {
+                        const count = images.filter(img => img.category === cat).length;
+                        return `
+                            <div class="category-item ${this.currentFilter === cat ? 'active' : ''}" onclick="imageManager.filterByCategory('${cat}')">
+                                <span>${cat.charAt(0).toUpperCase() + cat.slice(1)}</span>
+                                <span class="category-count">${count}</span>
+                            </div>
+                        `;
+                    }).join('');
+                    
+                    filterContainer.innerHTML = `
+                        <div class="category-item ${this.currentFilter === 'all' ? 'active' : ''}" onclick="imageManager.filterByCategory('all')">
+                            <span>All Images</span>
+                            <span class="category-count">${allCount}</span>
+                        </div>
+                        ${categoryButtons}
+                    `;
+                }
+
+                // Update category management list
+                const categoryList = document.getElementById('categoryList');
+                if (categoryList) {
+                    if (categories.length === 0) {
+                        categoryList.innerHTML = '<p style="color: #666; font-style: italic;">No categories yet. Add your first category below.</p>';
+                    } else {
+                        categoryList.innerHTML = categories.map(cat => {
+                            const count = images.filter(img => img.category === cat).length;
+                            return `
+                                <div class="category-item">
+                                    <span>${cat.charAt(0).toUpperCase() + cat.slice(1)}</span>
+                                    <span class="category-count">${count}</span>
+                                    <button onclick="imageManager.removeCategory('${cat}')" 
+                                            style="background: rgba(255,255,255,0.3); border: none; color: white; border-radius: 50%; width: 20px; height: 20px; margin-left: 8px; cursor: pointer; font-size: 14px;" 
+                                            title="Remove category">×</button>
+                                </div>
+                            `;
+                        }).join('');
+                    }
+                }
+
+                // Update category stats
+                const statsContainer = document.getElementById('categoryStats');
+                if (statsContainer) {
+                    if (categories.length > 0 && images.length > 0) {
+                        const allCount = images.length;
+                        statsContainer.innerHTML = `
+                            <div class="category-stats">
+                                <h3>Category Statistics</h3>
+                                <div class="category-stats-grid">
+                                    ${categories.map(cat => {
+                                        const count = images.filter(img => img.category === cat).length;
+                                        const percentage = allCount > 0 ? Math.round((count / allCount) * 100) : 0;
+                                        return `
+                                            <div class="stat-card">
+                                                <div class="stat-number">${count}</div>
+                                                <div class="stat-label">${cat.charAt(0).toUpperCase() + cat.slice(1)} (${percentage}%)</div>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        statsContainer.innerHTML = '<p style="color: #666; font-style: italic;">Add categories and images to see statistics.</p>';
+                    }
+                }
+            }
+
+            createNewCollection() {
+                const name = prompt('Enter collection name:');
+                if (name && name.trim()) {
+                    const id = name.toLowerCase().replace(/[^a-z0-9]/g, '-') + '-' + Date.now();
+                    if (this.collections[id]) {
+                        this.showMessage('Collection already exists!', 'warning');
+                        return;
+                    }
+                    
+                    this.collections[id] = {
+                        name: name.trim(),
+                        images: [],
+                        categories: ['nature', 'people', 'architecture', 'art'],
+                        created: new Date().toISOString()
+                    };
+                    this.currentCollection = id;
+                    this.currentFilter = 'all';
+                    this.saveCollections();
+                    this.updateCategories();
+                    this.updateStats();
+                    this.displayImages();
+                    this.updateCollectionOverview();
+                    this.showMessage(`Collection "${name}" created!`, 'success');
+                }
+            }
+
+            renameCollection() {
+                const currentName = this.collections[this.currentCollection].name;
+                const newName = prompt('Enter new name:', currentName);
+                if (newName && newName.trim()) {
+                    this.collections[this.currentCollection].name = newName.trim();
+                    this.saveCollections();
+                    this.showMessage('Collection renamed!', 'success');
+                }
+            }
+
+            deleteCollection() {
+                if (Object.keys(this.collections).length === 1) {
+                    this.showMessage('Cannot delete the last collection!', 'error');
+                    return;
+                }
+
+                const name = this.collections[this.currentCollection].name;
+                const imageCount = this.getCurrentImages().length;
+                if (confirm(`Delete "${name}" collection with ${imageCount} images? This cannot be undone.`)) {
+                    delete this.collections[this.currentCollection];
+                    this.currentCollection = Object.keys(this.collections)[0];
+                    this.currentFilter = 'all';
+                    this.saveCollections();
+                    this.updateCategories();
+                    this.displayImages();
+                    this.showMessage('Collection deleted!', 'success');
+                }
+            }
+
+            switchCollection() {
+                const select = document.getElementById('collectionSelect');
+                this.currentCollection = select.value;
+                this.currentFilter = 'all';
+                this.updateCategories();
+                this.updateStats();
+                this.displayImages();
+                this.updateCollectionOverview();
+                this.clearForm();
+            }
+
+            updateCollectionSelector() {
+                const select = document.getElementById('collectionSelect');
+                select.innerHTML = '';
+                
+                Object.keys(this.collections).forEach(id => {
+                    const collection = this.collections[id];
+                    const option = document.createElement('option');
+                    option.value = id;
+                    option.textContent = `${collection.name} (${collection.images.length} images)`;
+                    select.appendChild(option);
+                });
+                
+                select.value = this.currentCollection;
+            }
+
+            updateStats() {
+                const currentImages = this.getCurrentImages();
+                const allImages = Object.values(this.collections).reduce((total, collection) => total + collection.images.length, 0);
+                const currentCategories = this.getCurrentCategories();
+
+                // Safely update stats elements
+                const elements = {
+                    totalImages: document.getElementById('totalImages'),
+                    totalCollections: document.getElementById('totalCollections'),
+                    totalCategories: document.getElementById('totalCategories'),
+                    currentCollectionImages: document.getElementById('currentCollectionImages')
+                };
+
+                if (elements.totalImages) elements.totalImages.textContent = allImages;
+                if (elements.totalCollections) elements.totalCollections.textContent = Object.keys(this.collections).length;
+                if (elements.totalCategories) elements.totalCategories.textContent = currentCategories.length;
+                if (elements.currentCollectionImages) elements.currentCollectionImages.textContent = currentImages.length;
+            }
+
+            updateCollectionOverview() {
+                // Update current collection info
+                const currentCollection = this.collections[this.currentCollection];
+                const currentCollectionNameEl = document.getElementById('currentCollectionName');
+                const currentCollectionCountEl = document.getElementById('currentCollectionCount');
+                const currentCollectionCategoriesEl = document.getElementById('currentCollectionCategories');
+                const currentCollectionDateEl = document.getElementById('currentCollectionDate');
+                
+                if (currentCollectionNameEl) currentCollectionNameEl.textContent = currentCollection.name;
+                if (currentCollectionCountEl) currentCollectionCountEl.textContent = currentCollection.images.length;
+                if (currentCollectionCategoriesEl) currentCollectionCategoriesEl.textContent = currentCollection.categories.length;
+                if (currentCollectionDateEl) currentCollectionDateEl.textContent = new Date(currentCollection.created).toLocaleDateString();
+
+                // Update all collections grid
+                const container = document.getElementById('allCollectionsGrid');
+                if (!container) return;
+                
+                const collections = Object.keys(this.collections);
+                
+                if (collections.length === 0) {
+                    container.innerHTML = '<p style="color: #666; font-style: italic;">No collections found.</p>';
+                    return;
+                }
+                
+                container.innerHTML = collections.map(id => {
+                    const collection = this.collections[id];
+                    const isActive = id === this.currentCollection;
+                    return `
+                        <div class="collection-card ${isActive ? 'active' : ''}">
+                            <div class="collection-header">
+                                <div>
+                                    <div class="collection-title">${this.escapeHtml(collection.name)}</div>
+                                    ${isActive ? '<span class="collection-badge">ACTIVE</span>' : ''}
+                                </div>
+                            </div>
+                            <div class="collection-stats">
+                                <div class="collection-stat"><strong>${collection.images.length}</strong> images</div>
+                                <div class="collection-stat"><strong>${collection.categories.length}</strong> categories</div>
+                                <div class="collection-stat">Created: <strong>${new Date(collection.created).toLocaleDateString()}</strong></div>
+                            </div>
+                            <div class="collection-actions">
+                                ${!isActive ? `<button class="btn btn-sm" onclick="imageManager.switchToCollection('${id}')"><i class="fas fa-eye"></i> Switch To</button>` : ''}
+                                <button class="btn btn-sm btn-secondary" onclick="imageManager.exportSingleCollection('${id}')">
+                                    <i class="fas fa-download"></i> Export
+                                </button>
+                                <button class="btn btn-sm btn-warning" onclick="imageManager.duplicateCollection('${id}')">
+                                    <i class="fas fa-copy"></i> Duplicate
+                                </button>
+                                ${Object.keys(this.collections).length > 1 ? `<button class="btn btn-sm btn-danger" onclick="imageManager.deleteCollectionById('${id}')"><i class="fas fa-trash"></i> Delete</button>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            duplicateCollection(id) {
+                const originalCollection = this.collections[id];
+                const newName = prompt('Enter name for duplicated collection:', originalCollection.name + ' - Copy');
+                
+                if (newName && newName.trim()) {
+                    const newId = newName.toLowerCase().replace(/[^a-z0-9]/g, '-') + '-' + Date.now();
+                    
+                    this.collections[newId] = {
+                        name: newName.trim(),
+                        images: JSON.parse(JSON.stringify(originalCollection.images)), // Deep copy
+                        categories: [...originalCollection.categories], // Copy array
+                        created: new Date().toISOString()
+                    };
+                    
+                    this.saveCollections();
+                    this.updateCollectionOverview();
+                    this.showMessage(`Collection duplicated as "${newName}"!`, 'success');
+                }
+            }
+
+            deleteCollectionById(id) {
+                if (Object.keys(this.collections).length === 1) {
+                    this.showMessage('Cannot delete the last collection!', 'error');
+                    return;
+                }
+
+                const collection = this.collections[id];
+                const isActive = id === this.currentCollection;
+                
+                if (confirm(`Delete "${collection.name}" collection with ${collection.images.length} images? This cannot be undone.`)) {
+                    delete this.collections[id];
+                    
+                    // Switch to another collection if the active one was deleted
+                    if (isActive) {
+                        this.currentCollection = Object.keys(this.collections)[0];
+                        this.currentFilter = 'all';
+                        document.getElementById('collectionSelect').value = this.currentCollection;
+                        this.updateCategories();
+                        this.displayImages();
+                    }
+                    
+                    this.saveCollections();
+                    this.updateCollectionOverview();
+                    this.showMessage(`Collection "${collection.name}" deleted!`, 'success');
+                }
+            }
+
+            exportCurrentCollection() {
+                this.exportSingleCollection(this.currentCollection);
+            }
+
+            importIntoCurrentCollection() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.json';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            try {
+                                const importedData = JSON.parse(e.target.result);
+                                const currentCollection = this.collections[this.currentCollection];
+                                
+                                if (importedData.collection && importedData.collection.images) {
+                                    const importCount = importedData.collection.images.length;
+                                    const confirmMsg = `Import ${importCount} images into "${currentCollection.name}"? This will be added to existing images.`;
+                                    
+                                    if (confirm(confirmMsg)) {
+                                        // Merge images
+                                        currentCollection.images.push(...importedData.collection.images);
+                                        
+                                        // Merge categories
+                                        if (importedData.collection.categories) {
+                                            const newCategories = importedData.collection.categories.filter(cat => 
+                                                !currentCollection.categories.includes(cat));
+                                            currentCollection.categories.push(...newCategories);
+                                            currentCollection.categories.sort();
+                                        }
+                                        
+                                        this.saveCollections();
+                                        this.updateCategories();
+                                        this.displayImages();
+                                        this.showMessage(`${importCount} images imported into "${currentCollection.name}"!`, 'success');
+                                    }
+                                } else {
+                                    this.showMessage('Invalid import format or no images found', 'error');
+                                }
+                            } catch (error) {
+                                this.showMessage('Error importing data: Invalid JSON file', 'error');
+                            }
+                        };
+                        reader.readAsText(file);
+                    }
+                };
+                input.click();
+            }
+
+            clearCurrentCollection() {
+                const currentCollection = this.collections[this.currentCollection];
+                const count = currentCollection.images.length;
+                
+                if (confirm(`Clear all ${count} images from "${currentCollection.name}"? This cannot be undone!`)) {
+                    this.setCurrentImages([]);
+                    this.saveCollections();
+                    this.updateCategories();
+                    this.displayImages();
+                    this.showMessage(`Collection "${currentCollection.name}" cleared!`, 'warning');
+                }
+            }
+
+            exportAllCollections() {
+                const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+                const filename = `all-image-collections-${timestamp}.json`;
+                
+                const exportData = {
+                    collections: this.collections,
+                    metadata: {
+                        exportedAt: new Date().toISOString(),
+                        version: '1.0',
+                        type: 'all-image-collections',
+                        totalCollections: Object.keys(this.collections).length,
+                        totalImages: Object.values(this.collections).reduce((sum, col) => sum + col.images.length, 0)
+                    }
+                };
+                
+                this.downloadJSON(exportData, filename);
+                this.showMessage('All collections exported successfully!', 'success');
+            }
+
+            importAllCollections() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.json';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            try {
+                                const importedData = JSON.parse(e.target.result);
+                                
+                                if (importedData.collections) {
+                                    const collectionCount = Object.keys(importedData.collections).length;
+                                    if (confirm(`Import ${collectionCount} collections? This will replace all current collections.`)) {
+                                        this.collections = importedData.collections;
+                                        this.currentCollection = Object.keys(this.collections)[0];
+                                        this.currentFilter = 'all';
+                                        this.saveCollections();
+                                        this.updateCategories();
+                                        this.displayImages();
+                                        this.updateCollectionOverview();
+                                        this.showMessage(`${collectionCount} collections imported successfully!`, 'success');
+                                    }
+                                } else {
+                                    this.showMessage('Invalid collections file format', 'error');
+                                }
+                            } catch (error) {
+                                this.showMessage('Error importing collections: Invalid JSON file', 'error');
+                            }
+                        };
+                        reader.readAsText(file);
+                    }
+                };
+                input.click();
+            }
+
+            downloadBackup() {
+                const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+                const filename = `image-collections-backup-${timestamp}.json`;
+                
+                const backupData = {
+                    collections: this.collections,
+                    settings: {
+                        currentCollection: this.currentCollection,
+                        currentFilter: this.currentFilter,
+                        currentView: this.currentView,
+                        currentSort: this.currentSort
+                    },
+                    metadata: {
+                        backupCreated: new Date().toISOString(),
+                        version: '1.0',
+                        type: 'full-backup'
+                    }
+                };
+                
+                this.downloadJSON(backupData, filename);
+                this.showMessage('Full backup created successfully!', 'success');
+            }
+
+            restoreFromBackup() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.json';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            try {
+                                const backupData = JSON.parse(e.target.result);
+                                
+                                if (backupData.collections && backupData.settings) {
+                                    if (confirm('Restore from backup? This will replace all current data.')) {
+                                        this.collections = backupData.collections;
+                                        this.currentCollection = backupData.settings.currentCollection || Object.keys(this.collections)[0];
+                                        this.currentFilter = backupData.settings.currentFilter || 'all';
+                                        this.currentView = backupData.settings.currentView || 'grid';
+                                        this.currentSort = backupData.settings.currentSort || 'newest';
+                                        
+                                        this.saveCollections();
+                                        this.updateCategories();
+                                        this.displayImages();
+                                        this.updateCollectionOverview();
+                                        this.showMessage('Backup restored successfully!', 'success');
+                                    }
+                                } else {
+                                    this.showMessage('Invalid backup file format', 'error');
+                                }
+                            } catch (error) {
+                                this.showMessage('Error restoring backup: Invalid JSON file', 'error');
+                            }
+                        };
+                        reader.readAsText(file);
+                    }
+                };
+                input.click();
+            }
+
+            switchToCollection(id) {
+                this.currentCollection = id;
+                document.getElementById('collectionSelect').value = id;
+                this.currentFilter = 'all';
+                this.updateCategories();
+                this.displayImages();
+                this.clearForm();
+                this.updateCollectionOverview();
+                this.showMessage(`Switched to "${this.collections[id].name}"`, 'info');
+                showTab('gallery');
+            }
+
+            exportCollection() {
+                this.exportSingleCollection(this.currentCollection);
+            }
+
+            exportSingleCollection(id) {
+                const collection = this.collections[id];
+                const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+                const filename = `${collection.name.replace(/[^a-z0-9]/gi, '-')}-${timestamp}.json`;
+                
+                const exportData = {
+                    collection: collection,
+                    metadata: {
+                        exportedAt: new Date().toISOString(),
+                        version: '1.0',
+                        type: 'image-collection'
+                    }
+                };
+                
+                this.downloadJSON(exportData, filename);
+                this.showMessage(`"${collection.name}" exported successfully!`, 'success');
+            }
+
+            importCollection() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.json';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            try {
+                                const importedData = JSON.parse(e.target.result);
+                                
+                                if (importedData.collection) {
+                                    const collectionName = importedData.collection.name || 'Imported Collection';
+                                    const confirmMsg = `Import "${collectionName}" with ${importedData.collection.images.length} images? This will replace the current collection.`;
+                                    
+                                    if (confirm(confirmMsg)) {
+                                        this.collections[this.currentCollection] = importedData.collection;
+                                        this.collections[this.currentCollection].name = collectionName;
+                                        this.currentFilter = 'all';
+                                        this.saveCollections();
+                                        this.updateCategories();
+                                        this.displayImages();
+                                        this.showMessage(`Collection "${collectionName}" imported successfully!`, 'success');
+                                    }
+                                } else {
+                                    this.showMessage('Invalid import format', 'error');
+                                }
+                            } catch (error) {
+                                this.showMessage('Error importing data: Invalid JSON file', 'error');
+                            }
+                        };
+                        reader.readAsText(file);
+                    }
+                };
+                input.click();
+            }
+
+            clearCollection() {
+                const name = this.collections[this.currentCollection].name;
+                const count = this.getCurrentImages().length;
+                if (confirm(`Clear all ${count} images from "${name}"? This cannot be undone!`)) {
+                    this.setCurrentImages([]);
+                    this.saveCollections();
+                    this.updateCategories();
+                    this.displayImages();
+                    this.showMessage(`Collection "${name}" cleared!`, 'warning');
+                }
+            }
+
+            downloadJSON(data, filename) {
+                const dataStr = JSON.stringify(data, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', filename);
+                linkElement.click();
+            }
+
+            escapeHtml(text) {
+                if (!text) return '';
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            showMessage(message, type = 'info') {
+                const existingMessages = document.querySelectorAll('.message');
+                existingMessages.forEach(msg => msg.remove());
+
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message message-${type}`;
+                
+                let icon = 'fas fa-info-circle';
+                if (type === 'success') icon = 'fas fa-check-circle';
+                if (type === 'error') icon = 'fas fa-exclamation-circle';
+                if (type === 'warning') icon = 'fas fa-exclamation-triangle';
+                
+                messageDiv.innerHTML = `<i class="${icon}"></i> ${message}`;
+                
+                const container = document.querySelector('.container');
+                container.insertBefore(messageDiv, container.children[1]);
+                
+                setTimeout(() => {
+                    messageDiv.remove();
+                }, 5000);
+            }
+        }
+
+        // Global functions
+        let imageManager;
+
+        function showTab(tabName) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function switchCollection() { imageManager.switchCollection(); }
+        function createNewCollection() { imageManager.createNewCollection(); }
+        function renameCollection() { imageManager.renameCollection(); }
+        function deleteCollection() { imageManager.deleteCollection(); }
+        function clearForm() { imageManager.clearForm(); }
+        function searchImages() { imageManager.searchImages(); }
+        function sortImages() { imageManager.sortImages(); }
+        function setView(viewType) { imageManager.setView(viewType); }
+        function addCategory() { imageManager.addCategory(); }
+        
+        // Current Collection Actions
+        function exportCurrentCollection() { imageManager.exportCurrentCollection(); }
+        function importIntoCurrentCollection() { imageManager.importIntoCurrentCollection(); }
+        function clearCurrentCollection() { imageManager.clearCurrentCollection(); }
+        
+        // All Collections Actions
+        function exportAllCollections() { imageManager.exportAllCollections(); }
+        function importAllCollections() { imageManager.importAllCollections(); }
+        
+        // System Actions
+        function downloadBackup() { imageManager.downloadBackup(); }
+        function restoreFromBackup() { imageManager.restoreFromBackup(); }
+        function clearAllData() { imageManager.clearAllData(); }
+
+        // Legacy function names (for backward compatibility)
+        function exportCollection() { imageManager.exportCurrentCollection(); }
+        function importCollection() { imageManager.importIntoCurrentCollection(); }
+        function clearCollection() { imageManager.clearCurrentCollection(); }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            imageManager = new ImageCollectionManager();
+        });
+    </script>
+</body>
+</html>

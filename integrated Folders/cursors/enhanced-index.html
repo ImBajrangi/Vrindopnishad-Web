@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Hatom Custom Cursor - Advanced Morphing System</title>
+    <link rel="stylesheet" href="enhanced-styles.css">
+</head>
+<body>
+    <!-- Enhanced Custom Cursor Elements -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-outline" id="cursorOutline"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+    
+    <!-- Cursor Shape SVG Container -->
+    <div class="cursor-svg-container" id="cursorSvg">
+        <svg width="40" height="40" viewBox="0 0 40 40">
+            <path id="cursorPath" d="M20,20 m-10,0 a10,10 0 1,0 20,0 a10,10 0 1,0 -20,0" fill="white"/>
+        </svg>
+    </div>
+    
+    <!-- WebGL Canvas for advanced effects -->
+    <canvas id="webgl-canvas"></canvas>
+    
+    <!-- Enhanced Demo Content with Hotspots -->
+    <div class="container">
+        <header class="header">
+            <nav class="navigation">
+                <a href="#" class="nav-link" data-cursor="pointer">Home</a>
+                <a href="#" class="nav-link" data-cursor="pointer">About</a>
+                <a href="#" class="nav-link" data-cursor="pointer">Services</a>
+                <a href="#" class="nav-link" data-cursor="pointer">Contact</a>
+            </nav>
+        </header>
+        
+        <!-- Hotspot Areas for Shape Morphing -->
+        <div class="cursor-hotspot triangle-zone" 
+             data-shape="triangle" 
+             data-animation="spin"
+             data-tooltip="Triangle Zone"
+             style="position: absolute; top: 15vh; left: 10vw; width: 120px; height: 120px;">
+            <div class="hotspot-indicator">△</div>
+        </div>
+        
+        <div class="cursor-hotspot star-zone" 
+             data-shape="star" 
+             data-animation="pulse"
+             data-tooltip="Star Formation"
+             style="position: absolute; top: 20vh; right: 15vw; width: 150px; height: 150px;">
+            <div class="hotspot-indicator">★</div>
+        </div>
+        
+        <div class="cursor-hotspot heart-zone" 
+             data-shape="heart" 
+             data-animation="beat"
+             data-tooltip="Love Zone"
+             style="position: absolute; bottom: 25vh; left: 20vw; width: 100px; height: 100px;">
+            <div class="hotspot-indicator">♥</div>
+        </div>
+        
+        <div class="cursor-hotspot diamond-zone" 
+             data-shape="diamond" 
+             data-animation="rotate"
+             data-tooltip="Diamond Area"
+             style="position: absolute; bottom: 20vh; right: 25vw; width: 130px; height: 130px;">
+            <div class="hotspot-indicator">◆</div>
+        </div>
+        
+        <div class="cursor-hotspot lightning-zone" 
+             data-shape="lightning" 
+             data-animation="flash"
+             data-tooltip="Electric Zone"
+             style="position: absolute; top: 50vh; left: 50vw; width: 140px; height: 140px; transform: translate(-50%, -50%);">
+            <div class="hotspot-indicator">⚡</div>
+        </div>
+        
+        <main class="main-content">
+            <section class="hero">
+                <h1 class="hero-title" data-cursor="text">Enhanced Cursor Experience</h1>
+                <p class="hero-subtitle" data-cursor="text">Move your cursor to the highlighted zones to see magical transformations</p>
+                <button class="cta-button" data-cursor="pointer">Explore Magic</button>
+            </section>
+            
+            <section class="gallery">
+                <div class="image-wrapper magnetic-area" data-cursor="view" data-magnetic="true">
+                    <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400" alt="Demo Image 1">
+                    <div class="image-overlay">
+                        <span class="overlay-text">Magnetic Hover</span>
+                    </div>
+                </div>
+                
+                <div class="image-wrapper ripple-area" data-cursor="view" data-ripple="true">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" alt="Demo Image 2">
+                    <div class="image-overlay">
+                        <span class="overlay-text">Ripple Effect</span>
+                    </div>
+                </div>
+                
+                <div class="image-wrapper explosion-area" data-cursor="view" data-explosion="true">
+                    <img src="https://images.unsplash.com/photo-1614850523060-8da1d46e2cb8?w=400" alt="Demo Image 3">
+                    <div class="image-overlay">
+                        <span class="overlay-text">Particle Explosion</span>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="interactive-playground">
+                <div class="playground-item morph-button" data-cursor="pointer" data-morph="circle-to-square">
+                    <span>Morph Cursor</span>
+                </div>
+                
+                <div class="playground-item color-changer" data-cursor="pointer" data-color-cycle="true">
+                    <span>Color Cycle</span>
+                </div>
+                
+                <div class="playground-item size-changer" data-cursor="pointer" data-size-change="true">
+                    <span>Size Change</span>
+                </div>
+                
+                <div class="playground-item trail-maker" data-cursor="drag" data-enhanced-trail="true">
+                    <span>Enhanced Trail</span>
+                </div>
+            </section>
+            
+            <!-- Text Animation Area -->
+            <section class="text-animation-area">
+                <div class="text-morph-zone" data-shape="text-morph" data-tooltip="Text Morphing">
+                    <h2>Text Interaction Zone</h2>
+                    <p data-cursor="text">Hover over this text to see the cursor adapt to text selection with enhanced animations.</p>
+                </div>
+            </section>
+            
+            <!-- Special Effects Zones -->
+            <div class="special-effects-container">
+                <div class="gravity-well" data-cursor="gravity" data-tooltip="Gravity Well">
+                    <div class="gravity-center"></div>
+                </div>
+                
+                <div class="particle-attractor" data-cursor="attractor" data-tooltip="Particle Attractor">
+                    <div class="attractor-core"></div>
+                </div>
+                
+                <div class="warp-zone" data-cursor="warp" data-tooltip="Space Warp">
+                    <div class="warp-center"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Enhanced Particle System Container -->
+    <div id="particles-container"></div>
+    
+    <!-- Cursor Tooltip -->
+    <div class="cursor-tooltip" id="cursorTooltip"></div>
+    
+    <!-- Loading Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="enhanced-script.js"></script>
+</body>
+</html>

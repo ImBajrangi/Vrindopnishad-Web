@@ -1,0 +1,3929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vrindopnishad - Web Data Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        min-height: 100vh;
+        color: #333;
+    }
+
+    .container {
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 24px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        text-align: center;
+    }
+
+    .header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 8px;
+    }
+
+    .header p {
+        color: #666;
+        font-size: 1.1rem;
+    }
+
+    /* Messages */
+    .message {
+        padding: 12px 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+        animation: slideIn 0.3s ease;
+    }
+
+    .message-success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .message-error {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    .message-warning {
+        background: #fff3cd;
+        color: #856404;
+        border: 1px solid #ffeeba;
+    }
+
+    .message-info {
+        background: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Tabs */
+    .tabs {
+        display: flex;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 12px;
+        padding: 8px;
+        margin-bottom: 24px;
+        overflow-x: auto;
+    }
+
+    .tab {
+        flex: 1;
+        min-width: 120px;
+        padding: 12px 16px;
+        background: none;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        text-align: center;
+    }
+
+    .tab.active {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: white;
+    }
+
+    .tab:hover:not(.active) {
+        background: rgba(30, 60, 114, 0.1);
+    }
+
+    /* Content Sections */
+    .content-section {
+        display: none;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    }
+
+    .content-section.active {
+        display: block;
+    }
+
+    .content-section h2 {
+        margin-bottom: 24px;
+        color: #1e3c72;
+        font-size: 1.8rem;
+    }
+
+    .content-section h3 {
+        margin-bottom: 16px;
+        color: #2a5298;
+        font-size: 1.3rem;
+    }
+
+    /* Forms */
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 24px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.2s ease;
+        background: white;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: #1e3c72;
+        box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        min-height: 100px;
+        font-family: inherit;
+    }
+
+    /* Search and Filter Controls */
+    .search-controls {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .search-group {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .search-group input,
+    .search-group select {
+        padding: 10px 14px;
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        font-size: 14px;
+        width: 100%;
+    }
+
+    /* Buttons */
+    .btn {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin-right: 12px;
+        margin-bottom: 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(30, 60, 114, 0.4);
+    }
+
+    .btn-secondary { background: linear-gradient(135deg, #6c757d, #828a91); }
+    .btn-success { background: linear-gradient(135deg, #28a745, #34ce57); }
+    .btn-danger { background: linear-gradient(135deg, #dc3545, #e4606d); }
+    .btn-warning { background: linear-gradient(135deg, #ffc107, #ffcd39); color: #333; }
+    .btn-info { background: linear-gradient(135deg, #17a2b8, #20c997); }
+
+    .btn-sm {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    /* Item Cards */
+    .item-list {
+        display: grid;
+        gap: 16px;
+        margin-top: 20px;
+    }
+
+    .item-card {
+        background: white;
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        padding: 20px;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .item-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    .item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+        gap: 16px;
+    }
+
+    .item-title {
+        font-weight: 600;
+        color: #1e3c72;
+        font-size: 1.1rem;
+        line-height: 1.3;
+    }
+
+    .item-actions {
+        display: flex;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    .item-meta {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+
+    .item-description {
+        color: #555;
+        line-height: 1.5;
+        margin-top: 12px;
+    }
+
+    .text-success { color: #28a745; }
+    .text-warning { color: #ffc107; }
+    .text-info { color: #17a2b8; }
+
+    /* Image Preview */
+    .image-preview {
+        display: none;
+        margin-top: 16px;
+        text-align: center;
+    }
+
+    .image-preview img {
+        max-width: 100%;
+        max-height: 200px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    /* Modals */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        backdrop-filter: blur(3px);
+    }
+
+    .modal-content {
+        background-color: white;
+        margin: 5% auto;
+        padding: 0;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 800px;
+        max-height: 80vh;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        animation: modalSlideIn 0.3s ease;
+    }
+
+    @keyframes modalSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-50px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .modal-header {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: white;
+        padding: 20px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .modal-header h3 {
+        margin: 0;
+        font-size: 1.3rem;
+    }
+
+    .modal-close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 4px;
+        transition: background 0.2s ease;
+    }
+
+    .modal-close:hover {
+        background: rgba(255,255,255,0.2);
+    }
+
+    .modal-body {
+        padding: 24px;
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+
+    .modal-footer {
+        padding: 16px 24px;
+        border-top: 1px solid #e9ecef;
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+    }
+
+    /* Collection Form */
+    .collection-form {
+        display: none;
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .stat-card {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: transform 0.2s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-2px);
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .stat-label {
+        color: #666;
+        font-size: 14px;
+        margin-top: 4px;
+    }
+
+    /* Toolbar */
+    .toolbar {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    /* Data Preview */
+    .data-preview {
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        padding: 16px;
+        margin-top: 20px;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .data-preview pre {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.4;
+        font-family: 'Courier New', monospace;
+    }
+
+    /* API Endpoint */
+    .api-endpoint {
+        background: #e7f3ff;
+        border: 1px solid #b6d7ff;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 20px;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+    }
+
+    .api-endpoint h3 {
+        margin-bottom: 12px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* Content Preview Styles */
+    .meta-info {
+        background: #f8f9fa;
+        padding: 16px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border-left: 4px solid #1e3c72;
+    }
+
+    .excerpt {
+        background: #e7f3ff;
+        padding: 16px;
+        border-radius: 8px;
+        border-left: 4px solid #007bff;
+        font-style: italic;
+        margin-bottom: 20px;
+    }
+
+    .content-body {
+        line-height: 1.7;
+        font-size: 15px;
+    }
+
+    .content-body p {
+        margin-bottom: 16px;
+    }
+
+    .content-body h1, .content-body h2, .content-body h3 {
+        margin-top: 24px;
+        margin-bottom: 12px;
+        color: #1e3c72;
+    }
+
+    /* Loading States */
+    .loading {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    .loading::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        margin: -10px 0 0 -10px;
+        border: 2px solid #f3f3f3;
+        border-top: 2px solid #1e3c72;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .container {
+            padding: 16px;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+        }
+        
+        .tabs {
+            flex-direction: column;
+        }
+
+        .tab {
+            text-align: left;
+        }
+
+        .item-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .item-actions {
+            width: 100%;
+            justify-content: flex-start;
+        }
+
+        .search-controls {
+            flex-direction: column;
+        }
+
+        .modal-content {
+            width: 95%;
+            margin: 10px auto;
+        }
+
+        .toolbar {
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .btn {
+            padding: 10px 16px;
+            font-size: 12px;
+        }
+
+        .item-card {
+            padding: 16px;
+        }
+
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* File Upload Styles */
+    .file-upload {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .file-upload input[type="file"] {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px dashed #e1e5e9;
+        border-radius: 8px;
+        background: #fafbfc;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .file-upload input[type="file"]:hover {
+        border-color: #1e3c72;
+        background: #f8f9fa;
+    }
+
+    .file-upload input[type="file"]:focus {
+        outline: none;
+        border-color: #1e3c72;
+        box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+    }
+
+    .file-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 12px;
+        background: #e8f5e9;
+        border: 1px solid #c3e6cb;
+        border-radius: 4px;
+        font-size: 13px;
+        margin-top: 8px;
+    }
+
+    .file-info.error {
+        background: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+
+    .file-info .file-details {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .file-progress {
+        width: 100%;
+        height: 6px;
+        background: #e9ecef;
+        border-radius: 3px;
+        margin-top: 8px;
+        overflow: hidden;
+    }
+
+    .file-progress-bar {
+        height: 100%;
+        background: linear-gradient(135deg, #28a745, #34ce57);
+        width: 0%;
+        transition: width 0.3s ease;
+    }
+
+    /* Upload area styling */
+    .upload-area {
+        border: 2px dashed #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        background: #fafbfc;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .upload-area:hover {
+        border-color: #1e3c72;
+        background: #f8f9fa;
+    }
+
+    .upload-area.dragover {
+        border-color: #1e3c72;
+        background: #e7f3ff;
+    }
+
+    .upload-icon {
+        font-size: 2rem;
+        color: #6c757d;
+        margin-bottom: 10px;
+    }
+
+    .upload-text {
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+    .upload-text strong {
+        color: #1e3c72;
+    }
+    @media (prefers-color-scheme: dark) {
+        .item-card {
+            background: #2d3748;
+            border-color: #4a5568;
+            color: #e2e8f0;
+        }
+
+        .item-title {
+            color: #90cdf4;
+        }
+
+        .item-meta {
+            color: #a0aec0;
+        }
+
+        .modal-content {
+            background: #2d3748;
+            color: #e2e8f0;
+        }
+    }
+
+    /* Utility Classes */
+    .text-center { text-align: center; }
+    .text-left { text-align: left; }
+    .text-right { text-align: right; }
+    
+    .mt-1 { margin-top: 8px; }
+    .mt-2 { margin-top: 16px; }
+    .mt-3 { margin-top: 24px; }
+    
+    .mb-1 { margin-bottom: 8px; }
+    .mb-2 { margin-bottom: 16px; }
+    .mb-3 { margin-bottom: 24px; }
+    
+    .p-1 { padding: 8px; }
+    .p-2 { padding: 16px; }
+    .p-3 { padding: 24px; }
+
+    .d-none { display: none; }
+    .d-block { display: block; }
+    .d-flex { display: flex; }
+
+    .w-100 { width: 100%; }
+    .h-100 { height: 100%; }
+
+    /* Custom Modal Styles for Mobile-Friendly Confirmations */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 20000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+    }
+
+    .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .custom-modal {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        max-width: 90%;
+        width: 400px;
+        transform: scale(0.8) translateY(-20px);
+        transition: all 0.3s ease;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+
+    .modal-overlay.active .custom-modal {
+        transform: scale(1) translateY(0);
+    }
+
+    .modal-header {
+        margin-bottom: 16px;
+    }
+
+    .modal-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #1e3c72;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .modal-message {
+        color: #666;
+        line-height: 1.5;
+        font-size: 1rem;
+    }
+
+    .modal-input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        font-size: 16px;
+        margin: 16px 0;
+        transition: all 0.2s ease;
+    }
+
+    .modal-input:focus {
+        outline: none;
+        border-color: #1e3c72;
+        box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+    }
+
+    .modal-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+        margin-top: 24px;
+    }
+
+    .modal-btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        min-width: 100px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .modal-btn-primary {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: white;
+    }
+
+    .modal-btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+
+    .modal-btn-danger {
+        background: linear-gradient(135deg, #dc3545, #e4606d);
+        color: white;
+    }
+
+    .modal-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-btn:active {
+        transform: translateY(0);
+    }
+
+    /* Dark mode support for modals */
+    @media (prefers-color-scheme: dark) {
+        .custom-modal {
+            background: #2d3748;
+            color: #e2e8f0;
+        }
+        
+        .modal-title {
+            color: #90cdf4;
+        }
+        
+        .modal-message {
+            color: #a0aec0;
+        }
+        
+        .modal-input {
+            background: #4a5568;
+            border-color: #718096;
+            color: #e2e8f0;
+        }
+        
+        .modal-input:focus {
+            border-color: #90cdf4;
+            box-shadow: 0 0 0 3px rgba(144, 205, 244, 0.1);
+        }
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 480px) {
+        .custom-modal {
+            width: 95%;
+            padding: 20px;
+        }
+        
+        .modal-actions {
+            flex-direction: column;
+        }
+        
+        .modal-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+
+<body>
+    <!-- Custom Confirmation Modal -->
+    <div class="modal-overlay" id="customModal">
+        <div class="custom-modal">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">
+                    <i class="fas fa-question-circle"></i>
+                    Confirmation
+                </div>
+                <div class="modal-message" id="modalMessage"></div>
+            </div>
+            <input type="text" class="modal-input" id="modalInput" style="display: none;">
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-secondary" id="modalCancel">
+                    <i class="fas fa-times"></i>
+                    Cancel
+                </button>
+                <button class="modal-btn modal-btn-primary" id="modalConfirm">
+                    <i class="fas fa-check"></i>
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Unified Web Data Manager</h1>
+            <p>Centralized data management system for all your web pages</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalBooks">0</div>
+                <div class="stat-label">Books</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalImages">0</div>
+                <div class="stat-label">Images</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalAudio">0</div>
+                <div class="stat-label">Audio Tracks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalContent">0</div>
+                <div class="stat-label">Content Items</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('books')">
+                <i class="fas fa-book"></i> Books
+            </button>
+            <button class="tab" onclick="showTab('images')">
+                <i class="fas fa-image"></i> Images
+            </button>
+            <button class="tab" onclick="showTab('audio')">
+                <i class="fas fa-music"></i> Audio
+            </button>
+            <button class="tab" onclick="showTab('collections')">
+                <i class="fas fa-layer-group"></i> Collections
+            </button>
+            <button class="tab" onclick="showTab('content')">
+                <i class="fas fa-file-text"></i> Content
+            </button>
+            <button class="tab" onclick="showTab('api')">
+                <i class="fas fa-code"></i> API & Export
+            </button>
+        </div>
+
+        <!-- Books Section -->
+        <div id="books" class="content-section active">
+            <h2><i class="fas fa-book"></i> Books Management</h2>
+            
+            <div class="search-controls">
+                <div class="search-group">
+                    <input type="text" id="booksSearch" placeholder="Search books..." onkeyup="searchBooks()">
+                </div>
+                <div class="search-group">
+                    <select id="booksFilter" onchange="filterBooks()">
+                        <option value="all">All Categories</option>
+                        <option value="vedic">Vedic</option>
+                        <option value="puranas">Puranas</option>
+                        <option value="modern">Modern</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div>
+                    <h3>Add New Book</h3>
+                    <form id="bookForm">
+                        <div class="form-group">
+                            <label>Title *</label>
+                            <input type="text" id="bookTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Author *</label>
+                            <input type="text" id="bookAuthor" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Year</label>
+                            <input type="text" id="bookYear">
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="bookCategory">
+                                <option value="vedic">Vedic</option>
+                                <option value="puranas">Puranas</option>
+                                <option value="modern">Modern</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Language</label>
+                            <select id="bookLanguage">
+                                <option value="sanskrit">Sanskrit</option>
+                                <option value="english">English</option>
+                                <option value="hindi">Hindi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Cover Image URL</label>
+                            <input type="url" id="bookCover">
+                        </div>
+                        <div class="form-group">
+                            <label>Upload Book File</label>
+                            <input type="file" id="bookFileUpload" accept=".pdf,.epub,.mobi,.txt,.doc,.docx" onchange="handleBookFileUpload(this)">
+                            <small style="color: #666; font-size: 12px; display: block; margin-top: 4px;">
+                                Supported formats: PDF, EPUB, MOBI, TXT, DOC, DOCX (Max 50MB)
+                            </small>
+                            <div id="bookFileInfo" style="display: none; margin-top: 8px; padding: 8px; background: #e8f5e9; border-radius: 4px; font-size: 13px;">
+                                <i class="fas fa-file"></i> <span id="bookFileName"></span> 
+                                (<span id="bookFileSize"></span>)
+                                <button type="button" class="btn btn-sm btn-danger" onclick="clearBookFile()" style="margin-left: 10px; padding: 2px 8px;">
+                                    <i class="fas fa-times"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Formats (comma-separated)</label>
+                            <input type="text" id="bookFormats" placeholder="pdf, epub, mobi">
+                        </div>
+                        <div class="form-group">
+                            <label>Gallery URLs (comma-separated)</label>
+                            <input type="text" id="bookGallery" placeholder="image1.jpg, image2.jpg">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="bookDescription"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" id="saveBookBtn" class="btn">
+                                <i class="fas fa-save"></i> Add Book
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="clearBookForm()">
+                                <i class="fas fa-times"></i> Clear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    <h3>Books List</h3>
+                    <div id="booksList" class="item-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Images Section -->
+        <div id="images" class="content-section">
+            <h2><i class="fas fa-image"></i> Images Management</h2>
+            
+            <div class="search-controls">
+                <div class="search-group">
+                    <input type="text" id="imagesSearch" placeholder="Search images..." onkeyup="searchImages()">
+                </div>
+                <div class="search-group">
+                    <select id="imageFilter" onchange="filterImages()">
+                        <option value="all">All Categories</option>
+                        <option value="anime">Anime</option>
+                        <option value="landscape">Landscape</option>
+                        <option value="nature">Nature</option>
+                        <option value="spiritual">Spiritual</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div>
+                    <h3>Add New Image</h3>
+                    <form id="imageForm">
+                        <div class="form-group">
+                            <label>Title *</label>
+                            <input type="text" id="imageTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Image URL *</label>
+                            <input type="url" id="imageSrc" required onkeyup="previewImage()">
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="imageCategory">
+                                <option value="anime">Anime</option>
+                                <option value="landscape">Landscape</option>
+                                <option value="nature">Nature</option>
+                                <option value="spiritual">Spiritual</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Alt Text</label>
+                            <input type="text" id="imageAlt">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="imageDescription"></textarea>
+                        </div>
+                        <div id="imagePreview" class="image-preview">
+                            <img id="previewImg" alt="Preview">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" id="saveImageBtn" class="btn">
+                                <i class="fas fa-save"></i> Add Image
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="clearImageForm()">
+                                <i class="fas fa-times"></i> Clear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    <h3>Images List</h3>
+                    <div id="imagesList" class="item-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audio Section -->
+        <div id="audio" class="content-section">
+            <h2><i class="fas fa-music"></i> Audio Management</h2>
+            
+            <div class="search-controls">
+                <div class="search-group">
+                    <input type="text" id="audioSearch" placeholder="Search audio..." onkeyup="searchAudio()">
+                </div>
+                <div class="search-group">
+                    <select id="audioFilter" onchange="filterAudio()">
+                        <option value="all">All Categories</option>
+                        <option value="Nature">Nature</option>
+                        <option value="Meditation">Meditation</option>
+                        <option value="Ambient">Ambient</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div>
+                    <h3>Add New Audio</h3>
+                    <form id="audioForm">
+                        <div class="form-group">
+                            <label>Title *</label>
+                            <input type="text" id="audioTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Audio URL *</label>
+                            <input type="url" id="audioSrc" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Artist</label>
+                            <input type="text" id="audioArtist">
+                        </div>
+                        <div class="form-group">
+                            <label>Duration</label>
+                            <input type="text" id="audioDuration" placeholder="2:45">
+                        </div>
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select id="audioType">
+                                <option value="audio/mp3">MP3</option>
+                                <option value="audio/wav">WAV</option>
+                                <option value="audio/ogg">OGG</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="audioCategory">
+                                <option value="Nature">Nature</option>
+                                <option value="Meditation">Meditation</option>
+                                <option value="Ambient">Ambient</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="audioDescription"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="audioVisualizer"> Enable Visualizer
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" id="saveAudioBtn" class="btn">
+                                <i class="fas fa-save"></i> Add Audio
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="clearAudioForm()">
+                                <i class="fas fa-times"></i> Clear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    <h3>Audio List</h3>
+                    <div id="audioList" class="item-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Collections Section -->
+        <div id="collections" class="content-section">
+            <h2><i class="fas fa-layer-group"></i> Collections Management</h2>
+            
+            <div class="toolbar">
+                <button class="btn" onclick="showAddCollectionForm()">
+                    <i class="fas fa-plus"></i> Add Collection
+                </button>
+                <button class="btn btn-secondary" onclick="viewCollections()">
+                    <i class="fas fa-list"></i> View All
+                </button>
+            </div>
+
+            <div id="addCollectionForm" class="collection-form">
+                <h3>Create New Collection</h3>
+                <form id="collectionForm">
+                    <div class="form-group">
+                        <label>Collection Key *</label>
+                        <input type="text" id="collectionKey" required placeholder="unique-key">
+                    </div>
+                    <div class="form-group">
+                        <label>Title *</label>
+                        <input type="text" id="collectionTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="collectionDesc"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn">
+                            <i class="fas fa-save"></i> Create Collection
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="hideAddCollectionForm()">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="collectionsList" class="item-list"></div>
+        </div>
+
+        <!-- Content Section -->
+        <div id="content" class="content-section">
+            <h2><i class="fas fa-file-text"></i> Content Management</h2>
+            
+            <div class="search-controls">
+                <div class="search-group">
+                    <input type="text" id="contentSearch" placeholder="Search content..." onkeyup="searchContent()">
+                </div>
+                <div class="search-group">
+                    <select id="contentFilter" onchange="filterContent()">
+                        <option value="all">All Status</option>
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div>
+                    <h3>Add New Content</h3>
+                    <form id="contentForm">
+                        <div class="form-group">
+                            <label>Title *</label>
+                            <input type="text" id="contentTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select id="contentType">
+                                <option value="page">Page</option>
+                                <option value="post">Post</option>
+                                <option value="article">Article</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="contentStatus">
+                                <option value="draft">Draft</option>
+                                <option value="published">Published</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Excerpt</label>
+                            <textarea id="contentExcerpt"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Content Body</label>
+                            <textarea id="contentBody" rows="8"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Tags (comma-separated)</label>
+                            <input type="text" id="contentTags" placeholder="tag1, tag2, tag3">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" id="saveContentBtn" class="btn">
+                                <i class="fas fa-save"></i> Add Content
+                            </button>
+                            <button type="button" class="btn btn-info" onclick="previewContent()">
+                                <i class="fas fa-eye"></i> Preview
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="clearContentForm()">
+                                <i class="fas fa-times"></i> Clear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    <h3>Content List</h3>
+                    <div id="contentList" class="item-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- API & Export Section -->
+        <div id="api" class="content-section">
+            <h2><i class="fas fa-code"></i> API & Data Export</h2>
+            
+            <div class="api-endpoint">
+                <h3>JavaScript API Usage:</h3>
+                <pre>// Get all data
+const allData = UnifiedAPI.getAllData();
+
+// Get specific data type
+const books = UnifiedAPI.getBooks();
+const images = UnifiedAPI.getImages();
+const audio = UnifiedAPI.getAudio();
+const content = UnifiedAPI.getContent();
+
+// Filter data
+const vedic_books = UnifiedAPI.getBooks('vedic');
+const anime_images = UnifiedAPI.getImages('anime');
+
+// Search functionality
+const results = UnifiedAPI.search('spiritual');
+
+// Get stats
+const stats = UnifiedAPI.getStats();</pre>
+            </div>
+
+            <div class="toolbar">
+                <button class="btn" onclick="exportAllData()">
+                    <i class="fas fa-download"></i> Export All (Unified)
+                </button>
+                <button class="btn btn-secondary" onclick="exportBooks()">
+                    <i class="fas fa-book"></i> Export Books (Unified)
+                </button>
+                <button class="btn btn-secondary" onclick="exportImages()">
+                    <i class="fas fa-image"></i> Export Images (Unified)
+                </button>
+                <button class="btn btn-secondary" onclick="exportAudio()">
+                    <i class="fas fa-music"></i> Export Audio (Unified)
+                </button>
+                <button class="btn btn-secondary" onclick="exportContent()">
+                    <i class="fas fa-file-text"></i> Export Content (Unified)
+                </button>
+                <br>
+                <button class="btn btn-info" onclick="exportAllDataLegacy()">
+                    <i class="fas fa-archive"></i> Export All (Legacy)
+                </button>
+                <button class="btn btn-warning" onclick="importData()">
+                    <i class="fas fa-upload"></i> Import Data
+                </button>
+                <button class="btn btn-danger" onclick="clearAllData()">
+                    <i class="fas fa-trash"></i> Clear All Data
+                </button>
+            </div>
+
+            <div class="data-preview">
+                <h3>Current Data Structure:</h3>
+                <pre id="dataPreview">Loading...</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Preview Modal -->
+    <div id="contentPreviewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-eye"></i> Content Preview</h3>
+                <button class="modal-close" onclick="closeContentPreview()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="contentPreviewBody"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeContentPreview()">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal (Generic) -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-edit"></i> Edit Item</h3>
+                <button class="modal-close" onclick="closeEditModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="editModalBody"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" id="saveEditBtn">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+                <button class="btn btn-secondary" onclick="closeEditModal()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Custom Modal Functions for Mobile-Friendly Confirmations
+        function showConfirm(title, message, type = 'confirm') {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('customModal');
+                const modalTitle = document.getElementById('modalTitle');
+                const modalMessage = document.getElementById('modalMessage');
+                const modalInput = document.getElementById('modalInput');
+                const modalConfirm = document.getElementById('modalConfirm');
+                const modalCancel = document.getElementById('modalCancel');
+
+                // Set content
+                modalTitle.innerHTML = `<i class="fas fa-${type === 'danger' ? 'exclamation-triangle' : 'question-circle'}"></i> ${title}`;
+                modalMessage.textContent = message;
+                modalInput.style.display = 'none';
+                
+                // Set button styles based on type
+                if (type === 'danger') {
+                    modalConfirm.className = 'modal-btn modal-btn-danger';
+                    modalConfirm.innerHTML = '<i class="fas fa-trash"></i> Delete';
+                } else {
+                    modalConfirm.className = 'modal-btn modal-btn-primary';
+                    modalConfirm.innerHTML = '<i class="fas fa-check"></i> OK';
+                }
+
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                const handleConfirm = () => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    cleanup();
+                    resolve(true);
+                };
+
+                const handleCancel = () => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    cleanup();
+                    resolve(false);
+                };
+
+                const cleanup = () => {
+                    modalConfirm.removeEventListener('click', handleConfirm);
+                    modalCancel.removeEventListener('click', handleCancel);
+                    modal.removeEventListener('click', handleOverlayClick);
+                    document.removeEventListener('keydown', handleKeyPress);
+                };
+
+                const handleOverlayClick = (e) => {
+                    if (e.target === modal) {
+                        handleCancel();
+                    }
+                };
+
+                const handleKeyPress = (e) => {
+                    if (e.key === 'Escape') {
+                        handleCancel();
+                    } else if (e.key === 'Enter') {
+                        handleConfirm();
+                    }
+                };
+
+                modalConfirm.addEventListener('click', handleConfirm);
+                modalCancel.addEventListener('click', handleCancel);
+                modal.addEventListener('click', handleOverlayClick);
+                document.addEventListener('keydown', handleKeyPress);
+            });
+        }
+
+        function showPrompt(title, message, defaultValue = '') {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('customModal');
+                const modalTitle = document.getElementById('modalTitle');
+                const modalMessage = document.getElementById('modalMessage');
+                const modalInput = document.getElementById('modalInput');
+                const modalConfirm = document.getElementById('modalConfirm');
+                const modalCancel = document.getElementById('modalCancel');
+
+                modalTitle.innerHTML = `<i class="fas fa-edit"></i> ${title}`;
+                modalMessage.textContent = message;
+                modalInput.style.display = 'block';
+                modalInput.value = defaultValue;
+                modalConfirm.className = 'modal-btn modal-btn-primary';
+                modalConfirm.innerHTML = '<i class="fas fa-save"></i> Save';
+
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                
+                // Focus input after animation
+                setTimeout(() => modalInput.focus(), 300);
+
+                const handleConfirm = () => {
+                    const value = modalInput.value.trim();
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    cleanup();
+                    resolve(value || null);
+                };
+
+                const handleCancel = () => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    cleanup();
+                    resolve(null);
+                };
+
+                const cleanup = () => {
+                    modalConfirm.removeEventListener('click', handleConfirm);
+                    modalCancel.removeEventListener('click', handleCancel);
+                    modalInput.removeEventListener('keypress', handleKeyPress);
+                    modal.removeEventListener('click', handleOverlayClick);
+                };
+
+                const handleKeyPress = (e) => {
+                    if (e.key === 'Enter') {
+                        handleConfirm();
+                    }
+                };
+
+                const handleOverlayClick = (e) => {
+                    if (e.target === modal) {
+                        handleCancel();
+                    }
+                };
+
+                modalConfirm.addEventListener('click', handleConfirm);
+                modalCancel.addEventListener('click', handleCancel);
+                modalInput.addEventListener('keypress', handleKeyPress);
+                modal.addEventListener('click', handleOverlayClick);
+            });
+        }
+
+        function showAlert(title, message, type = 'info') {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('customModal');
+                const modalTitle = document.getElementById('modalTitle');
+                const modalMessage = document.getElementById('modalMessage');
+                const modalInput = document.getElementById('modalInput');
+                const modalConfirm = document.getElementById('modalConfirm');
+                const modalCancel = document.getElementById('modalCancel');
+
+                const icons = {
+                    info: 'fa-info-circle',
+                    success: 'fa-check-circle',
+                    error: 'fa-exclamation-circle',
+                    warning: 'fa-exclamation-triangle'
+                };
+
+                modalTitle.innerHTML = `<i class="fas ${icons[type]}"></i> ${title}`;
+                modalMessage.textContent = message;
+                modalInput.style.display = 'none';
+                modalCancel.style.display = 'none';
+                modalConfirm.className = 'modal-btn modal-btn-primary';
+                modalConfirm.innerHTML = '<i class="fas fa-check"></i> OK';
+
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                const handleConfirm = () => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    cleanup();
+                    resolve(true);
+                };
+
+                const cleanup = () => {
+                    modalConfirm.removeEventListener('click', handleConfirm);
+                    modal.removeEventListener('click', handleOverlayClick);
+                    document.removeEventListener('keydown', handleKeyPress);
+                    modalCancel.style.display = 'block'; // Restore cancel button
+                };
+
+                const handleOverlayClick = (e) => {
+                    if (e.target === modal) {
+                        handleConfirm();
+                    }
+                };
+
+                const handleKeyPress = (e) => {
+                    if (e.key === 'Escape' || e.key === 'Enter') {
+                        handleConfirm();
+                    }
+                };
+
+                modalConfirm.addEventListener('click', handleConfirm);
+                modal.addEventListener('click', handleOverlayClick);
+                document.addEventListener('keydown', handleKeyPress);
+            });
+        }
+
+        // Enhanced Unified Data Manager with Edit Functionality
+        class UnifiedDataManager {
+            constructor() {
+                this.data = this.loadData();
+                this.currentEditingItem = null;
+                this.currentEditingType = null;
+                this.init();
+            }
+
+            init() {
+                this.bindEventListeners();
+                this.updateStats();
+                this.updatePreview();
+                this.loadInitialData();
+            }
+
+            loadData() {
+                const defaultData = {
+                    books: [],
+                    images: [],
+                    audio: [],
+                    collections: {
+                        featured: { title: "Featured Collections", items: [] },
+                        popular: { title: "Popular Right Now", items: [] },
+                        nature: { title: "Nature & Landscapes", items: [] },
+                        anime: { title: "Anime & Art", items: [] },
+                        architecture: { title: "Architecture & Urban", items: [] }
+                    },
+                    content: [],
+                    siteConfig: {
+                        siteName: "Vrindopnishad",
+                        tagline: "Spiritual & Divine Collection",
+                        description: "Discover sacred images and divine artworks that inspire the soul."
+                    }
+                };
+
+                const stored = localStorage.getItem('unifiedWebData');
+                return stored ? JSON.parse(stored) : defaultData;
+            }
+
+            saveData() {
+                localStorage.setItem('unifiedWebData', JSON.stringify(this.data));
+                this.updatePreview();
+                this.updateStats();
+                this.showMessage('Data saved successfully!', 'success');
+            }
+
+            bindEventListeners() {
+                // Form submissions
+                this.bindFormListener('bookForm', this.handleBookSubmit.bind(this));
+                this.bindFormListener('imageForm', this.handleImageSubmit.bind(this));
+                this.bindFormListener('audioForm', this.handleAudioSubmit.bind(this));
+                this.bindFormListener('contentForm', this.handleContentSubmit.bind(this));
+                this.bindFormListener('collectionForm', this.handleCollectionSubmit.bind(this));
+
+                // Auto-save interval
+                setInterval(() => {
+                    if (this.hasUnsavedChanges()) {
+                        this.saveData();
+                    }
+                }, 30000);
+            }
+
+            bindFormListener(formId, handler) {
+                const form = document.getElementById(formId);
+                if (form) {
+                    form.addEventListener('submit', handler);
+                }
+            }
+
+            hasUnsavedChanges() {
+                return true;
+            }
+
+            // Books Management
+            handleBookSubmit(e) {
+                e.preventDefault();
+                const formData = this.getBookFormData(); // Use custom function that includes file data
+                
+                if (this.currentEditingItem && this.currentEditingType === 'book') {
+                    this.updateBook(this.currentEditingItem.id, formData);
+                } else {
+                    this.addBook(formData);
+                }
+                
+                this.clearBookForm();
+                this.displayBooks();
+            }
+
+            getBookFormData() {
+                const formData = this.getFormData('book');
+                
+                // Add uploaded file data if present
+                if (uploadedBookFile) {
+                    formData.uploadedFile = {
+                        name: uploadedBookFile.name,
+                        size: uploadedBookFile.size,
+                        type: uploadedBookFile.type,
+                        uploadDate: uploadedBookFile.uploadDate
+                    };
+                    formData.fileUrl = uploadedBookFile.data; // Store the base64 data
+                    formData.fileName = uploadedBookFile.name;
+                    formData.fileSize = uploadedBookFile.size;
+                    formData.fileType = uploadedBookFile.type;
+                }
+                
+                return formData;
+            }
+
+            getFormData(type) {
+                const data = {};
+                const prefix = type;
+                
+                document.querySelectorAll(`[id^="${prefix}"]`).forEach(element => {
+                    let key = element.id.replace(prefix, '');
+                    
+                    // Handle different naming conventions
+                    if (key === 'Src' && type === 'audio') key = 'audioSrc';
+                    if (key === 'Src' && type === 'image') key = 'src';
+                    if (key === 'Body') key = 'body';
+                    
+                    key = key.charAt(0).toLowerCase() + key.slice(1);
+                    
+                    if (key) {
+                        if (element.type === 'checkbox') {
+                            data[key] = element.checked;
+                        } else if (element.tagName === 'SELECT') {
+                            data[key] = element.value;
+                        } else {
+                            data[key] = element.value;
+                        }
+                    }
+                });
+                
+                // Special handling for specific fields
+                if (type === 'book') {
+                    if (data.formats) {
+                        data.format = data.formats.split(',').map(f => f.trim()).filter(f => f);
+                        delete data.formats; // Remove the original field
+                    }
+                    if (data.gallery) {
+                        data.gallery = data.gallery.split(',').map(g => g.trim()).filter(g => g);
+                    }
+                }
+                
+                if (type === 'audio') {
+                    // Handle audioSrc vs src naming
+                    if (data.audioSrc) {
+                        data.src = data.audioSrc;
+                        delete data.audioSrc;
+                    }
+                }
+                
+                if (type === 'content') {
+                    data.body = data.body || '';
+                    if (data.tags) {
+                        data.tags = data.tags.split(',').map(t => t.trim()).filter(t => t);
+                    } else {
+                        data.tags = [];
+                    }
+                }
+
+                return data;
+            }
+
+            addBook(book) {
+                book.id = Date.now();
+                book.readingProgress = 0;
+                book.created = new Date().toISOString();
+                this.data.books.push(book);
+                this.saveData();
+            }
+
+            updateBook(id, updatedBook) {
+                const index = this.data.books.findIndex(book => book.id === id);
+                if (index !== -1) {
+                    updatedBook.id = id;
+                    updatedBook.modified = new Date().toISOString();
+                    this.data.books[index] = { ...this.data.books[index], ...updatedBook };
+                    this.saveData();
+                    this.currentEditingItem = null;
+                    this.currentEditingType = null;
+                    this.showMessage('Book updated successfully!', 'success');
+                }
+            }
+
+            deleteBook(id) {
+                if (confirm('Are you sure you want to delete this book?')) {
+                    this.data.books = this.data.books.filter(book => book.id !== id);
+                    this.saveData();
+                    this.displayBooks();
+                    this.showMessage('Book deleted successfully!', 'success');
+                }
+            }
+
+            editBook(id) {
+                const book = this.data.books.find(b => b.id === id);
+                if (book) {
+                    this.currentEditingItem = book;
+                    this.currentEditingType = 'book';
+                    this.populateBookForm(book);
+                    document.getElementById('saveBookBtn').innerHTML = '<i class="fas fa-save"></i> Update Book';
+                    document.querySelector('button[onclick="showTab(\'books\')"]').click();
+                    document.getElementById('bookTitle').focus();
+                }
+            }
+
+            populateBookForm(book) {
+                document.getElementById('bookTitle').value = book.title || '';
+                document.getElementById('bookAuthor').value = book.author || '';
+                document.getElementById('bookYear').value = book.year || '';
+                document.getElementById('bookCategory').value = book.category || 'vedic';
+                document.getElementById('bookLanguage').value = book.language || 'sanskrit';
+                document.getElementById('bookCover').value = book.cover || '';
+                document.getElementById('bookFormats').value = book.format ? book.format.join(', ') : '';
+                document.getElementById('bookGallery').value = book.gallery ? book.gallery.join(', ') : '';
+                document.getElementById('bookDescription').value = book.description || '';
+                
+                // Handle uploaded file info during edit
+                if (book.fileName && book.fileUrl) {
+                    // Set the uploaded file info for editing
+                    uploadedBookFile = {
+                        name: book.fileName,
+                        size: book.fileSize || 0,
+                        type: book.fileType || 'application/pdf',
+                        data: book.fileUrl,
+                        uploadDate: book.uploadDate || new Date().toISOString()
+                    };
+                    
+                    // Show file info
+                    document.getElementById('bookFileName').textContent = book.fileName;
+                    document.getElementById('bookFileSize').textContent = book.fileSize ? this.formatFileSize(book.fileSize) : 'Unknown size';
+                    document.getElementById('bookFileInfo').style.display = 'block';
+                } else {
+                    // Clear file info if no file
+                    uploadedBookFile = null;
+                    document.getElementById('bookFileInfo').style.display = 'none';
+                }
+            }
+
+            clearBookForm() {
+                document.getElementById('bookForm').reset();
+                this.currentEditingItem = null;
+                this.currentEditingType = null;
+                document.getElementById('saveBookBtn').innerHTML = '<i class="fas fa-save"></i> Add Book';
+                
+                // Clear uploaded file
+                uploadedBookFile = null;
+                document.getElementById('bookFileInfo').style.display = 'none';
+            }
+
+            displayBooks() {
+                const books = this.getBooks();
+                const container = document.getElementById('booksList');
+                if (!container) return;
+
+                container.innerHTML = books.map(book => `
+                    <div class="item-card">
+                        <div class="item-header">
+                            <div class="item-title">${this.escapeHtml(book.title)}</div>
+                            <div class="item-actions">
+                                <button class="btn btn-sm btn-secondary" onclick="dataManager.editBook(${book.id})">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                ${book.fileUrl ? `
+                                    <button class="btn btn-sm btn-info" onclick="dataManager.downloadBookFile(${book.id})">
+                                        <i class="fas fa-download"></i> Download
+                                    </button>
+                                ` : ''}
+                                <button class="btn btn-sm btn-danger" onclick="dataManager.deleteBook(${book.id})">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="item-meta">
+                            <strong>Author:</strong> ${this.escapeHtml(book.author || 'Unknown')} | 
+                            <strong>Year:</strong> ${this.escapeHtml(book.year || 'N/A')} | 
+                            <strong>Category:</strong> ${this.escapeHtml(book.category || 'N/A')} | 
+                            <strong>Language:</strong> ${this.escapeHtml(book.language || 'N/A')}
+                        </div>
+                        ${book.cover ? `<img src="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/web%20content%20manager/${book.cover}" alt="${book.title}" style="max-width: 100px; height: auto; border-radius: 8px; margin: 10px 0;">` : ''}
+                        ${book.fileName ? `
+                            <div class="item-meta" style="background: #e8f5e9; padding: 8px; border-radius: 4px; margin: 8px 0;">
+                                <i class="fas fa-file"></i> <strong>File:</strong> ${this.escapeHtml(book.fileName)} 
+                                (${book.fileSize ? this.formatFileSize(book.fileSize) : 'Unknown size'})
+                                <span style="color: #28a745;"><i class="fas fa-check-circle"></i> Uploaded</span>
+                            </div>
+                        ` : ''}
+                        ${book.description ? `<div class="item-description">${this.escapeHtml(book.description)}</div>` : ''}
+                        ${book.format && book.format.length ? `<div class="item-meta"><strong>Formats:</strong> ${book.format.join(', ')}</div>` : ''}
+                    </div>
+                `).join('');
+            }
+
+            downloadBookFile(id) {
+                const book = this.data.books.find(b => b.id === id);
+                if (book && book.fileUrl) {
+                    try {
+                        // Create a download link
+                        const link = document.createElement('a');
+                        link.href = book.fileUrl;
+                        link.download = book.fileName || `${book.title}.${book.format ? book.format[0] : 'pdf'}`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        
+                        this.showMessage(`Downloading "${book.fileName}"...`, 'success');
+                    } catch (error) {
+                        console.error('Download error:', error);
+                        this.showMessage('Error downloading file. Please try again.', 'error');
+                    }
+                } else {
+                    this.showMessage('No file available for download.', 'error');
+                }
+            }
+
+            formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+
+            getBooks(category = null) {
+                return category ? 
+                    this.data.books.filter(book => book.category === category) : 
+                    this.data.books;
+            }
+
+            // Images Management
+            handleImageSubmit(e) {
+                e.preventDefault();
+                const formData = this.getFormData('image');
+                
+                if (this.currentEditingItem && this.currentEditingType === 'image') {
+                    this.updateImage(this.currentEditingItem.id, formData);
+                } else {
+                    this.addImage(formData);
+                }
+                
+                this.clearImageForm();
+                this.displayImages();
+            }
+
+            addImage(image) {
+                image.id = Date.now().toString();
+                image.created = new Date().toISOString();
+                this.data.images.push(image);
+                this.saveData();
+            }
+
+            updateImage(id, updatedImage) {
+                const index = this.data.images.findIndex(image => image.id === id);
+                if (index !== -1) {
+                    updatedImage.id = id;
+                    updatedImage.modified = new Date().toISOString();
+                    this.data.images[index] = { ...this.data.images[index], ...updatedImage };
+                    this.saveData();
+                    this.currentEditingItem = null;
+                    this.currentEditingType = null;
+                    this.showMessage('Image updated successfully!', 'success');
+                }
+            }
+
+            deleteImage(id) {
+                if (confirm('Are you sure you want to delete this image?')) {
+                    this.data.images = this.data.images.filter(image => image.id !== id);
+                    this.saveData();
+                    this.displayImages();
+                    this.showMessage('Image deleted successfully!', 'success');
+                }
+            }
+
+            editImage(id) {
+                const image = this.data.images.find(i => i.id === id);
+                if (image) {
+                    this.currentEditingItem = image;
+                    this.currentEditingType = 'image';
+                    this.populateImageForm(image);
+                    document.getElementById('saveImageBtn').innerHTML = '<i class="fas fa-save"></i> Update Image';
+                    document.querySelector('button[onclick="showTab(\'images\')"]').click();
+                    document.getElementById('imageTitle').focus();
+                }
+            }
+
+            populateImageForm(image) {
+                document.getElementById('imageTitle').value = image.title || '';
+                document.getElementById('imageSrc').value = image.src || '';
+                document.getElementById('imageCategory').value = image.category || 'anime';
+                document.getElementById('imageAlt').value = image.alt || '';
+                document.getElementById('imageDescription').value = image.description || '';
+                this.previewImage();
+            }
+
+            clearImageForm() {
+                document.getElementById('imageForm').reset();
+                this.currentEditingItem = null;
+                this.currentEditingType = null;
+                document.getElementById('saveImageBtn').innerHTML = '<i class="fas fa-save"></i> Add Image';
+                document.getElementById('imagePreview').style.display = 'none';
+            }
+
+            previewImage() {
+                const src = document.getElementById('imageSrc').value;
+                const preview = document.getElementById('imagePreview');
+                const previewImg = document.getElementById('previewImg');
+                
+                if (src && this.isValidUrl(src)) {
+                    previewImg.src = src;
+                    preview.style.display = 'block';
+                } else {
+                    preview.style.display = 'none';
+                }
+            }
+
+            displayImages() {
+                const images = this.getImages();
+                const container = document.getElementById('imagesList');
+                if (!container) return;
+
+                container.innerHTML = images.map(image => `
+                    <div class="item-card">
+                        <div class="item-header">
+                            <div class="item-title">${this.escapeHtml(image.title)}</div>
+                            <div class="item-actions">
+                                <button class="btn btn-sm btn-secondary" onclick="dataManager.editImage('${image.id}')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="dataManager.deleteImage('${image.id}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="item-meta">
+                            <strong>Category:</strong> ${this.escapeHtml(image.category || 'N/A')}
+                        </div>
+                        ${image.src ? `<img src="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/web%20content%20manager/${image.src}" alt="${image.alt || image.title}" style="max-width: 100%; max-height: 200px; object-fit: cover; border-radius: 8px; margin: 10px 0;">` : ''}
+                        ${image.description ? `<div class="item-description">${this.escapeHtml(image.description)}</div>` : ''}
+                    </div>
+                `).join('');
+            }
+
+            getImages(category = null) {
+                return category ? 
+                    this.data.images.filter(image => image.category === category) : 
+                    this.data.images;
+            }
+
+            // Audio Management
+            handleAudioSubmit(e) {
+                e.preventDefault();
+                const formData = this.getFormData('audio');
+                
+                if (this.currentEditingItem && this.currentEditingType === 'audio') {
+                    this.updateAudio(this.currentEditingItem.id, formData);
+                } else {
+                    this.addAudio(formData);
+                }
+                
+                this.clearAudioForm();
+                this.displayAudio();
+            }
+
+            addAudio(audio) {
+                audio.id = Date.now().toString();
+                audio.created = new Date().toISOString();
+                this.data.audio.push(audio);
+                this.saveData();
+            }
+
+            updateAudio(id, updatedAudio) {
+                const index = this.data.audio.findIndex(audio => audio.id === id);
+                if (index !== -1) {
+                    updatedAudio.id = id;
+                    updatedAudio.modified = new Date().toISOString();
+                    this.data.audio[index] = { ...this.data.audio[index], ...updatedAudio };
+                    this.saveData();
+                    this.currentEditingItem = null;
+                    this.currentEditingType = null;
+                    this.showMessage('Audio updated successfully!', 'success');
+                }
+            }
+
+            deleteAudio(id) {
+                if (confirm('Are you sure you want to delete this audio?')) {
+                    this.data.audio = this.data.audio.filter(audio => audio.id !== id);
+                    this.saveData();
+                    this.displayAudio();
+                    this.showMessage('Audio deleted successfully!', 'success');
+                }
+            }
+
+            editAudio(id) {
+                const audio = this.data.audio.find(a => a.id === id);
+                if (audio) {
+                    this.currentEditingItem = audio;
+                    this.currentEditingType = 'audio';
+                    this.populateAudioForm(audio);
+                    document.getElementById('saveAudioBtn').innerHTML = '<i class="fas fa-save"></i> Update Audio';
+                    document.querySelector('button[onclick="showTab(\'audio\')"]').click();
+                    document.getElementById('audioTitle').focus();
+                }
+            }
+
+            populateAudioForm(audio) {
+                document.getElementById('audioTitle').value = audio.title || '';
+                document.getElementById('audioSrc').value = audio.src || audio.audioSrc || '';
+                document.getElementById('audioArtist').value = audio.artist || '';
+                document.getElementById('audioDuration').value = audio.duration || '';
+                document.getElementById('audioType').value = audio.type || 'audio/mp3';
+                document.getElementById('audioCategory').value = audio.category || 'Nature';
+                document.getElementById('audioDescription').value = audio.description || '';
+                
+                const visualizerCheckbox = document.getElementById('audioVisualizer');
+                if (visualizerCheckbox) {
+                    visualizerCheckbox.checked = audio.visualizer || false;
+                }
+            }
+
+            clearAudioForm() {
+                document.getElementById('audioForm').reset();
+                this.currentEditingItem = null;
+                this.currentEditingType = null;
+                document.getElementById('saveAudioBtn').innerHTML = '<i class="fas fa-save"></i> Add Audio';
+            }
+
+            displayAudio() {
+                const audioList = this.getAudio();
+                const container = document.getElementById('audioList');
+                if (!container) return;
+
+                container.innerHTML = audioList.map(audio => `
+                    <div class="item-card">
+                        <div class="item-header">
+                            <div class="item-title">${this.escapeHtml(audio.title)}</div>
+                            <div class="item-actions">
+                                <button class="btn btn-sm btn-secondary" onclick="dataManager.editAudio('${audio.id}')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="dataManager.deleteAudio('${audio.id}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="item-meta">
+                            <strong>Artist:</strong> ${this.escapeHtml(audio.artist || 'Unknown')} | 
+                            <strong>Duration:</strong> ${this.escapeHtml(audio.duration || 'N/A')} | 
+                            <strong>Category:</strong> ${this.escapeHtml(audio.category || 'N/A')}
+                        </div>
+                        ${audio.src ? `
+                            <audio controls style="width: 100%; margin: 10px 0;">
+                                <source src="${audio.src}" type="${audio.type || 'audio/mp3'}">
+                                Your browser does not support the audio element.
+                            </audio>
+                        ` : ''}
+                        ${audio.description ? `<div class="item-description">${this.escapeHtml(audio.description)}</div>` : ''}
+                    </div>
+                `).join('');
+            }
+
+            getAudio(category = null) {
+                return category ? 
+                    this.data.audio.filter(audio => audio.category === category) : 
+                    this.data.audio;
+            }
+
+            // Content Management
+            handleContentSubmit(e) {
+                e.preventDefault();
+                const formData = this.getFormData('content');
+                
+                if (this.currentEditingItem && this.currentEditingType === 'content') {
+                    this.updateContent(this.currentEditingItem.id, formData);
+                } else {
+                    this.addContent(formData);
+                }
+                
+                this.clearContentForm();
+                this.displayContent();
+            }
+
+            addContent(content) {
+                content.id = Date.now();
+                content.created = new Date().toISOString();
+                content.modified = new Date().toISOString();
+                this.data.content.push(content);
+                this.saveData();
+            }
+
+            updateContent(id, updatedContent) {
+                const index = this.data.content.findIndex(content => content.id === id);
+                if (index !== -1) {
+                    updatedContent.id = id;
+                    updatedContent.modified = new Date().toISOString();
+                    this.data.content[index] = { ...this.data.content[index], ...updatedContent };
+                    this.saveData();
+                    this.currentEditingItem = null;
+                    this.currentEditingType = null;
+                    this.showMessage('Content updated successfully!', 'success');
+                }
+            }
+
+            deleteContent(id) {
+                if (confirm('Are you sure you want to delete this content?')) {
+                    this.data.content = this.data.content.filter(content => content.id !== id);
+                    this.saveData();
+                    this.displayContent();
+                    this.showMessage('Content deleted successfully!', 'success');
+                }
+            }
+
+            editContent(id) {
+                const content = this.data.content.find(c => c.id === id);
+                if (content) {
+                    this.currentEditingItem = content;
+                    this.currentEditingType = 'content';
+                    this.populateContentForm(content);
+                    document.getElementById('saveContentBtn').innerHTML = '<i class="fas fa-save"></i> Update Content';
+                    document.querySelector('button[onclick="showTab(\'content\')"]').click();
+                    document.getElementById('contentTitle').focus();
+                }
+            }
+
+            populateContentForm(content) {
+                document.getElementById('contentTitle').value = content.title || '';
+                document.getElementById('contentType').value = content.type || 'page';
+                document.getElementById('contentStatus').value = content.status || 'draft';
+                document.getElementById('contentExcerpt').value = content.excerpt || '';
+                document.getElementById('contentBody').value = content.body || '';
+                document.getElementById('contentTags').value = content.tags ? content.tags.join(', ') : '';
+            }
+
+            clearContentForm() {
+                document.getElementById('contentForm').reset();
+                this.currentEditingItem = null;
+                this.currentEditingType = null;
+                document.getElementById('saveContentBtn').innerHTML = '<i class="fas fa-save"></i> Add Content';
+            }
+
+            displayContent() {
+                const content = this.getContent();
+                const container = document.getElementById('contentList');
+                if (!container) return;
+
+                container.innerHTML = content.map(item => `
+                    <div class="item-card">
+                        <div class="item-header">
+                            <div class="item-title">${this.escapeHtml(item.title)}</div>
+                            <div class="item-actions">
+                                <button class="btn btn-sm btn-secondary" onclick="dataManager.editContent(${item.id})">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-sm btn-info" onclick="dataManager.previewContent(${item.id})">
+                                    <i class="fas fa-eye"></i> Preview
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="dataManager.deleteContent(${item.id})">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="item-meta">
+                            <strong>Type:</strong> ${this.escapeHtml(item.type || 'N/A')} | 
+                            <strong>Status:</strong> <span class="${item.status === 'published' ? 'text-success' : 'text-warning'}">${this.escapeHtml(item.status || 'N/A')}</span> |
+                            <strong>Created:</strong> ${item.created ? new Date(item.created).toLocaleDateString() : 'N/A'}
+                        </div>
+                        ${item.tags && item.tags.length ? `<div class="item-meta"><strong>Tags:</strong> ${item.tags.join(', ')}</div>` : ''}
+                        ${item.excerpt ? `<div class="item-description">${this.escapeHtml(item.excerpt)}</div>` : ''}
+                    </div>
+                `).join('');
+            }
+
+            getContent(status = null) {
+                return status ? 
+                    this.data.content.filter(content => content.status === status) : 
+                    this.data.content;
+            }
+
+            previewContent(id = null) {
+                let content;
+                
+                if (id) {
+                    // Preview existing content
+                    content = this.data.content.find(c => c.id === id);
+                    if (!content) return;
+                } else {
+                    // Preview form content
+                    content = {
+                        title: document.getElementById('contentTitle').value || 'Untitled',
+                        type: document.getElementById('contentType').value,
+                        status: document.getElementById('contentStatus').value,
+                        excerpt: document.getElementById('contentExcerpt').value,
+                        body: document.getElementById('contentBody').value,
+                        tags: document.getElementById('contentTags').value.split(',').map(t => t.trim()).filter(t => t),
+                        created: new Date().toISOString()
+                    };
+                }
+
+                const modal = document.getElementById('contentPreviewModal');
+                const modalBody = document.getElementById('contentPreviewBody');
+                
+                modalBody.innerHTML = `
+                    <h2>${this.escapeHtml(content.title)}</h2>
+                    <div class="meta-info">
+                        <strong>Type:</strong> ${content.type} | 
+                        <strong>Status:</strong> ${content.status} | 
+                        <strong>Created:</strong> ${new Date(content.created).toLocaleDateString()}
+                        ${content.tags && content.tags.length ? `<br><strong>Tags:</strong> ${content.tags.join(', ')}` : ''}
+                    </div>
+                    ${content.excerpt ? `<div class="excerpt">${this.escapeHtml(content.excerpt)}</div>` : ''}
+                    <div class="content-body">${this.formatContent(content.body || '<em>No content yet...</em>')}</div>
+                `;
+                
+                modal.style.display = 'block';
+            }
+
+            formatContent(content) {
+                if (!content) return '<p><em>No content available</em></p>';
+                
+                return content
+                    .replace(/\n\n+/g, '</p><p>')
+                    .replace(/\n/g, '<br>')
+                    .replace(/^/, '<p>')
+                    .replace(/$/, '</p>')
+                    .replace(/<p><\/p>/g, '');
+            }
+
+            // Collections Management
+            handleCollectionSubmit(e) {
+                e.preventDefault();
+                const key = document.getElementById('collectionKey').value.toLowerCase().replace(/\s+/g, '-');
+                const title = document.getElementById('collectionTitle').value;
+                const description = document.getElementById('collectionDesc').value;
+                
+                if (this.currentEditingItem && this.currentEditingType === 'collection') {
+                    // Update existing collection
+                    this.updateCollection(this.currentEditingKey, { title, description });
+                } else {
+                    // Create new collection
+                    if (!this.data.collections[key]) {
+                        this.data.collections[key] = {
+                            title: title,
+                            description: description,
+                            items: []
+                        };
+                        this.saveData();
+                        this.clearCollectionForm();
+                        this.viewCollections();
+                        this.showMessage('Collection created successfully!', 'success');
+                    } else {
+                        this.showMessage('Collection with this key already exists!', 'error');
+                    }
+                }
+            }
+
+            updateCollection(key, updatedCollection) {
+                console.log('Updating collection with key:', key, 'Data:', updatedCollection);
+                
+                if (this.data.collections[key]) {
+                    // Preserve existing items while updating other properties
+                    this.data.collections[key].title = updatedCollection.title;
+                    this.data.collections[key].description = updatedCollection.description;
+                    this.data.collections[key].modified = new Date().toISOString();
+                    
+                    console.log('Updated collection:', this.data.collections[key]);
+                    
+                    this.saveData();
+                    this.clearCollectionForm();
+                    this.viewCollections();
+                    this.showMessage('Collection updated successfully!', 'success');
+                } else {
+                    console.error('Collection not found for update');
+                    this.showMessage('Error: Collection not found!', 'error');
+                }
+            }
+
+            clearCollectionForm() {
+                document.getElementById('collectionForm').reset();
+                document.getElementById('addCollectionForm').style.display = 'none';
+                
+                // Reset form state
+                this.currentEditingItem = null;
+                this.currentEditingType = null;
+                this.currentEditingKey = null;
+                
+                // Re-enable the key field and reset form title
+                document.getElementById('collectionKey').disabled = false;
+                document.querySelector('#addCollectionForm h3').textContent = 'Create New Collection';
+                document.querySelector('#collectionForm button[type="submit"]').innerHTML = '<i class="fas fa-save"></i> Create Collection';
+            }
+
+            viewCollections() {
+                const collections = this.data.collections;
+                const container = document.getElementById('collectionsList');
+                if (!container) return;
+
+                container.innerHTML = Object.keys(collections).map(key => `
+                    <div class="item-card">
+                        <div class="item-header">
+                            <div class="item-title">${this.escapeHtml(collections[key].title)}</div>
+                            <div class="item-actions">
+                                <button class="btn btn-sm btn-secondary" onclick="dataManager.editCollection('${key}')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="dataManager.deleteCollection('${key}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="item-meta">
+                            <strong>Items:</strong> ${collections[key].items ? collections[key].items.length : 0} | 
+                            <strong>Key:</strong> ${key}
+                        </div>
+                        ${collections[key].description ? `<div class="item-description">${this.escapeHtml(collections[key].description)}</div>` : ''}
+                    </div>
+                `).join('');
+            }
+
+            editCollection(key) {
+                const collection = this.data.collections[key];
+                if (collection) {
+                    this.currentEditingItem = collection;
+                    this.currentEditingType = 'collection';
+                    this.currentEditingKey = key; // Store the key for collections
+                    
+                    // Switch to collections tab first
+                    document.querySelector('button[onclick="showTab(\'collections\')"]').click();
+                    
+                    // Wait for tab to load then populate form
+                    setTimeout(() => {
+                        this.populateCollectionForm(collection, key);
+                        
+                        // Show the form
+                        document.getElementById('addCollectionForm').style.display = 'block';
+                        
+                        // Update form title and button
+                        document.querySelector('#addCollectionForm h3').textContent = 'Edit Collection';
+                        document.querySelector('#collectionForm button[type="submit"]').innerHTML = '<i class="fas fa-save"></i> Update Collection';
+                        
+                        // Scroll to form and focus
+                        document.getElementById('collectionTitle').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        document.getElementById('collectionTitle').focus();
+                        
+                        this.showMessage('Collection loaded for editing. Make your changes and click "Update Collection".', 'info');
+                    }, 100);
+                } else {
+                    this.showMessage('Collection not found!', 'error');
+                }
+            }
+
+            populateCollectionForm(collection, key) {
+                document.getElementById('collectionKey').value = key;
+                document.getElementById('collectionKey').disabled = true; // Don't allow key changes during edit
+                document.getElementById('collectionTitle').value = collection.title || '';
+                document.getElementById('collectionDesc').value = collection.description || '';
+            }
+
+            deleteCollection(key) {
+                if (confirm('Are you sure you want to delete this collection?')) {
+                    delete this.data.collections[key];
+                    this.saveData();
+                    this.viewCollections();
+                    this.showMessage('Collection deleted successfully!', 'success');
+                }
+            }
+
+            // Search functionality
+            searchBooks() {
+                const query = document.getElementById('booksSearch').value.toLowerCase();
+                this.filterAndDisplay('books', (book) => 
+                    book.title.toLowerCase().includes(query) || 
+                    book.author.toLowerCase().includes(query) ||
+                    (book.description && book.description.toLowerCase().includes(query))
+                );
+            }
+
+            searchImages() {
+                const query = document.getElementById('imagesSearch').value.toLowerCase();
+                this.filterAndDisplay('images', (image) => 
+                    image.title.toLowerCase().includes(query) || 
+                    (image.description && image.description.toLowerCase().includes(query)) ||
+                    (image.category && image.category.toLowerCase().includes(query))
+                );
+            }
+
+            searchAudio() {
+                const query = document.getElementById('audioSearch').value.toLowerCase();
+                this.filterAndDisplay('audio', (audio) => 
+                    audio.title.toLowerCase().includes(query) || 
+                    (audio.artist && audio.artist.toLowerCase().includes(query)) ||
+                    (audio.description && audio.description.toLowerCase().includes(query))
+                );
+            }
+
+            searchContent() {
+                const query = document.getElementById('contentSearch').value.toLowerCase();
+                this.filterAndDisplay('content', (content) => 
+                    content.title.toLowerCase().includes(query) || 
+                    (content.body && content.body.toLowerCase().includes(query)) ||
+                    (content.excerpt && content.excerpt.toLowerCase().includes(query)) ||
+                    (content.tags && content.tags.some(tag => tag.toLowerCase().includes(query)))
+                );
+            }
+
+            filterBooks() {
+                const category = document.getElementById('booksFilter').value;
+                if (category === 'all') {
+                    this.displayBooks();
+                } else {
+                    this.filterAndDisplay('books', (book) => book.category === category);
+                }
+            }
+
+            filterImages() {
+                const category = document.getElementById('imageFilter').value;
+                if (category === 'all') {
+                    this.displayImages();
+                } else {
+                    this.filterAndDisplay('images', (image) => image.category === category);
+                }
+            }
+
+            filterAudio() {
+                const category = document.getElementById('audioFilter').value;
+                if (category === 'all') {
+                    this.displayAudio();
+                } else {
+                    this.filterAndDisplay('audio', (audio) => audio.category === category);
+                }
+            }
+
+            filterContent() {
+                const status = document.getElementById('contentFilter').value;
+                if (status === 'all') {
+                    this.displayContent();
+                } else {
+                    this.filterAndDisplay('content', (content) => content.status === status);
+                }
+            }
+
+            filterAndDisplay(type, filterFn) {
+                const originalData = this.data[type];
+                const filteredData = originalData.filter(filterFn);
+                
+                // Temporarily replace data for display
+                this.data[type] = filteredData;
+                
+                switch(type) {
+                    case 'books': this.displayBooks(); break;
+                    case 'images': this.displayImages(); break;
+                    case 'audio': this.displayAudio(); break;
+                    case 'content': this.displayContent(); break;
+                }
+                
+                // Restore original data
+                this.data[type] = originalData;
+            }
+
+            // Utility functions
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            isValidUrl(string) {
+                try {
+                    new URL(string);
+                    return true;
+                } catch (_) {
+                    return false;
+                }
+            }
+
+            showMessage(message, type = 'info') {
+                // Remove existing messages
+                const existingMessages = document.querySelectorAll('.message');
+                existingMessages.forEach(msg => msg.remove());
+
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message message-${type}`;
+                
+                let icon = 'fas fa-info-circle';
+                if (type === 'success') icon = 'fas fa-check-circle';
+                if (type === 'error') icon = 'fas fa-exclamation-circle';
+                if (type === 'warning') icon = 'fas fa-exclamation-triangle';
+                
+                messageDiv.innerHTML = `<i class="${icon}"></i> ${message}`;
+                
+                const container = document.querySelector('.container');
+                container.insertBefore(messageDiv, container.children[1]);
+                
+                setTimeout(() => {
+                    messageDiv.remove();
+                }, 5000);
+            }
+
+            // Data management
+            getAllData() {
+                return this.data;
+            }
+
+            // Generate unified export format where each item has a unique ID and type
+            generateUnifiedExport(type = 'all') {
+                const unifiedItems = {};
+                let idCounter = 1;
+
+                // Helper function to create unified item structure
+                const createUnifiedItem = (item, itemType, originalId) => {
+                    const unifiedId = `unified_${String(idCounter).padStart(6, '0')}`;
+                    idCounter++;
+
+                    return {
+                        id: unifiedId,
+                        originalId: originalId,
+                        type: itemType,
+                        title: item.title || 'Untitled',
+                        created: item.created || new Date().toISOString(),
+                        modified: item.modified || item.created || new Date().toISOString(),
+                        metadata: this.extractMetadata(item, itemType),
+                        content: this.extractContent(item, itemType),
+                        relationships: this.findRelationships(item, itemType),
+                        tags: this.extractTags(item, itemType),
+                        category: this.extractCategory(item, itemType),
+                        status: item.status || 'active'
+                    };
+                };
+
+                // Process books
+                if (type === 'all' || type === 'books') {
+                    this.data.books.forEach(book => {
+                        const unified = createUnifiedItem(book, 'book', book.id);
+                        unifiedItems[unified.id] = unified;
+                    });
+                }
+
+                // Process images
+                if (type === 'all' || type === 'images') {
+                    this.data.images.forEach(image => {
+                        const unified = createUnifiedItem(image, 'image', image.id);
+                        unifiedItems[unified.id] = unified;
+                    });
+                }
+
+                // Process audio
+                if (type === 'all' || type === 'audio') {
+                    this.data.audio.forEach(audio => {
+                        const unified = createUnifiedItem(audio, 'audio', audio.id);
+                        unifiedItems[unified.id] = unified;
+                    });
+                }
+
+                // Process content
+                if (type === 'all' || type === 'content') {
+                    this.data.content.forEach(content => {
+                        const unified = createUnifiedItem(content, 'content', content.id);
+                        unifiedItems[unified.id] = unified;
+                    });
+                }
+
+                // Process collections
+                if (type === 'all' || type === 'collections') {
+                    Object.keys(this.data.collections).forEach(key => {
+                        const collection = this.data.collections[key];
+                        const unified = createUnifiedItem(collection, 'collection', key);
+                        unifiedItems[unified.id] = unified;
+                    });
+                }
+
+                return {
+                    exportInfo: {
+                        exportDate: new Date().toISOString(),
+                        exportType: type,
+                        totalItems: Object.keys(unifiedItems).length,
+                        version: "1.0.0",
+                        format: "unified"
+                    },
+                    items: unifiedItems,
+                    // Index for quick lookups
+                    index: {
+                        byType: this.createTypeIndex(unifiedItems),
+                        byCategory: this.createCategoryIndex(unifiedItems),
+                        byTag: this.createTagIndex(unifiedItems),
+                        relationships: this.createRelationshipIndex(unifiedItems)
+                    }
+                };
+            }
+
+            extractMetadata(item, type) {
+                const metadata = {};
+
+                switch(type) {
+                    case 'book':
+                        metadata.author = item.author || 'Unknown';
+                        metadata.year = item.year || null;
+                        metadata.language = item.language || 'unknown';
+                        metadata.formats = item.format || [];
+                        metadata.cover = item.cover || null;
+                        metadata.gallery = item.gallery || [];
+                        metadata.readingProgress = item.readingProgress || 0;
+                        break;
+
+                    case 'image':
+                        metadata.src = item.src || null;
+                        metadata.alt = item.alt || '';
+                        metadata.dimensions = item.dimensions || null;
+                        metadata.fileSize = item.fileSize || null;
+                        metadata.mimeType = item.mimeType || null;
+                        break;
+
+                    case 'audio':
+                        metadata.src = item.src || item.audioSrc || null;
+                        metadata.artist = item.artist || 'Unknown';
+                        metadata.duration = item.duration || null;
+                        metadata.type = item.type || 'audio/mp3';
+                        metadata.visualizer = item.visualizer || false;
+                        metadata.bitrate = item.bitrate || null;
+                        break;
+
+                    case 'content':
+                        metadata.contentType = item.type || 'page';
+                        metadata.wordCount = item.body ? item.body.split(/\s+/).length : 0;
+                        metadata.excerpt = item.excerpt || '';
+                        metadata.slug = this.generateSlug(item.title);
+                        metadata.publishDate = item.status === 'published' ? item.modified : null;
+                        break;
+
+                    case 'collection':
+                        metadata.key = item.key || '';
+                        metadata.itemCount = item.items ? item.items.length : 0;
+                        metadata.itemTypes = item.items ? this.getCollectionItemTypes(item.items) : [];
+                        break;
+                }
+
+                return metadata;
+            }
+
+            extractContent(item, type) {
+                const content = {};
+
+                switch(type) {
+                    case 'book':
+                        content.description = item.description || '';
+                        content.summary = item.summary || '';
+                        content.notes = item.notes || '';
+                        break;
+
+                    case 'image':
+                        content.description = item.description || '';
+                        content.caption = item.caption || '';
+                        content.location = item.location || '';
+                        break;
+
+                    case 'audio':
+                        content.description = item.description || '';
+                        content.lyrics = item.lyrics || '';
+                        content.notes = item.notes || '';
+                        break;
+
+                    case 'content':
+                        content.body = item.body || '';
+                        content.excerpt = item.excerpt || '';
+                        content.summary = item.summary || '';
+                        break;
+
+                    case 'collection':
+                        content.description = item.description || '';
+                        content.purpose = item.purpose || '';
+                        content.notes = item.notes || '';
+                        break;
+                }
+
+                return content;
+            }
+
+            extractTags(item, type) {
+                if (item.tags && Array.isArray(item.tags)) {
+                    return item.tags;
+                }
+                
+                // Auto-generate tags based on content and type
+                const autoTags = [type];
+                
+                if (type === 'book' && item.category) autoTags.push(item.category);
+                if (type === 'image' && item.category) autoTags.push(item.category);
+                if (type === 'audio' && item.category) autoTags.push(item.category);
+                if (type === 'content' && item.type) autoTags.push(item.type);
+                
+                return autoTags;
+            }
+
+            extractCategory(item, type) {
+                return item.category || type || 'uncategorized';
+            }
+
+            findRelationships(item, type) {
+                const relationships = [];
+
+                // Find related items based on tags, categories, or content
+                const allItems = [
+                    ...this.data.books.map(b => ({...b, type: 'book'})),
+                    ...this.data.images.map(i => ({...i, type: 'image'})),
+                    ...this.data.audio.map(a => ({...a, type: 'audio'})),
+                    ...this.data.content.map(c => ({...c, type: 'content'}))
+                ];
+
+                allItems.forEach(relatedItem => {
+                    if (relatedItem.id !== item.id) {
+                        let relationshipScore = 0;
+                        let relationshipType = 'related';
+
+                        // Check category match
+                        if (relatedItem.category === item.category) {
+                            relationshipScore += 3;
+                            relationshipType = 'same_category';
+                        }
+
+                        // Check tag overlap
+                        const itemTags = this.extractTags(item, type);
+                        const relatedTags = this.extractTags(relatedItem, relatedItem.type);
+                        const tagOverlap = itemTags.filter(tag => relatedTags.includes(tag)).length;
+                        relationshipScore += tagOverlap;
+
+                        // Check title similarity (basic)
+                        if (item.title && relatedItem.title) {
+                            const titleSimilarity = this.calculateStringSimilarity(
+                                item.title.toLowerCase(),
+                                relatedItem.title.toLowerCase()
+                            );
+                            if (titleSimilarity > 0.3) {
+                                relationshipScore += 2;
+                                relationshipType = 'similar_title';
+                            }
+                        }
+
+                        // Enhanced relationship detection for correlated media
+                        
+                        // Book-Image correlations
+                        if (type === 'book' && relatedItem.type === 'image') {
+                            // Check if image is mentioned in book description or gallery
+                            if (item.gallery && item.gallery.includes(relatedItem.src)) {
+                                relationshipScore += 5;
+                                relationshipType = 'book_cover_image';
+                            }
+                            // Check author name in image title/description
+                            if (item.author && (
+                                relatedItem.title.toLowerCase().includes(item.author.toLowerCase()) ||
+                                (relatedItem.description && relatedItem.description.toLowerCase().includes(item.author.toLowerCase()))
+                            )) {
+                                relationshipScore += 4;
+                                relationshipType = 'author_related_image';
+                            }
+                        }
+
+                        // Image-Book correlations
+                        if (type === 'image' && relatedItem.type === 'book') {
+                            // Check if this image is used as book cover
+                            if (relatedItem.cover === item.src) {
+                                relationshipScore += 5;
+                                relationshipType = 'cover_image_for_book';
+                            }
+                            // Check if image is in book's gallery
+                            if (relatedItem.gallery && relatedItem.gallery.includes(item.src)) {
+                                relationshipScore += 4;
+                                relationshipType = 'gallery_image_for_book';
+                            }
+                        }
+
+                        // Content-Image correlations
+                        if (type === 'content' && relatedItem.type === 'image') {
+                            // Check if image URL is mentioned in content body
+                            if (item.body && item.body.includes(relatedItem.src)) {
+                                relationshipScore += 5;
+                                relationshipType = 'content_embedded_image';
+                            }
+                        }
+
+                        // Image-Content correlations
+                        if (type === 'image' && relatedItem.type === 'content') {
+                            // Check if this image is used in content
+                            if (relatedItem.body && relatedItem.body.includes(item.src)) {
+                                relationshipScore += 5;
+                                relationshipType = 'image_used_in_content';
+                            }
+                        }
+
+                        // Collection correlations
+                        if (type === 'collection') {
+                            // Check if item is referenced in collection items
+                            if (item.items && item.items.some(collectionItem => 
+                                collectionItem.id === relatedItem.id || 
+                                collectionItem.src === relatedItem.src ||
+                                collectionItem.title === relatedItem.title
+                            )) {
+                                relationshipScore += 6;
+                                relationshipType = 'collection_member';
+                            }
+                        }
+
+                        // Item-Collection correlations
+                        if (relatedItem.type === 'collection') {
+                            const collection = this.data.collections[Object.keys(this.data.collections).find(key => 
+                                this.data.collections[key].title === relatedItem.title
+                            )];
+                            
+                            if (collection && collection.items && collection.items.some(collectionItem => 
+                                collectionItem.id === item.id || 
+                                collectionItem.src === item.src ||
+                                collectionItem.title === item.title
+                            )) {
+                                relationshipScore += 6;
+                                relationshipType = 'member_of_collection';
+                            }
+                        }
+
+                        // Cross-media correlations based on description content
+                        if (item.description && relatedItem.title) {
+                            const descWords = item.description.toLowerCase().split(/\s+/);
+                            const titleWords = relatedItem.title.toLowerCase().split(/\s+/);
+                            const commonWords = descWords.filter(word => 
+                                word.length > 3 && titleWords.includes(word)
+                            );
+                            if (commonWords.length > 2) {
+                                relationshipScore += commonWords.length;
+                                relationshipType = 'description_title_match';
+                            }
+                        }
+
+                        // Location/theme correlations for spiritual content
+                        const spiritualKeywords = ['temple', 'deity', 'god', 'goddess', 'sacred', 'holy', 'divine', 'spiritual', 'meditation', 'prayer', 'ritual', 'ceremony'];
+                        const itemText = `${item.title} ${item.description || ''} ${item.body || ''}`.toLowerCase();
+                        const relatedText = `${relatedItem.title} ${relatedItem.description || ''} ${relatedItem.body || ''}`.toLowerCase();
+                        
+                        const itemSpiritualWords = spiritualKeywords.filter(keyword => itemText.includes(keyword));
+                        const relatedSpiritualWords = spiritualKeywords.filter(keyword => relatedText.includes(keyword));
+                        const commonSpiritualWords = itemSpiritualWords.filter(word => relatedSpiritualWords.includes(word));
+                        
+                        if (commonSpiritualWords.length > 0) {
+                            relationshipScore += commonSpiritualWords.length * 2;
+                            relationshipType = 'spiritual_theme_match';
+                        }
+
+                        if (relationshipScore > 2) {
+                            relationships.push({
+                                relatedId: relatedItem.id,
+                                relatedType: relatedItem.type,
+                                relationshipType: relationshipType,
+                                strength: Math.min(relationshipScore / 8, 1), // Normalize to 0-1
+                                reason: `${relationshipType}: score ${relationshipScore}`,
+                                details: this.getRelationshipDetails(relationshipType, relationshipScore)
+                            });
+                        }
+                    }
+                });
+
+                return relationships.slice(0, 15); // Increased to top 15 relationships
+            }
+
+            getRelationshipDetails(relationshipType, score) {
+                const details = {
+                    'book_cover_image': 'This image is used as a cover for the book',
+                    'cover_image_for_book': 'This book uses this image as its cover',
+                    'author_related_image': 'Image related to the book author',
+                    'gallery_image_for_book': 'Image is part of the book\'s gallery',
+                    'content_embedded_image': 'Image is embedded in this content',
+                    'image_used_in_content': 'This image is used in the content',
+                    'collection_member': 'Item is a member of this collection',
+                    'member_of_collection': 'Item belongs to this collection',
+                    'same_category': 'Items share the same category',
+                    'similar_title': 'Items have similar titles',
+                    'description_title_match': 'Description matches title keywords',
+                    'spiritual_theme_match': 'Items share spiritual themes',
+                    'related': 'General relationship based on content similarity'
+                };
+                
+                return details[relationshipType] || 'Related items based on content analysis';
+            }
+
+            createTypeIndex(unifiedItems) {
+                const typeIndex = {};
+                Object.values(unifiedItems).forEach(item => {
+                    if (!typeIndex[item.type]) {
+                        typeIndex[item.type] = [];
+                    }
+                    typeIndex[item.type].push(item.id);
+                });
+                return typeIndex;
+            }
+
+            createCategoryIndex(unifiedItems) {
+                const categoryIndex = {};
+                Object.values(unifiedItems).forEach(item => {
+                    if (!categoryIndex[item.category]) {
+                        categoryIndex[item.category] = [];
+                    }
+                    categoryIndex[item.category].push(item.id);
+                });
+                return categoryIndex;
+            }
+
+            createTagIndex(unifiedItems) {
+                const tagIndex = {};
+                Object.values(unifiedItems).forEach(item => {
+                    item.tags.forEach(tag => {
+                        if (!tagIndex[tag]) {
+                            tagIndex[tag] = [];
+                        }
+                        tagIndex[tag].push(item.id);
+                    });
+                });
+                return tagIndex;
+            }
+
+            createRelationshipIndex(unifiedItems) {
+                const relationshipIndex = {};
+                Object.values(unifiedItems).forEach(item => {
+                    relationshipIndex[item.id] = item.relationships.map(rel => rel.relatedId);
+                });
+                return relationshipIndex;
+            }
+
+            generateSlug(title) {
+                if (!title) return '';
+                return title
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/(^-|-$)/g, '');
+            }
+
+            calculateStringSimilarity(str1, str2) {
+                const longer = str1.length > str2.length ? str1 : str2;
+                const shorter = str1.length > str2.length ? str2 : str1;
+                const editDistance = this.levenshteinDistance(longer, shorter);
+                return (longer.length - editDistance) / longer.length;
+            }
+
+            levenshteinDistance(str1, str2) {
+                const matrix = [];
+                for (let i = 0; i <= str2.length; i++) {
+                    matrix[i] = [i];
+                }
+                for (let j = 0; j <= str1.length; j++) {
+                    matrix[0][j] = j;
+                }
+                for (let i = 1; i <= str2.length; i++) {
+                    for (let j = 1; j <= str1.length; j++) {
+                        if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
+                            matrix[i][j] = matrix[i - 1][j - 1];
+                        } else {
+                            matrix[i][j] = Math.min(
+                                matrix[i - 1][j - 1] + 1,
+                                matrix[i][j - 1] + 1,
+                                matrix[i - 1][j] + 1
+                            );
+                        }
+                    }
+                }
+                return matrix[str2.length][str1.length];
+            }
+
+            getCollectionItemTypes(items) {
+                return [...new Set(items.map(item => item.type || 'unknown'))];
+            }
+
+            exportData(type = 'all') {
+                let exportData;
+                let filename;
+
+                // Generate unified format
+                const unifiedData = this.generateUnifiedExport(type);
+
+                // Generate timestamp prefix
+                const now = new Date();
+                const timestamp = now.toISOString().slice(0, 19).replace(/:/g, '-').replace('T', '_');
+
+                switch(type) {
+                    case 'books':
+                        filename = `${timestamp}_unified-books-data.json`;
+                        break;
+                    case 'images':
+                        filename = `${timestamp}_unified-images-data.json`;
+                        break;
+                    case 'audio':
+                        filename = `${timestamp}_unified-audio-data.json`;
+                        break;
+                    case 'content':
+                        filename = `${timestamp}_unified-content-data.json`;
+                        break;
+                    case 'collections':
+                        filename = `${timestamp}_unified-collections-data.json`;
+                        break;
+                    default:
+                        filename = `${timestamp}_unified-all-data.json`;
+                }
+
+                exportData = unifiedData;
+
+                const dataStr = JSON.stringify(exportData, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', filename);
+                linkElement.click();
+                
+                this.showMessage(`${type === 'all' ? 'All data' : type} exported in unified format successfully!`, 'success');
+            }
+
+            // Also provide legacy export format with timestamp
+            exportDataLegacy(type = 'all') {
+                let exportData;
+                let filename;
+
+                // Generate timestamp prefix
+                const now = new Date();
+                const timestamp = now.toISOString().slice(0, 19).replace(/:/g, '-').replace('T', '_');
+
+                switch(type) {
+                    case 'books':
+                        exportData = { books: this.data.books };
+                        filename = `${timestamp}_legacy-books-data.json`;
+                        break;
+                    case 'images':
+                        exportData = { images: this.data.images };
+                        filename = `${timestamp}_legacy-images-data.json`;
+                        break;
+                    case 'audio':
+                        exportData = { audio: this.data.audio };
+                        filename = `${timestamp}_legacy-audio-data.json`;
+                        break;
+                    case 'content':
+                        exportData = { content: this.data.content };
+                        filename = `${timestamp}_legacy-content-data.json`;
+                        break;
+                    default:
+                        exportData = this.data;
+                        filename = `${timestamp}_legacy-unified-data.json`;
+                }
+
+                const dataStr = JSON.stringify(exportData, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', filename);
+                linkElement.click();
+                
+                this.showMessage(`${type === 'all' ? 'All data' : type} exported in legacy format!`, 'success');
+            }
+
+            importData() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.json';
+                input.onchange = (event) => {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            try {
+                                const importedData = JSON.parse(e.target.result);
+                                
+                                // Detect the format and import accordingly
+                                this.handleImportedData(importedData, file.name);
+                                
+                            } catch (error) {
+                                this.showMessage('Error reading file! Please check the JSON format.', 'error');
+                                console.error('Import error:', error);
+                            }
+                        };
+                        reader.readAsText(file);
+                    }
+                };
+                input.click();
+            }
+
+            handleImportedData(importedData, filename) {
+                let importCount = 0;
+                
+                // Handle books-data.json format
+                if (importedData.books && Array.isArray(importedData.books)) {
+                    importedData.books.forEach(book => {
+                        const transformedBook = this.transformBookData(book);
+                        this.data.books.push(transformedBook);
+                        importCount++;
+                    });
+                    this.showMessage(`Imported ${importedData.books.length} books from ${filename}`, 'success');
+                }
+                
+                // Handle images.json format
+                else if (importedData.images && Array.isArray(importedData.images)) {
+                    importedData.images.forEach(image => {
+                        const transformedImage = this.transformImageData(image);
+                        this.data.images.push(transformedImage);
+                        importCount++;
+                    });
+                    this.showMessage(`Imported ${importedData.images.length} images from ${filename}`, 'success');
+                }
+                
+                // Handle audio-data.json format
+                else if (importedData.blocks || importedData.additionalTracks) {
+                    let audioCount = 0;
+                    
+                    // Import blocks
+                    if (importedData.blocks) {
+                        Object.keys(importedData.blocks).forEach(key => {
+                            const audioBlock = importedData.blocks[key];
+                            const transformedAudio = this.transformAudioData(audioBlock, key);
+                            this.data.audio.push(transformedAudio);
+                            audioCount++;
+                        });
+                    }
+                    
+                    // Import additional tracks
+                    if (importedData.additionalTracks) {
+                        importedData.additionalTracks.forEach(track => {
+                            const transformedAudio = this.transformAudioData(track, `track-${Date.now()}`);
+                            this.data.audio.push(transformedAudio);
+                            audioCount++;
+                        });
+                    }
+                    
+                    // Import background music
+                    if (importedData.backgroundMusic) {
+                        Object.keys(importedData.backgroundMusic).forEach(key => {
+                            const bgMusic = importedData.backgroundMusic[key];
+                            const transformedAudio = this.transformAudioData(bgMusic, key, true);
+                            this.data.audio.push(transformedAudio);
+                            audioCount++;
+                        });
+                    }
+                    
+                    this.showMessage(`Imported ${audioCount} audio tracks from ${filename}`, 'success');
+                    importCount = audioCount;
+                }
+                
+                // Handle content export format (array of content items)
+                else if (Array.isArray(importedData)) {
+                    importedData.forEach(contentItem => {
+                        if (contentItem.title && contentItem.content) {
+                            const transformedContent = this.transformContentData(contentItem);
+                            this.data.content.push(transformedContent);
+                            importCount++;
+                        }
+                    });
+                    this.showMessage(`Imported ${importedData.length} content items from ${filename}`, 'success');
+                }
+                
+                // Handle unified format
+                else if (importedData.exportInfo && importedData.items) {
+                    this.importUnifiedFormat(importedData);
+                    importCount = Object.keys(importedData.items).length;
+                    this.showMessage(`Imported ${importCount} items from unified format file`, 'success');
+                }
+                
+                // Handle legacy unified format
+                else {
+                    // Try to import as legacy format
+                    if (importedData.books) this.data.books = [...this.data.books, ...importedData.books];
+                    if (importedData.images) this.data.images = [...this.data.images, ...importedData.images];
+                    if (importedData.audio) this.data.audio = [...this.data.audio, ...importedData.audio];
+                    if (importedData.content) this.data.content = [...this.data.content, ...importedData.content];
+                    if (importedData.collections) {
+                        Object.assign(this.data.collections, importedData.collections);
+                    }
+                    
+                    this.showMessage('Imported data in legacy format', 'success');
+                }
+                
+                if (importCount > 0) {
+                    this.saveData();
+                    this.loadInitialData();
+                    this.showMessage(`Successfully imported and processed ${importCount} items with automatic relationship detection!`, 'success');
+                }
+            }
+
+            transformBookData(book) {
+                return {
+                    id: Date.now() + Math.random(), // Ensure unique ID
+                    title: book.title || 'Untitled Book',
+                    author: book.author || 'Unknown Author',
+                    year: book.year || '',
+                    category: book.category || 'vedic',
+                    language: book.language || 'sanskrit',
+                    format: book.format || ['pdf'],
+                    cover: book.cover || '',
+                    description: book.description || '',
+                    readingProgress: book.readingProgress || 0,
+                    gallery: book.gallery_images || [],
+                    created: new Date().toISOString(),
+                    modified: new Date().toISOString(),
+                    // Add correlation fields for relationship detection
+                    originalId: book.id,
+                    correlatedImages: book.gallery_images || [],
+                    coverImage: book.cover
+                };
+            }
+
+            transformImageData(image) {
+                return {
+                    id: `img-${Date.now()}-${Math.random()}`,
+                    title: image.title || image.alt || 'Untitled Image',
+                    src: image.src,
+                    alt: image.alt || image.title || '',
+                    category: image.category || 'anime',
+                    description: image.description || '',
+                    created: new Date().toISOString(),
+                    modified: new Date().toISOString(),
+                    // Add correlation fields
+                    originalId: image.id,
+                    imageUrl: image.src
+                };
+            }
+
+            transformAudioData(audio, key, isBackground = false) {
+                return {
+                    id: `audio-${Date.now()}-${Math.random()}`,
+                    title: audio.title || 'Untitled Audio',
+                    src: audio.audioSrc || audio.src,
+                    artist: audio.artist || 'Unknown Artist',
+                    duration: audio.duration || '',
+                    type: audio.audioType || audio.type || 'audio/mp3',
+                    category: audio.category || (isBackground ? 'Background' : 'Nature'),
+                    description: audio.description || '',
+                    visualizer: audio.visualizer || false,
+                    loop: audio.loop || false,
+                    volume: audio.volume || 1.0,
+                    created: new Date().toISOString(),
+                    modified: new Date().toISOString(),
+                    // Add correlation fields
+                    originalId: audio.id || key,
+                    isBackground: isBackground,
+                    blockId: key
+                };
+            }
+
+            transformContentData(content) {
+                return {
+                    id: Date.now() + Math.random(),
+                    title: content.title || 'Untitled Content',
+                    type: content.type || 'page',
+                    status: content.status || 'published',
+                    excerpt: content.excerpt || '',
+                    body: content.content || content.body || '',
+                    tags: content.tags || [],
+                    created: content.created || new Date().toISOString(),
+                    modified: content.modified || new Date().toISOString(),
+                    // Add correlation fields
+                    originalId: content.id
+                };
+            }
+
+            importUnifiedFormat(unifiedData) {
+                // Convert unified format back to individual items
+                Object.values(unifiedData.items).forEach(item => {
+                    switch(item.type) {
+                        case 'book':
+                            const book = {
+                                id: Date.now() + Math.random(),
+                                title: item.title,
+                                author: item.metadata.author,
+                                year: item.metadata.year,
+                                category: item.category,
+                                language: item.metadata.language,
+                                format: item.metadata.formats,
+                                cover: item.metadata.cover,
+                                description: item.content.description,
+                                gallery: item.metadata.gallery,
+                                created: item.created,
+                                modified: item.modified,
+                                unifiedId: item.id,
+                                relationships: item.relationships
+                            };
+                            this.data.books.push(book);
+                            break;
+                            
+                        case 'image':
+                            const image = {
+                                id: `img-${Date.now()}-${Math.random()}`,
+                                title: item.title,
+                                src: item.metadata.src,
+                                alt: item.metadata.alt,
+                                category: item.category,
+                                description: item.content.description,
+                                created: item.created,
+                                modified: item.modified,
+                                unifiedId: item.id,
+                                relationships: item.relationships
+                            };
+                            this.data.images.push(image);
+                            break;
+                            
+                        case 'audio':
+                            const audio = {
+                                id: `audio-${Date.now()}-${Math.random()}`,
+                                title: item.title,
+                                src: item.metadata.src,
+                                artist: item.metadata.artist,
+                                duration: item.metadata.duration,
+                                type: item.metadata.type,
+                                category: item.category,
+                                description: item.content.description,
+                                visualizer: item.metadata.visualizer,
+                                created: item.created,
+                                modified: item.modified,
+                                unifiedId: item.id,
+                                relationships: item.relationships
+                            };
+                            this.data.audio.push(audio);
+                            break;
+                            
+                        case 'content':
+                            const content = {
+                                id: Date.now() + Math.random(),
+                                title: item.title,
+                                type: item.metadata.contentType,
+                                status: item.status,
+                                excerpt: item.metadata.excerpt,
+                                body: item.content.body,
+                                tags: item.tags,
+                                created: item.created,
+                                modified: item.modified,
+                                unifiedId: item.id,
+                                relationships: item.relationships
+                            };
+                            this.data.content.push(content);
+                            break;
+                    }
+                });
+            }
+
+            clearAllData() {
+                if (confirm('Are you sure you want to clear all data? This cannot be undone!')) {
+                    this.data = {
+                        books: [],
+                        images: [],
+                        audio: [],
+                        collections: {
+                            featured: { title: "Featured Collections", items: [] },
+                            popular: { title: "Popular Right Now", items: [] }
+                        },
+                        content: [],
+                        siteConfig: {
+                            siteName: "Vrindopnishad",
+                            tagline: "Spiritual & Divine Collection"
+                        }
+                    };
+                    this.saveData();
+                    this.loadInitialData();
+                    this.showMessage('All data cleared successfully!', 'success');
+                }
+            }
+
+            updatePreview() {
+                const previewElement = document.getElementById('dataPreview');
+                if (previewElement) {
+                    previewElement.textContent = JSON.stringify(this.data, null, 2);
+                }
+            }
+
+            updateStats() {
+                const elements = {
+                    totalBooks: this.data.books.length,
+                    totalImages: this.data.images.length,
+                    totalAudio: this.data.audio.length,
+                    totalContent: this.data.content.length
+                };
+
+                Object.keys(elements).forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.textContent = elements[id];
+                    }
+                });
+            }
+
+            loadInitialData() {
+                this.displayBooks();
+                this.displayImages();
+                this.displayAudio();
+                this.displayContent();
+                this.viewCollections();
+            }
+        }
+
+        // Tab functionality
+        function showTab(tabName) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            // Load data for the tab
+            switch(tabName) {
+                case 'books':
+                    dataManager.displayBooks();
+                    break;
+                case 'images':
+                    dataManager.displayImages();
+                    break;
+                case 'audio':
+                    dataManager.displayAudio();
+                    break;
+                case 'content':
+                    dataManager.displayContent();
+                    break;
+                case 'collections':
+                    dataManager.viewCollections();
+                    break;
+                case 'api':
+                    dataManager.updatePreview();
+                    break;
+            }
+        }
+
+        // Collection functions
+        function showAddCollectionForm() {
+            document.getElementById('addCollectionForm').style.display = 'block';
+        }
+
+        function hideAddCollectionForm() {
+            dataManager.clearCollectionForm();
+        }
+
+        // Content preview functions
+        function previewContent() {
+            dataManager.previewContent();
+        }
+
+        function closeContentPreview() {
+            document.getElementById('contentPreviewModal').style.display = 'none';
+        }
+
+        // Clear form functions
+        function clearBookForm() {
+            dataManager.clearBookForm();
+        }
+
+        function clearImageForm() {
+            dataManager.clearImageForm();
+        }
+
+        function clearAudioForm() {
+            dataManager.clearAudioForm();
+        }
+
+        function clearContentForm() {
+            dataManager.clearContentForm();
+        }
+
+        // Export functions
+        function exportAllData() {
+            dataManager.exportData('all');
+        }
+
+        function exportBooks() {
+            dataManager.exportData('books');
+        }
+
+        function exportImages() {
+            dataManager.exportData('images');
+        }
+
+        function exportAudio() {
+            dataManager.exportData('audio');
+        }
+
+        function exportContent() {
+            dataManager.exportData('content');
+        }
+
+        function exportAllDataLegacy() {
+            dataManager.exportDataLegacy('all');
+        }
+
+        function importData() {
+            dataManager.importData();
+        }
+
+        function clearAllData() {
+            dataManager.clearAllData();
+        }
+
+        // Modal functions
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        // Collections functions
+        function viewCollections() {
+            dataManager.viewCollections();
+        }
+
+        // Image preview function
+        function previewImage() {
+            dataManager.previewImage();
+        }
+
+        // Search functions with debouncing
+        let searchTimeouts = {};
+
+        function debounceSearch(searchFunction, delay = 300) {
+            return function(...args) {
+                const key = searchFunction.name;
+                clearTimeout(searchTimeouts[key]);
+                searchTimeouts[key] = setTimeout(() => {
+                    searchFunction.apply(this, args);
+                }, delay);
+            };
+        }
+
+        const debouncedSearchBooks = debounceSearch(function() {
+            dataManager.searchBooks();
+        });
+
+        const debouncedSearchImages = debounceSearch(function() {
+            dataManager.searchImages();
+        });
+
+        const debouncedSearchAudio = debounceSearch(function() {
+            dataManager.searchAudio();
+        });
+
+        const debouncedSearchContent = debounceSearch(function() {
+            dataManager.searchContent();
+        });
+
+        // File upload handling
+        let uploadedBookFile = null;
+
+        function handleBookFileUpload(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            // Validate file size (50MB limit)
+            const maxSize = 50 * 1024 * 1024; // 50MB in bytes
+            if (file.size > maxSize) {
+                dataManager.showMessage('File size too large! Maximum allowed size is 50MB.', 'error');
+                input.value = '';
+                return;
+            }
+
+            // Validate file type
+            const allowedTypes = [
+                'application/pdf',
+                'application/epub+zip',
+                'application/x-mobipocket-ebook',
+                'text/plain',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            ];
+
+            const fileExtension = file.name.split('.').pop().toLowerCase();
+            const allowedExtensions = ['pdf', 'epub', 'mobi', 'txt', 'doc', 'docx'];
+
+            if (!allowedExtensions.includes(fileExtension)) {
+                dataManager.showMessage('Invalid file type! Please upload PDF, EPUB, MOBI, TXT, DOC, or DOCX files only.', 'error');
+                input.value = '';
+                return;
+            }
+
+            // Convert file to base64 for storage
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                uploadedBookFile = {
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                    data: e.target.result,
+                    uploadDate: new Date().toISOString()
+                };
+
+                // Show file info
+                document.getElementById('bookFileName').textContent = file.name;
+                document.getElementById('bookFileSize').textContent = formatFileSize(file.size);
+                document.getElementById('bookFileInfo').style.display = 'block';
+
+                // Auto-populate formats if not already set
+                const formatsInput = document.getElementById('bookFormats');
+                if (!formatsInput.value) {
+                    formatsInput.value = fileExtension;
+                }
+
+                dataManager.showMessage(`File "${file.name}" uploaded successfully!`, 'success');
+            };
+
+            reader.onerror = function() {
+                dataManager.showMessage('Error reading file. Please try again.', 'error');
+                input.value = '';
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        function clearBookFile() {
+            uploadedBookFile = null;
+            document.getElementById('bookFileUpload').value = '';
+            document.getElementById('bookFileInfo').style.display = 'none';
+            dataManager.showMessage('File removed.', 'info');
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Update the book form handling to include uploaded file
+        function getBookFormData() {
+            const formData = dataManager.getFormData('book');
+            
+            // Add uploaded file data if present
+            if (uploadedBookFile) {
+                formData.uploadedFile = uploadedBookFile;
+                formData.fileUrl = uploadedBookFile.data; // Store the base64 data as fileUrl
+                formData.fileName = uploadedBookFile.name;
+                formData.fileSize = uploadedBookFile.size;
+                formData.fileType = uploadedBookFile.type;
+                formData.uploadDate = uploadedBookFile.uploadDate;
+            }
+            
+            return formData;
+        }
+        function searchBooks() {
+            debouncedSearchBooks();
+        }
+
+        function searchImages() {
+            debouncedSearchImages();
+        }
+
+        function searchAudio() {
+            debouncedSearchAudio();
+        }
+
+        function searchContent() {
+            debouncedSearchContent();
+        }
+
+        function filterBooks() {
+            dataManager.filterBooks();
+        }
+
+        function filterImages() {
+            dataManager.filterImages();
+        }
+
+        function filterAudio() {
+            dataManager.filterAudio();
+        }
+
+        function filterContent() {
+            dataManager.filterContent();
+        }
+
+        // Initialize the manager when DOM is loaded
+        let dataManager;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            dataManager = new UnifiedDataManager();
+            
+            // Make dataManager globally accessible
+            window.dataManager = dataManager;
+            
+            // Close modals when clicking outside
+            window.onclick = function(event) {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            };
+            
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // ESC to close modals
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.modal').forEach(modal => {
+                        modal.style.display = 'none';
+                    });
+                }
+                
+                // Ctrl+S to save (prevent browser save dialog)
+                if (e.ctrlKey && e.key === 's') {
+                    e.preventDefault();
+                    dataManager.saveData();
+                }
+                
+                // Ctrl+E to export all data
+                if (e.ctrlKey && e.key === 'e') {
+                    e.preventDefault();
+                    dataManager.exportData('all');
+                }
+            });
+        });
+
+        // Utility API for external use
+        window.UnifiedAPI = {
+            // Get data functions
+            getAllData: () => dataManager.getAllData(),
+            getBooks: (category) => dataManager.getBooks(category),
+            getImages: (category) => dataManager.getImages(category),
+            getAudio: (category) => dataManager.getAudio(category),
+            getContent: (status) => dataManager.getContent(status),
+            getCollections: () => dataManager.data.collections,
+            
+            // Add data functions
+            addBook: (book) => dataManager.addBook(book),
+            addImage: (image) => dataManager.addImage(image),
+            addAudio: (audio) => dataManager.addAudio(audio),
+            addContent: (content) => dataManager.addContent(content),
+            
+            // Search function
+            search: (query) => {
+                const results = {
+                    books: dataManager.data.books.filter(book => 
+                        book.title.toLowerCase().includes(query.toLowerCase()) ||
+                        book.author.toLowerCase().includes(query.toLowerCase()) ||
+                        (book.description && book.description.toLowerCase().includes(query.toLowerCase()))
+                    ),
+                    images: dataManager.data.images.filter(image => 
+                        image.title.toLowerCase().includes(query.toLowerCase()) ||
+                        (image.description && image.description.toLowerCase().includes(query.toLowerCase()))
+                    ),
+                    audio: dataManager.data.audio.filter(audio => 
+                        audio.title.toLowerCase().includes(query.toLowerCase()) ||
+                        (audio.artist && audio.artist.toLowerCase().includes(query.toLowerCase())) ||
+                        (audio.description && audio.description.toLowerCase().includes(query.toLowerCase()))
+                    ),
+                    content: dataManager.data.content.filter(content => 
+                        content.title.toLowerCase().includes(query.toLowerCase()) ||
+                        (content.body && content.body.toLowerCase().includes(query.toLowerCase())) ||
+                        (content.excerpt && content.excerpt.toLowerCase().includes(query.toLowerCase()))
+                    )
+                };
+                return results;
+            },
+            
+            // Get stats
+            getStats: () => ({
+                books: dataManager.data.books.length,
+                images: dataManager.data.images.length,
+                audio: dataManager.data.audio.length,
+                content: dataManager.data.content.length,
+                collections: Object.keys(dataManager.data.collections).length
+            }),
+            
+            // Legacy format compatibility
+            getBooksData: () => ({ books: dataManager.data.books }),
+            getImagesData: () => ({ 
+                images: dataManager.data.images,
+                categories: [...new Set(dataManager.data.images.map(img => img.category))]
+            }),
+            getAudioData: () => ({ audio: dataManager.data.audio }),
+            getContentData: () => ({ content: dataManager.data.content })
+        };
+
+        // Legacy compatibility
+        window.UnifiedDataManager = window.UnifiedAPI;
+    </script>
+</body>
+</html>

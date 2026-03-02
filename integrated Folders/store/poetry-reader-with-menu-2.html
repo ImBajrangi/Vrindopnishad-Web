@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png"
+        type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vrindopnishad</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Merriweather:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rozha+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Lora:ital@0;1&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --text-color: #161f27;
+            --background-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --font-headings: 'Poppins', 'Rozha One', "Montserrat", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-body: 'laila', "Roboto", "Helvetica Neue", Arial, sans-serif;
+            --line-height: 1.8;
+            --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --border-radius-md: 20px;
+            --blur-effect: blur(20px);
+            --shadow-md: 0 15px 35px rgba(31, 38, 135, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: var(--line-height);
+            color: var(--text-color);
+            background: var(--background-color);
+            min-height: 100vh;
+            font-size: 18px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(120, 164, 170, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(233, 208, 164, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(142, 68, 173, 0.2) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .logo {
+            font-family: var(--font-body);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .author-header {
+            font-family: "poppins";
+            font-size: 1.4rem;
+            color: rgb(255, 255, 255);
+            text-shadow: 0px 0px 5px rgba(255, 237, 132, 0.6);
+            transition: opacity 10s var(--transition-smooth);
+            animation: authorFade 2s var(--transition-smooth);
+        }
+
+        @keyframes authorFade {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s var(--transition-smooth);
+            text-transform: uppercase;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .filter-btn.active {
+            background: rgba(103, 126, 234, 0.8);
+            border-color: rgba(103, 126, 234, 1);
+        }
+
+        .toc-toggle {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        .toc-toggle:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .table-of-contents {
+            position: fixed;
+            top: 80px;
+            left: -350px;
+            width: 350px;
+            height: calc(100vh - 80px);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            overflow-y: auto;
+            z-index: 999;
+            transition: left 0.4s var(--transition-bounce);
+            padding: 2rem 1.5rem;
+        }
+
+        .table-of-contents.active {
+            left: 0;
+        }
+
+        .toc-header {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 1rem;
+        }
+
+        .toc-item {
+            background: rgba(255, 255, 255, 0.1);
+            margin-bottom: 0.8rem;
+            padding: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s var(--transition-smooth);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .toc-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .toc-item.current {
+            background: rgba(103, 126, 234, 0.3);
+            border-color: rgba(103, 126, 234, 0.5);
+        }
+
+        .toc-title {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .toc-meta {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .toc-type {
+            display: inline-block;
+            background: rgba(142, 68, 173, 0.3);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            margin-right: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .author-header {
+                font-size: 0.9rem;
+                max-width: 50%;
+                text-align: right;
+            }
+
+            .header-controls {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .filter-controls {
+                gap: 0.3rem;
+            }
+
+            .filter-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.7rem;
+            }
+
+            .table-of-contents {
+                width: 300px;
+                left: -300px;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 6rem auto 0;
+            position: relative;
+            padding: 0 2rem;
+            transition: margin-left 0.4s var(--transition-bounce);
+        }
+
+        .container.toc-open {
+            margin-left: 175px;
+        }
+
+        @media (max-width: 768px) {
+            .container.toc-open {
+                margin-left: 0;
+            }
+        }
+
+        h1.dynamic-title {
+            font-family: var(--font-headings);
+            color: white;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.7));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.5s var(--transition-smooth);
+            animation: titleFade 0.5s var(--transition-smooth);
+        }
+
+        @keyframes titleFade {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reader {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            padding: 3rem;
+            border-radius: var(--border-radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+            transition: all 0.4s var(--transition-bounce);
+        }
+
+        .reader:hover {
+            transform: translateY(-5px) scale(1.01);
+        }
+
+        .poem-title {
+            font-family: var(--font-headings);
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .poem-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+
+        .poem-author {
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        .poem-type,
+        .poem-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .poem-type {
+            background: rgba(103, 126, 234, 0.3);
+            color: white;
+            border: 1px solid rgba(103, 126, 234, 0.5);
+        }
+
+        .poem-status {
+            background: rgba(46, 204, 113, 0.3);
+            color: white;
+            border: 1px solid rgba(46, 204, 113, 0.5);
+        }
+
+        .poem-status.draft {
+            background: rgba(241, 196, 15, 0.3);
+            border-color: rgba(241, 196, 15, 0.5);
+        }
+
+        .poem-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background: rgba(142, 68, 173, 0.3);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(142, 68, 173, 0.5);
+        }
+
+        .poem-content {
+            white-space: pre-line;
+            font-size: 1.3rem;
+            line-height: 2.2;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 500;
+            transition: all 0.4s var(--transition-bounce);
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .poem-counter {
+            color: white;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .filter-status {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .controls:hover {
+            opacity: 1;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 500;
+            transition: all 0.4s var(--transition-bounce);
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .no-content {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+            padding: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin-top: 8rem;
+                padding: 0 1rem;
+            }
+
+            .reader {
+                padding: 2rem;
+            }
+
+            h1.dynamic-title {
+                font-size: 2.5rem;
+            }
+
+            .poem-title {
+                font-size: 1.6rem;
+            }
+
+            .controls {
+                bottom: 1rem;
+                right: 1rem;
+                gap: 0.5rem;
+            }
+
+            .control-btn {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="particle" style="top: 10%; left: 10%; width: 4px; height: 4px;"></div>
+    <div class="particle" style="top: 20%; left: 80%; width: 6px; height: 6px;"></div>
+    <div class="particle" style="top: 70%; left: 20%; width: 8px; height: 8px;"></div>
+    <div class="particle" style="top: 80%; left: 90%; width: 5px; height: 5px;"></div>
+
+    <header>
+        <div class="logo">वृन्दोपनिषद्</div>
+        <div class="header-controls">
+            <div class="filter-controls">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="page">Pages</button>
+                <button class="filter-btn" data-filter="post">Posts</button>
+                <button class="filter-btn" data-filter="article">Articles</button>
+            </div>
+            <button class="toc-toggle" id="tocToggle">📖 Contents</button>
+        </div>
+        <div id="authorDisplay" class="author-header"></div>
+    </header>
+
+    <div class="table-of-contents" id="tableOfContents">
+        <div class="toc-header">Table of Contents</div>
+        <div id="tocItems"></div>
+    </div>
+
+    <div class="container" id="mainContainer">
+        <h1 id="dynamicTitle" class="dynamic-title">वृन्दोपनिषद्</h1>
+        <div class="filter-status" id="filterStatus"></div>
+        <div id="contentArea">
+            <div class="no-content">
+                <p>Loading poetry collection...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="control-btn" id="fontDown">A-</button>
+        <button class="control-btn" id="fontUp">A+</button>
+        <button class="control-btn" id="themeToggle">🌙</button>
+    </div>
+
+    <script>
+        // Global variables
+        let allPoems = [];
+        let filteredPoems = [];
+        let currentIndex = 0;
+        let currentFilter = 'all';
+
+        // Get DOM elements
+        const contentArea = document.getElementById('contentArea');
+        const fontDown = document.getElementById('fontDown');
+        const fontUp = document.getElementById('fontUp');
+        const themeToggle = document.getElementById('themeToggle');
+        const tocToggle = document.getElementById('tocToggle');
+        const tableOfContents = document.getElementById('tableOfContents');
+        const mainContainer = document.getElementById('mainContainer');
+        const filterStatus = document.getElementById('filterStatus');
+        const tocItems = document.getElementById('tocItems');
+
+        // Create sample data (replace with your JSON fetch)
+        const sampleData = [
+            {
+                "id": 1757214612131,
+                "title": "radhe",
+                "type": "page",
+                "status": "draft",
+                "excerpt": "shri harivansh",
+                "content": "radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe \nradhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe \nradhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe",
+                "tags": ["shri harivansh", "radhe radhe", "jay jay shri radhe"]
+            },
+            {
+                "id": 1757214654681,
+                "title": "shyam",
+                "type": "post",
+                "status": "published",
+                "excerpt": "shri harivansh",
+                "content": "radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe",
+                "tags": ["shri harivansh", "radhe radhe", "jay jay shri radhe"]
+            },
+            {
+                "id": 1757214712427,
+                "title": "radhe shyam",
+                "type": "article",
+                "status": "draft",
+                "excerpt": "shri harivansh",
+                "content": "radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe",
+                "tags": ["shri harivansh", "radhe radhe", "jay jay shri radhe"]
+            }
+        ];
+
+        // Initialize with sample data
+        allPoems = sampleData;
+        applyFilter('all');
+
+        // Uncomment this section to load from JSON file instead:
+        /*
+        fetch('/class/json/content-export-2026-09-09.json')
+            .then(response => response.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    allPoems = data;
+                    applyFilter('all');
+                } else {
+                    throw new Error('Invalid JSON format. Expected an array of poems.');
+                }
+            })
+            .catch(error => {
+                contentArea.innerHTML = `<div class="no-content"><p>Error loading poems: ${error.message}</p></div>`;
+            });
+        */
+
+        // Filter functionality
+        function applyFilter(filterType) {
+            currentFilter = filterType;
+
+            if (filterType === 'all') {
+                filteredPoems = allPoems;
+            } else {
+                filteredPoems = allPoems.filter(poem => poem.type === filterType);
+            }
+
+            currentIndex = 0;
+            updateFilterButtons();
+            updateFilterStatus();
+            updateTableOfContents();
+            displayPoem();
+        }
+
+        function updateFilterButtons() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.filter === currentFilter) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        function updateFilterStatus() {
+            const statusText = currentFilter === 'all'
+                ? `Showing all ${filteredPoems.length} items`
+                : `Showing ${filteredPoems.length} ${currentFilter}${filteredPoems.length !== 1 ? 's' : ''}`;
+            filterStatus.textContent = statusText;
+        }
+
+        function updateTableOfContents() {
+            tocItems.innerHTML = '';
+            filteredPoems.forEach((poem, index) => {
+                const tocItem = document.createElement('div');
+                tocItem.className = 'toc-item';
+                if (index === currentIndex) {
+                    tocItem.classList.add('current');
+                }
+
+                tocItem.innerHTML = `
+                    <div class="toc-title">${poem.title || 'Untitled'}</div>
+                    <div class="toc-meta">
+                        <span class="toc-type">${poem.type || 'poem'}</span>
+                        ${poem.status || 'published'}
+                    </div>
+                `;
+
+                tocItem.addEventListener('click', () => {
+                    currentIndex = index;
+                    displayPoem();
+                    updateTableOfContents();
+                    // Close TOC on mobile after selection
+                    if (window.innerWidth <= 768) {
+                        tableOfContents.classList.remove('active');
+                        mainContainer.classList.remove('toc-open');
+                    }
+                });
+
+                tocItems.appendChild(tocItem);
+            });
+        }
+
+        // Event listeners for filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                applyFilter(btn.dataset.filter);
+            });
+        });
+
+        // Table of contents toggle
+        tocToggle.addEventListener('click', () => {
+            tableOfContents.classList.toggle('active');
+            mainContainer.classList.toggle('toc-open');
+        });
+
+        // Close TOC when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!tableOfContents.contains(e.target) && !tocToggle.contains(e.target)) {
+                if (tableOfContents.classList.contains('active')) {
+                    tableOfContents.classList.remove('active');
+                    mainContainer.classList.remove('toc-open');
+                }
+            }
+        });
+
+        // Display poem
+        function displayPoem() {
+            if (filteredPoems.length === 0) {
+                contentArea.innerHTML = '<div class="no-content"><p>No content found for this filter</p></div>';
+                return;
+            }
+
+            const poem = filteredPoems[currentIndex];
+
+            // Update the main title and author with animation
+            const dynamicTitle = document.getElementById('dynamicTitle');
+            const authorDisplay = document.getElementById('authorDisplay');
+
+            dynamicTitle.style.opacity = '0';
+            authorDisplay.style.opacity = '0';
+            authorDisplay.style.transform = 'translateX(10px)';
+
+            setTimeout(() => {
+                dynamicTitle.textContent = poem.title || 'वृन्दोपनिषद्';
+                authorDisplay.textContent = poem.excerpt || '';
+                dynamicTitle.style.opacity = '1';
+                authorDisplay.style.opacity = '1';
+                authorDisplay.style.transform = 'translateX(0)';
+            }, 250);
+
+            const navigation = filteredPoems.length > 1 ? `
+                <div class="navigation">
+                    <button class="nav-btn" ${currentIndex === 0 ? 'disabled' : ''} onclick="previousPoem()">← Previous</button>
+                    <div class="poem-counter">${currentIndex + 1} of ${filteredPoems.length}</div>
+                    <button class="nav-btn" ${currentIndex === filteredPoems.length - 1 ? 'disabled' : ''} onclick="nextPoem()">Next →</button>
+                </div>
+            ` : '';
+
+            const tags = poem.tags && poem.tags.length > 0 ?
+                `<div class="poem-tags">${poem.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : '';
+
+            const content = formatContent(poem.content || '');
+
+            contentArea.innerHTML = `
+                <div class="reader">
+                    <h2 class="poem-title">${poem.title || 'वृन्दोपनिषद्'}</h2>
+                    <div class="poem-meta">
+                        <div class="poem-author">${poem.excerpt || 'वृन्दावन'}</div>
+                        <div class="poem-type">${poem.type || 'Bhaav'}</div>
+                        <div class="poem-status ${poem.status === 'draft' ? 'draft' : ''}">${poem.status || 'published'}</div>
+                    </div>
+                    ${tags}
+                    <div class="poem-content">${content}</div>
+                </div>
+                ${navigation}
+            `;
+
+            // Update TOC current item
+            updateTableOfContents();
+        }
+
+        function formatContent(content) {
+            if (!content) return '';
+
+            const words = content.trim().split(/\s+/);
+            if (words.length > 5 && words.every(word => word.toLowerCase() === words[0].toLowerCase())) {
+                const uniqueWord = words[0];
+                const count = words.length;
+
+                if (count > 20) {
+                    let formatted = '';
+                    for (let i = 0; i < count; i++) {
+                        if (i > 0 && i % 10 === 0) {
+                            formatted += '\n\n';
+                        } else if (i > 0) {
+                            formatted += ' ';
+                        }
+                        formatted += uniqueWord;
+                    }
+                    return formatted;
+                }
+            }
+
+            return content.replace(/\n\s*\n/g, '\n\n');
+        }
+
+        function previousPoem() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                displayPoem();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function nextPoem() {
+            if (currentIndex < filteredPoems.length - 1) {
+                currentIndex++;
+                displayPoem();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Font size controls
+        fontDown.addEventListener('click', () => {
+            const content = document.querySelector('.poem-content');
+            if (content) {
+                const currentSize = parseFloat(window.getComputedStyle(content).fontSize);
+                const newSize = Math.max(currentSize * 0.85, 16);
+                content.style.fontSize = newSize + 'px';
+            }
+        });
+
+        fontUp.addEventListener('click', () => {
+            const content = document.querySelector('.poem-content');
+            if (content) {
+                const currentSize = parseFloat(window.getComputedStyle(content).fontSize);
+                const newSize = Math.min(currentSize * 1.15, 40);
+                content.style.fontSize = newSize + 'px';
+            }
+        });
+
+        // Theme toggle
+        let isDark = false;
+        themeToggle.addEventListener('click', () => {
+            if (isDark) {
+                document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                themeToggle.textContent = '🌙';
+            } else {
+                document.body.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)';
+                themeToggle.textContent = '☀️';
+            }
+            isDark = !isDark;
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                previousPoem();
+            }
+            if (e.key === 'ArrowRight' && currentIndex < filteredPoems.length - 1) {
+                nextPoem();
+            }
+            if ((e.ctrlKey || e.metaKey) && e.key === '+') {
+                e.preventDefault();
+                fontUp.click();
+            }
+            if ((e.ctrlKey || e.metaKey) && e.key === '-') {
+                e.preventDefault();
+                fontDown.click();
+            }
+            if (e.key === 'Escape') {
+                tableOfContents.classList.remove('active');
+                mainContainer.classList.remove('toc-open');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && tableOfContents.classList.contains('active')) {
+                mainContainer.classList.add('toc-open');
+            } else if (window.innerWidth <= 768) {
+                mainContainer.classList.remove('toc-open');
+            }
+        });
+    </script>
+</body>
+
+</html>

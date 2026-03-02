@@ -1,0 +1,30 @@
+:root {
+    /* Social Media Links - Used in Home, About, Footer */
+    --link-youtube: "https://www.youtube.com/@vrindopnishad";
+    --link-facebook: "https://www.facebook.com/vrindopnishad";
+    --link-instagram: "https://www.instagram.com/vrindopnishad";
+    
+    /* Community Links - Used in Home, About */
+    --link-whatsapp-channel: "https://whatsapp.com/channel/0029Vb6UR3Z9mrGcDXbHzA1Q";
+    --link-whatsapp-chat: "https://chat.whatsapp.com/JUUD0zZCbPyIemAQsxUdRm?mode=ems_copy_c";
+    
+    /* Internal Navigation - Used across all pages */
+    --link-home: "/Home/main/home.html";
+    --link-gallery: "/Gallery/main/Gallery.html";
+    --link-collection: "/Gallery/Collection/index.html";
+    --link-stack: "/Stack/main/stack.html";
+    --link-about: "/about code/main/about.html";
+    --link-pictures: "/Pictures/main/pic-collection.html";
+    --link-pictures-collection: "/Pictures/main/collection-page.html";
+    --link-stack: "/Stack/main/stack.html";
+    --link-readme: "/sketch/main/read-me.html";
+    --link-book: "/book/main/book.html";
+    --link-web-content-manager: "/web content manager/";
+    --link-pdf-viewer: "/pdf/main/pdf-viewer.html";
+    
+    /* Team Links - Used in About page */
+    --link-linkedin-team-member-yash: "";
+    --link-linkedin-team-member-hariom: "";
+    --link-linkedin-team-member-hemraj: "";
+    --link-linkedin-team-member-punit: "";
+}

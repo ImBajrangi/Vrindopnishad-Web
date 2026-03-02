@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write Content - Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="write.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <!-- Admin Login Section -->
+    <div class="admin-login" id="adminLogin">
+        <div class="login-container">
+            <h2>Admin Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel Section -->
+    <div class="admin-panel hidden" id="adminPanel">
+        <!-- Header -->
+        <header class="write-header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-pen-fancy"></i>
+                    <h1>Content Editor</h1>
+                </div>
+                <div class="write-controls">
+                    <button class="write-control" id="saveDraft">
+                        <i class="fas fa-save"></i>
+                        Save Draft
+                    </button>
+                    <button class="write-control" id="publishContent">
+                        <i class="fas fa-paper-plane"></i>
+                        Publish
+                    </button>
+                    <button class="write-control" id="previewContent">
+                        <i class="fas fa-eye"></i>
+                        Preview
+                    </button>
+                    <button class="write-control" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="write-wrapper">
+            <!-- Sidebar -->
+            <aside class="write-sidebar">
+                <!-- Format Tools -->
+                <section class="sidebar-section">
+                    <h2>Format Tools</h2>
+                    <div class="format-tools">
+                        <button class="format-btn" data-format="bold">
+                            <i class="fas fa-bold"></i>
+                        </button>
+                        <button class="format-btn" data-format="italic">
+                            <i class="fas fa-italic"></i>
+                        </button>
+                        <button class="format-btn" data-format="underline">
+                            <i class="fas fa-underline"></i>
+                        </button>
+                        <button class="format-btn" data-format="strikethrough">
+                            <i class="fas fa-strikethrough"></i>
+                        </button>
+                        <button class="format-btn" data-format="h1">
+                            <i class="fas fa-heading"></i>
+                        </button>
+                        <button class="format-btn" data-format="h2">
+                            <i class="fas fa-heading"></i>
+                        </button>
+                        <button class="format-btn" data-format="h3">
+                            <i class="fas fa-heading"></i>
+                        </button>
+                        <button class="format-btn" data-format="quote">
+                            <i class="fas fa-quote-right"></i>
+                        </button>
+                        <button class="format-btn" data-format="list-ul">
+                            <i class="fas fa-list-ul"></i>
+                        </button>
+                        <button class="format-btn" data-format="list-ol">
+                            <i class="fas fa-list-ol"></i>
+                        </button>
+                        <button class="format-btn" data-format="link">
+                            <i class="fas fa-link"></i>
+                        </button>
+                        <button class="format-btn" data-format="code">
+                            <i class="fas fa-code"></i>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Media Tools -->
+                <section class="sidebar-section">
+                    <h2>Media Tools</h2>
+                    <div class="media-tools">
+                        <div class="media-upload">
+                            <input type="file" id="imageUpload" accept="image/*" class="media-input" hidden>
+                            <button class="media-btn" id="uploadImage" type="button">
+                                <i class="fas fa-image"></i>
+                                <span>Image</span>
+                            </button>
+                        </div>
+                        <div class="media-upload">
+                            <input type="file" id="videoUpload" accept="video/*" class="media-input" hidden>
+                            <button class="media-btn" id="uploadVideo" type="button">
+                                <i class="fas fa-video"></i>
+                                <span>Video</span>
+                            </button>
+                        </div>
+                        <div class="media-upload">
+                            <input type="file" id="audioUpload" accept="audio/*" class="media-input" hidden>
+                            <button class="media-btn" id="uploadAudio" type="button">
+                                <i class="fas fa-music"></i>
+                                <span>Audio</span>
+                            </button>
+                        </div>
+                        <div class="media-upload">
+                            <input type="file" id="fileUpload" class="media-input" hidden>
+                            <button class="media-btn" id="uploadFile" type="button">
+                                <i class="fas fa-file"></i>
+                                <span>File</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings -->
+                <section class="sidebar-section">
+                    <h2>Settings</h2>
+                    <div class="settings-tools">
+                        <div class="setting-item">
+                            <label for="contentStatus">Status</label>
+                            <select id="contentStatus">
+                                <option value="draft">Draft</option>
+                                <option value="published">Published</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="contentVisibility">Visibility</label>
+                            <select id="contentVisibility">
+                                <option value="public">Public</option>
+                                <option value="private">Private</option>
+                                <option value="password">Password Protected</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="contentSchedule">Schedule</label>
+                            <input type="datetime-local" id="contentSchedule">
+                        </div>
+                        <div class="setting-item">
+                            <label for="contentTemplate">Template</label>
+                            <select id="contentTemplate">
+                                <option value="default">Default</option>
+                                <option value="full-width">Full Width</option>
+                                <option value="sidebar">With Sidebar</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SEO Tools -->
+                <section class="sidebar-section">
+                    <h2>SEO Tools</h2>
+                    <div class="seo-tools">
+                        <div class="seo-field">
+                            <label for="seoTitle">SEO Title</label>
+                            <input type="text" id="seoTitle" maxlength="60">
+                            <div class="char-count">0/60</div>
+                        </div>
+                        <div class="seo-field">
+                            <label for="seoDescription">Meta Description</label>
+                            <textarea id="seoDescription" maxlength="160"></textarea>
+                            <div class="char-count">0/160</div>
+                        </div>
+                        <div class="seo-field">
+                            <label for="seoKeywords">Keywords</label>
+                            <input type="text" id="seoKeywords" placeholder="Add keywords separated by commas">
+                            <div class="keyword-tags"></div>
+                        </div>
+                        <div class="seo-preview">
+                            <h3>Search Preview</h3>
+                            <div class="preview-title">Your SEO title will appear here</div>
+                            <div class="preview-url">yourwebsite.com/page-url</div>
+                            <div class="preview-description">Your meta description will appear here</div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="write-content">
+                <div class="content-header">
+                    <input type="text" class="content-title" placeholder="Enter title here...">
+                    <div class="content-meta">
+                        <input type="text" class="content-tags" placeholder="Add tags separated by commas">
+                        <span class="status-badge draft">Draft</span>
+                    </div>
+                </div>
+                <div class="content-editor" id="content-editor" contenteditable="true" spellcheck="true"></div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Media Upload Modal -->
+    <div class="modal hidden" id="mediaModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Upload Media</h2>
+                <button class="close-modal" type="button">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="media-upload-form">
+                    <div class="form-group">
+                        <label for="mediaTitle">Title</label>
+                        <input type="text" id="mediaTitle" placeholder="Enter media title">
+                    </div>
+                    <div class="form-group">
+                        <label for="mediaCaption">Caption</label>
+                        <textarea id="mediaCaption" placeholder="Enter media caption"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="mediaAlt">Alt Text</label>
+                        <input type="text" id="mediaAlt" placeholder="Enter alt text for accessibility">
+                    </div>
+                    <div class="media-preview"></div>
+                    <div class="media-actions">
+                        <button class="btn btn-primary" id="insertMedia" type="button">Insert Media</button>
+                        <button class="btn btn-secondary" id="cancelMedia" type="button">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications Container -->
+    <div class="notifications"></div>
+
+    <!-- Scripts -->
+    <script src="write.js"></script>
+</body>
+</html> 

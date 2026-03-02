@@ -1,0 +1,1987 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png"
+        type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack - Vrindopnishad</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Protest+Strike&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="/Vrindopnishad Web/web-extentions/Cookie Consent/cookie-consent.css">
+    <style>
+        :root {
+            --bg-color: #fafafa;
+            --bg-color-rgb: 250, 250, 250;
+            --text-color: #0a0a0a;
+            --text-color-rgb: 10, 10, 10;
+            --accent-color: #6366f1;
+            --accent-rgb: 99, 102, 241;
+            --secondary-color: #8b5cf6;
+            --tertiary-color: #ec4899;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.18);
+        }
+
+        /* Advanced Physics Cursor */
+        .cursor {
+            width: 12px;
+            height: 12px;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-core {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--accent-color), var(--secondary-color));
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.8);
+        }
+
+        .cursor-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0.6;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cursor.hover .cursor-ring {
+            width: 60px;
+            height: 60px;
+            border-color: var(--secondary-color);
+            opacity: 1;
+        }
+
+        .cursor.click .cursor-ring {
+            animation: ripple 0.6s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(2.5);
+                opacity: 0;
+            }
+        }
+
+        .cursor-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0;
+            animation: particle-fade 1.2s ease-out forwards;
+        }
+
+        @keyframes particle-fade {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0);
+            }
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, rgba(var(--accent-rgb), 0.6), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9997;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Cursor label bar - positioned perpendicular to connection */
+        .cursor-text {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-color);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transform-origin: left center;
+        }
+
+        /* Connecting line from cursor to label anchor point */
+        .cursor-connector {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+            opacity: 0;
+            transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: left center;
+        }
+
+        .cursor-connector::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.8);
+        }
+
+        .cursor-connector::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+        }
+
+        .cursor-text.active,
+        .cursor-connector.active {
+            opacity: 1;
+        }
+
+        /* Icon inside label */
+        .cursor-text-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            border-radius: 50%;
+            font-size: 10px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0a0a0a;
+                --bg-color-rgb: 10, 10, 10;
+                --text-color: #fafafa;
+                --text-color-rgb: 250, 250, 250;
+                --glass-bg: rgba(20, 20, 20, 0.7);
+                --glass-border: rgba(255, 255, 255, 0.08);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            cursor: none;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+
+            .cursor,
+            .cursor-follower {
+                display: none;
+            }
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(var(--accent-rgb), 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(236, 72, 153, 0.06) 0%, transparent 50%);
+            animation: gradient-shift 20s ease infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gradient-shift {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(5%, 5%) rotate(120deg);
+            }
+
+            66% {
+                transform: translate(-5%, 5%) rotate(240deg);
+            }
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-color), var(--secondary-color), var(--tertiary-color));
+            z-index: 9999;
+            box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.5);
+        }
+
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 1400px;
+            padding: 1rem 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            z-index: 1000;
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        header.scrolled {
+            padding: 0.75rem 1.5rem;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Protest Strike', sans-serif;
+            font-size: clamp(1.25rem, 4vw, 1.5rem);
+            font-weight: 600;
+            text-decoration: none;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            padding: 0.625rem 1.25rem;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(var(--text-color-rgb), 0.05);
+            border-radius: 12px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        nav a:hover::before {
+            opacity: 1;
+        }
+
+        nav a.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.3);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .search-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(var(--text-color-rgb), 0.05);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            color: var(--text-color);
+        }
+
+        .search-toggle:hover {
+            background: rgba(var(--accent-rgb), 0.1);
+            transform: scale(1.05);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.3s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-size: clamp(4rem, 15vw, 12rem);
+            font-weight: 800;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color), var(--tertiary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-text 8s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient-text {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 2vw, 1.5rem);
+            font-weight: 400;
+            margin-bottom: 3rem;
+            max-width: 40ch;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.7;
+        }
+
+        .btn {
+            position: relative;
+            padding: 1rem 2.5rem;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .btn-hero {
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 10px 40px rgba(var(--accent-rgb), 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--secondary-color), var(--tertiary-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-hero::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .btn-hero:hover::after {
+            width: 500px;
+            height: 500px;
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(var(--accent-rgb), 0.5);
+        }
+
+        .btn-hero:hover::before {
+            opacity: 1;
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .book-grid {
+            padding: 4rem 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-section {
+            margin-bottom: 6rem;
+        }
+
+        .category-title {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 800;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--text-color), rgba(var(--text-color-rgb), 0.6));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .category-title.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .books-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .book-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            transform: translateZ(0);
+            opacity: 0;
+            animation: revealCard 0.6s ease forwards;
+        }
+
+        @keyframes revealCard {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .book-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .book-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .book-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .book-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .book-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .book-card:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .book-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1), rgba(139, 92, 246, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .book-card:hover {
+            transform: translateY(-12px) scale(1.02) rotateX(2deg);
+            box-shadow:
+                0 40px 80px rgba(0, 0, 0, 0.2),
+                0 0 0 1px var(--glass-border);
+        }
+
+        .book-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Tilt effect on hover */
+        .book-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 450px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.05), rgba(139, 92, 246, 0.05));
+        }
+
+        .book-cover::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(var(--bg-color-rgb), 0.8) 100%);
+            pointer-events: none;
+        }
+
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: brightness(0.95) contrast(1.05);
+        }
+
+        .book-card:hover .book-cover img {
+            transform: scale(1.15) rotate(2deg);
+            filter: brightness(1) contrast(1.1);
+        }
+
+        .book-info {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .book-info h3 {
+            font-size: clamp(1.375rem, 3vw, 1.625rem);
+            font-weight: 700;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--text-color), rgba(var(--text-color-rgb), 0.7));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+
+        .book-card:hover .book-info h3 {
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .book-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.875rem;
+            opacity: 0.6;
+            flex-wrap: wrap;
+        }
+
+        .book-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .book-info p {
+            font-size: 1rem;
+            opacity: 0.7;
+            line-height: 1.6;
+        }
+
+        .book-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .book-card .btn {
+            flex: 1;
+            text-align: center;
+            font-size: 0.9375rem;
+            padding: 0.875rem 1.5rem;
+            border-radius: 14px;
+            font-weight: 600;
+        }
+
+        .book-card .btn-primary {
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.3);
+        }
+
+        .book-card .btn-primary:hover {
+            box-shadow: 0 6px 25px rgba(var(--accent-rgb), 0.4);
+            transform: translateY(-2px);
+        }
+
+        .book-card .btn-secondary {
+            background: rgba(var(--text-color-rgb), 0.05);
+            color: var(--text-color);
+            border: 1px solid rgba(var(--text-color-rgb), 0.1);
+        }
+
+        .book-card .btn-secondary:hover {
+            background: rgba(var(--text-color-rgb), 0.1);
+            border-color: rgba(var(--text-color-rgb), 0.2);
+        }
+
+        .reading-indicator {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+            box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.6);
+            border-radius: 0 0 24px 24px;
+        }
+
+        /* Search Overlay */
+        .search-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(var(--bg-color-rgb), 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 2rem;
+        }
+
+        .search-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-top: 100px;
+        }
+
+        .search-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-back {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: rgba(var(--text-color-rgb), 0.05);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-color);
+        }
+
+        .search-back:hover {
+            background: rgba(var(--text-color-rgb), 0.1);
+            transform: translateX(-2px);
+        }
+
+        .search-input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.125rem 1.5rem 1.125rem 3.5rem;
+            font-size: 1.125rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--glass-border);
+            border-radius: 16px;
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.1);
+        }
+
+        .search-icon-input {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.5;
+        }
+
+        .search-results {
+            margin-top: 2rem;
+        }
+
+        .search-result-item {
+            display: grid;
+            grid-template-columns: 70px 1fr auto;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid var(--glass-border);
+            align-items: center;
+        }
+
+        .search-result-item:hover {
+            transform: translateX(4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-result-cover {
+            width: 70px;
+            height: 100px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .search-result-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .search-result-info {
+            min-width: 0;
+        }
+
+        .search-result-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .search-result-author {
+            font-size: 0.875rem;
+            opacity: 0.6;
+        }
+
+        .search-result-arrow {
+            opacity: 0.3;
+            transition: all 0.2s ease;
+        }
+
+        .search-result-item:hover .search-result-arrow {
+            opacity: 1;
+            transform: translateX(4px);
+        }
+
+        /* Modal */
+        .book-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(var(--bg-color-rgb), 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 2rem;
+        }
+
+        .book-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            max-width: 1100px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .book-modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: rgba(var(--text-color-rgb), 0.1);
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: rgba(var(--text-color-rgb), 0.2);
+            transform: rotate(90deg);
+        }
+
+        .book-preview {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 3rem;
+            padding: 3rem;
+        }
+
+        .book-cover-3d {
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+        }
+
+        .book-cover-3d img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .book-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .book-details .book-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            line-height: 1.1;
+            background: linear-gradient(135deg, var(--text-color), rgba(var(--text-color-rgb), 0.6));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .book-details .book-description {
+            font-size: 1.0625rem;
+            line-height: 1.7;
+            opacity: 0.8;
+        }
+
+        .book-details .book-meta {
+            display: flex;
+            gap: 2rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        footer {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 4rem 2rem 2rem;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            opacity: 0.7;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            transform: translateX(4px);
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                top: 10px;
+                width: calc(100% - 20px);
+                border-radius: 16px;
+            }
+
+            nav ul {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                height: 100vh;
+                width: 80%;
+                max-width: 300px;
+                background: var(--glass-bg);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 80px 2rem;
+                transition: right 0.3s ease;
+                align-items: stretch;
+                border-left: 1px solid var(--glass-border);
+            }
+
+            nav ul.active {
+                right: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                width: 40px;
+                height: 40px;
+                background: rgba(var(--text-color-rgb), 0.05);
+                border-radius: 12px;
+                border: none;
+                cursor: pointer;
+            }
+
+            .book-preview {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+                gap: 2rem;
+            }
+
+            .book-cover-3d {
+                max-width: 280px;
+                margin: 0 auto;
+            }
+
+            .books-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Advanced Physics Cursor -->
+    <div class="cursor">
+        <div class="cursor-core"></div>
+        <div class="cursor-ring"></div>
+    </div>
+    <div class="cursor-connector"></div>
+    <div class="cursor-text"></div>
+
+    <div class="scroll-progress"></div>
+
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">Vrindopnishad</a>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#collections">Collections</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <button class="search-toggle" id="searchToggle">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="mobile-menu-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="search-overlay">
+        <div class="search-container">
+            <div class="search-header">
+                <button class="search-back" onclick="closeSearch()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="search-input-wrapper">
+                    <i class="fas fa-search search-icon-input"></i>
+                    <input type="text" class="search-input" placeholder="Search for books..." autocomplete="off">
+                </div>
+            </div>
+            <div class="search-results"></div>
+        </div>
+    </div>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">Granthi</h1>
+            <p class="hero-subtitle">Discover timeless wisdom through our curated collection of spiritual texts</p>
+            <a href="#collections" class="btn btn-hero"><span>Explore Collection</span></a>
+        </div>
+    </section>
+
+    <section class="book-grid" id="collections"></section>
+
+    <div class="book-modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="book-preview">
+                <div class="book-3d">
+                    <div class="book-cover-3d">
+                        https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main<https:
+                            //imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainihttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainmhttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainghttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main
+                            https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainshttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainrhttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainchttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main=https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main"https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main"https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main
+                            https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainahttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainlhttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainthttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main=https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main"https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main"https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main>
+                            https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main
+                    </div>
+                </div>
+                <div class="book-details">
+                    <h2 class="book-title"></h2>
+                    <p class="book-description"></p>
+                    <div class="book-meta">
+                        <span class="book-author"><i class="fas fa-user"></i> </span>
+                        <span class="book-year"><i class="fas fa-calendar"></i> </span>
+                    </div>
+                    <div class="book-actions">
+                        <button class="btn btn-primary read-btn">
+                            <span><i class="fas fa-book-open"></i> Read Now</span>
+                        </button>
+                        <button class="btn btn-secondary download-btn">
+                            <span><i class="fas fa-download"></i> Download</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="about">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Vrindopnishad</h3>
+                <p>A digital sanctuary for spiritual wisdom and knowledge, offering timeless teachings from ancient
+                    texts to modern spiritual classics.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#collections">Collections</a></li>
+                    <li><a href="#about">About Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Vrindopnishad. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const booksData = [
+            {
+                id: 1,
+                title: "Bhagavad Gita",
+                description: "The essence of Vedic wisdom expressed through the divine discourse between Krishna and Arjuna on the battlefield of Kurukshetra.",
+                author: "Vyasa",
+                year: "Ancient",
+                category: "vedic",
+                cover: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=600&fit=crop",
+                readingProgress: 0
+            },
+            {
+                id: 2,
+                title: "Upanishads",
+                description: "Ancient philosophical texts that form the theoretical basis for Hindu religion, exploring the nature of reality and consciousness.",
+                author: "Various Rishis",
+                year: "Ancient",
+                category: "vedic",
+                cover: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop",
+                readingProgress: 36
+            },
+            {
+                id: 3,
+                title: "Ramayana",
+                description: "Epic narrative of Lord Rama's journey, depicting ideals of dharma, devotion, and righteousness.",
+                author: "Valmiki",
+                year: "Ancient",
+                category: "puranas",
+                cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=600&fit=crop",
+                readingProgress: 20
+            },
+            {
+                id: 4,
+                title: "Mahabharata",
+                description: "The great epic of India containing profound philosophical teachings and the famous Bhagavad Gita.",
+                author: "Vyasa",
+                year: "Ancient",
+                category: "puranas",
+                cover: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=600&fit=crop",
+                readingProgress: 0
+            },
+            {
+                id: 5,
+                title: "Yoga Sutras",
+                description: "Classical text on yoga philosophy by Patanjali, outlining the eight-fold path to enlightenment.",
+                author: "Patanjali",
+                year: "Ancient",
+                category: "modern",
+                cover: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=600&fit=crop",
+                readingProgress: 60
+            },
+            {
+                id: 6,
+                title: "Autobiography of a Yogi",
+                description: "Paramahansa Yogananda's spiritual classic that has inspired millions on their spiritual journey.",
+                author: "Paramahansa Yogananda",
+                year: "1946",
+                category: "modern",
+                cover: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=400&h=600&fit=crop",
+                readingProgress: 0
+            }
+        ];
+
+        // Advanced Physics-Based Cursor System
+        const cursor = document.querySelector('.cursor');
+        const cursorText = document.querySelector('.cursor-text');
+        const cursorConnector = document.querySelector('.cursor-connector');
+
+        // Physics variables
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let cursorX = mouseX;
+        let cursorY = mouseY;
+        let velocityX = 0;
+        let velocityY = 0;
+
+        // Label bar variables
+        let currentHoveredElement = null;
+        let labelX = 0;
+        let labelY = 0;
+        let labelVelX = 0;
+        let labelVelY = 0;
+
+        // Smooth label animation variables
+        let labelDisplayX = 0;
+        let labelDisplayY = 0;
+        let connectorDisplayLength = 0;
+        let connectorDisplayAngle = 0;
+
+        // Trail system
+        const trails = [];
+        const maxTrails = 15;
+
+        // Particle system
+        let particleCounter = 0;
+
+        // Spring physics constants (Hooke's Law: F = -kx)
+        const SPRING_CONSTANT = 0.35;
+        const DAMPING = 0.75;
+        const MASS = 1;
+        const LABEL_SPRING = 0.18; // Reduced for smoother tracking
+        const LABEL_DAMPING = 0.85; // Increased damping for smoother motion
+        const LABEL_LERP = 0.12; // Interpolation factor for display position
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Create particle trail effect (occasional)
+            particleCounter++;
+            if (particleCounter % 3 === 0) {
+                createParticle(mouseX, mouseY);
+            }
+        });
+
+        // Spring-damped harmonic motion
+        function animateCursor() {
+            // Calculate displacement (Δx = target - current)
+            const dx = mouseX - cursorX;
+            const dy = mouseY - cursorY;
+
+            // Hooke's Law: F = -k * Δx (spring force)
+            const springForceX = dx * SPRING_CONSTANT;
+            const springForceY = dy * SPRING_CONSTANT;
+
+            // Apply damping force: F_damping = -c * v
+            const dampingForceX = -velocityX * DAMPING;
+            const dampingForceY = -velocityY * DAMPING;
+
+            // Total force
+            const totalForceX = springForceX + dampingForceX;
+            const totalForceY = springForceY + dampingForceY;
+
+            // F = ma, therefore a = F/m (acceleration)
+            const accelerationX = totalForceX / MASS;
+            const accelerationY = totalForceY / MASS;
+
+            // Update velocity: v = v0 + a*Δt (Δt = 1 frame)
+            velocityX += accelerationX;
+            velocityY += accelerationY;
+
+            // Update position: x = x0 + v*Δt
+            cursorX += velocityX;
+            cursorY += velocityY;
+
+            // Apply position with sub-pixel rendering
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+
+            // Update cursor text position
+            cursorText.style.left = cursorX + 'px';
+            cursorText.style.top = cursorY + 'px';
+
+            // Update label bar position with improved smooth tracking
+            if (currentHoveredElement) {
+                const rect = currentHoveredElement.getBoundingClientRect();
+                const targetX = rect.left + rect.width / 2;
+                const targetY = rect.top + rect.height / 2;
+
+                // Spring physics for label tracking
+                const dx = targetX - labelX;
+                const dy = targetY - labelY;
+                const springForceX = dx * LABEL_SPRING;
+                const springForceY = dy * LABEL_SPRING;
+                const dampingForceX = -labelVelX * LABEL_DAMPING;
+                const dampingForceY = -labelVelY * LABEL_DAMPING;
+
+                labelVelX += springForceX + dampingForceX;
+                labelVelY += springForceY + dampingForceY;
+                labelX += labelVelX;
+                labelY += labelVelY;
+
+                // Vector from cursor to target
+                const dirX = labelX - cursorX;
+                const dirY = labelY - cursorY;
+                const distance = Math.sqrt(dirX * dirX + dirY * dirY);
+
+                // Normalize direction vector
+                const normX = dirX / distance;
+                const normY = dirY / distance;
+
+                // Fixed connector length (always 100px from cursor)
+                const connectorLength = Math.min(100, distance * 0.7);
+
+                // End point of connector
+                const connectorEndX = cursorX + normX * connectorLength;
+                const connectorEndY = cursorY + normY * connectorLength;
+
+                // Calculate perpendicular offset for label
+                const perpX = -normY;
+                const perpY = normX;
+
+                // Smart positioning
+                const offsetDistance = 35;
+                let labelOffsetX = perpX * offsetDistance;
+                let labelOffsetY = perpY * offsetDistance;
+
+                const isAbove = cursorY > targetY;
+                if (Math.abs(dirX) < Math.abs(dirY)) {
+                    labelOffsetX = (dirX > 0 ? 1 : -1) * offsetDistance;
+                    labelOffsetY = 0;
+                } else {
+                    labelOffsetX = 0;
+                    labelOffsetY = (isAbove ? -1 : 1) * offsetDistance;
+                }
+
+                // Target label position
+                const targetLabelX = connectorEndX + labelOffsetX;
+                const targetLabelY = connectorEndY + labelOffsetY;
+
+                // Smooth interpolation (lerp) for display position
+                labelDisplayX += (targetLabelX - labelDisplayX) * LABEL_LERP;
+                labelDisplayY += (targetLabelY - labelDisplayY) * LABEL_LERP;
+
+                // Smooth connector animation
+                const targetAngle = Math.atan2(connectorEndY - cursorY, connectorEndX - cursorX) * (180 / Math.PI);
+                connectorDisplayLength += (connectorLength - connectorDisplayLength) * LABEL_LERP;
+
+                // Smooth angle interpolation (handle 360° wrap)
+                let angleDiff = targetAngle - connectorDisplayAngle;
+                if (angleDiff > 180) angleDiff -= 360;
+                if (angleDiff < -180) angleDiff += 360;
+                connectorDisplayAngle += angleDiff * LABEL_LERP;
+
+                // Apply smooth positions
+                cursorText.style.left = labelDisplayX + 'px';
+                cursorText.style.top = labelDisplayY + 'px';
+
+                cursorConnector.style.left = cursorX + 'px';
+                cursorConnector.style.top = cursorY + 'px';
+                cursorConnector.style.width = connectorDisplayLength + 'px';
+                cursorConnector.style.transform = `rotate(${connectorDisplayAngle}deg)`;
+            }
+
+            // Create trail
+            createTrail(cursorX, cursorY);
+            updateTrails();
+
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Trail creation with exponential decay
+        function createTrail(x, y) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.left = x + 'px';
+            trail.style.top = y + 'px';
+            document.body.appendChild(trail);
+
+            trails.push({
+                element: trail,
+                x: x,
+                y: y,
+                life: 1.0,
+                velocity: Math.sqrt(velocityX * velocityX + velocityY * velocityY) * 0.1
+            });
+
+            if (trails.length > maxTrails) {
+                const oldTrail = trails.shift();
+                oldTrail.element.remove();
+            }
+        }
+
+        // Update trails with alpha decay
+        function updateTrails() {
+            trails.forEach((trail, index) => {
+                // Exponential decay: α(t) = α0 * e^(-λt)
+                trail.life *= 0.92; // Decay factor
+                trail.element.style.opacity = trail.life;
+                trail.element.style.transform = `translate(-50%, -50%) scale(${trail.life})`;
+
+                if (trail.life < 0.01) {
+                    trail.element.remove();
+                    trails.splice(index, 1);
+                }
+            });
+        }
+
+        // Particle system with physics
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'cursor-particle';
+
+            // Random angle and velocity (polar coordinates)
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = 2 + Math.random() * 3;
+            const vx = Math.cos(angle) * velocity;
+            const vy = Math.sin(angle) * velocity;
+
+            let px = x;
+            let py = y;
+            let life = 1.0;
+
+            particle.style.left = px + 'px';
+            particle.style.top = py + 'px';
+            document.body.appendChild(particle);
+
+            function animateParticle() {
+                // Apply gravity and velocity
+                py += vy + 0.5; // Gravity constant
+                px += vx;
+                life *= 0.95;
+
+                particle.style.left = px + 'px';
+                particle.style.top = py + 'px';
+                particle.style.opacity = life;
+
+                if (life > 0.05) {
+                    requestAnimationFrame(animateParticle);
+                } else {
+                    particle.remove();
+                }
+            }
+            animateParticle();
+        }
+
+        // Magnetic attraction to interactive elements
+        function magneticEffect(element) {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            // Calculate distance vector
+            const dx = centerX - mouseX;
+            const dy = centerY - mouseY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            // Magnetic radius
+            const magnetRadius = 100;
+
+            if (distance < magnetRadius) {
+                // Inverse square law for magnetic force: F ∝ 1/r²
+                const force = Math.pow(1 - distance / magnetRadius, 2);
+                const pullX = dx * force * 0.3;
+                const pullY = dy * force * 0.3;
+
+                // Apply magnetic pull
+                mouseX += pullX;
+                mouseY += pullY;
+            }
+        }
+
+        // Click effect
+        document.addEventListener('mousedown', () => {
+            cursor.classList.add('click');
+
+            // Create ripple particles
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => createParticle(cursorX, cursorY), i * 50);
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.classList.remove('click');
+        });
+
+        // Enhanced hover effects with labels and icons
+        const interactiveElements = {
+            'a': { text: 'Navigate', icon: '→' },
+            'button': { text: 'Click', icon: '✦' },
+            '.book-card': { text: 'View Details', icon: '👁' },
+            '.btn-primary': { text: 'Read Now', icon: '📖' },
+            '.btn-secondary': { text: 'More Info', icon: 'ℹ' },
+            '.search-toggle': { text: 'Search Books', icon: '🔍' },
+            '.logo': { text: 'Home', icon: '⌂' }
+        };
+
+        function updateCursorText(text, icon) {
+            cursorText.innerHTML = `<span class="cursor-text-icon">${icon}</span><span>${text}</span>`;
+        }
+
+        function showCursorLabel(element) {
+            currentHoveredElement = element;
+            const rect = element.getBoundingClientRect();
+            labelX = rect.left + rect.width / 2;
+            labelY = rect.top + rect.height / 2;
+
+            // Initialize display positions to prevent jump
+            if (labelDisplayX === 0 && labelDisplayY === 0) {
+                labelDisplayX = labelX;
+                labelDisplayY = labelY;
+            }
+
+            labelVelX = 0;
+            labelVelY = 0;
+            cursorText.classList.add('active');
+            cursorConnector.classList.add('active');
+        }
+
+        function hideCursorLabel() {
+            currentHoveredElement = null;
+            cursorText.classList.remove('active');
+            cursorConnector.classList.remove('active');
+        }
+
+        Object.entries(interactiveElements).forEach(([selector, data]) => {
+            document.querySelectorAll(selector).forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hover');
+                    updateCursorText(data.text, data.icon);
+                    showCursorLabel(el);
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover');
+                    hideCursorLabel();
+                });
+
+                // Apply magnetic effect on mouse move near element
+                el.addEventListener('mousemove', () => {
+                    magneticEffect(el);
+                });
+            });
+        });
+
+        // Card tilt effect
+        function handleCardTilt(e) {
+            const card = e.currentTarget;
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-12px) scale(1.02)`;
+        }
+
+        function resetCardTilt(e) {
+            const card = e.currentTarget;
+            card.style.transform = '';
+        }
+
+        // Scroll reveal animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.hero-title, .hero-subtitle');
+            parallaxElements.forEach((el, index) => {
+                const speed = (index + 1) * 0.5;
+                el.style.transform = `translateY(${scrolled * speed * 0.1}px)`;
+            });
+        });
+
+        function groupBooksByCategory(books) {
+            return books.reduce((acc, book) => {
+                if (!acc[book.category]) acc[book.category] = [];
+                acc[book.category].push(book);
+                return acc;
+            }, {});
+        }
+
+        function formatCategoryTitle(category) {
+            return category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        }
+
+        function truncateText(text, maxLength) {
+            return text.length <= maxLength ? text : text.substr(0, maxLength) + '...';
+        }
+
+        function createBookCard(book) {
+            return `
+                <div class="book-card" data-book-id="${book.id}">
+                    <div class="book-cover">
+                        <img src="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main/${book.cover}" alt="${book.title}" loading="lazy">
+                    </div>
+                    <div class="book-info">
+                        <h3>${book.title}</h3>
+                        <div class="book-meta">
+                            <span><i class="fas fa-user"></i> ${book.author}</span>
+                            <span><i class="fas fa-calendar"></i> ${book.year}</span>
+                        </div>
+                        <p>${truncateText(book.description, 120)}</p>
+                        <div class="book-actions">
+                            <button class="btn btn-primary" onclick="event.stopPropagation()"><span>Read Now</span></button>
+                            <button class="btn btn-secondary" onclick="openBookModal(${book.id}); event.stopPropagation()"><span>Details</span></button>
+                        </div>
+                    </div>
+                    ${book.readingProgress ? `<div class="reading-indicator" style="width: ${book.readingProgress}%"></div>` : ''}
+                </div>
+            `;
+        }
+
+        function renderBooks(books) {
+            const bookGrid = document.querySelector('.book-grid');
+            const categories = groupBooksByCategory(books);
+            let html = '';
+
+            Object.entries(categories).forEach(([category, categoryBooks]) => {
+                html += `
+                    <div class="category-section">
+                        <h2 class="category-title">${formatCategoryTitle(category)}</h2>
+                        <div class="books-container">
+                            ${categoryBooks.map(book => createBookCard(book)).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            bookGrid.innerHTML = html;
+
+            // Add event listeners to cards
+            document.querySelectorAll('.book-card').forEach(card => {
+                card.addEventListener('click', function () {
+                    const bookId = parseInt(this.getAttribute('data-book-id'));
+                    openBookModal(bookId);
+                });
+
+                // Add tilt effect
+                card.addEventListener('mousemove', handleCardTilt);
+                card.addEventListener('mouseleave', resetCardTilt);
+
+                // Magnetic and cursor hover
+                card.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hover');
+                    updateCursorText('View Details', '👁');
+                    showCursorLabel(card);
+                });
+                card.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover');
+                    hideCursorLabel();
+                });
+                card.addEventListener('mousemove', () => {
+                    magneticEffect(card);
+                });
+            });
+
+            // Observe category titles for scroll reveal
+            document.querySelectorAll('.category-title').forEach(title => {
+                observer.observe(title);
+            });
+
+            // Update hover for dynamically created buttons
+            document.querySelectorAll('.btn-primary').forEach(btn => {
+                btn.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hover');
+                    updateCursorText('Read Now', '📖');
+                    showCursorLabel(btn);
+                });
+                btn.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover');
+                    hideCursorLabel();
+                });
+            });
+
+            document.querySelectorAll('.btn-secondary').forEach(btn => {
+                btn.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hover');
+                    updateCursorText('More Info', 'ℹ');
+                    showCursorLabel(btn);
+                });
+                btn.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover');
+                    hideCursorLabel();
+                });
+            });
+        }
+
+        function openBookModal(bookId) {
+            const book = booksData.find(b => b.id === bookId);
+            if (!book) return;
+
+            const modal = document.querySelector('.book-modal');
+            modal.querySelector('.book-cover-3d img').src = book.cover;
+            modal.querySelector('.book-cover-3d img').alt = book.title;
+            modal.querySelector('.book-title').textContent = book.title;
+            modal.querySelector('.book-description').textContent = book.description;
+            modal.querySelector('.book-author').innerHTML = `<i class="fas fa-user"></i> By ${book.author}`;
+            modal.querySelector('.book-year').innerHTML = `<i class="fas fa-calendar"></i> ${book.year}`;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBookModal() {
+            const modal = document.querySelector('.book-modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelector('.modal-close').addEventListener('click', closeBookModal);
+        document.querySelector('.book-modal').addEventListener('click', function (e) {
+            if (e.target === this) closeBookModal();
+        });
+
+        // Search
+        const searchToggle = document.getElementById('searchToggle');
+        const searchOverlay = document.querySelector('.search-overlay');
+        const searchInput = document.querySelector('.search-input');
+        const searchResults = document.querySelector('.search-results');
+
+        searchToggle.addEventListener('click', () => {
+            searchOverlay.classList.toggle('active');
+            if (searchOverlay.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => searchInput.focus(), 100);
+            } else {
+                closeSearch();
+            }
+        });
+
+        function closeSearch() {
+            searchOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+            searchInput.value = '';
+            searchResults.innerHTML = '';
+        }
+
+        searchOverlay.addEventListener('click', function (e) {
+            if (e.target === this) closeSearch();
+        });
+
+        searchInput.addEventListener('input', function (e) {
+            const query = e.target.value.trim().toLowerCase();
+
+            if (query.length < 2) {
+                searchResults.innerHTML = '';
+                return;
+            }
+
+            const results = booksData.filter(book =>
+                book.title.toLowerCase().includes(query) ||
+                book.author.toLowerCase().includes(query) ||
+                book.description.toLowerCase().includes(query)
+            );
+
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div style="text-align:center;padding:3rem;opacity:0.6;">No results found</div>';
+                return;
+            }
+
+            searchResults.innerHTML = results.map(book => `
+                <div class="search-result-item" onclick="openBookModal(${book.id}); closeSearch();">
+                    <div class="search-result-cover">
+                        <img src="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main/${book.cover}" alt="${book.title}">
+                    </div>
+                    <div class="search-result-info">
+                        <div class="search-result-title">${book.title}</div>
+                        <div class="search-result-author"><i class="fas fa-user"></i> ${book.author}</div>
+                    </div>
+                    <div class="search-result-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            `).join('');
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeBookModal();
+                closeSearch();
+            }
+        });
+
+        // Scroll
+        let ticking = false;
+        function updateScrollProgress() {
+            const scrollPercent = (window.scrollY / (document.body.offsetHeight - window.innerHeight)) * 100;
+            requestAnimationFrame(() => {
+                document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+            });
+        }
+
+        window.addEventListener('scroll', function () {
+            if (!ticking) {
+                window.requestAnimationFrame(function () {
+                    const header = document.querySelector('header');
+                    if (window.scrollY > 50) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                    updateScrollProgress();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Mobile menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('nav ul');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('nav') && !e.target.closest('.mobile-menu-btn') && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        renderBooks(booksData);
+    </script>
+    <script src="/Vrindopnishad Web/web-extentions/Cookie Consent/cookie-consent.js"></script>
+</body>
+
+</html>

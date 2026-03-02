@@ -1,0 +1,324 @@
+.menu-overlay {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: calc(100vh - 60px);
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9985;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ============================================
+   Modern Fullscreen Mobile Navigation Menu
+   ============================================ */
+nav:not(.main-nav) {
+    position: fixed !important;
+    top: 60px !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: calc(100vh - 60px) !important;
+    height: calc(100dvh - 60px) !important;
+    background: #121212 !important;
+    z-index: 9990 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    padding: 3rem 2rem;
+    padding-bottom: env(safe-area-inset-bottom);
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    overflow-y: auto;
+}
+
+@media (prefers-color-scheme: light) {
+    nav:not(.main-nav) {
+        background: #ffffff !important;
+    }
+}
+
+nav:not(.main-nav).active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Decorative gradient accent line */
+nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 3px;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.5),
+            transparent);
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.6s ease 0.3s;
+}
+
+@media (prefers-color-scheme: light) {
+    nav::before {
+        background: linear-gradient(90deg,
+                transparent,
+                rgba(0, 0, 0, 0.3),
+                transparent);
+    }
+}
+
+nav.active::before {
+    opacity: 1;
+}
+
+/* Navigation list container */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Individual menu items */
+nav ul li {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+nav.active ul li {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered animation delays */
+nav.active ul li:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+nav.active ul li:nth-child(2) {
+    transition-delay: 0.15s;
+}
+
+nav.active ul li:nth-child(3) {
+    transition-delay: 0.2s;
+}
+
+nav.active ul li:nth-child(4) {
+    transition-delay: 0.25s;
+}
+
+nav.active ul li:nth-child(5) {
+    transition-delay: 0.3s;
+}
+
+nav.active ul li:nth-child(6) {
+    transition-delay: 0.35s;
+}
+
+/* Menu links styling */
+nav ul li a {
+    display: block;
+    padding: 1rem 2.5rem;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+}
+
+@media (prefers-color-scheme: light) {
+    nav ul li a {
+        color: rgba(0, 0, 0, 0.6);
+    }
+}
+
+/* Hover and focus states */
+nav ul li a:hover,
+nav ul li a:focus {
+    color: #ffffff;
+    transform: scale(1.08);
+}
+
+@media (prefers-color-scheme: light) {
+
+    nav ul li a:hover,
+    nav ul li a:focus {
+        color: #000000;
+    }
+}
+
+/* Underline animation on hover */
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.8),
+            transparent);
+    border-radius: 1px;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (prefers-color-scheme: light) {
+    nav ul li a::after {
+        background: linear-gradient(90deg,
+                transparent,
+                rgba(0, 0, 0, 0.6),
+                transparent);
+    }
+}
+
+nav ul li a:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* Active page link styling */
+nav ul li a.active,
+nav ul li a[aria-current="page"] {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+@media (prefers-color-scheme: light) {
+
+    nav ul li a.active,
+    nav ul li a[aria-current="page"] {
+        color: #000000;
+    }
+}
+
+/* Active indicator dot */
+nav ul li a.active::before,
+nav ul li a[aria-current="page"]::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@media (prefers-color-scheme: light) {
+
+    nav ul li a.active::before,
+    nav ul li a[aria-current="page"]::before {
+        background: #000000;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+}
+
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: translateY(-50%) scale(0.85);
+    }
+}
+
+/* Touch/Active feedback for mobile */
+nav ul li a:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+}
+
+/* Elegant menu button - ensure it stays on top */
+.menu {
+    position: relative;
+    z-index: 1001;
+}
+
+/* Body scroll lock when menu is open */
+body.menu-open {
+    overflow: hidden;
+}
+
+/* Close hint at bottom */
+nav::after {
+    content: 'Tap outside to close';
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.5s;
+}
+
+@media (prefers-color-scheme: light) {
+    nav::after {
+        color: rgba(0, 0, 0, 0.3);
+    }
+}
+
+nav.active::after {
+    opacity: 1;
+}
+
+/* Optional: Add subtle background pattern */
+nav>.nav-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px,
+            transparent 1px);
+    background-size: 30px 30px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s ease 0.2s;
+}
+
+nav.active>.nav-pattern {
+    opacity: 1;
+}
+
+/* Extra polish: Menu items scale animation on close */
+nav:not(.active) ul li {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}

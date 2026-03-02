@@ -1,0 +1,46 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Custom Cursor Emitter
+    link(rel="stylesheet" href="styles/main.scss")
+  body
+    .cursor-dot
+    .cursor-circle
+    img#svg-cursor-check(src="/class/Custom Cursor/check-stroke.svg")
+    img#svg-cursor-close(src="/class/Custom Cursor/close-stroke.svg")
+    img#svg-cursor-notallowed(src="/class/Custom Cursor/not-allowed.svg")
+
+    .container
+      .hero
+        h1 Interactive Cursor Experience
+        p Explore different cursor states and animations
+        
+      .test-section
+        h2 Cursor Test Area
+        p Hover over different elements to see cursor variations
+        
+        .test-grid
+          .test-block
+            h3 Success Cursor
+            button.btn.success Hover for Check ✓
+          
+          .test-block
+            h3 Close Cursor
+            button.btn.close Hover for Close ×
+          
+          .test-block
+            h3 Not Allowed Cursor
+            button.btn.disabled Disabled Button
+          
+          .test-block
+            h3 Text Cursor
+            p.test-text This is selectable text to test the text cursor variation.
+          
+          .test-block
+            h3 Card Hover Effect
+            .card.test-card
+              p Hover over this card to see the default hover effect
+
+    script(type="module" src="scripts/cursor.js")

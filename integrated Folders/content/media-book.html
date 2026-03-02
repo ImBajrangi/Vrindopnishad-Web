@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png" type="image/png">
+    <meta charset="utf-8" />
+    <title>Interactive Media Book Experience</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Laila:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&family=Prompt:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="./media-book.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Preload GSAP for smoother initialization -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" as="script" />
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" />
+    
+    <!-- Initial style for smoother page load -->
+    <style>
+      .smooth-appearance {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      .page-loaded .smooth-appearance {
+        opacity: 1;
+      }
+      body {
+        opacity: 0.99;
+        transition: opacity 0.3s ease;
+      }
+      body.page-loaded {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="book-header">
+      <div class="header-content">
+        <div class="logo">
+          <i class="fas fa-book-open"></i>
+          <h1>Interactive Media Book</h1>
+        </div>
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="book-controls">
+          <button class="book-control" id="toggle-toc">
+            <i class="fas fa-list"></i>
+            <span>Contents</span>
+          </button>
+          <button class="book-control" id="toggle-theme">
+            <i class="fas fa-moon"></i>
+            <span>Theme</span>
+          </button>
+          <button class="book-control" id="toggle-fullscreen">
+            <i class="fas fa-expand"></i>
+            <span>Fullscreen</span>
+          </button>
+        </div>
+      </div>
+      <div class="book-progress">
+        <div class="progress-bar" id="reading-progress"></div>
+      </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-header">
+        <h3>Menu</h3>
+        <button class="close-mobile-menu" id="close-mobile-menu">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="mobile-menu-content">
+        <ul class="mobile-menu-items">
+          <li>
+            <button class="mobile-menu-item" id="mobile-toc">
+              <i class="fas fa-list"></i>
+              <span>Table of Contents</span>
+            </button>
+          </li>
+          <li>
+            <button class="mobile-menu-item" id="mobile-theme">
+              <i class="fas fa-moon"></i>
+              <span>Toggle Dark Mode</span>
+            </button>
+          </li>
+          <li>
+            <button class="mobile-menu-item" id="mobile-fullscreen">
+              <i class="fas fa-expand"></i>
+              <span>Toggle Fullscreen</span>
+            </button>
+          </li>
+          <li>
+            <button class="mobile-menu-item" id="mobile-share">
+              <i class="fas fa-link"></i>
+              <span>Share Book</span>
+            </button>
+          </li>
+          <li>
+            <button class="mobile-menu-item" id="mobile-restart">
+              <i class="fas fa-redo"></i>
+              <span>Restart Book</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+      
+    <div class="page-navigator">
+      <button class="nav-btn prev-btn" id="prev-page" aria-label="Previous page">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <div class="page-indicator">
+        <span id="current-page">1</span>/<span id="total-pages">8</span>
+      </div>
+      <button class="nav-btn next-btn" id="next-page" aria-label="Next page">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <aside class="table-of-contents" id="toc">
+      <div class="toc-header">
+        <h2>Table of Contents</h2>
+        <button class="close-toc" id="close-toc">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <ul class="toc-list">
+        <li class="toc-item active" data-section="vertical-section" data-index="0">
+          <span class="toc-number">1.</span> Introduction
+        </li>
+        <li class="toc-item" data-section="vertical-section" data-index="1">
+          <span class="toc-number">2.</span> YouTube Showcase
+        </li>
+        <li class="toc-item" data-section="vertical-section" data-index="2">
+          <span class="toc-number">3.</span> Canva Designs
+        </li>
+        <li class="toc-item" data-section="vertical-section" data-index="3">
+          <span class="toc-number">4.</span> Mixed Media 1
+        </li>
+        <li class="toc-item" data-section="horizontal-section" data-index="0">
+          <span class="toc-number">5.</span> YouTube Tutorial
+        </li>
+        <li class="toc-item" data-section="horizontal-section" data-index="1">
+          <span class="toc-number">6.</span> Canva Presentation
+        </li>
+        <li class="toc-item" data-section="horizontal-section" data-index="2">
+          <span class="toc-number">7.</span> Mixed Media 2
+        </li>
+        <li class="toc-item" data-section="horizontal-section" data-index="3">
+          <span class="toc-number">8.</span> Conclusion
+        </li>
+      </ul>
+    </aside>
+
+    <main class="main-wrapper">
+      <div class="book-cover" id="book-cover">
+        <div class="cover-content">
+          <h1 class="book-title">Interactive Media Book</h1>
+          <p class="book-subtitle">Explore Canva Designs and YouTube Videos in One Experience</p>
+          <button class="start-reading" id="start-reading">
+            Start Reading <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="section chapter-intro" id="vertical-intro">
+        <div class="container-medium">
+          <div class="padding-vertical">
+            <div class="max-width-large">
+              <div class="chapter-header">
+                <span class="chapter-number">Chapter 1</span>
+                <h1 class="heading">Interactive Media Experience</h1>
+                <p class="chapter-description">
+                  Explore interactive content through a combination of YouTube videos and Canva designs.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-section vertical-section section" id="vertical-section">
+        <div class="wrapper">
+          <div role="list" class="list">
+            <!-- Page 1: Introduction with Canva -->
+            <div role="listitem" class="item">
+              <div class="page-number">Page 1</div>
+              <div class="item_content">
+                <h2 class="item_number">1</h2>
+                <h2>Introduction</h2>
+                <p class="item_p">
+                  Welcome to our interactive media book. This page features a Canva design embed to introduce the concept.
+                </p>
+                <div class="page-actions">
+                  <button class="page-action bookmark" data-section="vertical-section" data-index="0">
+                    <i class="fas fa-bookmark"></i>
+                  </button>
+                  <button class="page-action notes" data-section="vertical-section" data-index="0">
+                    <i class="fas fa-sticky-note"></i>
+                  </button>
+                  <button class="page-action link-page" data-section="vertical-section" data-index="0" data-title="Introduction">
+                    <i class="fas fa-link"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="item_media canva-container">
+                <!-- Canva Embed -->
+                <iframe 
+                  class="canva-iframe"
+                  loading="lazy"
+                  src="https://www.canva.com/design/DAFzaiWqJxM/view?embed" 
+                  allowfullscreen="allowfullscreen"
+                  allow="fullscreen">
+                </iframe>
+              </div>
+            </div>
+            
+            <!-- Page 2: YouTube Showcase -->
+            <div role="listitem" class="item">
+              <div class="page-number">Page 2</div>
+              <div class="item_content">
+                <h2 class="item_number">2</h2>
+                <h2>YouTube Showcase</h2>
+                <p class="item_p">
+                  This page demonstrates how YouTube videos can be integrated into your book experience.
+                </p>
+                <div class="page-actions">
+                  <button class="page-action bookmark" data-section="vertical-section" data-index="1">
+                    <i class="fas fa-bookmark"></i>
+                  </button>
+                  <button class="page-action notes" data-section="vertical-section" data-index="1">
+                    <i class="fas fa-sticky-note"></i>
+                  </button>
+                  <button class="page-action link-page" data-section="vertical-section" data-index="1" data-title="YouTube Showcase">
+                    <i class="fas fa-link"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="item_media youtube-container">
+                <!-- YouTube Embed -->
+                <div class="youtube-wrapper">
+                  <iframe
+                    class="youtube-iframe"
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&enablejsapi=1"
+                    title="YouTube Video"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                  </iframe>
+                </div>
+                <div class="media-controls youtube-controls">
+                  <button class="media-control-btn play-pause-btn" data-index="1">
+                    <i class="fas fa-play"></i>
+                  </button>
+                  <button class="media-control-btn mute-btn" data-index="1">
+                    <i class="fas fa-volume-up"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Page 3: Canva Designs -->
+            <div role="listitem" class="item">
+              <div class="page-number">Page 3</div>
+              <div class="item_content">
+                <h2 class="item_number">3</h2>
+                <h2>Canva Designs</h2>
+                <p class="item_p">
+                  Explore beautiful Canva designs directly embedded in your interactive book.
+                </p>
+                <div class="page-actions">
+                  <button class="page-action bookmark" data-section="vertical-section" data-index="2">
+                    <i class="fas fa-bookmark"></i>
+                  </button>
+                  <button class="page-action notes" data-section="vertical-section" data-index="2">
+                    <i class="fas fa-sticky-note"></i>
+                  </button>
+                  <button class="page-action link-page" data-section="vertical-section" data-index="2" data-title="Canva Designs">
+                    <i class="fas fa-link"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="item_media canva-container">
+                <!-- Canva Embed -->
+                <iframe 
+                  class="canva-iframe"
+                  loading="lazy"
+                  src="https://www.canva.com/design/DAF-hl_yYXA/view?embed" 
+                  allowfullscreen="allowfullscreen"
+                  allow="fullscreen">
+                </iframe>
+              </div>
+            </div>
+            
+            <!-- Page 4: Mixed Media (YouTube + Canva) -->
+            <div role="listitem" class="item mixed-item">
+              <div class="page-number">Page 4</div>
+              <div class="item_content">
+                <h2 class="item_number">4</h2>
+                <h2>Mixed Media Experience</h2>
+                <p class="item_p">
+                  This page combines both YouTube and Canva on the same page for a rich media experience.
+                </p>
+                <div class="page-actions">
+                  <button class="page-action bookmark" data-section="vertical-section" data-index="3">
+                    <i class="fas fa-bookmark"></i>
+                  </button>
+                  <button class="page-action notes" data-section="vertical-section" data-index="3">
+                    <i class="fas fa-sticky-note"></i>
+                  </button>
+                  <button class="page-action link-page" data-section="vertical-section" data-index="3" data-title="Mixed Media Experience">
+                    <i class="fas fa-link"></i>
+                  </button>
+                </div>
+                <div class="mixed-media-toggle">
+                  <button class="media-toggle-btn active" data-media="youtube">
+                    <i class="fab fa-youtube"></i> YouTube
+                  </button>
+                  <button class="media-toggle-btn" data-media="canva">
+                    <i class="fas fa-paint-brush"></i> Canva
+                  </button>
+                </div>
+              </div>
+              <div class="item_media mixed-media-container">
+                <!-- YouTube Embed -->
+                <div class="youtube-wrapper active">
+                  <iframe
+                    class="youtube-iframe"
+                    src="https://www.youtube.com/embed/jNQXAC9IVRw?rel=0&enablejsapi=1"
+                    title="YouTube Video"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                  </iframe>
+                  <div class="media-controls youtube-controls">
+                    <button class="media-control-btn play-pause-btn" data-index="3">
+                      <i class="fas fa-play"></i>
+                    </button>
+                    <button class="media-control-btn mute-btn" data-index="3">
+                      <i class="fas fa-volume-up"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- Canva Embed -->
+                <iframe 
+                  class="canva-iframe"
+                  loading="lazy"
+                  src="https://www.canva.com/design/DAFx3On2RXk/view?embed" 
+                  allowfullscreen="allowfullscreen"
+                  allow="fullscreen">
+                </iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section chapter-intro" id="horizontal-intro">
+        <div class="container-medium">
+          <div class="padding-vertical">
+            <div class="max-width-large">
+              <div class="chapter-header">
+                <span class="chapter-number">Chapter 2</span>
+                <h1 class="heading">Advanced Media Integration</h1>
+                <p class="chapter-description">
+                  Discover more ways to integrate YouTube videos and Canva designs in your interactive book.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-section horizontal-section section" id="horizontal-section">
+        <div class="wrapper">
+          <div role="list" class="list">
+            <!-- Page 5: YouTube Tutorial -->
+            <div role="listitem" class="item">
+              <div class="page-number">Page 5</div>
+              <div class="item_content">
+                <h2 class="item_number">5</h2>
+                <h2>YouTube Tutorial</h2>
+                <p class="item_p">
+                  Learn how to create your own interactive media book with this embedded YouTube tutorial.
+                </p>
+                <div class="page-actions">
+                  <button class="page-action bookmark" data-section="horizontal-section" data-index="0">
+                    <i class="fas fa-bookmark"></i>
+                  </button>
+                  <button class="page-action notes" data-section="horizontal-section" data-index="0">
+                    <i class="fas fa-sticky-note"></i>
+                  </button>
+                  <button class="page-action link-page" data-section="horizontal-section" data-index="0" data-title="YouTube Tutorial Integration">
+                    <i class="fas fa-link"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="item_media youtube-container">
+                <!-- YouTube Embed -->
+                <div class="youtube-wrapper">
+                  <iframe
+                    class="youtube-iframe"
+                    src="https://www.youtube.com/embed/pQN-pnXPaVg?rel=0&enablejsapi=1"
+                    title="YouTube Video"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                  </iframe>
+                </div>
+                <div class="media-controls youtube-controls">
+                  <button class="media-control-btn play-pause-btn" data-index="4">
+                    <i class="fas fa-play"></i>
+                  </button>
+                  <button class="media-control-btn mute-btn" data-index="4">
+                    <i class="fas fa-volume-up"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Page 6: Canva Presentation -->
+            <div role="listitem" class="item">
+              <div class="page-number">Page 6</div>
+              <div class="item_content">
+                <h2 class="item_number">6</h2>
+                <h2>Canva Presentation</h2>
+                <p class="item_p">
+                  Explore a full presentation created in Canva, embedded directly into your book.
+                </p>
+                <div class="page-actions">
+                  <button class="page-action bookmark" data-section="horizontal-section" data-index="1">
+                    <i class="fas fa-bookmark"></i>
+                  </button>
+                  <button class="page-action notes" data-section="horizontal-section" data-index="1">
+                    <i class="fas fa-sticky-note"></i>
+                  </button>
+                  <button class="page-action link-page" data-section="horizontal-section" data-index="1" data-title="Canva Presentation Techniques">
+                    <i class="fas fa-link"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="item_media canva-container">
+                <!-- Canva Embed -->
+                <iframe 
+                  class="canva-iframe"
+                  loading="lazy"
+                  src="https://www.canva.com/design/DAFrsa__DJ8/view?embed" 
+                  allowfullscreen="allowfullscreen"
+                  allow="fullscreen">
+                </iframe>
+              </div>
+            </div>
+            
+            <!-- Page 7: Mixed Media 2 -->
+            <div role="listitem" class="item mixed-item">
+              <div class="page-number">Page 7</div>
+              <div class="item_content">
+                <h2 class="item_number">7</h2>
+                <h2>Mixed Media Showcase</h2>
+                <p class="item_p">
+                  Another example of combining YouTube and Canva content with enhanced navigation.
+                </p>
+                <div class="page-actions">
+                  <button class="page-action bookmark" data-section="horizontal-section" data-index="2">
+                    <i class="fas fa-bookmark"></i>
+                  </button>
+                  <button class="page-action notes" data-section="horizontal-section" data-index="2">
+                    <i class="fas fa-sticky-note"></i>
+                  </button>
+                  <button class="page-action link-page" data-section="horizontal-section" data-index="2" data-title="Mixed Media Strategies">
+                    <i class="fas fa-link"></i>
+                  </button>
+                </div>
+                <div class="mixed-media-toggle">
+                  <button class="media-toggle-btn active" data-media="youtube">
+                    <i class="fab fa-youtube"></i> YouTube
+                  </button>
+                  <button class="media-toggle-btn" data-media="canva">
+                    <i class="fas fa-paint-brush"></i> Canva
+                  </button>
+                </div>
+              </div>
+              <div class="item_media mixed-media-container">
+                <!-- YouTube Embed -->
+                <div class="youtube-wrapper active">
+                  <iframe
+                    class="youtube-iframe"
+                    src="https://www.youtube.com/embed/eqFm_7KyfHI?rel=0&enablejsapi=1"
+                    title="YouTube Video"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                  </iframe>
+                  <div class="media-controls youtube-controls">
+                    <button class="media-control-btn play-pause-btn" data-index="6">
+                      <i class="fas fa-play"></i>
+                    </button>
+                    <button class="media-control-btn mute-btn" data-index="6">
+                      <i class="fas fa-volume-up"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- Canva Embed -->
+                <iframe 
+                  class="canva-iframe"
+                  loading="lazy"
+                  src="https://www.canva.com/design/DAFw0QsXJ7M/view?embed" 
+                  allowfullscreen="allowfullscreen"
+                  allow="fullscreen">
+                </iframe>
+              </div>
+            </div>
+            
+            <!-- Page 8: Conclusion with YouTube & Canva -->
+            <div role="listitem" class="item split-item">
+              <div class="page-number">Page 8</div>
+              <div class="item_content split-content">
+                <div class="split-header">
+                  <h2 class="item_number">8</h2>
+                  <h2>Conclusion</h2>
+                  <p class="item_p">
+                    This split-view layout shows both YouTube and Canva side by side for the conclusion.
+                  </p>
+                </div>
+                <div class="split-media">
+                  <div class="split-media-item youtube-split">
+                    <iframe
+                      class="youtube-iframe"
+                      src="https://www.youtube.com/embed/n8GjpGWOLl0?rel=0&enablejsapi=1"
+                      title="YouTube Video"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen>
+                    </iframe>
+                    <div class="media-controls youtube-controls">
+                      <button class="media-control-btn play-pause-btn" data-index="7">
+                        <i class="fas fa-play"></i>
+                      </button>
+                      <button class="media-control-btn mute-btn" data-index="7">
+                        <i class="fas fa-volume-up"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="split-media-item canva-split">
+                    <iframe 
+                      class="canva-iframe"
+                      loading="lazy"
+                      src="https://www.canva.com/design/DAF6vdhZ_80/view?embed" 
+                      allowfullscreen="allowfullscreen"
+                      allow="fullscreen">
+                    </iframe>
+                  </div>
+                </div>
+                <div class="page-actions split-actions">
+                  <button class="page-action bookmark" data-section="horizontal-section" data-index="3">
+                    <i class="fas fa-bookmark"></i>
+                  </button>
+                  <button class="page-action notes" data-section="horizontal-section" data-index="3">
+                    <i class="fas fa-sticky-note"></i>
+                  </button>
+                  <button class="page-action link-page" data-section="horizontal-section" data-index="3" data-title="Conclusion">
+                    <i class="fas fa-link"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="book-end">
+        <div class="container-medium">
+          <div class="padding-vertical">
+            <div class="max-width-large">
+              <div class="end-content">
+                <h1 class="heading">Journey Complete</h1>
+                <p class="end-message">
+                  Thank you for experiencing our interactive media book combining YouTube videos and Canva designs.
+                </p>
+                <div class="end-actions">
+                  <button class="action-btn" id="restart-book">
+                    <i class="fas fa-redo"></i> Read Again
+                  </button>
+                  <button class="action-btn" id="share-book">
+                    <i class="fas fa-share-alt"></i> Share
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="notes-panel" id="notes-panel">
+      <div class="notes-header">
+        <h3>My Notes</h3>
+        <button class="close-notes" id="close-notes">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="notes-content">
+        <textarea id="page-notes" placeholder="Add your notes for this page..." style="font-size: 2rem; font-family: 'Caveat', 'Laila', sans-serif;"></textarea>
+        <button class="save-notes" id="save-notes">Save Notes</button>
+      </div>
+    </div>
+
+    <div id="notifications" class="notifications"></div>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- GSAP for animations - Load before everything else -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+    
+    <!-- YouTube API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    
+    <!-- Include base book functionality first -->
+    <script src="./media-book.js"></script>
+    
+    <!-- Then include media-specific functionality --
+    <script src="media-book.js"></script>
+    
+    <!-- Initialize ScrollTrigger if needed -->
+    <script>
+      // Force refresh ScrollTrigger after everything has loaded
+      window.addEventListener('load', function() {
+        setTimeout(() => {
+          if (window.ScrollTrigger) {
+            ScrollTrigger.refresh();
+            console.log("ScrollTrigger refreshed");
+          }
+        }, 1000);
+      });
+    </script>
+  </body>
+</html> 

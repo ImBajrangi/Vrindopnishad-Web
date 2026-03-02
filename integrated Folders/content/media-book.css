@@ -1,0 +1,505 @@
+/* Inheriting base styles from book.css with additions for YouTube and Canva integration */
+@import url('/book/css/book.css');
+
+/* Media Integration Variables */
+:root {
+  --youtube-red: #ff0000;
+  --youtube-dark: #282828;
+  --canva-blue: #00c4cc;
+  --canva-purple: #8a3ffc;
+  --media-border-radius: 8px;
+  --media-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  --media-transition: all 0.3s ease;
+}
+
+body.dark-mode {
+  --youtube-dark: #1f1f1f;
+}
+
+/* YouTube Container Styles */
+.youtube-container {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--youtube-dark);
+}
+
+.youtube-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.youtube-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Canva Container Styles */
+.canva-container {
+  position: relative;
+  height: 100%;
+  background-color: #f9f9f9;
+}
+
+body.dark-mode .canva-container {
+  background-color: #1a1a1a;
+}
+
+.canva-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Media Controls */
+.media-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.media-control-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: var(--media-transition);
+  border: none;
+  cursor: pointer;
+}
+
+.media-control-btn:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.1);
+}
+
+.media-control-btn.active {
+  background-color: var(--primary-color);
+}
+
+body.dark-mode .media-control-btn.active {
+  background-color: var(--accent-color);
+  color: var(--dark-bg);
+}
+
+/* Mixed Media Container (YouTube + Canva Toggle) */
+.mixed-media-container {
+  position: relative;
+}
+
+.mixed-media-container .youtube-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mixed-media-container .youtube-wrapper.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mixed-media-container .canva-iframe {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mixed-media-toggle {
+  display: flex;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.media-toggle-btn {
+  padding: 8px 12px;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--text-color);
+  font-size: 0.9rem;
+  transition: var(--media-transition);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+body.dark-mode .media-toggle-btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--dark-text);
+}
+
+.media-toggle-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+body.dark-mode .media-toggle-btn.active {
+  background-color: var(--accent-color);
+  color: var(--dark-bg);
+}
+
+.media-toggle-btn:hover:not(.active) {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .media-toggle-btn:hover:not(.active) {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* YouTube specific toggle styling */
+.media-toggle-btn[data-media="youtube"].active {
+  background-color: var(--youtube-red);
+  color: white;
+}
+
+/* Canva specific toggle styling */
+.media-toggle-btn[data-media="canva"].active {
+  background-color: var(--canva-blue);
+  color: white;
+}
+
+/* Show Canva embed when Canva toggle is active */
+.mixed-item[data-active-media="canva"] .canva-iframe,
+.mixed-media-toggle .media-toggle-btn[data-media="canva"].active ~ .mixed-media-container .canva-iframe {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mixed-item[data-active-media="canva"] .youtube-wrapper,
+.mixed-media-toggle .media-toggle-btn[data-media="canva"].active ~ .mixed-media-container .youtube-wrapper {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Split Layout for Page 8 */
+.split-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.split-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.split-header {
+  padding: var(--page-padding);
+  flex: 0 0 auto;
+}
+
+.split-media {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  height: calc(100% - 170px); /* Adjust based on header height */
+}
+
+.split-media-item {
+  position: relative;
+  flex: 1;
+  height: 100%;
+}
+
+.split-actions {
+  padding: 1rem var(--page-padding);
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Loading States */
+.youtube-container::before,
+.canva-container::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  animation: spin 1s linear infinite;
+  z-index: 0;
+}
+
+body.dark-mode .youtube-container::before,
+body.dark-mode .canva-container::before {
+  border-top-color: var(--accent-color);
+}
+
+.youtube-container.loaded::before,
+.canva-container.loaded::before {
+  display: none;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Mixed item on mobile */
+@media (max-width: 767px) {
+  .mixed-item .item_content {
+    height: auto;
+    min-height: 200px;
+  }
+  
+  .mixed-item .item_media {
+    height: calc(100% - 200px);
+  }
+  
+  .mixed-media-toggle {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+  }
+  
+  .split-item {
+    flex-direction: column;
+  }
+  
+  .split-content {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .split-media {
+    flex-direction: column;
+    height: calc(100% - 130px);
+  }
+  
+  .split-media-item {
+    flex: 1;
+    height: 50%;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 575px) {  
+  .media-toggle-btn {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+  
+  .media-control-btn {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .media-controls {
+    bottom: 15px;
+    left: 15px;
+  }
+  
+  .split-header {
+    padding: 1.5rem;
+  }
+  
+  .split-actions {
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+/* Optional: YouTube Player Error State */
+.youtube-error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  z-index: 2;
+}
+
+.youtube-error i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--youtube-red);
+}
+
+.youtube-error p {
+  font-size: 1rem;
+  max-width: 80%;
+}
+
+.youtube-error button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--youtube-red);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.youtube-error button:hover {
+  background-color: #cc0000;
+}
+
+/* YouTube Link overlay for mobile devices where iframe might be problematic */
+.youtube-link-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none; /* Hidden by default, shown with JS on mobile if needed */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  z-index: 3;
+}
+
+.youtube-link-overlay i {
+  font-size: 4rem;
+  color: var(--youtube-red);
+  margin-bottom: 1rem;
+}
+
+.youtube-link-overlay p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  max-width: 80%;
+}
+
+.youtube-link-overlay a {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--youtube-red);
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.youtube-link-overlay a:hover {
+  background-color: #cc0000;
+  transform: translateY(-2px);
+}
+
+/* Canva presentation in fullscreen */
+.canva-container.fullscreen .canva-iframe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+}
+
+.fullscreen-toggle {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--media-transition);
+}
+
+.fullscreen-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  transform: scale(1.1);
+}
+
+/* Modal for displaying Canva designs in lightbox */
+.canva-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.canva-lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.canva-lightbox-content {
+  width: 90%;
+  height: 90%;
+  position: relative;
+}
+
+.canva-lightbox-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--media-transition);
+}
+
+.canva-lightbox-close:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.canva-lightbox-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+} 

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#8E7F7F">
+    <title id="page-title">Team Member — Vrindopnishad</title>
+
+    <!-- Favicon Configuration -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Google Fonts - Matching about.html -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Laila:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- CSS - Using main site styles for consistency with about.html -->
+    <link rel="stylesheet" href="../../../Vrindopnishad%20Web/Home/css/hamburger.css">
+    <link rel="stylesheet" href="../../../Vrindopnishad%20Web/Home/css/styles.css">
+    <link rel="stylesheet" href="../../../Vrindopnishad%20Web/Home/css/menu.css">
+    <link rel="stylesheet" href="../../../Vrindopnishad%20Web/web-extentions/Custom%20Cursor/custom-cursor.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../../../Vrindopnishad%20Web/web-extentions/Custom%20Cursor/custom-cursor.js" defer></script>
+    <style>
+        /* Portfolio-specific styles - Using main site variables */
+
+        /* Remove blue focus outline/box */
+        *:focus {
+            outline: none !important;
+        }
+
+        button:focus,
+        a:focus,
+        input:focus,
+        select:focus,
+        textarea:focus,
+        [tabindex]:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .portfolio-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 3rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .portfolio-content {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .portfolio-avatar {
+            flex-shrink: 0;
+        }
+
+        .portfolio-avatar-img {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--text-color);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .portfolio-info h1 {
+            font-family: var(--font-primary);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .portfolio-role {
+            font-size: 1.25rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .portfolio-bio {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            line-height: 1.8;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .portfolio-social {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(var(--text-color-rgb), 0.05);
+            border: 1px solid rgba(var(--text-color-rgb), 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        .social-btn:hover {
+            background: var(--text-color);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+        }
+
+        .social-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(var(--text-color-rgb), 0.05);
+            border: 1px solid rgba(var(--text-color-rgb), 0.1);
+            border-radius: 50px;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        .back-btn:hover {
+            background: rgba(var(--text-color-rgb), 0.1);
+            border-color: var(--text-color);
+        }
+
+        .back-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .portfolio-section {
+            padding: 6rem 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .portfolio-section h2 {
+            font-family: var(--font-primary);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .skill-tag {
+            padding: 1rem 1.5rem;
+            background: rgba(var(--text-color-rgb), 0.05);
+            border: 1px solid rgba(var(--text-color-rgb), 0.1);
+            border-radius: var(--border-radius-md);
+            text-align: center;
+            font-weight: 500;
+            color: var(--text-color);
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        .skill-tag:hover {
+            background: rgba(var(--text-color-rgb), 0.1);
+            transform: translateY(-2px);
+        }
+
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .project-item {
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--card-border);
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        .project-item:hover {
+            border-color: var(--text-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .project-item h3 {
+            font-family: var(--font-primary);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .project-item p {
+            color: var(--secondary-color);
+            line-height: 1.6;
+        }
+
+        /* Fix hamburger menu visibility in both themes */
+        .menu svg {
+            stroke: var(--text-color) !important;
+            fill: none !important;
+        }
+
+        .menu svg path {
+            stroke: var(--text-color) !important;
+        }
+
+        @media (max-width: 968px) {
+            .portfolio-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .portfolio-bio {
+                max-width: 100%;
+            }
+
+            .portfolio-social {
+                justify-content: center;
+            }
+
+            .portfolio-avatar-img {
+                width: 200px;
+                height: 200px;
+            }
+
+            .portfolio-info h1 {
+                font-size: clamp(2rem, 6vw, 2.5rem);
+            }
+
+            .portfolio-role {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-hero {
+                padding: 100px 1.5rem 3rem;
+                min-height: auto;
+            }
+
+            .portfolio-section {
+                padding: 3rem 1.5rem;
+            }
+
+            .portfolio-section h2 {
+                font-size: clamp(1.75rem, 5vw, 2rem);
+                margin-bottom: 1.5rem;
+            }
+
+            .skill-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 0.75rem;
+            }
+
+            .skill-tag {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .project-item {
+                padding: 1.5rem;
+            }
+
+            .project-item:hover {
+                transform: translateX(0);
+            }
+
+            .project-item h3 {
+                font-size: 1.25rem;
+            }
+
+            .back-btn {
+                padding: 0.6rem 1.25rem;
+                font-size: 0.9rem;
+            }
+
+            .back-btn span {
+                display: none;
+            }
+
+            .portfolio-avatar-img {
+                width: 160px;
+                height: 160px;
+            }
+
+            .portfolio-bio {
+                font-size: 1rem;
+            }
+        }
+
+        /* Footer Mantra - Radhe Radhe Styling */
+        .footer-mantra {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(var(--text-color-rgb), 0.03) 20%,
+                    rgba(var(--text-color-rgb), 0.05) 50%,
+                    rgba(var(--text-color-rgb), 0.03) 80%,
+                    transparent);
+            animation: mantraScroll 20s linear infinite;
+        }
+
+        .footer-mantra span {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            opacity: 0.7;
+            white-space: nowrap;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+
+        .footer-mantra span:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        @keyframes mantraScroll {
+            0% {
+                background-position: -200% center;
+            }
+
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-mantra {
+                gap: 1.5rem;
+                padding: 1.5rem 0;
+            }
+
+            .footer-mantra span {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Scroll progress -->
+    <div class="scroll-progress"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-circle"></div>
+
+    <!-- Header - Matching about.html -->
+    <header>
+        <a href="../../../index.html" class="logo">
+            <img src="../../../Vrindopnishad%20Web/class/v-logo-rounded/android-chrome-192x192.png"
+                alt="Vrindopnishad Logo" class="header-logo-img" width="40" height="40">
+            <span>Vrindopnishad</span>
+        </a>
+
+        <div class="main-nav">
+            <ul>
+                <li><a href="../../../index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="../../../Vrindopnishad%20Web/Pictures/main/Gallery.html">Gallery</a></li>
+            </ul>
+        </div>
+
+        <div class="header-right">
+            <a href="about.html" class="back-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                <span>Back</span>
+            </a>
+            <button class="menu" aria-label="Toggle menu" role="button" tabindex="0">
+                <svg viewBox="0 0 64 48">
+                    <path d="M19,15 L45,15 C70,15 58,-2 49.0177126,7 L19,37"></path>
+                    <path d="M19,24 L45,24 C61.2371586,24 57,49 41,33 L32,24"></path>
+                    <path d="M45,33 L19,33 C-8,33 6,-2 22,14 L45,37"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay"></div>
+
+    <!-- Mobile Menu -->
+    <nav aria-hidden="true">
+        <ul>
+            <li><a href="../../../index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="../../../Vrindopnishad%20Web/Pictures/main/Gallery.html">Gallery</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Hero -->
+        <section class="portfolio-hero">
+            <div class="portfolio-content">
+                <div class="portfolio-avatar">
+                    <img id="member-avatar" class="portfolio-avatar-img" src="" alt="">
+                </div>
+                <div class="portfolio-info">
+                    <h1 id="member-name">Loading...</h1>
+                    <p class="portfolio-role" id="member-role">Team Member</p>
+                    <p class="portfolio-bio" id="member-bio"></p>
+                    <div class="portfolio-social" id="member-social"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="portfolio-section">
+            <div class="container">
+                <h2>Skills & Expertise</h2>
+                <div class="skill-grid" id="member-skills"></div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="portfolio-section">
+            <div class="container">
+                <h2>Key Projects</h2>
+                <div class="project-list" id="member-projects"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <div class="footer-mantra">
+            <span>॥ राधे राधे ॥</span>
+            <span>॥ राधे राधे ॥</span>
+            <span>॥ राधे राधे ॥</span>
+            <span>॥ राधे राधे ॥</span>
+            <span>॥ राधे राधे ॥</span>
+            <span>॥ राधे राधे ॥</span>
+        </div>
+
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <span class="footer-logo">
+                        <span class="logo-icon">✦</span>
+                        Vrindopnishad
+                    </span>
+                    <p class="footer-tagline">Sacred traditions.<br>Modern expression.</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-divider">
+                    <span class="divider-dot">✦</span>
+                </div>
+                <div class="footer-credits">
+                    <span>© 2026 Vrindopnishad</span>
+                    <span class="credits-separator">•</span>
+                    <span>Made with <em>devotion</em> in Vrindavan</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Team member data
+        const teamData = {
+            yash: {
+                name: "Yash Chaudhary",
+                role: "Co-Founder & Lead Developer",
+                avatar: "https://i.postimg.cc/sD9xzDgx/temp-Image2n-Gxqd.avif",
+                bio: "Passionate full-stack developer with a mission to preserve and digitize spiritual heritage. Specializing in modern web technologies and creating immersive digital experiences.",
+                skills: ["JavaScript", "React", "Node.js", "Python", "Web Design", "UI/UX", "Database Design", "Cloud Deployment"],
+                projects: [
+                    {
+                        title: "Vrindopnishad Platform",
+                        description: "Lead architect of the main Vrindopnishad digital platform, creating an immersive experience for spiritual content."
+                    },
+                    {
+                        title: "Sant Vaani App",
+                        description: "Developed a mobile-first application for accessing spiritual teachings and devotional music."
+                    },
+                    {
+                        title: "Digital Archive System",
+                        description: "Built a comprehensive system for cataloging and preserving historical spiritual content."
+                    }
+                ],
+                social: {
+                    instagram: "https://instagram.com/vrindopnishad",
+                    github: "https://github.com",
+                    linkedin: "https://linkedin.com"
+                }
+            },
+            hariom: {
+                name: "Hariom",
+                role: "Co-Founder & Creative Director",
+                avatar: "https://i.postimg.cc/pXtr3nR9/temp-Image4co-QDC.avif",
+                bio: "Creative visionary blending traditional art forms with modern design aesthetics. Expert in visual storytelling and brand identity for spiritual organizations.",
+                skills: ["Graphic Design", "Video Production", "Photography", "Brand Identity", "Adobe Creative Suite", "Motion Graphics", "Art Direction"],
+                projects: [
+                    {
+                        title: "Picturise It Gallery",
+                        description: "Curated and designed the visual identity for Vrindopnishad's photography collection."
+                    },
+                    {
+                        title: "Visual Content Production",
+                        description: "Created engaging visual content for social media and digital platforms, reaching 10K+ followers."
+                    },
+                    {
+                        title: "Brand Design System",
+                        description: "Developed a comprehensive brand identity system that honors tradition while embracing modernity."
+                    }
+                ],
+                social: {
+                    instagram: "https://instagram.com/vrindopnishad",
+                    behance: "https://behance.net"
+                }
+            },
+            hemraj: {
+                name: "Hemraj Singh",
+                role: "Content & Operations Manager",
+                avatar: "https://i.postimg.cc/3JHNzDY0/temp-Images-SCS61.avif",
+                bio: "Skilled writer and operations specialist ensuring smooth project execution. Passionate about making ancient wisdom accessible through modern content strategies.",
+                skills: ["Content Writing", "Project Management", "Research", "Documentation", "SEO", "Editorial Planning", "Team Coordination"],
+                projects: [
+                    {
+                        title: "Har Ghar Vaani Ji",
+                        description: "Managed the content strategy and publication of spiritual literature for daily reading."
+                    },
+                    {
+                        title: "Operations Optimization",
+                        description: "Streamlined team workflows and project management systems, improving efficiency by 40%."
+                    },
+                    {
+                        title: "Content Library",
+                        description: "Built and organized a comprehensive digital library of spiritual texts and teachings."
+                    }
+                ],
+                social: {
+                    instagram: "https://instagram.com/vrindopnishad",
+                    linkedin: "https://linkedin.com"
+                }
+            },
+            punit: {
+                name: "Punit Khandelwal",
+                role: "Community Lead",
+                avatar: "https://i.postimg.cc/HsCnF7dC/temp-Image-Cs7ehf.avif",
+                bio: "Community builder and engagement specialist fostering connections between seekers worldwide. Expert in social media growth and community management.",
+                skills: ["Community Management", "Social Media Strategy", "Event Planning", "Public Speaking", "Outreach", "Analytics", "Engagement"],
+                projects: [
+                    {
+                        title: "Global Community Growth",
+                        description: "Grew Vrindopnishad's community to 10,000+ engaged followers across platforms."
+                    },
+                    {
+                        title: "Vrinda Tours Initiative",
+                        description: "Launched and managed spiritual tours connecting community members with sacred sites."
+                    },
+                    {
+                        title: "Engagement Campaigns",
+                        description: "Created and executed successful social media campaigns that doubled audience engagement."
+                    }
+                ],
+                social: {
+                    instagram: "https://instagram.com/vrindopnishad",
+                    facebook: "https://facebook.com/vrindopnishad",
+                    twitter: "https://twitter.com/vrindopnishad"
+                }
+            }
+        };
+
+        // Get member from URL parameter
+        function getMemberFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('member');
+        }
+
+        // Load member data
+        function loadMemberData() {
+            const memberId = getMemberFromURL();
+            const member = teamData[memberId];
+
+            if (!member) {
+                // Redirect to about page if invalid member
+                window.location.href = 'about.html';
+                return;
+            }
+
+            // Update page title
+            document.getElementById('page-title').textContent = `${member.name} — Vrindopnishad`;
+
+            // Update hero section
+            document.getElementById('member-avatar').src = member.avatar;
+            document.getElementById('member-avatar').alt = member.name;
+            document.getElementById('member-name').textContent = member.name;
+            document.getElementById('member-role').textContent = member.role;
+            document.getElementById('member-bio').textContent = member.bio;
+
+            // Update social links
+            const socialContainer = document.getElementById('member-social');
+            socialContainer.innerHTML = '';
+
+            const socialIcons = {
+                instagram: 'instagram',
+                github: 'github',
+                linkedin: 'linkedin',
+                behance: 'figma',
+                facebook: 'facebook',
+                twitter: 'twitter'
+            };
+
+            Object.entries(member.social || {}).forEach(([platform, url]) => {
+                const iconName = socialIcons[platform] || 'link';
+                const link = document.createElement('a');
+                link.href = url;
+                link.target = '_blank';
+                link.className = 'social-btn';
+                link.innerHTML = `<i data-lucide="${iconName}"></i>`;
+                socialContainer.appendChild(link);
+            });
+
+            // Update skills
+            const skillsContainer = document.getElementById('member-skills');
+            skillsContainer.innerHTML = '';
+            member.skills.forEach(skill => {
+                const skillTag = document.createElement('div');
+                skillTag.className = 'skill-tag';
+                skillTag.textContent = skill;
+                skillsContainer.appendChild(skillTag);
+            });
+
+            // Update projects
+            const projectsContainer = document.getElementById('member-projects');
+            projectsContainer.innerHTML = '';
+            member.projects.forEach(project => {
+                const projectItem = document.createElement('div');
+                projectItem.className = 'project-item';
+                projectItem.innerHTML = `
+                    <h3>${project.title}</h3>
+                    <p>${project.description}</p>
+                `;
+                projectsContainer.appendChild(projectItem);
+            });
+
+            // Initialize Lucide icons
+            lucide.createIcons();
+        }
+
+        // Load data on page load
+        window.addEventListener('DOMContentLoaded', loadMemberData);
+
+        // Mobile menu toggle
+        const menuButton = document.querySelector('.menu');
+        const nav = document.querySelector('nav');
+        const menuOverlay = document.querySelector('.menu-overlay');
+
+        menuButton?.addEventListener('click', () => {
+            menuButton.classList.toggle('active');
+            nav.classList.toggle('active');
+            menuOverlay?.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        });
+
+        // Close menu when clicking overlay
+        menuOverlay?.addEventListener('click', () => {
+            menuButton?.classList.remove('active');
+            nav?.classList.remove('active');
+            menuOverlay?.classList.remove('active');
+            document.body.classList.remove('menu-open');
+        });
+
+        // Header scroll effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            header?.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const scrollProgress = document.querySelector('.scroll-progress');
+            if (scrollProgress) {
+                const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                scrollProgress.style.width = `${scrolled}%`;
+            }
+        });
+    </script>
+
+    <!-- Custom Cursor JS -->
+    <script src="../../../Vrindopnishad%20Web/web-extentions/Custom%20Cursor/custom-cursor.js" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Hover Effect Test</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Laila:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&family=Prompt:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="book.css" rel="stylesheet">
+  <link href="word-hover.css" rel="stylesheet">
+</head>
+<body>
+  <button class="toggle-theme" id="toggle-theme">
+    <i class="fas fa-moon"></i> Toggle Dark Mode
+  </button>
+
+  <h1>Word Hover Effect Test</h1>
+  
+  <div class="test-section">
+    <h2>Documentation</h2>
+    <p>
+      This page demonstrates the word hover effect implementation for the online book. Here's how it works:
+    </p>
+    <ul>
+      <li><strong>Automatic Processing:</strong> The script automatically identifies text content and wraps each word with a span.</li>
+      <li><strong>Hover Effects:</strong> When you hover over any word, it animates with different effects and colors.</li>
+      <li><strong>Text-to-Speech:</strong> Click on any word to hear it pronounced (requires browser support).</li>
+      <li><strong>Hindi Support:</strong> Works with both English and Hindi text with appropriate font styling.</li>
+      <li><strong>Punctuation Handling:</strong> Correctly preserves punctuation and special characters.</li>
+    </ul>
+    <p>
+      Use the buttons below to test different features of the implementation.
+    </p>
+  </div>
+  
+  <div class="controls">
+    <button id="process-text">Process Text Now</button>
+    <button id="highlight-random">Highlight Random Words</button>
+    <button id="reset-highlights">Reset Highlights</button>
+  </div>
+
+  <div class="test-section">
+    <h2>Paragraph Text (English)</h2>
+    <p class="item_p">
+      Explore the stunning diversity of wildlife and learn how nature adapts to the changing rhythm of seasons. 
+      The natural world is full of wonder and beauty that can inspire us every day.
+    </p>
+    <div class="feedback" id="paragraph-feedback"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>Heading Text</h2>
+    <h2 class="heading">Wildlife in Action: A Glimpse into Nature's Daily Drama</h2>
+    <div class="feedback" id="heading-feedback"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>Chapter Description</h2>
+    <p class="chapter-description">
+      Discover breathtaking landscapes and natural phenomena that shape our world's extraordinary beauty.
+      From majestic mountains to serene oceans, nature offers endless inspiration.
+    </p>
+    <div class="feedback" id="chapter-feedback"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>Hindi Text</h2>
+    <p class="item_p hindi" lang="hi">
+      प्रकृति की अद्भुत विविधता का अन्वेषण करें और जानें कि प्रकृति मौसमों के बदलते ताल के अनुसार कैसे अनुकूलित होती है।
+      प्राकृतिक दुनिया आश्चर्य और सौंदर्य से भरी है जो हमें हर दिन प्रेरित कर सकती है।
+    </p>
+    <div class="feedback" id="hindi-feedback"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>Mixed Text with Punctuation</h2>
+    <p class="end-message">
+      Thank you for exploring nature's wonders! Did you enjoy the journey? We hope it was inspiring! 
+      Contact us at info@example.com or visit our website: www.example.com.
+    </p>
+    <div class="feedback" id="mixed-feedback"></div>
+  </div>
+
+  <script src="word-hover.js"></script>
+  <script>
+    // Toggle dark mode
+    document.getElementById('toggle-theme').addEventListener('click', function() {
+      document.body.classList.toggle('dark-mode');
+      
+      const icon = this.querySelector('i');
+      if (document.body.classList.contains('dark-mode')) {
+        icon.className = 'fas fa-sun';
+      } else {
+        icon.className = 'fas fa-moon';
+      }
+    });
+    
+    // Manually trigger processing
+    document.getElementById('process-text').addEventListener('click', function() {
+      initWordHoverEffects();
+      
+      // Update feedback
+      const allElements = document.querySelectorAll('.hoverable-word');
+      updateAllFeedback(allElements.length);
+    });
+    
+    // Highlight random words
+    document.getElementById('highlight-random').addEventListener('click', function() {
+      const words = document.querySelectorAll('.hoverable-word');
+      if (words.length === 0) {
+        alert('Process the text first!');
+        return;
+      }
+      
+      // Reset current highlights
+      words.forEach(word => word.classList.remove('highlight'));
+      
+      // Add highlights to 10% of words
+      const highlightCount = Math.ceil(words.length * 0.1);
+      for (let i = 0; i < highlightCount; i++) {
+        const randomIndex = Math.floor(Math.random() * words.length);
+        words[randomIndex].classList.add('highlight');
+      }
+    });
+    
+    // Reset highlights
+    document.getElementById('reset-highlights').addEventListener('click', function() {
+      document.querySelectorAll('.hoverable-word').forEach(word => {
+        word.classList.remove('highlight', 'speaking');
+      });
+    });
+    
+    // Update feedback sections with word counts
+    function updateAllFeedback(totalWords) {
+      // Get counts for each section
+      const paragraphWords = document.querySelectorAll('.item_p .hoverable-word').length;
+      const headingWords = document.querySelectorAll('.heading .hoverable-word').length;
+      const chapterWords = document.querySelectorAll('.chapter-description .hoverable-word').length;
+      const hindiWords = document.querySelectorAll('.hindi .hoverable-word').length;
+      const mixedWords = document.querySelectorAll('.end-message .hoverable-word').length;
+      
+      // Update feedback elements
+      updateFeedback('paragraph-feedback', paragraphWords);
+      updateFeedback('heading-feedback', headingWords);
+      updateFeedback('chapter-feedback', chapterWords);
+      updateFeedback('hindi-feedback', hindiWords);
+      updateFeedback('mixed-feedback', mixedWords);
+      
+      // Log total
+      console.log(`Total words processed: ${totalWords}`);
+    }
+    
+    function updateFeedback(id, count) {
+      const element = document.getElementById(id);
+      element.textContent = `${count} words processed`;
+      element.style.display = 'block';
+    }
+  </script>
+</body>
+</html> 

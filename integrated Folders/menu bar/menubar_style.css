@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #000000;
+}
+
+.navigation {
+  position: relative;
+  height: 60px; /* Adjust height for horizontal layout */
+  width: 80%; /* Full width */
+  background: #000000;
+  border-radius: 40px;
+  box-shadow: -20px 20px 50px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navigation ul {
+  display: flex;
+  flex-direction: row; /* Horizontal layout */
+  justify-content: center;
+  padding: 0;
+  gap: 10px;
+  width: 100%;
+}
+
+.navigation ul li {
+  position: relative;
+  list-style: none;
+  width: 60px;
+  height: 60px;
+  padding: 0 10px;
+  border-radius: 30px;
+  transition: 0.5s;
+}
+
+.navigation ul li:hover {
+  background: var(--clr);
+  transform: translateY(-10px); /* Slight lift on hover */
+  box-shadow: 0 0 15px var(--clr); /* Add outer color's rounded box */
+}
+
+.navigation ul li.active a {
+  width: 100%;
+}
+
+.navigation ul li.active::before {
+  content: '';
+  position: absolute;
+  top: 10px; /* Adjust position */
+  left: -10px; /* Adjust position */
+  width: 125%; /* Increase width */
+  height: 125%; /* Increase height */
+  background: var(--clr);
+  border-radius: 50%; /* Make it a circle */
+  filter: blur(15px); /* Increase blur */
+  opacity: 0.45; /* Adjust opacity */
+  transition: 0.6s;
+}
+
+.navigation ul li.active {
+  background: rgb(234, 110, 1);
+  width: 160px;
+  transform: translateY(10px); /* Slight lift on active */
+}
+
+.navigation ul li a {
+  position: absolute;
+  left: 0;
+  width: 60px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.navigation ul li a .icon {
+  position: absolute;
+  min-width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+  font-size: 1.7em; /* Increase icon size */
+  transition: 0.65s;
+}
+
+.navigation ul li.active a .icon {
+  color: #f7f0b6;
+}
+
+.navigation ul li a .text {
+  position: absolute;
+  left: 60px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  color: #fbf7a9;
+}

@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png"
+        type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vrindopnishad</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Merriweather:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rozha+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Lora:ital@0;1&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --text-color: #161f27;
+            --font-headings: 'Rozha One', "Montserrat", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-body: 'laila', "Roboto", "Helvetica Neue", Arial, sans-serif;
+            --line-height: 1.8;
+            --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --border-radius-md: 20px;
+            --shadow-md: 0 15px 35px rgba(31, 38, 135, 0.5);
+
+            /* Safari-compatible blur values */
+            --blur-light: blur(10px);
+            --blur-medium: blur(15px);
+            --blur-heavy: blur(20px);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: var(--line-height);
+            color: var(--text-color);
+            min-height: 100vh;
+            font-size: 18px;
+            position: relative;
+            overflow-x: hidden;
+
+            /* Safari-compatible background */
+            background: #667eea;
+            background: -webkit-linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: -moz-linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: -o-linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+        }
+
+        /* Safari-compatible background overlays */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+
+            /* Multiple radial gradients for Safari compatibility */
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(120, 164, 170, 0.4) 0%, rgba(120, 164, 170, 0) 50%),
+                radial-gradient(circle at 80% 20%, rgba(233, 208, 164, 0.4) 0%, rgba(233, 208, 164, 0) 50%),
+                radial-gradient(circle at 40% 40%, rgba(142, 68, 173, 0.3) 0%, rgba(142, 68, 173, 0) 50%);
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            pointer-events: none;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) {
+            animation-delay: -2s;
+        }
+
+        .particle:nth-child(2) {
+            animation-delay: -4s;
+        }
+
+        .particle:nth-child(3) {
+            animation-delay: -6s;
+        }
+
+        .particle:nth-child(4) {
+            animation-delay: -8s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+                opacity: 0.7;
+            }
+
+            25% {
+                transform: translateY(-30px) translateX(10px) rotate(90deg);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateY(-20px) translateX(-10px) rotate(180deg);
+                opacity: 0.8;
+            }
+
+            75% {
+                transform: translateY(-40px) translateX(5px) rotate(270deg);
+                opacity: 0.9;
+            }
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+
+            /* Safari-compatible backdrop filter */
+            -webkit-backdrop-filter: var(--blur-medium);
+            backdrop-filter: var(--blur-medium);
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .logo {
+            font-family: var(--font-body);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .author-header {
+            font-family: "Poppins", sans-serif;
+            font-size: 1.4rem;
+            color: rgb(255, 255, 255);
+            text-shadow: 0px 0px 8px rgba(255, 237, 132, 0.8);
+            transition: all 0.5s var(--transition-smooth);
+            animation: authorFade 2s var(--transition-smooth);
+        }
+
+        @keyframes authorFade {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* DEVELOPER-ONLY FILTERS (Hidden from users) */
+        .filter-controls {
+            display: none;
+            /* Hide from users */
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.15);
+            -webkit-backdrop-filter: var(--blur-light);
+            backdrop-filter: var(--blur-light);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s var(--transition-smooth);
+            text-transform: uppercase;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .filter-btn.active {
+            background: rgba(103, 126, 234, 0.8);
+            border-color: rgba(103, 126, 234, 1);
+        }
+
+        .toc-toggle {
+            background: rgba(255, 255, 255, 0.15);
+            -webkit-backdrop-filter: var(--blur-light);
+            backdrop-filter: var(--blur-light);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.7rem 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.4s var(--transition-bounce);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .toc-toggle:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(31, 38, 135, 0.3);
+        }
+
+        .table-of-contents {
+            position: fixed;
+            top: 80px;
+            left: -400px;
+            width: 400px;
+            height: calc(100vh - 80px);
+            background: rgba(255, 255, 255, 0.12);
+
+            /* Safari-compatible backdrop filter */
+            -webkit-backdrop-filter: var(--blur-heavy);
+            backdrop-filter: var(--blur-heavy);
+
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 999;
+            transition: left 0.4s var(--transition-bounce);
+            padding: 0;
+
+            /* Custom scrollbar for webkit browsers */
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
+        }
+
+        .table-of-contents::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .table-of-contents::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .table-of-contents::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+
+        .table-of-contents::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .table-of-contents.active {
+            left: 0;
+        }
+
+        .toc-header {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0;
+            padding: 2rem 1.5rem 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .toc-content {
+            padding: 1rem 0;
+        }
+
+        .toc-item {
+            background: rgba(255, 255, 255, 0.08);
+            margin: 0.5rem 1rem;
+            padding: 1.2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s var(--transition-smooth);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toc-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transform: scaleY(0);
+            transition: transform 0.3s var(--transition-smooth);
+        }
+
+        .toc-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(8px);
+            box-shadow: 0 8px 25px rgba(31, 38, 135, 0.3);
+        }
+
+        .toc-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .toc-item.current {
+            background: rgba(103, 126, 234, 0.25);
+            border-color: rgba(103, 126, 234, 0.5);
+            box-shadow: 0 8px 25px rgba(103, 126, 234, 0.3);
+        }
+
+        .toc-item.current::before {
+            transform: scaleY(1);
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+        }
+
+        .toc-title {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .toc-meta {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .toc-type {
+            display: inline-block;
+            background: rgba(142, 68, 173, 0.4);
+            color: white;
+            padding: 0.25rem 0.7rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .toc-status {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .toc-excerpt {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 6rem auto 0;
+            position: relative;
+            padding: 0 2rem;
+            transition: margin-left 0.4s var(--transition-bounce);
+        }
+
+        .container.toc-open {
+            margin-left: 200px;
+        }
+
+        h1.dynamic-title {
+            font-family: var(--font-headings);
+            color: white;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.7));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.5s var(--transition-smooth);
+            animation: titleFade 0.5s var(--transition-smooth);
+        }
+
+        @keyframes titleFade {
+            from {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reader {
+            background: rgba(255, 255, 255, 0.12);
+            -webkit-backdrop-filter: var(--blur-heavy);
+            backdrop-filter: var(--blur-heavy);
+            padding: 3rem;
+            border-radius: var(--border-radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+            transition: all 0.4s var(--transition-bounce);
+        }
+
+        .reader:hover {
+            transform: translateY(-8px) scale(1.005);
+            box-shadow: 0 25px 50px rgba(31, 38, 135, 0.3);
+        }
+
+        .poem-title {
+            font-family: var(--font-headings);
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .poem-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+
+        .poem-author {
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        .poem-type,
+        .poem-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .poem-type {
+            background: rgba(103, 126, 234, 0.3);
+            color: white;
+            border: 1px solid rgba(103, 126, 234, 0.5);
+        }
+
+        .poem-status {
+            background: rgba(46, 204, 113, 0.3);
+            color: white;
+            border: 1px solid rgba(46, 204, 113, 0.5);
+        }
+
+        .poem-status.draft {
+            background: rgba(241, 196, 15, 0.3);
+            border-color: rgba(241, 196, 15, 0.5);
+        }
+
+        .poem-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background: rgba(142, 68, 173, 0.3);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(142, 68, 173, 0.5);
+        }
+
+        .poem-content {
+            white-space: pre-line;
+            font-size: 1.3rem;
+            line-height: 2.2;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.15);
+            -webkit-backdrop-filter: var(--blur-medium);
+            backdrop-filter: var(--blur-medium);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 500;
+            transition: all 0.4s var(--transition-bounce);
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .poem-counter {
+            color: white;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            z-index: 100;
+        }
+
+        .controls:hover {
+            opacity: 1;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.15);
+            -webkit-backdrop-filter: var(--blur-medium);
+            backdrop-filter: var(--blur-medium);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 500;
+            transition: all 0.4s var(--transition-bounce);
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .no-content {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+            padding: 3rem;
+        }
+
+        /* RESPONSIVE DESIGN */
+
+        /* Large tablets and small desktops */
+        @media (max-width: 1024px) {
+            .container.toc-open {
+                margin-left: 100px;
+            }
+
+            .table-of-contents {
+                width: 350px;
+                left: -350px;
+            }
+        }
+
+        /* Tablets */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                height: 70px;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .author-header {
+                font-size: 1rem;
+                max-width: 40%;
+                text-align: right;
+            }
+
+            .toc-toggle {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .table-of-contents {
+                width: 320px;
+                left: -320px;
+                top: 70px;
+                height: calc(100vh - 70px);
+            }
+
+            .toc-header {
+                font-size: 1.1rem;
+                padding: 1.5rem 1rem 1rem;
+            }
+
+            .toc-item {
+                margin: 0.4rem 0.8rem;
+                padding: 1rem;
+            }
+
+            .container {
+                margin-top: 5rem;
+                padding: 0 1rem;
+            }
+
+            .container.toc-open {
+                margin-left: 0;
+            }
+
+            .reader {
+                padding: 2rem;
+            }
+
+            h1.dynamic-title {
+                font-size: 2.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .poem-title {
+                font-size: 1.6rem;
+            }
+
+            .poem-content {
+                font-size: 1.2rem;
+                line-height: 2;
+            }
+
+            .controls {
+                bottom: 1rem;
+                right: 1rem;
+                gap: 0.5rem;
+            }
+
+            .control-btn {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-btn {
+                padding: 0.7rem 1.2rem;
+            }
+        }
+
+        /* Mobile phones */
+        @media (max-width: 480px) {
+            header {
+                padding: 0.8rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .author-header {
+                font-size: 0.9rem;
+                max-width: 50%;
+            }
+
+            .table-of-contents {
+                width: 280px;
+                left: -280px;
+            }
+
+            .toc-header {
+                font-size: 1rem;
+                padding: 1.2rem 0.8rem 0.8rem;
+            }
+
+            .toc-item {
+                margin: 0.3rem 0.6rem;
+                padding: 0.8rem;
+            }
+
+            .toc-title {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 0 0.8rem;
+            }
+
+            .reader {
+                padding: 1.5rem;
+            }
+
+            h1.dynamic-title {
+                font-size: 2rem;
+            }
+
+            .poem-title {
+                font-size: 1.4rem;
+            }
+
+            .poem-content {
+                font-size: 1.1rem;
+            }
+
+            .controls {
+                bottom: 0.8rem;
+                right: 0.8rem;
+                flex-direction: column;
+            }
+
+            .control-btn {
+                padding: 0.7rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Very small devices */
+        @media (max-width: 360px) {
+            .table-of-contents {
+                width: 260px;
+                left: -260px;
+            }
+
+            .reader {
+                padding: 1.2rem;
+            }
+
+            h1.dynamic-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Overlay for mobile when TOC is open */
+        .toc-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .toc-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .toc-overlay {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Floating particles -->
+    <div class="particle" style="top: 15%; left: 10%; width: 4px; height: 4px;"></div>
+    <div class="particle" style="top: 25%; left: 85%; width: 6px; height: 6px;"></div>
+    <div class="particle" style="top: 65%; left: 15%; width: 8px; height: 8px;"></div>
+    <div class="particle" style="top: 75%; left: 90%; width: 5px; height: 5px;"></div>
+    <div class="particle" style="top: 45%; left: 70%; width: 3px; height: 3px;"></div>
+    <div class="particle" style="top: 55%; left: 30%; width: 7px; height: 7px;"></div>
+
+    <header>
+        <div class="logo">वृन्दोपनिषद्</div>
+        <div class="header-controls">
+            <!-- DEVELOPER FILTERS (Hidden from users) -->
+            <div class="filter-controls" id="devFilters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="page">Pages</button>
+                <button class="filter-btn" data-filter="post">Posts</button>
+                <button class="filter-btn" data-filter="article">Articles</button>
+            </div>
+            <button class="toc-toggle" id="tocToggle">📖 Contents</button>
+        </div>
+        <div id="authorDisplay" class="author-header"></div>
+    </header>
+
+    <!-- TOC Overlay for mobile -->
+    <div class="toc-overlay" id="tocOverlay"></div>
+
+    <!-- Table of Contents -->
+    <div class="table-of-contents" id="tableOfContents">
+        <div class="toc-header">Table of Contents</div>
+        <div class="toc-content">
+            <div id="tocItems"></div>
+        </div>
+    </div>
+
+    <div class="container" id="mainContainer">
+        <h1 id="dynamicTitle" class="dynamic-title">वृन्दोपनिषद्</h1>
+        <div id="contentArea">
+            <div class="no-content">
+                <p>Loading poetry collection...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="control-btn" id="fontDown">A-</button>
+        <button class="control-btn" id="fontUp">A+</button>
+        <button class="control-btn" id="themeToggle">🌙</button>
+    </div>
+
+    <script>
+        // Global variables
+        let allPoems = [];
+        let filteredPoems = [];
+        let currentIndex = 0;
+        let currentFilter = 'post'; // Default to 'post' - change this to control what users see
+
+        // Get DOM elements
+        const contentArea = document.getElementById('contentArea');
+        const fontDown = document.getElementById('fontDown');
+        const fontUp = document.getElementById('fontUp');
+        const themeToggle = document.getElementById('themeToggle');
+        const tocToggle = document.getElementById('tocToggle');
+        const tableOfContents = document.getElementById('tableOfContents');
+        const tocOverlay = document.getElementById('tocOverlay');
+        const mainContainer = document.getElementById('mainContainer');
+        const tocItems = document.getElementById('tocItems');
+        const devFilters = document.getElementById('devFilters');
+
+        // DEVELOPER MODE: Uncomment the line below to show filter controls for testing
+        //// Global variables
+        // let allPoems = [];
+        // let filteredPoems = [];
+        // let currentIndex = 0;
+        // let currentFilter = 'all';
+
+        // Get DOM elements
+        // const contentArea = document.getElementById('contentArea');
+        // const fontDown = document.getElementById('fontDown');
+        // const fontUp = document.getElementById('fontUp');
+        // const themeToggle = document.getElementById('themeToggle');
+        // const tocToggle = document.getElementById('tocToggle');
+        // const tableOfContents = document.getElementById('tableOfContents');
+        // const mainContainer = document.getElementById('mainContainer');
+        // const filterStatus = document.getElementById('filterStatus');
+        // const tocItems = document.getElementById('tocItems');
+
+        // Create sample data (replace with your JSON fetch)
+        const sampleData = [
+            {
+                "id": 1757214612131,
+                "title": "radhe",
+                "type": "page",
+                "status": "draft",
+                "excerpt": "shri harivansh",
+                "content": "radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe \nradhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe \nradhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe",
+                "tags": ["shri harivansh", "radhe radhe", "jay jay shri radhe"]
+            },
+            {
+                "id": 1757214654681,
+                "title": "shyam",
+                "type": "post",
+                "status": "published",
+                "excerpt": "shri harivansh",
+                "content": "radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe",
+                "tags": ["shri harivansh", "radhe radhe", "jay jay shri radhe"]
+            },
+            {
+                "id": 1757214712427,
+                "title": "radhe shyam",
+                "type": "article",
+                "status": "draft",
+                "excerpt": "shri harivansh",
+                "content": "radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe radhe",
+                "tags": ["shri harivansh", "radhe radhe", "jay jay shri radhe"]
+            }
+        ];
+
+        // Initialize with sample data
+        allPoems = sampleData;
+        applyFilter('all');
+
+        // Uncomment this section to load from JSON file instead:
+        // /*
+        fetch('/class/json/content-export-2026-09-09.json')
+            .then(response => response.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    allPoems = data;
+                    applyFilter('all');
+                } else {
+                    throw new Error('Invalid JSON format. Expected an array of poems.');
+                }
+            })
+            .catch(error => {
+                contentArea.innerHTML = `<div class="no-content"><p>Error loading poems: ${error.message}</p></div>`;
+            });
+        // */
+
+        // Filter functionality
+        function applyFilter(filterType) {
+            currentFilter = filterType;
+
+            if (filterType === 'all') {
+                filteredPoems = allPoems;
+            } else {
+                filteredPoems = allPoems.filter(poem => poem.type === filterType);
+            }
+
+            currentIndex = 0;
+            updateFilterButtons();
+            updateFilterStatus();
+            updateTableOfContents();
+            displayPoem();
+        }
+
+        function updateFilterButtons() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.filter === currentFilter) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        function updateFilterStatus() {
+            const statusText = currentFilter === 'all'
+                ? `Showing all ${filteredPoems.length} items`
+                : `Showing ${filteredPoems.length} ${currentFilter}${filteredPoems.length !== 1 ? 's' : ''}`;
+            filterStatus.textContent = statusText;
+        }
+
+        function updateTableOfContents() {
+            tocItems.innerHTML = '';
+            filteredPoems.forEach((poem, index) => {
+                const tocItem = document.createElement('div');
+                tocItem.className = 'toc-item';
+                if (index === currentIndex) {
+                    tocItem.classList.add('current');
+                }
+
+                tocItem.innerHTML = `
+                    <div class="toc-title">${poem.title || 'Untitled'}</div>
+                    <div class="toc-meta">
+                        <span class="toc-type">${poem.type || 'poem'}</span>
+                        ${poem.status || 'published'}
+                    </div>
+                `;
+
+                tocItem.addEventListener('click', () => {
+                    currentIndex = index;
+                    displayPoem();
+                    updateTableOfContents();
+                    // Close TOC on mobile after selection
+                    if (window.innerWidth <= 768) {
+                        tableOfContents.classList.remove('active');
+                        mainContainer.classList.remove('toc-open');
+                    }
+                });
+
+                tocItems.appendChild(tocItem);
+            });
+        }
+
+        // Event listeners for filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                applyFilter(btn.dataset.filter);
+            });
+        });
+
+        // Table of contents toggle
+        tocToggle.addEventListener('click', () => {
+            tableOfContents.classList.toggle('active');
+            mainContainer.classList.toggle('toc-open');
+        });
+
+        // Close TOC when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!tableOfContents.contains(e.target) && !tocToggle.contains(e.target)) {
+                if (tableOfContents.classList.contains('active')) {
+                    tableOfContents.classList.remove('active');
+                    mainContainer.classList.remove('toc-open');
+                }
+            }
+        });
+
+        // Display poem
+        function displayPoem() {
+            if (filteredPoems.length === 0) {
+                contentArea.innerHTML = '<div class="no-content"><p>No content found for this filter</p></div>';
+                return;
+            }
+
+            const poem = filteredPoems[currentIndex];
+
+            // Update the main title and author with animation
+            const dynamicTitle = document.getElementById('dynamicTitle');
+            const authorDisplay = document.getElementById('authorDisplay');
+
+            dynamicTitle.style.opacity = '0';
+            authorDisplay.style.opacity = '0';
+            authorDisplay.style.transform = 'translateX(10px)';
+
+            setTimeout(() => {
+                dynamicTitle.textContent = poem.title || 'वृन्दोपनिषद्';
+                authorDisplay.textContent = poem.excerpt || '';
+                dynamicTitle.style.opacity = '1';
+                authorDisplay.style.opacity = '1';
+                authorDisplay.style.transform = 'translateX(0)';
+            }, 250);
+
+            const navigation = filteredPoems.length > 1 ? `
+                <div class="navigation">
+                    <button class="nav-btn" ${currentIndex === 0 ? 'disabled' : ''} onclick="previousPoem()">← Previous</button>
+                    <div class="poem-counter">${currentIndex + 1} of ${filteredPoems.length}</div>
+                    <button class="nav-btn" ${currentIndex === filteredPoems.length - 1 ? 'disabled' : ''} onclick="nextPoem()">Next →</button>
+                </div>
+            ` : '';
+
+            const tags = poem.tags && poem.tags.length > 0 ?
+                `<div class="poem-tags">${poem.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : '';
+
+            const content = formatContent(poem.content || '');
+
+            contentArea.innerHTML = `
+                <div class="reader">
+                    <h2 class="poem-title">${poem.title || 'वृन्दोपनिषद्'}</h2>
+                    <div class="poem-meta">
+                        <div class="poem-author">${poem.excerpt || 'वृन्दावन'}</div>
+                        <div class="poem-type">${poem.type || 'Bhaav'}</div>
+                        <div class="poem-status ${poem.status === 'draft' ? 'draft' : ''}">${poem.status || 'published'}</div>
+                    </div>
+                    ${tags}
+                    <div class="poem-content">${content}</div>
+                </div>
+                ${navigation}
+            `;
+
+            // Update TOC current item
+            updateTableOfContents();
+        }
+
+        function formatContent(content) {
+            if (!content) return '';
+
+            const words = content.trim().split(/\s+/);
+            if (words.length > 5 && words.every(word => word.toLowerCase() === words[0].toLowerCase())) {
+                const uniqueWord = words[0];
+                const count = words.length;
+
+                if (count > 20) {
+                    let formatted = '';
+                    for (let i = 0; i < count; i++) {
+                        if (i > 0 && i % 10 === 0) {
+                            formatted += '\n\n';
+                        } else if (i > 0) {
+                            formatted += ' ';
+                        }
+                        formatted += uniqueWord;
+                    }
+                    return formatted;
+                }
+            }
+
+            return content.replace(/\n\s*\n/g, '\n\n');
+        }
+
+        function previousPoem() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                displayPoem();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function nextPoem() {
+            if (currentIndex < filteredPoems.length - 1) {
+                currentIndex++;
+                displayPoem();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Font size controls
+        fontDown.addEventListener('click', () => {
+            const content = document.querySelector('.poem-content');
+            if (content) {
+                const currentSize = parseFloat(window.getComputedStyle(content).fontSize);
+                const newSize = Math.max(currentSize * 0.85, 16);
+                content.style.fontSize = newSize + 'px';
+            }
+        });
+
+        fontUp.addEventListener('click', () => {
+            const content = document.querySelector('.poem-content');
+            if (content) {
+                const currentSize = parseFloat(window.getComputedStyle(content).fontSize);
+                const newSize = Math.min(currentSize * 1.15, 40);
+                content.style.fontSize = newSize + 'px';
+            }
+        });
+
+        // Theme toggle
+        let isDark = false;
+        themeToggle.addEventListener('click', () => {
+            if (isDark) {
+                document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                themeToggle.textContent = '🌙';
+            } else {
+                document.body.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)';
+                themeToggle.textContent = '☀️';
+            }
+            isDark = !isDark;
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                previousPoem();
+            }
+            if (e.key === 'ArrowRight' && currentIndex < filteredPoems.length - 1) {
+                nextPoem();
+            }
+            if ((e.ctrlKey || e.metaKey) && e.key === '+') {
+                e.preventDefault();
+                fontUp.click();
+            }
+            if ((e.ctrlKey || e.metaKey) && e.key === '-') {
+                e.preventDefault();
+                fontDown.click();
+            }
+            if (e.key === 'Escape') {
+                tableOfContents.classList.remove('active');
+                mainContainer.classList.remove('toc-open');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && tableOfContents.classList.contains('active')) {
+                mainContainer.classList.add('toc-open');
+            } else if (window.innerWidth <= 768) {
+                mainContainer.classList.remove('toc-open');
+            }
+        });
+    </script>
+</body>
+
+</html>

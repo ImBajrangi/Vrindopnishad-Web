@@ -1,0 +1,172 @@
+/* Add to the end of collection-folders.css */
+
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+    /* Tablet Adjustments */
+    .collection-card {
+        height: 240px;
+    }
+
+    .collection-card:hover {
+        transform: scale(1.2);
+    }
+    
+    .collection-card:hover ~ .collection-card {
+        transform: translateX(30px);
+    }
+
+    .card-content {
+        padding: 1.5rem 1.2rem 1.2rem;
+    }
+
+    .content-header h3 {
+        font-size: 1.3rem;
+    }
+
+    .view-btn, .info-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .preview-strip {
+        gap: 0.8rem;
+    }
+
+    .action-buttons {
+        margin: 0.8rem 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* Mobile Adjustments */
+    .collection-card {
+        height: 200px;
+    }
+
+    .collection-card:hover {
+        transform: scale(1.1);
+        height: auto;
+    }
+    
+    .collection-card:hover ~ .collection-card {
+        transform: translateY(20px);
+    }
+
+    .card-content {
+        padding: 1.2rem 1rem 1rem;
+        min-height: 180px;
+    }
+
+    .collection-card:hover .card-content {
+        min-height: 70%;
+    }
+
+    .content-header h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .content-header p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .category-label {
+        font-size: 0.8rem;
+    }
+
+    .action-buttons {
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin: 0.8rem 0;
+    }
+
+    .view-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 0.8rem;
+    }
+
+    .info-btn {
+        padding: 0.8rem;
+    }
+
+    .preview-strip {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) {
+    .collection-card {
+        transform: none !important;
+    }
+
+    .card-content {
+        opacity: 1;
+        transform: translateY(0);
+        background: linear-gradient(0deg, 
+            rgba(0, 0, 0, 0.95) 0%, 
+            rgba(0, 0, 0, 0.8) 50%,
+            rgba(0, 0, 0, 0.4) 100%);
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .content-header, .action-buttons, .preview-strip {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .preview-strip {
+        display: none; /* Hide preview strip on touch devices */
+    }
+
+    .action-buttons {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .collection-card:hover .main-cover-image {
+        transform: none;
+    }
+}
+
+/* Portrait Orientation for Mobile */
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    .collections-grid {
+        gap: 1.2rem;
+    }
+
+    .collection-card {
+        height: 180px;
+    }
+
+    .content-header h3 {
+        font-size: 1.1rem;
+    }
+}
+
+/* Landscape Orientation for Mobile */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .collections-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .collection-card {
+        height: 160px;
+    }
+}
+
+/* Safe Area Insets for Notched Phones */
+@supports (padding: env(safe-area-inset-bottom)) {
+    .collections-grid {
+        padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+        padding-left: calc(1rem + env(safe-area-inset-left));
+        padding-right: calc(1rem + env(safe-area-inset-right));
+    }
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Notifications Demo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="modern-notifications.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      line-height: 1.5;
+    }
+    
+    .demo-section {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      border-radius: 10px;
+      background-color: #f5f5f7;
+    }
+    
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      margin-bottom: 1rem;
+    }
+    
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    button {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .success-btn {
+      background-color: #34c759;
+      color: white;
+    }
+    
+    .error-btn {
+      background-color: #ff3b30;
+      color: white;
+    }
+    
+    .info-btn {
+      background-color: #007aff;
+      color: white;
+    }
+    
+    .theme-btn {
+      background-color: #8e8e93;
+      color: white;
+    }
+    
+    button:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    
+    pre {
+      background-color: #282c34;
+      color: #abb2bf;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    
+    code {
+      font-family: Menlo, Monaco, "Courier New", monospace;
+    }
+    
+    .dark-mode {
+      background-color: #1c1c1e;
+      color: white;
+    }
+    
+    .dark-mode .demo-section {
+      background-color: #2c2c2e;
+    }
+  </style>
+</head>
+<body>
+  <h1>Modern Notifications Demo</h1>
+  <p>A lightweight, customizable notification system with smooth animations and sound effects.</p>
+  
+  <div class="demo-section">
+    <h2>Try It Out</h2>
+    <p>Click the buttons below to see different types of notifications:</p>
+    
+    <div class="btn-group">
+      <button class="success-btn" onclick="showNotification('Your file has been successfully uploaded.', 'success')">
+        Success Notification
+      </button>
+      
+      <button class="error-btn" onclick="showNotification('Error: Failed to connect to server.', 'error')">
+        Error Notification
+      </button>
+      
+      <button class="info-btn" onclick="showNotification('Your download will start shortly.', 'info')">
+        Info Notification
+      </button>
+      
+      <button class="theme-btn" onclick="toggleDarkMode()">
+        Toggle Dark Mode
+      </button>
+    </div>
+  </div>
+  
+  <h2>Advanced Examples</h2>
+  
+  <div class="demo-section">
+    <h3>Custom Duration</h3>
+    <p>Set a custom duration (in milliseconds) for how long the notification stays visible:</p>
+    <button class="info-btn" onclick="showNotification('This notification will stay for 10 seconds', 'info', {duration: 10000})">
+      Long Duration (10s)
+    </button>
+  </div>
+  
+  <div class="demo-section">
+    <h3>Custom App Name</h3>
+    <p>You can customize the app name displayed in the notification:</p>
+    <button class="success-btn" onclick="showNotification('Your profile has been updated', 'success', {appName: 'Settings'})">
+      Custom App Name
+    </button>
+  </div>
+  
+  <div class="demo-section">
+    <h3>Custom Icon</h3>
+    <p>You can use any custom icon in the notification:</p>
+    <button class="info-btn" onclick="showNotification('Weather update: 72°F, Sunny', 'info', {appName: 'Weather', icon: '<i class=\'fas fa-sun\'></i>'})">
+      Custom Icon
+    </button>
+  </div>
+  
+  <div class="demo-section">
+    <h3>Swipe to Dismiss</h3>
+    <p>Notifications can be dismissed with a swipe gesture in any direction. This feature is enabled by default, but can be configured:</p>
+    <div class="btn-group">
+      <button class="info-btn" onclick="showNotification('Swipe me in any direction to dismiss!', 'info', {duration: 10000})">
+        Swipe Enabled (Default)
+      </button>
+      
+      <button class="error-btn" onclick="showNotification('This notification cannot be swiped away', 'error', {enableSwipe: false, duration: 10000})">
+        Swipe Disabled
+      </button>
+      
+      <button class="success-btn" onclick="showNotification('Needs longer swipe to dismiss', 'success', {minSwipeDistance: 100, duration: 10000})">
+        Longer Swipe Distance
+      </button>
+    </div>
+    <p class="mobile-notice" style="font-style: italic; margin-top: 10px; font-size: 0.9em;">
+      Note: Touch gestures work best on mobile devices or touchscreens.
+    </p>
+  </div>
+  
+  <h2>How to Use</h2>
+  
+  <h3>1. Include the Files</h3>
+  <pre><code>&lt;link rel="stylesheet" href="modern-notifications.css"&gt;
+&lt;script src="modern-notifications.js"&gt;&lt;/script&gt;</code></pre>
+  
+  <h3>2. Add a Container (Optional)</h3>
+  <pre><code>&lt;div id="notifications" class="notifications"&gt;&lt;/div&gt;</code></pre>
+  <p>Note: If you don't add this, the script will create it automatically.</p>
+  
+  <h3>3. Show Notifications</h3>
+  <pre><code>// Basic usage
+showNotification('Your message here', 'success');
+
+// With options
+showNotification('Custom notification', 'info', {
+  appName: 'My App',
+  icon: '&lt;i class="fas fa-bell"&gt;&lt;/i&gt;',
+  duration: 5000,  // 5 seconds
+  enableSwipe: true,  // Enable swipe to dismiss (default is true)
+  minSwipeDistance: 50  // Minimum swipe distance in pixels
+});</code></pre>
+  
+  <!-- Notifications container will be automatically created if not present -->
+  <div id="notifications" class="notifications"></div>
+  
+  <script src="modern-notifications.js"></script>
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+</body>
+</html> 

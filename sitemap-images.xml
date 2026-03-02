@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://vrindopnishad.in/Vrindopnishad%20Web/Pictures/main/Gallery.html</loc>
+    <image:image>
+      <image:loc>https://i.postimg.cc/y6nMpbfG/1.avif</image:loc>
+      <image:title>Beautiful Anime Scene</image:title>
+      <image:caption>A stunning anime landscape with vibrant colors</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/D0CRWSJh/2.avif</image:loc>
+      <image:title>Shri Rasik Bihari Ji</image:title>
+      <image:caption>Divine spiritual artwork</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/ncz6yGgh/3.avif</image:loc>
+      <image:title>Anime Character</image:title>
+      <image:caption>Beautiful anime character illustration</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/d3Qzt20n/4.avif</image:loc>
+      <image:title>Scenic Landscape</image:title>
+      <image:caption>Breathtaking natural landscape view</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/wjYQX6XY/5.avif</image:loc>
+      <image:title>Anime Art</image:title>
+      <image:caption>Colorful anime artwork</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://vrindopnishad.in/Vrindopnishad%20Web/Pictures/main/photos.html</loc>
+  </url>
+</urlset>

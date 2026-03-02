@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hatom Custom Cursor Clone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-outline" id="cursorOutline"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+    
+    <!-- WebGL Canvas for advanced effects -->
+    <canvas id="webgl-canvas"></canvas>
+    
+    <!-- Demo Content -->
+    <div class="container">
+        <header class="header">
+            <nav class="navigation">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#" class="nav-link">About</a>
+                <a href="#" class="nav-link">Services</a>
+                <a href="#" class="nav-link">Contact</a>
+            </nav>
+        </header>
+        
+        <main class="main-content">
+            <section class="hero">
+                <h1 class="hero-title" data-cursor="text">Experience the Future</h1>
+                <p class="hero-subtitle" data-cursor="text">Immersive web interactions with custom cursors</p>
+                <button class="cta-button" data-cursor="pointer">Get Started</button>
+            </section>
+            
+            <section class="gallery">
+                <div class="image-wrapper" data-cursor="view">
+                    <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400" alt="Demo Image 1">
+                    <div class="image-overlay">
+                        <span class="overlay-text">Hover Effect</span>
+                    </div>
+                </div>
+                <div class="image-wrapper" data-cursor="view">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" alt="Demo Image 2">
+                    <div class="image-overlay">
+                        <span class="overlay-text">Liquid Distortion</span>
+                    </div>
+                </div>
+                <div class="image-wrapper" data-cursor="view">
+                    <img src="https://images.unsplash.com/photo-1614850523060-8da1d46e2cb8?w=400" alt="Demo Image 3">
+                    <div class="image-overlay">
+                        <span class="overlay-text">WebGL Magic</span>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="interactive-area">
+                <div class="drag-element" data-cursor="drag">
+                    <span>Drag Me</span>
+                </div>
+                <div class="loading-area" data-cursor="loading">
+                    <span>Loading Animation</span>
+                </div>
+                <div class="text-area" data-cursor="text">
+                    <p>This text has a custom text cursor. You can select and interact with it using our advanced cursor system.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Particle System Container -->
+    <div id="particles-container"></div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="/hatom-cursor-script.js"></script>
+</body>
+</html>

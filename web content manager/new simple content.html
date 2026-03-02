@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Collection Data Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #27315c 0%, #2d1d3d 100%);
+            min-height: 100vh;
+            color: #262626;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #21294c, #251732);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .message {
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        }
+
+        .message-success { background: #2d858f; color: #0d2735; border: 1px solid #c3cde6; }
+        .message-error { background: #f6c3c8; color: #721c24; border: 1px solid #f5c6cb; }
+        .message-warning { background: #fee9a3; color: #856404; border: 1px solid #ffeeba; }
+        .message-info { background: #a3eaf7; color: #0c5460; border: 1px solid #bee5eb; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .collection-selector {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .collection-selector select {
+            flex: 1;
+            min-width: 200px;
+            padding: 8px 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 8px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+
+        .tab {
+            flex: 1;
+            min-width: 140px;
+            padding: 12px 16px;
+            background: none;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #262f57, #2f1d40);
+            color: white;
+        }
+
+        .content-section {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        .media-section {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .media-item {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #252e55, #322044);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-right: 12px;
+            margin-bottom: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary { background: linear-gradient(135deg, #434f58, #2a3844); }
+        .btn-success { background: linear-gradient(135deg, #155158, #113d3f); }
+        .btn-danger { background: linear-gradient(135deg, #741b23, #6a2c33); }
+        .btn-warning { background: linear-gradient(135deg, #7c5100, #896a0d); color: #ffffff; }
+        .btn-sm { padding: 8px 16px; font-size: 12px; }
+
+        .entry-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .entry-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1b003d;
+            margin-bottom: 8px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e2546, #271935);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 16px; }
+            .header h1 { font-size: 2rem; }
+            .tabs { flex-direction: column; }
+            .collection-selector { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Multi-Collection Data Manager</h1>
+            <p>Manage multiple collections with images, videos, audio, and related content</p>
+        </div>
+
+        <div class="collection-selector">
+            <div style="flex: 1;">
+                <label for="collectionSelect" style="font-weight: 600; margin-bottom: 8px; display: block;">Current Collection:</label>
+                <select id="collectionSelect" onchange="switchCollection()">
+                    <option value="default">Default Collection</option>
+                </select>
+            </div>
+            <div>
+                <button class="btn btn-sm" onclick="createNewCollection()">
+                    <i class="fas fa-plus"></i> New
+                </button>
+                <button class="btn btn-sm btn-warning" onclick="renameCollection()">
+                    <i class="fas fa-edit"></i> Rename
+                </button>
+                <button class="btn btn-sm btn-danger" onclick="deleteCollection()">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalEntries">0</div>
+                <div class="stat-label">Entries</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalCollections">1</div>
+                <div class="stat-label">Collections</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalMedia">0</div>
+                <div class="stat-label">Media Items</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('create')">
+                <i class="fas fa-plus"></i> Create
+            </button>
+            <button class="tab" onclick="showTab('manage')">
+                <i class="fas fa-list"></i> Manage
+            </button>
+            <button class="tab" onclick="showTab('export')">
+                <i class="fas fa-download"></i> Export
+            </button>
+        </div>
+
+        <!-- Create Entry Section -->
+        <div id="create" class="content-section active">
+            <h2>Create New Entry</h2>
+            
+            <form id="entryForm">
+                <div class="form-group">
+                    <label for="entryTitle">Title *</label>
+                    <input type="text" id="entryTitle" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="entryDescription">Description</label>
+                    <textarea id="entryDescription" rows="4"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="entryCategory">Category</label>
+                    <input type="text" id="entryCategory">
+                </div>
+
+                <div class="form-group">
+                    <label for="entryTags">Tags (comma separated)</label>
+                    <input type="text" id="entryTags">
+                </div>
+
+                <div class="media-section">
+                    <h4><i class="fas fa-file-text"></i> Content Article</h4>
+                    <div class="form-group">
+                        <label for="contentType">Type</label>
+                        <select id="contentType">
+                            <option value="page">Page</option>
+                            <option value="post">Post</option>
+                            <option value="article">Article</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="contentStatus">Status</label>
+                        <select id="contentStatus">
+                            <option value="draft">Draft</option>
+                            <option value="published">Published</option>
+                            <option value="private">Private</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="contentExcerpt">Excerpt</label>
+                        <input type="text" id="contentExcerpt" placeholder="Short summary or excerpt">
+                    </div>
+                    <div class="form-group">
+                        <label for="contentBody">Content Body</label>
+                        <textarea id="contentBody" rows="8" placeholder="Enter your full content here..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="contentTags">Content-specific Tags (comma separated)</label>
+                        <input type="text" id="contentTags" placeholder="Additional tags for this content">
+                    </div>
+                </div>
+
+                <div class="media-section">
+                    <h4><i class="fas fa-images"></i> Images</h4>
+                    <div id="imagesList"></div>
+                    <div style="display: flex; gap: 12px; margin-top: 12px;">
+                        <input type="text" id="imageTitle" placeholder="Image title" style="flex: 1;">
+                        <input type="url" id="imageUrl" placeholder="Image URL" style="flex: 1;">
+                        <button type="button" class="btn btn-sm" onclick="addImage()">Add</button>
+                    </div>
+                </div>
+
+                <div class="media-section">
+                    <h4><i class="fas fa-video"></i> Videos</h4>
+                    <div id="videosList"></div>
+                    <div style="display: flex; gap: 12px; margin-top: 12px;">
+                        <input type="text" id="videoTitle" placeholder="Video title" style="flex: 1;">
+                        <input type="url" id="videoUrl" placeholder="Video URL" style="flex: 1;">
+                        <button type="button" class="btn btn-sm" onclick="addVideo()">Add</button>
+                    </div>
+                </div>
+
+                <div class="media-section">
+                    <h4><i class="fas fa-music"></i> Audio Files</h4>
+                    <div id="audiosList"></div>
+                    <div style="display: flex; gap: 12px; margin-top: 12px;">
+                        <input type="text" id="audioTitle" placeholder="Audio title" style="flex: 1;">
+                        <input type="url" id="audioUrl" placeholder="Audio URL" style="flex: 1;">
+                        <button type="button" class="btn btn-sm" onclick="addAudio()">Add</button>
+                    </div>
+                </div>
+
+                <div class="media-section">
+                    <h4><i class="fas fa-link"></i> Links</h4>
+                    <div id="linksList"></div>
+                    <div style="display: flex; gap: 12px; margin-top: 12px;">
+                        <input type="text" id="linkTitle" placeholder="Link title" style="flex: 1;">
+                        <input type="url" id="linkUrl" placeholder="Link URL" style="flex: 1;">
+                        <button type="button" class="btn btn-sm" onclick="addLink()">Add</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn">
+                        <i class="fas fa-save"></i> <span id="saveBtnText">Save Entry</span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="clearForm()">
+                        <i class="fas fa-times"></i> Clear
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Manage Entries Section -->
+        <div id="manage" class="content-section">
+            <h2>Manage Entries</h2>
+            
+            <div class="form-group">
+                <input type="text" id="searchInput" placeholder="Search entries..." onkeyup="searchEntries()">
+            </div>
+
+            <div id="entriesList"></div>
+        </div>
+
+        <!-- Export Section -->
+        <div id="export" class="content-section">
+            <h2>Export & Import</h2>
+            
+            <div style="margin-bottom: 24px;">
+                <button class="btn" onclick="exportData()">
+                    <i class="fas fa-download"></i> Export Current Collection
+                </button>
+                <button class="btn btn-warning" onclick="importData()">
+                    <i class="fas fa-upload"></i> Import Data
+                </button>
+                <button class="btn btn-danger" onclick="clearAllData()">
+                    <i class="fas fa-trash"></i> Clear Collection
+                </button>
+            </div>
+
+            <div style="background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 8px; padding: 16px; max-height: 400px; overflow-y: auto;">
+                <h3>Data Preview:</h3>
+                <pre id="dataPreview">Loading...</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class MultiCollectionManager {
+            constructor() {
+                this.collections = this.loadCollections();
+                this.currentCollection = 'default';
+                this.currentEditingEntry = null;
+                this.tempImages = [];
+                this.tempVideos = [];
+                this.tempAudios = [];
+                this.tempLinks = [];
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                this.updateCollectionSelector();
+                this.updateStats();
+                this.displayEntries();
+                this.updateDataPreview();
+            }
+
+            loadCollections() {
+                const stored = localStorage.getItem('multiCollectionData');
+                return stored ? JSON.parse(stored) : {
+                    'default': {
+                        name: 'Default Collection',
+                        entries: [],
+                        created: new Date().toISOString()
+                    }
+                };
+            }
+
+            saveCollections() {
+                localStorage.setItem('multiCollectionData', JSON.stringify(this.collections));
+                this.updateStats();
+                this.updateDataPreview();
+                this.updateCollectionSelector();
+            }
+
+            bindEvents() {
+                document.getElementById('entryForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.saveEntry();
+                });
+            }
+
+            generateId() {
+                return 'entry-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+            }
+
+            getCurrentEntries() {
+                return this.collections[this.currentCollection]?.entries || [];
+            }
+
+            setCurrentEntries(entries) {
+                if (!this.collections[this.currentCollection]) {
+                    this.collections[this.currentCollection] = {
+                        name: this.currentCollection,
+                        entries: [],
+                        created: new Date().toISOString()
+                    };
+                }
+                this.collections[this.currentCollection].entries = entries;
+            }
+
+            addImage() {
+                const title = document.getElementById('imageTitle').value.trim();
+                const url = document.getElementById('imageUrl').value.trim();
+
+                if (title && url) {
+                    const image = { id: this.generateId(), title, url, type: 'image' };
+                    this.tempImages.push(image);
+                    this.displayTempMedia('images', this.tempImages);
+                    document.getElementById('imageTitle').value = '';
+                    document.getElementById('imageUrl').value = '';
+                } else {
+                    this.showMessage('Please enter both title and URL', 'warning');
+                }
+            }
+
+            addVideo() {
+                const title = document.getElementById('videoTitle').value.trim();
+                const url = document.getElementById('videoUrl').value.trim();
+
+                if (title && url) {
+                    const video = { id: this.generateId(), title, url, type: 'video' };
+                    this.tempVideos.push(video);
+                    this.displayTempMedia('videos', this.tempVideos);
+                    document.getElementById('videoTitle').value = '';
+                    document.getElementById('videoUrl').value = '';
+                } else {
+                    this.showMessage('Please enter both title and URL', 'warning');
+                }
+            }
+
+            addAudio() {
+                const title = document.getElementById('audioTitle').value.trim();
+                const url = document.getElementById('audioUrl').value.trim();
+
+                if (title && url) {
+                    const audio = { id: this.generateId(), title, url, type: 'audio' };
+                    this.tempAudios.push(audio);
+                    this.displayTempMedia('audios', this.tempAudios);
+                    document.getElementById('audioTitle').value = '';
+                    document.getElementById('audioUrl').value = '';
+                } else {
+                    this.showMessage('Please enter both title and URL', 'warning');
+                }
+            }
+
+            addLink() {
+                const title = document.getElementById('linkTitle').value.trim();
+                const url = document.getElementById('linkUrl').value.trim();
+
+                if (title && url) {
+                    const link = { id: this.generateId(), title, url, type: 'link' };
+                    this.tempLinks.push(link);
+                    this.displayTempMedia('links', this.tempLinks);
+                    document.getElementById('linkTitle').value = '';
+                    document.getElementById('linkUrl').value = '';
+                } else {
+                    this.showMessage('Please enter both title and URL', 'warning');
+                }
+            }
+
+            displayTempMedia(type, mediaArray) {
+                const container = document.getElementById(`${type}List`);
+                container.innerHTML = mediaArray.map(media => `
+                    <div class="media-item">
+                        <div style="flex: 1;">
+                            <strong>${this.escapeHtml(media.title)}</strong><br>
+                            <small>${media.url}</small>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="dataManager.removeTempMedia('${type}', '${media.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            removeTempMedia(type, id) {
+                if (type === 'images') {
+                    this.tempImages = this.tempImages.filter(img => img.id !== id);
+                    this.displayTempMedia('images', this.tempImages);
+                } else if (type === 'videos') {
+                    this.tempVideos = this.tempVideos.filter(vid => vid.id !== id);
+                    this.displayTempMedia('videos', this.tempVideos);
+                } else if (type === 'audios') {
+                    this.tempAudios = this.tempAudios.filter(audio => audio.id !== id);
+                    this.displayTempMedia('audios', this.tempAudios);
+                } else if (type === 'links') {
+                    this.tempLinks = this.tempLinks.filter(link => link.id !== id);
+                    this.displayTempMedia('links', this.tempLinks);
+                }
+            }
+
+            saveEntry() {
+                const title = document.getElementById('entryTitle').value.trim();
+                if (!title) {
+                    this.showMessage('Please enter a title', 'error');
+                    return;
+                }
+
+                const entry = {
+                    id: this.currentEditingEntry ? this.currentEditingEntry.id : this.generateId(),
+                    title,
+                    description: document.getElementById('entryDescription').value.trim(),
+                    category: document.getElementById('entryCategory').value.trim(),
+                    tags: document.getElementById('entryTags').value.split(',').map(t => t.trim()).filter(t => t),
+                    content: {
+                        id: Date.now(),
+                        title: title,
+                        type: document.getElementById('contentType').value,
+                        status: document.getElementById('contentStatus').value,
+                        excerpt: document.getElementById('contentExcerpt').value.trim(),
+                        content: document.getElementById('contentBody').value.trim(),
+                        tags: document.getElementById('contentTags').value.split(',').map(t => t.trim()).filter(t => t),
+                        created: this.currentEditingEntry ? this.currentEditingEntry.content?.created || new Date().toISOString() : new Date().toISOString(),
+                        modified: new Date().toISOString()
+                    },
+                    images: [...this.tempImages],
+                    videos: [...this.tempVideos],
+                    audios: [...this.tempAudios],
+                    links: [...this.tempLinks],
+                    created: this.currentEditingEntry ? this.currentEditingEntry.created : new Date().toISOString(),
+                    modified: new Date().toISOString()
+                };
+
+                const entries = this.getCurrentEntries();
+                if (this.currentEditingEntry) {
+                    const index = entries.findIndex(e => e.id === this.currentEditingEntry.id);
+                    if (index !== -1) {
+                        entries[index] = entry;
+                    }
+                } else {
+                    entries.push(entry);
+                }
+
+                this.setCurrentEntries(entries);
+                this.saveCollections();
+                this.clearForm();
+                this.displayEntries();
+                this.showMessage('Entry saved successfully!', 'success');
+            }
+
+            editEntry(id) {
+                const entries = this.getCurrentEntries();
+                const entry = entries.find(e => e.id === id);
+                if (!entry) return;
+
+                this.currentEditingEntry = entry;
+                document.getElementById('entryTitle').value = entry.title;
+                document.getElementById('entryDescription').value = entry.description || '';
+                document.getElementById('entryCategory').value = entry.category || '';
+                document.getElementById('entryTags').value = entry.tags.join(', ');
+
+                // Populate content fields
+                if (entry.content) {
+                    document.getElementById('contentType').value = entry.content.type || 'page';
+                    document.getElementById('contentStatus').value = entry.content.status || 'draft';
+                    document.getElementById('contentExcerpt').value = entry.content.excerpt || '';
+                    document.getElementById('contentBody').value = entry.content.content || '';
+                    document.getElementById('contentTags').value = entry.content.tags ? entry.content.tags.join(', ') : '';
+                }
+
+                this.tempImages = [...(entry.images || [])];
+                this.tempVideos = [...(entry.videos || [])];
+                this.tempAudios = [...(entry.audios || [])];
+                this.tempLinks = [...(entry.links || [])];
+
+                this.displayTempMedia('images', this.tempImages);
+                this.displayTempMedia('videos', this.tempVideos);
+                this.displayTempMedia('audios', this.tempAudios);
+                this.displayTempMedia('links', this.tempLinks);
+
+                document.getElementById('saveBtnText').textContent = 'Update Entry';
+                showTab('create');
+            }
+
+            deleteEntry(id) {
+                if (confirm('Are you sure you want to delete this entry?')) {
+                    const entries = this.getCurrentEntries();
+                    const filtered = entries.filter(entry => entry.id !== id);
+                    this.setCurrentEntries(filtered);
+                    this.saveCollections();
+                    this.displayEntries();
+                    this.showMessage('Entry deleted!', 'success');
+                }
+            }
+
+            clearForm() {
+                document.getElementById('entryForm').reset();
+                this.tempImages = [];
+                this.tempVideos = [];
+                this.tempAudios = [];
+                this.tempLinks = [];
+                this.currentEditingEntry = null;
+                
+                // Reset content fields to defaults
+                document.getElementById('contentType').value = 'page';
+                document.getElementById('contentStatus').value = 'draft';
+                
+                document.getElementById('imagesList').innerHTML = '';
+                document.getElementById('videosList').innerHTML = '';
+                document.getElementById('audiosList').innerHTML = '';
+                document.getElementById('linksList').innerHTML = '';
+                document.getElementById('saveBtnText').textContent = 'Save Entry';
+            }
+
+            displayEntries() {
+                const container = document.getElementById('entriesList');
+                const entries = this.getCurrentEntries();
+                
+                if (entries.length === 0) {
+                    container.innerHTML = '<div class="entry-card"><p>No entries yet. Create your first entry!</p></div>';
+                    return;
+                }
+
+                container.innerHTML = entries.map(entry => `
+                    <div class="entry-card">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+                            <div>
+                                <div class="entry-title">${this.escapeHtml(entry.title)}</div>
+                                <div style="color: #666; font-size: 14px;">
+                                    Created: ${new Date(entry.created).toLocaleDateString()}
+                                    ${entry.category ? ` | Category: ${entry.category}` : ''}
+                                    ${entry.content ? ` | Type: ${entry.content.type} | Status: ${entry.content.status}` : ''}
+                                </div>
+                            </div>
+                            <div>
+                                <button class="btn btn-sm btn-secondary" onclick="dataManager.editEntry('${entry.id}')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="dataManager.deleteEntry('${entry.id}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+
+                        ${entry.description ? `<p style="margin-bottom: 16px;">${this.escapeHtml(entry.description)}</p>` : ''}
+
+                        ${entry.content && entry.content.excerpt ? `
+                            <div style="background: #f0f8ff; border-left: 4px solid #667eea; padding: 12px; margin-bottom: 16px; border-radius: 0 8px 8px 0;">
+                                <strong>Excerpt:</strong> ${this.escapeHtml(entry.content.excerpt)}
+                            </div>
+                        ` : ''}
+
+                        ${entry.content && entry.content.content ? `
+                            <div style="background: #f8f9fa; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+                                <h4 style="color: #667eea; margin-bottom: 12px;"><i class="fas fa-file-text"></i> Content Article</h4>
+                                <div style="max-height: 150px; overflow-y: auto; white-space: pre-wrap; font-family: monospace; font-size: 13px;">
+                                    ${this.escapeHtml(entry.content.content.substring(0, 300))}${entry.content.content.length > 300 ? '...' : ''}
+                                </div>
+                                ${entry.content.tags && entry.content.tags.length > 0 ? `
+                                    <div style="margin-top: 12px;">
+                                        <strong>Content Tags:</strong> 
+                                        ${entry.content.tags.map(tag => `<span style="display: inline-block; margin: 2px 4px 2px 0; padding: 2px 6px; background: #e1f5fe; border-radius: 10px; font-size: 11px;">${this.escapeHtml(tag)}</span>`).join('')}
+                                    </div>
+                                ` : ''}
+                            </div>
+                        ` : ''}
+
+                        ${entry.images && entry.images.length > 0 ? `
+                            <div style="margin-bottom: 12px;">
+                                <strong>Images (${entry.images.length}):</strong>
+                                ${entry.images.map(img => `<span style="display: inline-block; margin: 4px 8px 4px 0; padding: 2px 8px; background: #e3f2fd; border-radius: 12px; font-size: 12px;">${this.escapeHtml(img.title)}</span>`).join('')}
+                            </div>
+                        ` : ''}
+
+                        ${entry.videos && entry.videos.length > 0 ? `
+                            <div style="margin-bottom: 12px;">
+                                <strong>Videos (${entry.videos.length}):</strong>
+                                ${entry.videos.map(vid => `<span style="display: inline-block; margin: 4px 8px 4px 0; padding: 2px 8px; background: #fff3e0; border-radius: 12px; font-size: 12px;">${this.escapeHtml(vid.title)}</span>`).join('')}
+                            </div>
+                        ` : ''}
+
+                        ${entry.audios && entry.audios.length > 0 ? `
+                            <div style="margin-bottom: 12px;">
+                                <strong>Audio Files (${entry.audios.length}):</strong>
+                                ${entry.audios.map(audio => `<span style="display: inline-block; margin: 4px 8px 4px 0; padding: 2px 8px; background: #fce4ec; border-radius: 12px; font-size: 12px;">${this.escapeHtml(audio.title)}</span>`).join('')}
+                            </div>
+                        ` : ''}
+
+                        ${entry.links && entry.links.length > 0 ? `
+                            <div style="margin-bottom: 12px;">
+                                <strong>Links (${entry.links.length}):</strong>
+                                ${entry.links.map(link => `<span style="display: inline-block; margin: 4px 8px 4px 0; padding: 2px 8px; background: #e8f5e8; border-radius: 12px; font-size: 12px;">${this.escapeHtml(link.title)}</span>`).join('')}
+                            </div>
+                        ` : ''}
+
+                        ${entry.tags && entry.tags.length > 0 ? `
+                            <div style="margin-top: 12px;">
+                                <strong>Entry Tags:</strong>
+                                ${entry.tags.map(tag => `<span style="display: inline-block; margin: 2px 4px 2px 0; padding: 2px 6px; background: #f3e5f5; border-radius: 10px; font-size: 11px;">${this.escapeHtml(tag)}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `).join('');
+            }
+
+            searchEntries() {
+                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                const entries = this.getCurrentEntries();
+                
+                if (!searchTerm) {
+                    this.displayEntries();
+                    return;
+                }
+
+                const filtered = entries.filter(entry => 
+                    entry.title.toLowerCase().includes(searchTerm) ||
+                    (entry.description && entry.description.toLowerCase().includes(searchTerm)) ||
+                    (entry.category && entry.category.toLowerCase().includes(searchTerm)) ||
+                    (entry.tags && entry.tags.some(tag => tag.toLowerCase().includes(searchTerm))) ||
+                    (entry.content && entry.content.content && entry.content.content.toLowerCase().includes(searchTerm)) ||
+                    (entry.content && entry.content.excerpt && entry.content.excerpt.toLowerCase().includes(searchTerm)) ||
+                    (entry.content && entry.content.tags && entry.content.tags.some(tag => tag.toLowerCase().includes(searchTerm))) ||
+                    (entry.images && entry.images.some(img => img.title.toLowerCase().includes(searchTerm))) ||
+                    (entry.videos && entry.videos.some(vid => vid.title.toLowerCase().includes(searchTerm))) ||
+                    (entry.audios && entry.audios.some(audio => audio.title.toLowerCase().includes(searchTerm))) ||
+                    (entry.links && entry.links.some(link => link.title.toLowerCase().includes(searchTerm)))
+                );
+
+                const originalEntries = this.collections[this.currentCollection].entries;
+                this.collections[this.currentCollection].entries = filtered;
+                this.displayEntries();
+                this.collections[this.currentCollection].entries = originalEntries;
+            }
+
+            createNewCollection() {
+                const name = prompt('Enter collection name:');
+                if (name && name.trim()) {
+                    const id = name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+                    if (this.collections[id]) {
+                        this.showMessage('Collection already exists!', 'warning');
+                        return;
+                    }
+                    
+                    this.collections[id] = {
+                        name: name.trim(),
+                        entries: [],
+                        created: new Date().toISOString()
+                    };
+                    this.currentCollection = id;
+                    this.saveCollections();
+                    this.displayEntries();
+                    this.showMessage(`Collection "${name}" created!`, 'success');
+                }
+            }
+
+            renameCollection() {
+                const currentName = this.collections[this.currentCollection].name;
+                const newName = prompt('Enter new name:', currentName);
+                if (newName && newName.trim()) {
+                    this.collections[this.currentCollection].name = newName.trim();
+                    this.saveCollections();
+                    this.showMessage('Collection renamed!', 'success');
+                }
+            }
+
+            deleteCollection() {
+                if (Object.keys(this.collections).length === 1) {
+                    this.showMessage('Cannot delete the last collection!', 'error');
+                    return;
+                }
+
+                const name = this.collections[this.currentCollection].name;
+                if (confirm(`Delete "${name}" collection? This cannot be undone.`)) {
+                    delete this.collections[this.currentCollection];
+                    this.currentCollection = Object.keys(this.collections)[0];
+                    this.saveCollections();
+                    this.displayEntries();
+                    this.showMessage('Collection deleted!', 'success');
+                }
+            }
+
+            switchCollection() {
+                const select = document.getElementById('collectionSelect');
+                this.currentCollection = select.value;
+                this.displayEntries();
+                this.clearForm();
+            }
+
+            updateCollectionSelector() {
+                const select = document.getElementById('collectionSelect');
+                select.innerHTML = '';
+                
+                Object.keys(this.collections).forEach(id => {
+                    const option = document.createElement('option');
+                    option.value = id;
+                    option.textContent = `${this.collections[id].name} (${this.collections[id].entries.length})`;
+                    select.appendChild(option);
+                });
+                
+                select.value = this.currentCollection;
+            }
+
+            updateStats() {
+                const currentEntries = this.getCurrentEntries();
+                const totalMedia = currentEntries.reduce((sum, entry) => 
+                    sum + 
+                    (entry.images ? entry.images.length : 0) + 
+                    (entry.videos ? entry.videos.length : 0) + 
+                    (entry.audios ? entry.audios.length : 0) + 
+                    (entry.links ? entry.links.length : 0), 0);
+
+                document.getElementById('totalEntries').textContent = currentEntries.length;
+                document.getElementById('totalCollections').textContent = Object.keys(this.collections).length;
+                document.getElementById('totalMedia').textContent = totalMedia;
+            }
+
+            updateDataPreview() {
+                const previewElement = document.getElementById('dataPreview');
+                if (previewElement) {
+                    const preview = {
+                        currentCollection: this.collections[this.currentCollection].name,
+                        totalCollections: Object.keys(this.collections).length,
+                        currentEntries: this.getCurrentEntries().length,
+                        sampleData: this.getCurrentEntries().slice(0, 2).map(entry => ({
+                            id: entry.id,
+                            title: entry.title,
+                            mediaCount: 
+                                (entry.images ? entry.images.length : 0) + 
+                                (entry.videos ? entry.videos.length : 0) + 
+                                (entry.audios ? entry.audios.length : 0) + 
+                                (entry.links ? entry.links.length : 0)
+                        }))
+                    };
+                    previewElement.textContent = JSON.stringify(preview, null, 2);
+                }
+            }
+
+            exportData() {
+                const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+                const filename = `${this.collections[this.currentCollection].name}-${timestamp}.json`;
+                
+                const exportData = {
+                    collection: this.collections[this.currentCollection],
+                    metadata: {
+                        exportedAt: new Date().toISOString(),
+                        version: '1.0'
+                    }
+                };
+                
+                this.downloadJSON(exportData, filename);
+                this.showMessage('Data exported successfully!', 'success');
+            }
+
+            importData() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.json';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            try {
+                                const importedData = JSON.parse(e.target.result);
+                                if (confirm('This will replace the current collection. Continue?')) {
+                                    if (importedData.collection) {
+                                        this.collections[this.currentCollection] = importedData.collection;
+                                    } else {
+                                        this.collections[this.currentCollection].entries = importedData;
+                                    }
+                                    this.saveCollections();
+                                    this.displayEntries();
+                                    this.showMessage('Data imported successfully!', 'success');
+                                }
+                            } catch (error) {
+                                this.showMessage('Error importing data: Invalid JSON file', 'error');
+                            }
+                        };
+                        reader.readAsText(file);
+                    }
+                };
+                input.click();
+            }
+
+            clearAllData() {
+                if (confirm('Clear all entries in this collection? This cannot be undone!')) {
+                    this.setCurrentEntries([]);
+                    this.saveCollections();
+                    this.displayEntries();
+                    this.showMessage('Collection cleared!', 'warning');
+                }
+            }
+
+            downloadJSON(data, filename) {
+                const dataStr = JSON.stringify(data, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', filename);
+                linkElement.click();
+            }
+
+            escapeHtml(text) {
+                if (!text) return '';
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            showMessage(message, type = 'info') {
+                const existingMessages = document.querySelectorAll('.message');
+                existingMessages.forEach(msg => msg.remove());
+
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message message-${type}`;
+                
+                let icon = 'fas fa-info-circle';
+                if (type === 'success') icon = 'fas fa-check-circle';
+                if (type === 'error') icon = 'fas fa-exclamation-circle';
+                if (type === 'warning') icon = 'fas fa-exclamation-triangle';
+                
+                messageDiv.innerHTML = `<i class="${icon}"></i> ${message}`;
+                
+                const container = document.querySelector('.container');
+                container.insertBefore(messageDiv, container.children[1]);
+                
+                setTimeout(() => {
+                    messageDiv.remove();
+                }, 5000);
+            }
+        }
+
+        // Global functions
+        let dataManager;
+
+        function showTab(tabName) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function switchCollection() { dataManager.switchCollection(); }
+        function createNewCollection() { dataManager.createNewCollection(); }
+        function renameCollection() { dataManager.renameCollection(); }
+        function deleteCollection() { dataManager.deleteCollection(); }
+        function addImage() { dataManager.addImage(); }
+        function addVideo() { dataManager.addVideo(); }
+        function addAudio() { dataManager.addAudio(); }
+        function addLink() { dataManager.addLink(); }
+        function clearForm() { dataManager.clearForm(); }
+        function searchEntries() { dataManager.searchEntries(); }
+        function exportData() { dataManager.exportData(); }
+        function importData() { dataManager.importData(); }
+        function clearAllData() { dataManager.clearAllData(); }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            dataManager = new MultiCollectionManager();
+        });
+    </script>
+</body>
+</html>

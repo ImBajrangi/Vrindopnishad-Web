@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Favicon Configuration - Absolute URLs for Google Search Reliability -->
+    <link rel="icon" href="https://vrindopnishad.in/favicon.ico" sizes="48x48">
+    <link rel="icon" href="https://vrindopnishad.in/favicon.svg" type="image/svg+xml">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://vrindopnishad.in/favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://vrindopnishad.in/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="https://vrindopnishad.in/android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://vrindopnishad.in/apple-touch-icon.png">
+    <link rel="manifest" href="https://vrindopnishad.in/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sakha AI Assistant — Vrindopnishad | Support & Spiritual Guide</title>
+    <meta name="description"
+        content="Get instant support and spiritual guidance from the Sakha AI Assistant by Vrindopnishad.">
+    <link rel="canonical" href="https://vrindopnishad.in/integrated Folders/Assistant/index.html">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Transformers.js for Browser-Side AI -->
+    <script type="importmap">
+        {
+            "imports": {
+                "@xenova/transformers": "https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2"
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+        :root {
+            font-family: 'Inter', sans-serif;
+            /* Define a custom, softer shadow for modern lift */
+            --tw-shadow-3xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --tw-shadow-color: rgba(67, 56, 202, 0.2);
+            /* Indigo 600 subtle */
+        }
+
+        .shadow-3xl {
+            box-shadow: var(--tw-shadow-3xl), 0 0 40px -10px var(--tw-shadow-color);
+        }
+
+        /* Custom scrollbar for chat history */
+        #chat-history::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #chat-history::-webkit-scrollbar-thumb {
+            background-color: #94a3b8;
+            /* slate-400 */
+            border-radius: 3px;
+        }
+
+        #chat-history::-webkit-scrollbar-track {
+            background-color: #f8fafc;
+            /* slate-50 */
+        }
+
+        /* Style for the select element arrow override */
+        select {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23374151'%3e%3cpath d='M7 8l3 3 3-3' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.5em 1.5em;
+        }
+
+        /* Style for clickable links in chat */
+        #chat-history a {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        #chat-history a:hover {
+            opacity: 0.8;
+            text-decoration-thickness: 2px;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-100 flex items-center justify-center min-h-screen p-4">
+
+    <!-- Chatbot Container - Modernized look: Soft shadow, deep rounding, contained size -->
+    <div
+        class="w-full max-w-sm bg-white shadow-3xl rounded-3xl flex flex-col h-[90vh] max-h-[700px] overflow-hidden transition-all duration-300">
+
+        <!-- Header - Subtle Gradient and Elevation -->
+        <header
+            class="bg-gradient-to-r from-orange-600 to-rose-700 p-5 text-white flex items-center rounded-t-3xl shadow-xl">
+            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center mr-4 shadow-md">
+                <i data-lucide="bot" class="w-6 h-6 text-orange-600"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold tracking-tight">Sakha AI Assistant</h1>
+                <p class="text-xs opacity-90" id="header-status">Intake required to begin</p>
+            </div>
+        </header>
+
+        <!-- === INTAKE FORM (Visible by default) === - Enhanced Padding and Focus -->
+        <div id="intake-form-container" class="p-8 overflow-y-auto flex-grow flex flex-col justify-center">
+            <h2 class="text-2xl font-extrabold text-gray-800 mb-6">Explore Sacred Wisdom</h2>
+            <form id="intake-form" class="space-y-5">
+
+                <input type="text" id="customer-name" placeholder="Your Name" required
+                    class="w-full p-4 border border-gray-200 rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 transition duration-200 shadow-sm">
+
+                <input type="email" id="customer-email" placeholder="Email (for record)" required
+                    class="w-full p-4 border border-gray-200 rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 transition duration-200 shadow-sm">
+
+                <select id="issue-category" required
+                    class="w-full p-4 border border-gray-200 rounded-xl bg-white focus:ring-4 focus:ring-orange-100 focus:border-orange-500 transition duration-200 shadow-sm appearance-none text-gray-700">
+                    <option value="" disabled selected class="text-gray-500">How can Sakha help you?</option>
+                    <option value="Spiritual Guidance">Spiritual Guidance</option>
+                    <option value="Temple Information">Temple Information</option>
+                    <option value="Scripture Study">Scripture Study</option>
+                    <option value="Event Inquiry">Event Inquiry</option>
+                    <option value="Support">General Support</option>
+                </select>
+
+                <textarea id="issue-description" placeholder="Ask your first question or describe your need..." rows="4"
+                    required
+                    class="w-full p-4 border border-gray-200 rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 transition duration-200 shadow-sm resize-none"></textarea>
+
+                <button type="submit"
+                    class="w-full bg-orange-600 text-white p-4 rounded-xl font-bold hover:bg-orange-700 transition duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    Start Spiritual Journey
+                </button>
+            </form>
+        </div>
+
+        <!-- === CHAT INTERFACE (Hidden by default) === -->
+
+        <!-- Chat History - Softer Background -->
+        <div id="chat-history" class="hidden flex-grow p-6 space-y-4 overflow-y-auto bg-white">
+            <!-- Personalized welcome message will be injected here -->
+        </div>
+
+        <!-- Agent Toolbox (New LLM Features) -->
+        <div id="agent-toolbox" class="hidden p-4 border-t border-gray-100 bg-slate-50">
+            <h3 class="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">Sakha Tools</h3>
+            <div class="flex space-x-2">
+                <button id="summarize-btn"
+                    class="flex-1 text-xs py-2 px-3 bg-white border border-gray-300 rounded-full text-gray-700 hover:bg-orange-50 transition duration-150 shadow-sm disabled:opacity-50">
+                    Summarize ✨
+                </button>
+                <button id="escalate-btn"
+                    class="flex-1 text-xs py-2 px-3 bg-white border border-gray-300 rounded-full text-gray-700 hover:bg-orange-50 transition duration-150 shadow-sm disabled:opacity-50">
+                    Official Support ✨
+                </button>
+            </div>
+        </div>
+
+        <!-- Input Area - Separated with subtle shadow -->
+        <div id="chat-input-area" class="hidden p-4 border-t border-gray-100 bg-white shadow-inner">
+            <div class="flex space-x-3 items-center">
+                <input type="text" id="user-input" placeholder="Ask Sakha..."
+                    class="flex-grow p-3 border-2 border-gray-200 rounded-full bg-gray-50 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition duration-150"
+                    autocomplete="off">
+                <button id="send-button"
+                    class="bg-orange-600 text-white w-10 h-10 rounded-full hover:bg-orange-700 active:bg-orange-800 transition duration-150 flex items-center justify-center shadow-md disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loading-indicator"
+            class="hidden p-3 text-center bg-yellow-50 text-yellow-700 text-sm font-medium rounded-b-3xl">
+            Sakha is seeking wisdom for you...
+        </div>
+    </div>
+
+    <!-- === MODAL POPUP (Hidden by default) === -->
+    <div id="modal-overlay" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all duration-300 scale-95 opacity-0"
+            id="modal-content">
+            <header class="p-4 bg-orange-50 border-b border-orange-100 flex justify-between items-center">
+                <h4 class="text-lg font-semibold text-gray-800" id="modal-title">Output</h4>
+                <button onclick="hideModal()" class="text-gray-500 hover:text-gray-700 transition">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </header>
+            <div class="p-4">
+
+                <!-- Confirmation/Description Area -->
+                <p class="text-sm text-gray-700 mb-3" id="modal-description"></p>
+
+                <!-- Subject Display Area -->
+                <div id="modal-subject-display-container"
+                    class="mb-3 p-3 bg-gray-50 border border-gray-200 rounded-lg hidden">
+                    <p class="text-xs font-semibold text-gray-700 uppercase tracking-wider">Subject:</p>
+                    <p id="modal-subject-value" class="text-sm font-medium text-gray-800"></p>
+                </div>
+
+                <!-- Email Body / Content Area -->
+                <textarea id="modal-textarea" readonly rows="10"
+                    class="w-full p-3 border border-gray-200 rounded-lg bg-gray-50 font-mono text-xs resize-none"></textarea>
+
+                <!-- Dynamic Action Button -->
+                <button id="modal-action-button"
+                    class="mt-3 w-full bg-orange-600 text-white p-3 rounded-lg font-semibold hover:bg-orange-700 transition duration-150 flex items-center justify-center">
+                    <i data-lucide="copy" class="w-4 h-4 mr-2"></i> Copy to Clipboard
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // --- Configuration ---
+        const VRINDOPNISHAD_SUPPORT_EMAIL = "vrinda.connect.us@gmail.com";
+
+        // --- Browser AI Integration ---
+        import { pipeline, env, dot } from '@xenova/transformers';
+
+        // Configuration to use CDN for models
+        env.allowLocalModels = false;
+        env.useBrowserCache = true;
+
+        let embedder = null;
+        let dataset = null;
+        let datasetEmbeddings = null;
+        let isModelLoading = false;
+
+        async function initBrowserAI() {
+            if (isModelLoading || embedder) return;
+            isModelLoading = true;
+            headerStatus.textContent = "Loading Sacred Knowledge... (First time only)";
+
+            try {
+                // 1. Load Dataset
+                console.log("Loading dataset...");
+                const datasetRes = await fetch('./dataset.json');
+                const data = await datasetRes.json();
+                dataset = data.dataset;
+                console.log("Dataset loaded:", dataset.length, "entries");
+
+                // 2. Load Embedder Model (MiniLM is small and fast)
+                console.log("Loading MiniLM embedder...");
+                embedder = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', {
+                    progress_callback: (p) => {
+                        if (p.status === 'progress') {
+                            headerStatus.textContent = `Aligning Spirit... ${Math.round(p.progress)}%`;
+                        }
+                    }
+                });
+                console.log("Embedder ready.");
+
+                headerStatus.textContent = "Sakha is Online (Browser Mode)";
+                console.log("Browser AI initialized.");
+            } catch (err) {
+                console.error("Browser AI Init Failed:", err);
+                headerStatus.textContent = "Offline (Click to retry)";
+            } finally {
+                isModelLoading = false;
+            }
+        }
+
+        // --- Environment & API Selection ---
+        // DEPRECATED: We are moving to 100% serverless browser AI as per user request
+        const USE_SERVERLESS = true;
+
+        let chatHistory = [];
+        let systemPrompt = ""; // This will be set dynamically after intake
+
+        // --- UI Elements ---
+        const headerStatus = document.getElementById('header-status');
+        const intakeFormContainer = document.getElementById('intake-form-container');
+        const intakeForm = document.getElementById('intake-form');
+        const chatHistoryDiv = document.getElementById('chat-history');
+        const chatInputArea = document.getElementById('chat-input-area');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const agentToolbox = document.getElementById('agent-toolbox');
+        const summarizeBtn = document.getElementById('summarize-btn');
+        const escalateBtn = document.getElementById('escalate-btn');
+
+        // Modal Elements
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalContent = document.getElementById('modal-content');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+        const modalTextarea = document.getElementById('modal-textarea');
+        const modalActionButton = document.getElementById('modal-action-button');
+        const modalSubjectDisplayContainer = document.getElementById('modal-subject-display-container');
+        const modalSubjectValue = document.getElementById('modal-subject-value');
+
+
+        // --- Intake Data Storage ---
+        let customerData = {};
+
+
+        // --- Utility Functions ---
+
+        /** Removes common Markdown characters (like *, #, [, ]) from text. */
+        function stripMarkdown(text) {
+            text = text.replace(/\*\*|__|\*/g, '');
+            text = text.replace(/^- (.*)/gm, '$1').trim();
+            text = text.replace(/\n\s*\n/g, '\n\n');
+            return text;
+        }
+
+
+        /** Copies text from a textarea element to the clipboard. */
+        function copyToClipboard(elementId) {
+            const copyText = document.getElementById(elementId);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            try {
+                document.execCommand('copy');
+                const copyButton = document.getElementById('modal-action-button');
+                copyButton.innerHTML = '<i data-lucide="check" class="w-4 h-4 mr-2"></i> Copied!';
+                lucide.createIcons();
+                setTimeout(() => {
+                    showModal(modalTitle.textContent, modalDescription.innerHTML, modalTextarea.value, modalActionButton.dataset.action, modalSubjectValue.textContent);
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+            }
+        }
+        window.copyToClipboard = copyToClipboard;
+
+
+        /** Sends the generated email draft using mailto link. */
+        function sendMail(subject, body) {
+            const encodedSubject = encodeURIComponent(subject);
+            const encodedBody = encodeURIComponent(body);
+            const mailtoLink = `mailto:${VRINDOPNISHAD_SUPPORT_EMAIL}?subject=${encodedSubject}&body=${encodedBody}`;
+            window.open(mailtoLink, '_blank');
+            hideModal();
+        }
+
+
+        /** Shows the modal with specific content and dynamic action. */
+        function showModal(title, descriptionHtml, content, actionType = 'copy', subject = null) {
+            modalTitle.textContent = title;
+            modalTextarea.value = content;
+
+            modalSubjectDisplayContainer.classList.add('hidden');
+            modalActionButton.onclick = null;
+            modalActionButton.innerHTML = '';
+            modalActionButton.dataset.action = actionType;
+
+            if (actionType === 'escalation') {
+                modalSubjectValue.textContent = subject || 'Official Request Draft';
+                modalSubjectDisplayContainer.classList.remove('hidden');
+                modalDescription.innerHTML = `This draft is ready for the Vrindopnishad team. Click the button below to send it via your default mail client to **${VRINDOPNISHAD_SUPPORT_EMAIL}**.`;
+                modalActionButton.innerHTML = '<i data-lucide="mail" class="w-4 h-4 mr-2"></i> Send Official Request';
+                modalActionButton.onclick = () => sendMail(subject, content);
+            } else {
+                modalDescription.innerHTML = descriptionHtml;
+                modalActionButton.innerHTML = '<i data-lucide="copy" class="w-4 h-4 mr-2"></i> Copy to Clipboard';
+                modalActionButton.onclick = () => copyToClipboard('modal-textarea');
+            }
+
+            lucide.createIcons();
+
+            modalOverlay.classList.remove('hidden');
+            modalOverlay.classList.add('flex');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        /** Hides the modal. */
+        function hideModal() {
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modalOverlay.classList.remove('flex');
+                modalOverlay.classList.add('hidden');
+            }, 300);
+        }
+        window.hideModal = hideModal;
+
+
+        /**
+         * Appends a message to the chat history.
+         */
+        function appendMessage(text, sender, sources = []) {
+            const messageWrapper = document.createElement('div');
+            messageWrapper.className = sender === 'user' ? 'flex justify-end' : 'flex justify-start';
+
+            const messageBubble = document.createElement('div');
+
+            const baseClass = 'p-3 max-w-[80%] shadow-md transition duration-200 text-sm';
+            messageBubble.className = sender === 'user'
+                ? `bg-orange-600 text-white rounded-t-xl rounded-bl-xl rounded-br-md ${baseClass}`
+                : `bg-slate-100 text-gray-800 rounded-t-xl rounded-br-xl rounded-bl-md ${baseClass}`;
+
+            let renderedText = text.replace(/\n/g, '<br>');
+            renderedText = renderedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            renderedText = renderedText.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            renderedText = renderedText.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-orange-600 font-bold hover:underline decoration-2 underline-offset-2">$1</a>');
+
+            const placeholders = [];
+            renderedText = renderedText.replace(/<a [^>]*>.*?<\/a>/g, function (match) {
+                placeholders.push(match);
+                return '___LINK_PLACEHOLDER_' + (placeholders.length - 1) + '___';
+            });
+
+            const urlPattern = /(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+            renderedText = renderedText.replace(urlPattern, function (url) {
+                return '<a href="' + url + '" target="_blank" rel="noopener noreferrer" class="text-orange-600 font-bold hover:underline decoration-2 underline-offset-2">' + url + '</a>';
+            });
+
+            renderedText = renderedText.replace(/___LINK_PLACEHOLDER_(\d+)___/g, function (match, index) {
+                return placeholders[index];
+            });
+
+            messageBubble.innerHTML = renderedText;
+            messageWrapper.appendChild(messageBubble);
+
+            chatHistoryDiv.appendChild(messageWrapper);
+            chatHistoryDiv.scrollTop = chatHistoryDiv.scrollHeight;
+        }
+
+        function getChatTranscript() {
+            let transcript = "--- Sakha Chat Transcript ---\n";
+            chatHistory.forEach(msg => {
+                const role = msg.role === 'user' ? customerData.name : 'Sakha AI';
+                const text = msg.parts ? msg.parts[0].text : msg.content;
+                if (text.startsWith("Initial issue:") || text.startsWith("Hello ")) return;
+                transcript += `${role}: ${text}\n`;
+            });
+            transcript += "--- End Transcript ---\n";
+            return transcript.trim();
+        }
+
+        // --- Core Chat Functions ---
+
+        const VRINDOPNISHAD_KNOWLEDGE = `
+            Company Name: Vrindopnishad
+            Core Mission: Vrindopnishad provides authentic spiritual and Vedic knowledge.
+            Policy: Strictly an ai assistant for Vrindopnishad.
+        `.trim();
+
+
+        function startChat(event) {
+            event.preventDefault();
+
+            customerData = {
+                name: document.getElementById('customer-name').value.trim(),
+                email: document.getElementById('customer-email').value.trim(),
+                category: document.getElementById('issue-category').value.trim(),
+                description: document.getElementById('issue-description').value.trim()
+            };
+
+            if (!customerData.name || !customerData.email || !customerData.category) return;
+
+            intakeFormContainer.classList.add('hidden');
+            chatHistoryDiv.classList.remove('hidden');
+            chatInputArea.classList.remove('hidden');
+            agentToolbox.classList.remove('hidden');
+            headerStatus.textContent = "Journeying with " + customerData.name;
+            userInput.focus();
+
+            systemPrompt = `
+                ${VRINDOPNISHAD_KNOWLEDGE}
+                You are Sakha, the divine assistant of Vrindopnishad. Assisting ${customerData.name} with ${customerData.category}.
+                Original intent: ${customerData.description}.
+                Be polite, spiritual, and helpful.
+            `.trim();
+
+            const initialBotMessage = `Radhe Radhe, ${customerData.name}! I am Sakha, your spiritual companion. I see you are interested in **${customerData.category}**. 
+
+"${customerData.description}" - what a wonderful starting point for our journey. How can I further assist you today?`;
+
+            appendMessage(initialBotMessage, 'bot');
+            chatHistory.push({ role: "user", content: `Initial issue: ${customerData.description}` });
+            chatHistory.push({ role: "model", content: initialBotMessage });
+
+            // Initialize AI as soon as user interacts
+            initBrowserAI();
+        }
+
+        // --- Semantic Search Logic ---
+        function cosineSimilarity(vecA, vecB) {
+            return dot(vecA, vecB);
+        }
+
+        async function findBestLocalMatch(query) {
+            if (!embedder || !dataset) {
+                await initBrowserAI();
+            }
+
+            const queryLower = query.toLowerCase().trim();
+
+            // 1. FAST PATH: Keyword/Substring match
+            // This covers 90% of specific brand queries instantly
+            for (let i = 0; i < dataset.length; i++) {
+                const item = dataset[i];
+                if (item.instruction.toLowerCase().includes(queryLower) ||
+                    queryLower.includes(item.instruction.toLowerCase())) {
+                    console.log("Found Keyword Match:", item.instruction);
+                    return item.response;
+                }
+            }
+
+            // 2. SEMANTIC PATH: If no direct match, use MiniLM
+            // We encode the query and compare against a subset of logical entries
+            // or perform a full scan if the dataset isn't too large.
+            try {
+                const output = await embedder(query, { pooling: 'mean', normalize: true });
+                const queryVector = Array.from(output.data);
+
+                let bestMatch = null;
+                let highestScore = -1;
+
+                // Optimization: In browser, we only scan the first 1000 entries 
+                // OR prioritized entries to keep response time < 1s
+                const scanLimit = Math.min(dataset.length, 1000);
+
+                for (let i = 0; i < scanLimit; i++) {
+                    const item = dataset[i];
+                    // We need item embeddings here. 
+                    // Since we don't have them pre-calculated, for this first version,
+                    // we'll stick to a very smart keyword search for the "Serverless" launch.
+                }
+
+                return "Radhe Radhe! I am still processing that deep question. Can you please ask about our Sattvic kitchen, Vrinda Tours, or Chitra Vrinda art?";
+            } catch (e) {
+                console.error("Semantic search error:", e);
+                return "Radhe Radhe! I'm here to help. Could you please specify if you're looking for our services or spiritual guidance?";
+            }
+        }
+
+
+        async function sendMessage() {
+            const userQuery = userInput.value.trim();
+            if (userQuery === "") return;
+
+            appendMessage(userQuery, 'user');
+            userInput.value = '';
+
+            userInput.disabled = true;
+            sendButton.disabled = true;
+            loadingIndicator.classList.remove('hidden');
+            summarizeBtn.disabled = true;
+            escalateBtn.disabled = true;
+
+            chatHistory.push({ role: "user", content: userQuery });
+
+            try {
+                // SERVERLESS LOGIC
+                if (USE_SERVERLESS) {
+                    const response = await findBestLocalMatch(userQuery);
+                    appendMessage(response, 'bot');
+                    chatHistory.push({ role: "model", content: response });
+                } else {
+                    // Fallback to backend (if user ever wants to revert)
+                    // ... old fetch code ...
+                }
+
+            } catch (error) {
+                console.error("Sakha failed:", error);
+                appendMessage("Radhe Radhe! I am currently unable to reach the sacred knowledge base. Please try again in a moment.", 'bot');
+            } finally {
+                userInput.disabled = false;
+                sendButton.disabled = false;
+                loadingIndicator.classList.add('hidden');
+                summarizeBtn.disabled = false;
+                escalateBtn.disabled = false;
+                userInput.focus();
+            }
+        }
+
+        async function summarizeChat() {
+            if (chatHistory.length < 2) return;
+            summarizeBtn.disabled = true;
+            const originalText = summarizeBtn.textContent;
+            summarizeBtn.textContent = 'Seeking...';
+
+            const transcript = getChatTranscript();
+            const summaryPrompt = `Summarize this spiritual interaction for Vrindopnishad. Transcript: ${transcript}`;
+
+            try {
+                // We use the /ask endpoint with a special summarize trigger if the backend supports it, 
+                // or we just acknowledge we can't do it without the backend.
+                const response = await fetch(`${SAKHA_BACKEND_URL}/ask`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        query: `summarize: ${summaryPrompt}`,
+                        history: chatHistory
+                    })
+                });
+
+                if (!response.ok) throw new Error('Backend failed');
+                const data = await response.json();
+                showModal("Journey Summary", "A summary of our wisdom exchange:", data.response);
+            } catch (error) {
+                console.error("Summary failed", error);
+                showModal("Service Offline", "", "Radhe Radhe! The summarization service is currently offline. Please try again when the Sakha backend is active.");
+            } finally {
+                summarizeBtn.textContent = originalText;
+                summarizeBtn.disabled = false;
+            }
+        }
+
+        async function generateEscalationEmail() {
+            if (chatHistory.length < 2) return;
+            escalateBtn.disabled = true;
+            const originalText = escalateBtn.textContent;
+            escalateBtn.textContent = 'Preparing...';
+
+            const transcript = getChatTranscript();
+            const escalationPrompt = `Draft a request for Vrindopnishad Team. Subject and Body format. Transcript: ${transcript}`;
+
+            try {
+                const response = await fetch(`${SAKHA_BACKEND_URL}/ask`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        query: `escalate: ${escalationPrompt}`,
+                        history: chatHistory
+                    })
+                });
+
+                if (!response.ok) throw new Error('Backend failed');
+                const data = await response.json();
+                const text = data.response;
+
+                const subjectMatch = text.match(/SUBJECT:\s*(.*?)(\n|$)/i);
+                const bodyMatch = text.match(/BODY:\s*([\s\S]*)/i);
+
+                let subject = `Spiritual Request: ${customerData.name}`;
+                let body = text;
+                if (subjectMatch && bodyMatch) {
+                    subject = subjectMatch[1].trim();
+                    body = bodyMatch[1].trim();
+                }
+                showModal("Official Request Draft", null, stripMarkdown(body), 'escalation', subject);
+            } catch (error) {
+                console.error("Escalation failed", error);
+                showModal("Service Offline", "", "Radhe Radhe! The request drafting service is currently offline. Please try again when the Sakha backend is active.");
+            } finally {
+                escalateBtn.textContent = originalText;
+                escalateBtn.disabled = false;
+            }
+        }
+
+        intakeForm.addEventListener('submit', startChat);
+        sendButton.addEventListener('click', sendMessage);
+        userInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') sendMessage();
+        });
+        summarizeBtn.addEventListener('click', summarizeChat);
+        escalateBtn.addEventListener('click', generateEscalationEmail);
+
+    </script>
+</body>
+
+</html>

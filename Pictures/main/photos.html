@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="/Vrindopnishad Web/class/logo/v-logo-transparent.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sacred Photos & Spiritual Imagery - Chitra Vrinda | Vrindopnishad</title>
+    <meta name="description"
+        content="Explore a vast collection of sacred photos and spiritual imagery from Vrindavan. High-quality photography of temples, deities, and Vedic culture.">
+    <meta name="keywords"
+        content="Spiritual Photos, Vrindavan Photography, Temple Gallery, Vedic Imagery, Hindu Photos, Chitra Vrinda Photos">
+    <link rel="canonical" href="https://vrindopnishad.in/Vrindopnishad%20Web/Pictures/main/photos.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vrindopnishad.in/Vrindopnishad%20Web/Pictures/main/photos.html">
+    <meta property="og:title" content="Sacred Photos & Spiritual Imagery - Chitra Vrinda">
+    <meta property="og:description"
+        content="Explore a vast collection of sacred photos and spiritual imagery from Vrindavan.">
+    <meta property="og:image" content="https://vrindopnishad.in/Vrindopnishad%20Web/class/logo/v-logo.png">
+    <meta property="og:site_name" content="Vrindopnishad">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://vrindopnishad.in/Vrindopnishad%20Web/Pictures/main/photos.html">
+    <meta name="twitter:title" content="Sacred Photos & Spiritual Imagery - Chitra Vrinda">
+    <meta name="twitter:description"
+        content="Explore a vast collection of sacred photos and spiritual imagery from Vrindavan.">
+    <meta name="twitter:image" content="https://vrindopnishad.in/Vrindopnishad%20Web/class/logo/v-logo.png">
+
+    <!-- Pinterest Optimization -->
+    <meta name="pinterest-rich-pin" content="true">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ImageGallery",
+        "name": "Chitra Vrinda Photo Collection",
+        "description": "A curated collection of spiritual photography and sacred imagery from Vrindavan.",
+        "url": "https://vrindopnishad.in/Vrindopnishad%20Web/Pictures/main/photos.html",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Vrindopnishad",
+            "logo": "https://vrindopnishad.in/Vrindopnishad%20Web/class/logo/v-logo.png"
+        }
+    }
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../css/pic-collection.css?v=1.0.1">
+
+    <!-- Firebase & Shared Auth -->
+    <script type="importmap">
+    {
+        "imports": {
+            "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+            "firebase/auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
+            "firebase/analytics": "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js",
+            "firebase/database": "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js"
+        }
+    }
+    </script>
+    <script src="../../../js/auth.js?v=1.0.1" type="module"></script>
+    <meta name="color-scheme" content="light dark">
+</head>
+
+<body>
+    <!-- Vrindopnishad Random Loader -->
+    <!-- <script
+        src="../../web-extentions/loader/random-loader.js"></script> -->
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <a href="/" class="logo magnetic" data-magnetic-strength="0.3"
+                style="text-decoration: none; color: inherit;">
+                <i class="fas fa-image"></i>
+                <h1>Vrindopnishad</h1>
+            </a>
+            <div class="header-right">
+                <!-- User Profile / Auth Button -->
+                <div id="user-auth-btn" class="magnetic" data-magnetic-strength="0.4">
+                    <!-- Progress circle for auth loading -->
+                    <div class="auth-loading-ring"></div>
+                    <div class="user-avatar-container">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <!-- Tools shortcut icon -->
+                <div class="tools-icon magnetic" data-magnetic-strength="0.5" aria-label="Open tools menu" role="button"
+                    tabindex="0">
+                    <i class="fas fa-cog"></i>
+                    <span class="visually-hidden">Open Tools Menu</span>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- Fullscreen Tools Menu -->
+        <div class="tools-menu">
+            <div class="tools-menu-header">
+                <div class="tools-menu-logo">Vrindopnishad Tools</div>
+                <div class="tools-menu-close" aria-label="Close tools menu" role="button" tabindex="0">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+
+            <div class="tools-menu-content">
+                <div class="tools-grid">
+
+                    <!-- Home -->
+                    <div class="tool-item" data-bg-color="#121212" data-text-color="#FFFFFF">
+                        <div class="tool-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3>Home</h3>
+                            <p>Return to main page</p>
+                        </div>
+                        <a href="/" class="tool-link"></a>
+                    </div>
+
+                    <!-- Collection Tool -->
+                    <div class="tool-item" data-bg-color="#8E7F7F" data-text-color="#FFFFFF">
+                        <div class="tool-icon">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3>Gallery</h3>
+                            <p>Browse our curated collections</p>
+                        </div>
+                        <a href="Gallery.html" class="tool-link"></a>
+                    </div>
+
+                    <!-- Photos Tool -->
+                    <div class="tool-item" data-bg-color="#4A4A4A" data-text-color="#FFFFFF">
+                        <div class="tool-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3>Photos</h3>
+                            <p>Explore our photo gallery</p>
+                        </div>
+                        <a href="photos.html" class="tool-link"></a>
+                    </div>
+
+                    <!-- PDF Library Tool -->
+                    <div class="tool-item" data-bg-color="#D4AF37" data-text-color="#121212">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3>PDF Library</h3>
+                            <p>Access our digital document collection</p>
+                        </div>
+                        <a href="/Vrindopnishad Web/pdf/main/pdf-viewer.html" class="tool-link"></a>
+                    </div>
+
+                    <!-- Spiritual Texts Tool -->
+                    <div class="tool-item" data-bg-color="#78a4aa" data-text-color="#FFFFFF">
+                        <div class="tool-icon">
+                            <i class="fas fa-pencil-alt"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3>Spiritual Texts</h3>
+                            <p>Explore ancient wisdom and teachings</p>
+                        </div>
+                        <a href="../../sketch/main/new-read-me.html" class="tool-link"></a>
+                    </div>
+
+                    <!-- Articles Tool -->
+                    <div class="tool-item" data-bg-color="#e9d0a4" data-text-color="#121212">
+                        <div class="tool-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <div class="tool-info">
+                            <h3>Sketch V2</h3>
+                            <p>Enhanced sketch collection</p>
+                        </div>
+                        <a href="../../sketch/main/nw-read-me.html" class="tool-link"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-container">
+            <div class="search-box magnetic" data-magnetic-strength="0.2">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Search images...">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active magnetic" data-magnetic-strength="0.3" data-filter="all">All</button>
+                <button class="filter-btn magnetic" data-magnetic-strength="0.3" data-filter="anime">Anime</button>
+                <button class="filter-btn magnetic" data-magnetic-strength="0.3"
+                    data-filter="landscape">Landscape</button>
+                <button class="filter-btn magnetic" data-magnetic-strength="0.3" data-filter="nature">Nature</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="home-page">
+            <div class="masonry-layout">
+                <!-- Images will be generated from JSON by pic-simple.js -->
+            </div>
+        </div>
+
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2026 Bhakt Pic Collection. All images are property of their respective owners.</p>
+            <div class="social-links">
+                <a data-link="facebook" class="social-link magnetic" data-magnetic-strength="0.5">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a data-link="instagram" class="social-link magnetic" data-magnetic-strength="0.5">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a data-link="youtube" class="social-link magnetic" data-magnetic-strength="0.5">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a data-link="pinterest" class="social-link magnetic" data-magnetic-strength="0.5">
+                    <i class="fab fa-pinterest"></i>
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <!--Scripts-->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="../js/immediate-loader.js?v=1.0.1"></script>
+    <script src="../js/notifications.js?v=1.0.1"></script>
+    <script src="../js/pic-simple.js?v=1.0.1"></script>
+    <script src="../../web-extentions/links/link-handler.js"></script>
+    <script src="../../Security/disable-right-click.js"></script>
+    <!-- <script src="../../Security/image-protection.js"></script> -->
+    <script src="../../Security/watermark.js"></script>
+    <script src="../../web-extentions/Cookie Consent/cookie-consent.js"></script>
+</body>
+
+</html>

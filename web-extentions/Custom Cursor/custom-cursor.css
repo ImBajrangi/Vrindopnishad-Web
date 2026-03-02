@@ -1,0 +1,137 @@
+/* Custom Cursor Styles */
+* {
+    cursor: none;
+}
+
+/* Main Cursor Dot */
+.cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 100001;
+    transform: translate(-50%, -50%);
+    transition: width 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
+        height 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
+        background 0.3s ease,
+        opacity 0.3s ease,
+        transform 0.25s cubic-bezier(0.25, 0.1, 0.25, 1),
+        border-radius 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+    mix-blend-mode: difference;
+    will-change: transform, width, height, opacity, border-radius;
+}
+
+/* Cursor Circle */
+.cursor-circle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.505);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 100000;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+        height 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+        border-color 0.3s ease,
+        border-width 0.3s ease,
+        opacity 0.3s ease,
+        transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+        border-radius 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    mix-blend-mode: difference;
+    will-change: transform, width, height, opacity, border-radius;
+}
+
+/* Hover States */
+.cursor-dot.hover {
+    width: 5px;
+    height: 5px;
+    mix-blend-mode: difference;
+    background: #ffffff;
+}
+
+.cursor-circle.hover {
+    stroke-width: 2px;
+    width: 48px;
+    height: 48px;
+    border-color: rgba(255, 255, 255, 0.868);
+    mix-blend-mode: difference;
+}
+
+/* Text States */
+.cursor-dot.text {
+    width: 4px;
+    height: 30px;
+    background: #ffffff;
+    border-radius: 1px;
+    mix-blend-mode: difference;
+}
+
+.cursor-circle.text {
+    stroke-width: 5px;
+    width: 20px;
+    height: 45px;
+    border-radius: 4px;
+    border-color: rgba(128, 128, 128, 0.5);
+    mix-blend-mode: difference;
+}
+
+/* Click States */
+.cursor-dot.click {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    mix-blend-mode: difference;
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+.cursor-circle.click {
+    width: 15px;
+    height: 15px;
+    border: 5px solid #000000;
+    border-radius: 50%;
+    mix-blend-mode: difference;
+    transform: translate(-50%, -50%) scale(0.5);
+}
+
+/* SVG cursor styles */
+#svg-cursor-check,
+#svg-cursor-close,
+#svg-cursor-notallowed {
+    display: none;
+    position: fixed;
+    z-index: 10002;
+    pointer-events: none;
+    width: 32px;
+    height: 32px;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+    transform: translate(-50%, -50%) scale(0.8);
+}
+
+#svg-cursor-check.active,
+#svg-cursor-close.active,
+#svg-cursor-notallowed.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Mobile/Touch Device Styles */
+@media (hover: none) and (pointer: coarse) {
+
+    .cursor-dot,
+    .cursor-circle,
+    [id^="svg-cursor-"] {
+        display: none;
+    }
+
+    * {
+        cursor: auto !important;
+    }
+}

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Modern Rounded Vrindopnishad Favicon -->
+    <link rel="icon" href="../../class/favicon-vrindopnishad/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../class/favicon-vrindopnishad/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../class/favicon-vrindopnishad/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../class/favicon-vrindopnishad/apple-touch-icon.png">
+    <link rel="manifest" href="../../class/favicon-vrindopnishad/site.webmanifest">
+    <link rel="mask-icon" href="../../class/favicon-vrindopnishad/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="icon" type="image/svg+xml" href="../../class/favicon-vrindopnishad/favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>skillTadka - Digital Vedic Library by Vrindopnishad</title>
+    <meta name="description"
+        content="Access a vast collection of spiritual and Vedic literature with skillTadka. Read and study sacred texts with our advanced PDF viewer.">
+    <link rel="canonical" href="https://edu.vrindopnishad.in/">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://edu.vrindopnishad.in/#webpage",
+          "url": "https://edu.vrindopnishad.in/",
+          "name": "skillTadka - Digital Vedic Library",
+          "description": "Educational platform for reading spiritual PDF literature.",
+          "isPartOf": { "@id": "https://vrindopnishad.in/#website" }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://vrindopnishad.in/#organization",
+          "name": "Vrindopnishad",
+          "url": "https://vrindopnishad.in/",
+          "logo": "https://vrindopnishad.in/Vrindopnishad%20Web/class/logo/v-logo.png"
+        },
+        {
+          "@type": "Service",
+          "name": "skillTadka",
+          "description": "Digital library service providing access to Vedic knowledge.",
+          "provider": { "@id": "https://vrindopnishad.in/#organization" }
+        }
+      ]
+    }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/pdf-viewer.css?v=1.4">
+
+</head>
+
+<body>
+    <!-- Vrindopnishad Random Loader -->
+    <!-- <script src="../../web-extentions/loader/random-loader.js"></script> -->
+
+    <div class="particles-background" id="particles-background"></div>
+    <div class="constellation-lines" id="space-background"></div>
+
+    <div class="app-container">
+        <header>
+            <div class="header-left">
+                <div class="logo">
+                    <i class="fas fa-file-pdf"></i>
+                    <h1>PDF <span>Viewer</span></h1>
+                </div>
+                <div class="file-name" id="file-name">No file selected</div>
+            </div>
+            <div class="header-right">
+                <button id="open-file-btn" class="primary-btn">
+                    <i class="fas fa-folder-open"></i>
+                    <span class="btn-text">Open PDF</span>
+                </button>
+                <input type="file" id="file-input" accept="application/pdf" class="hidden">
+            </div>
+        </header>
+
+        <main>
+            <div class="toolbar">
+                <div class="zoom-controls">
+                    <button id="zoom-out" class="tool-btn" disabled title="Zoom Out">
+                        <i class="fas fa-search-minus"></i>
+                    </button>
+                    <span id="zoom-level">100%</span>
+                    <button id="zoom-in" class="tool-btn" disabled title="Zoom In">
+                        <i class="fas fa-search-plus"></i>
+                    </button>
+                </div>
+
+                <div class="page-controls">
+                    <button id="prev-page" class="tool-btn" disabled title="Previous Page">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="page-info">
+                        <span id="current-page">0</span> / <span id="total-pages">0</span>
+                    </div>
+                    <button id="next-page" class="tool-btn" disabled title="Next Page">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <div class="view-controls">
+                    <button id="rotate-btn" class="tool-btn" disabled title="Rotate">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                    <button id="fullscreen-btn" class="tool-btn" disabled title="Fullscreen">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button id="download-btn" class="tool-btn" disabled title="Download">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button id="print-btn" class="tool-btn" disabled title="Print">
+                        <i class="fas fa-print"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="pdf-container">
+                <canvas id="pdf-canvas"></canvas>
+
+                <div class="nav-arrows">
+                    <div class="nav-arrow prev" id="left-arrow" title="Previous Page">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                    <div class="nav-arrow next" id="right-arrow" title="Next Page">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+
+                <div class="keyboard-hint">
+                    <span>←</span> Previous | <span>→</span> Next | <span>+</span> Zoom In | <span>-</span> Zoom Out |
+                    <span>F</span> Fullscreen | <span>T</span> Theme
+                </div>
+            </div>
+
+            <div class="drop-area" id="drop-area">
+                <div class="drop-message">
+                    <i class="fas fa-file-pdf"></i>
+                    <h2>Open a PDF File</h2>
+                    <p>Drag & drop your PDF here or click below to browse</p>
+                    <label class="file-input-label" for="file-input">Select PDF</label>
+                </div>
+            </div>
+        </main>
+
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3>Pages</h3>
+                <button id="close-sidebar" class="icon-btn" title="Close Sidebar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="thumbnails" id="thumbnails-container"></div>
+        </div>
+
+        <button class="sidebar-toggle" id="sidebar-toggle" title="Toggle Thumbnails">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <div class="pdf-viewer-loader" id="loader">
+        <div class="pdf-viewer-loader-content">
+            <div class="spinner"></div>
+            <div class="pdf-viewer-loader-text">Loading PDF...</div>
+        </div>
+    </div>
+
+    <div class="modal" id="error-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Error</h3>
+                <button class="close-modal-btn icon-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="error-message"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="primary-btn close-modal-btn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF.js core library -->
+    <script src="../libs/pdf.min.js"></script>
+    <!-- Three.js for space background -->
+    <script src="../js/three.min.js"></script>
+    <!-- Application logic -->
+    <script src="../js/pdf-viewer.js"></script>
+</body>
+
+</html>

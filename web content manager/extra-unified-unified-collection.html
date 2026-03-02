@@ -1,0 +1,2170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vrindopnishad - Extra Enhanced Web Data Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .message {
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        }
+
+        .message-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+
+        .message-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 8px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+
+        .tab {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 16px;
+            background: none;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+        }
+
+        .tab:hover:not(.active) {
+            background: rgba(30, 60, 114, 0.1);
+        }
+
+        .content-section {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .content-section h2 {
+            margin-bottom: 24px;
+            color: #1e3c72;
+            font-size: 1.8rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #1e3c72;
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        .search-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-group input,
+        .search-group select {
+            padding: 10px 14px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-right: 12px;
+            margin-bottom: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 60, 114, 0.4);
+        }
+
+        .btn-secondary { background: linear-gradient(135deg, #6c757d, #828a91); }
+        .btn-success { background: linear-gradient(135deg, #28a745, #34ce57); }
+        .btn-danger { background: linear-gradient(135deg, #dc3545, #e4606d); }
+        .btn-warning { background: linear-gradient(135deg, #ffc107, #ffcd39); color: #333; }
+        .btn-info { background: linear-gradient(135deg, #17a2b8, #20c997); }
+        .btn-sm { padding: 8px 16px; font-size: 12px; }
+
+        .item-list {
+            display: grid;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .item-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .item-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            gap: 16px;
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: #1e3c72;
+            font-size: 1.1rem;
+            line-height: 1.3;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+
+        .item-meta {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .item-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 12px 0;
+        }
+
+        .item-category {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            color: #1565c0;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            border: 1px solid #90caf9;
+        }
+
+        .item-description {
+            color: #555;
+            line-height: 1.5;
+            margin-top: 12px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .category-manager {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .category-manager h3 {
+            margin-bottom: 16px;
+            color: #1e3c72;
+        }
+
+        .category-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .category-tag {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .category-tag:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(30, 60, 114, 0.3);
+        }
+
+        .category-tag .remove-category {
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-category-form {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .add-category-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .add-category-btn {
+            padding: 8px 16px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s ease;
+        }
+
+        .add-category-btn:hover {
+            background: #218838;
+        }
+
+        .cross-ref-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .cross-ref-section {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .cross-ref-section h4 {
+            color: #1e3c72;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cross-ref-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 10px;
+            background: #f8f9fa;
+        }
+
+        .cross-ref-item {
+            padding: 8px;
+            margin: 4px 0;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-left: 4px solid #1e3c72;
+            font-size: 14px;
+        }
+
+        .cross-ref-item:hover {
+            background: #e3f2fd;
+            transform: translateX(4px);
+        }
+
+        .cross-ref-results {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 16px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab {
+                text-align: left;
+            }
+
+            .item-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .item-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .search-controls {
+                flex-direction: column;
+            }
+
+            .cross-ref-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Extra Unified Web Data Manager</h1>
+            <p>Advanced content management with dynamic categories and cross-referencing</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalBooks">0</div>
+                <div class="stat-label">Books</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalImages">0</div>
+                <div class="stat-label">Images</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalAudio">0</div>
+                <div class="stat-label">Audio Tracks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalContent">0</div>
+                <div class="stat-label">Content Items</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('books')">
+                <i class="fas fa-book"></i> Books
+            </button>
+            <button class="tab" onclick="showTab('images')">
+                <i class="fas fa-image"></i> Images
+            </button>
+            <button class="tab" onclick="showTab('audio')">
+                <i class="fas fa-music"></i> Audio
+            </button>
+            <button class="tab" onclick="showTab('content')">
+                <i class="fas fa-file-text"></i> Content
+            </button>
+            <button class="tab" onclick="showTab('categories')">
+                <i class="fas fa-tags"></i> Categories
+            </button>
+            <button class="tab" onclick="showTab('api')">
+                <i class="fas fa-code"></i> API & Export
+            </button>
+        </div>
+
+        <!-- Books Section -->
+        <div id="books" class="content-section active">
+            <h2><i class="fas fa-book"></i> Books Management</h2>
+            
+            <div class="search-controls">
+                <div class="search-group">
+                    <input type="text" id="booksSearch" placeholder="Search books..." onkeyup="searchBooks()">
+                </div>
+                <div class="search-group">
+                    <select id="booksFilter" onchange="filterBooks()">
+                        <option value="all">All Categories</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div>
+                    <h3 id="bookFormTitle">Add New Book</h3>
+                    <form id="bookForm">
+                        <div class="form-group">
+                            <label for="bookTitle">Title *</label>
+                            <input type="text" id="bookTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookAuthor">Author *</label>
+                            <input type="text" id="bookAuthor" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookCategory">Category *</label>
+                            <select id="bookCategory" required>
+                                <option value="">Select a category</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookTags">Tags (comma separated)</label>
+                            <input type="text" id="bookTags" placeholder="spiritual, vedic, philosophy">
+                        </div>
+                        <div class="form-group">
+                            <label for="bookYear">Year</label>
+                            <input type="text" id="bookYear">
+                        </div>
+                        <div class="form-group">
+                            <label for="bookLanguage">Language</label>
+                            <select id="bookLanguage">
+                                <option value="sanskrit">Sanskrit</option>
+                                <option value="english">English</option>
+                                <option value="hindi">Hindi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookCover">Cover Image URL</label>
+                            <input type="url" id="bookCover">
+                        </div>
+                        <div class="form-group">
+                            <label for="bookRelatedContent">Related Content IDs (comma separated)</label>
+                            <input type="text" id="bookRelatedContent" placeholder="image-1, audio-5, content-3">
+                        </div>
+                        <div class="form-group">
+                            <label for="bookDescription">Description</label>
+                            <textarea id="bookDescription"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn">
+                                <i class="fas fa-save"></i> <span id="bookBtnText">Add Book</span>
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="clearBookForm()">
+                                <i class="fas fa-times"></i> Clear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    <h3>Books List</h3>
+                    <div id="booksList" class="item-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Images Section -->
+        <div id="images" class="content-section">
+            <h2><i class="fas fa-image"></i> Images Management</h2>
+            
+            <div class="search-controls">
+                <div class="search-group">
+                    <input type="text" id="imagesSearch" placeholder="Search images..." onkeyup="searchImages()">
+                </div>
+                <div class="search-group">
+                    <select id="imageFilter" onchange="filterImages()">
+                        <option value="all">All Categories</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div>
+                    <h3 id="imageFormTitle">Add New Image</h3>
+                    <form id="imageForm">
+                        <div class="form-group">
+                            <label for="imageTitle">Title *</label>
+                            <input type="text" id="imageTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="imageSrc">Image URL *</label>
+                            <input type="url" id="imageSrc" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="imageCategory">Category *</label>
+                            <select id="imageCategory" required>
+                                <option value="">Select a category</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="imageTags">Tags (comma separated)</label>
+                            <input type="text" id="imageTags" placeholder="deity, temple, art">
+                        </div>
+                        <div class="form-group">
+                            <label for="imageAlt">Alt Text</label>
+                            <input type="text" id="imageAlt">
+                        </div>
+                        <div class="form-group">
+                            <label for="imageRelatedContent">Related Content IDs</label>
+                            <input type="text" id="imageRelatedContent" placeholder="book-1, audio-2">
+                        </div>
+                        <div class="form-group">
+                            <label for="imageDescription">Description</label>
+                            <textarea id="imageDescription"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn">
+                                <i class="fas fa-save"></i> <span id="imageBtnText">Add Image</span>
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="clearImageForm()">
+                                <i class="fas fa-times"></i> Clear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    <h3>Images List</h3>
+                    <div id="imagesList" class="item-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audio Section -->
+        <div id="audio" class="content-section">
+            <h2><i class="fas fa-music"></i> Audio Management</h2>
+            
+            <div class="search-controls">
+                <div class="search-group">
+                    <input type="text" id="audioSearch" placeholder="Search audio..." onkeyup="searchAudio()">
+                </div>
+                <div class="search-group">
+                    <select id="audioFilter" onchange="filterAudio()">
+                        <option value="all">All Categories</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div>
+                    <h3 id="audioFormTitle">Add New Audio</h3>
+                    <form id="audioForm">
+                        <div class="form-group">
+                            <label for="audioTitle">Title *</label>
+                            <input type="text" id="audioTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="audioSrc">Audio URL *</label>
+                            <input type="url" id="audioSrc" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="audioCategory">Category *</label>
+                            <select id="audioCategory" required>
+                                <option value="">Select a category</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="audioTags">Tags (comma separated)</label>
+                            <input type="text" id="audioTags" placeholder="mantra, bhajan, classical">
+                        </div>
+                        <div class="form-group">
+                            <label for="audioArtist">Artist</label>
+                            <input type="text" id="audioArtist">
+                        </div>
+                        <div class="form-group">
+                            <label for="audioDuration">Duration</label>
+                            <input type="text" id="audioDuration" placeholder="2:45">
+                        </div>
+                        <div class="form-group">
+                            <label for="audioRelatedContent">Related Content IDs</label>
+                            <input type="text" id="audioRelatedContent" placeholder="book-1, image-3">
+                        </div>
+                        <div class="form-group">
+                            <label for="audioDescription">Description</label>
+                            <textarea id="audioDescription"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn">
+                                <i class="fas fa-save"></i> <span id="audioBtnText">Add Audio</span>
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="clearAudioForm()">
+                                <i class="fas fa-times"></i> Clear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    <h3>Audio List</h3>
+                    <div id="audioList" class="item-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Section -->
+        <div id="content" class="content-section">
+            <h2><i class="fas fa-file-text"></i> Content Management</h2>
+            
+            <div class="search-controls">
+                <div class="search-group">
+                    <input type="text" id="contentSearch" placeholder="Search content..." onkeyup="searchContent()">
+                </div>
+                <div class="search-group">
+                    <select id="contentFilter" onchange="filterContent()">
+                        <option value="all">All Categories</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div>
+                    <h3 id="contentFormTitle">Add New Content</h3>
+                    <form id="contentForm">
+                        <div class="form-group">
+                            <label for="contentTitle">Title *</label>
+                            <input type="text" id="contentTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contentCategory">Category *</label>
+                            <select id="contentCategory" required>
+                                <option value="">Select a category</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contentTags">Tags (comma separated)</label>
+                            <input type="text" id="contentTags" placeholder="philosophy, teaching, guide">
+                        </div>
+                        <div class="form-group">
+                            <label for="contentType">Type</label>
+                            <select id="contentType">
+                                <option value="page">Page</option>
+                                <option value="post">Post</option>
+                                <option value="article">Article</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contentStatus">Status</label>
+                            <select id="contentStatus">
+                                <option value="draft">Draft</option>
+                                <option value="published">Published</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contentRelatedContent">Related Content IDs</label>
+                            <input type="text" id="contentRelatedContent" placeholder="book-1, image-2, audio-1">
+                        </div>
+                        <div class="form-group">
+                            <label for="contentBody">Content Body</label>
+                            <textarea id="contentBody" rows="8"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn">
+                                <i class="fas fa-save"></i> <span id="contentBtnText">Add Content</span>
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="clearContentForm()">
+                                <i class="fas fa-times"></i> Clear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    <h3>Content List</h3>
+                    <div id="contentList" class="item-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Management Section -->
+        <div id="categories" class="content-section">
+            <h2><i class="fas fa-tags"></i> Category Management</h2>
+            
+            <div class="cross-ref-grid">
+                <div class="cross-ref-section">
+                    <h4><i class="fas fa-book"></i> Books Categories & Items</h4>
+                    <div class="category-list" id="globalBookCategories"></div>
+                    <div class="add-category-form">
+                        <input type="text" id="globalNewBookCategory" class="add-category-input" placeholder="Add book category..." onkeypress="handleCategoryKeypress(event, 'books', true)">
+                        <button onclick="addCategory('books', true)" class="add-category-btn">Add</button>
+                    </div>
+                    <div class="cross-ref-list" id="booksRefList"></div>
+                </div>
+                
+                <div class="cross-ref-section">
+                    <h4><i class="fas fa-image"></i> Images Categories & Items</h4>
+                    <div class="category-list" id="globalImageCategories"></div>
+                    <div class="add-category-form">
+                        <input type="text" id="globalNewImageCategory" class="add-category-input" placeholder="Add image category..." onkeypress="handleCategoryKeypress(event, 'images', true)">
+                        <button onclick="addCategory('images', true)" class="add-category-btn">Add</button>
+                    </div>
+                    <div class="cross-ref-list" id="imagesRefList"></div>
+                </div>
+                
+                <div class="cross-ref-section">
+                    <h4><i class="fas fa-music"></i> Audio Categories & Items</h4>
+                    <div class="category-list" id="globalAudioCategories"></div>
+                    <div class="add-category-form">
+                        <input type="text" id="globalNewAudioCategory" class="add-category-input" placeholder="Add audio category..." onkeypress="handleCategoryKeypress(event, 'audio', true)">
+                        <button onclick="addCategory('audio', true)" class="add-category-btn">Add</button>
+                    </div>
+                    <div class="cross-ref-list" id="audioRefList"></div>
+                </div>
+                
+                <div class="cross-ref-section">
+                    <h4><i class="fas fa-file-text"></i> Content Categories & Items</h4>
+                    <div class="category-list" id="globalContentCategories"></div>
+                    <div class="add-category-form">
+                        <input type="text" id="globalNewContentCategory" class="add-category-input" placeholder="Add content category..." onkeypress="handleCategoryKeypress(event, 'content', true)">
+                        <button onclick="addCategory('content', true)" class="add-category-btn">Add</button>
+                    </div>
+                    <div class="cross-ref-list" id="contentRefList"></div>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <h3><i class="fas fa-link"></i> Cross-Reference Tool</h3>
+                <p style="color: #666; margin-bottom: 20px;">Click on any item in the lists above to see related content across all categories.</p>
+                <div id="crossReferenceResults" class="cross-ref-results" style="display: none;">
+                    <h4>Related Content:</h4>
+                    <div id="relatedContentDisplay"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- API & Export Section -->
+        <div id="api" class="content-section">
+            <h2><i class="fas fa-code"></i> API & Data Export</h2>
+            
+            <div style="background: #e7f3ff; border: 1px solid #b6d7ff; border-radius: 8px; padding: 16px; margin-bottom: 20px;">
+                <h3>Enhanced API Features:</h3>
+                <pre>// Get items by category
+const vedicBooks = UnifiedAPI.getBooks('vedic');
+const spiritualImages = UnifiedAPI.getImages('spiritual');
+
+// Get category statistics
+const stats = UnifiedAPI.getCategoryStats();
+
+// Find related content across types
+const related = UnifiedAPI.findRelatedContent('book-1');
+
+// Category management
+UnifiedAPI.addCategory('books', 'new-category');
+UnifiedAPI.removeCategory('books', 'old-category');</pre>
+            </div>
+
+            <div style="display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
+                <button class="btn" onclick="exportAllData()">
+                    <i class="fas fa-download"></i> Export All (Unified)
+                </button>
+                <button class="btn btn-secondary" onclick="exportBooks()">
+                    <i class="fas fa-book"></i> Export Books
+                </button>
+                <button class="btn btn-secondary" onclick="exportImages()">
+                    <i class="fas fa-image"></i> Export Images
+                </button>
+                <button class="btn btn-secondary" onclick="exportAudio()">
+                    <i class="fas fa-music"></i> Export Audio
+                </button>
+                <button class="btn btn-secondary" onclick="exportContent()">
+                    <i class="fas fa-file-text"></i> Export Content
+                </button>
+                <br>
+                <button class="btn btn-info" onclick="exportAllDataLegacy()">
+                    <i class="fas fa-archive"></i> Export All (Legacy)
+                </button>
+                <button class="btn btn-secondary" onclick="exportCategories()">
+                    <i class="fas fa-tags"></i> Export Categories
+                </button>
+                <button class="btn btn-warning" onclick="importData()">
+                    <i class="fas fa-upload"></i> Import Data
+                </button>
+                <button class="btn btn-danger" onclick="clearAllData()">
+                    <i class="fas fa-trash"></i> Clear All Data
+                </button>
+            </div>
+
+            <div style="background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 8px; padding: 16px; margin-top: 20px; max-height: 400px; overflow-y: auto;">
+                <h3>Current Data Structure:</h3>
+                <pre id="dataPreview">Loading...</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class EnhancedUnifiedDataManager {
+            constructor() {
+                this.data = this.loadData();
+                this.categories = this.loadCategories();
+                this.currentEditingItem = null;
+                this.currentEditingType = null;
+                this.filteredData = {};
+                this.init();
+            }
+
+            init() {
+                this.bindEventListeners();
+                this.updateStats();
+                this.updateCategories();
+                this.loadInitialData();
+                this.updatePreview();
+                this.updateCrossReferenceLists();
+            }
+
+            loadData() {
+                const defaultData = {
+                    books: [],
+                    images: [],
+                    audio: [],
+                    content: [],
+                    siteConfig: {
+                        siteName: "Vrindopnishad",
+                        tagline: "Enhanced Spiritual & Divine Collection",
+                        description: "Discover and manage sacred content with advanced categorization."
+                    }
+                };
+
+                const stored = localStorage.getItem('enhancedUnifiedWebData');
+                return stored ? JSON.parse(stored) : defaultData;
+            }
+
+            loadCategories() {
+                const defaultCategories = {
+                    books: ['vedic', 'philosophy', 'spiritual'],
+                    images: ['deity', 'temple', 'art'],
+                    audio: ['mantra', 'bhajan', 'classical'],
+                    content: ['teaching', 'guide', 'story']
+                };
+
+                const stored = localStorage.getItem('enhancedUnifiedCategories');
+                return stored ? JSON.parse(stored) : defaultCategories;
+            }
+
+            saveData(showMessage = true) {
+                localStorage.setItem('enhancedUnifiedWebData', JSON.stringify(this.data));
+                localStorage.setItem('enhancedUnifiedCategories', JSON.stringify(this.categories));
+                this.updatePreview();
+                this.updateStats();
+                this.updateCrossReferenceLists();
+                if (showMessage) {
+                    this.showMessage('Data saved successfully!', 'success');
+                }
+            }
+
+            bindEventListeners() {
+                this.bindFormListener('bookForm', this.handleBookSubmit.bind(this));
+                this.bindFormListener('imageForm', this.handleImageSubmit.bind(this));
+                this.bindFormListener('audioForm', this.handleAudioSubmit.bind(this));
+                this.bindFormListener('contentForm', this.handleContentSubmit.bind(this));
+
+                // Auto-save every 30 seconds
+                setInterval(() => {
+                    this.saveData(false);
+                }, 30000);
+            }
+
+            bindFormListener(formId, handler) {
+                const form = document.getElementById(formId);
+                if (form) {
+                    form.addEventListener('submit', handler);
+                }
+            }
+
+            generateId(type, title) {
+                const timestamp = Date.now();
+                const sanitized = title.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').substring(0, 20);
+                return `${type}-${sanitized}-${timestamp}`;
+            }
+
+            addCategory(type, isGlobal = false) {
+                let inputId;
+                
+                if (isGlobal) {
+                    switch(type) {
+                        case 'books': inputId = 'globalNewBookCategory'; break;
+                        case 'images': inputId = 'globalNewImageCategory'; break;
+                        case 'audio': inputId = 'globalNewAudioCategory'; break;
+                        case 'content': inputId = 'globalNewContentCategory'; break;
+                    }
+                }
+                
+                const input = document.getElementById(inputId);
+                if (!input) {
+                    this.showMessage('Error: Input field not found!', 'error');
+                    return;
+                }
+                
+                const newCategory = input.value.trim().toLowerCase();
+                
+                if (newCategory && !this.categories[type].includes(newCategory)) {
+                    this.categories[type].push(newCategory);
+                    this.categories[type].sort();
+                    this.updateCategories();
+                    this.saveData();
+                    input.value = '';
+                    this.showMessage(`Category "${newCategory}" added to ${type}!`, 'success');
+                } else if (this.categories[type].includes(newCategory)) {
+                    this.showMessage('Category already exists!', 'warning');
+                } else {
+                    this.showMessage('Please enter a category name!', 'error');
+                }
+            }
+
+            removeCategory(type, category) {
+                if (confirm(`Are you sure you want to remove "${category}" category?`)) {
+                    this.categories[type] = this.categories[type].filter(cat => cat !== category);
+                    
+                    // Update items with this category to 'uncategorized'
+                    this.data[type].forEach(item => {
+                        if (item.category === category) {
+                            item.category = 'uncategorized';
+                        }
+                    });
+                    
+                    this.updateCategories();
+                    this.saveData();
+                    this.loadInitialData();
+                    this.showMessage(`Category "${category}" removed!`, 'success');
+                }
+            }
+
+            updateCategories() {
+                Object.keys(this.categories).forEach(type => {
+                    this.updateCategoryDropdown(type);
+                    this.updateCategoryList(type);
+                    this.updateCategoryFilter(type);
+                });
+            }
+
+            updateCategoryDropdown(type) {
+                let dropdownId;
+                switch(type) {
+                    case 'books': dropdownId = 'bookCategory'; break;
+                    case 'images': dropdownId = 'imageCategory'; break;
+                    case 'audio': dropdownId = 'audioCategory'; break;
+                    case 'content': dropdownId = 'contentCategory'; break;
+                }
+                
+                const dropdown = document.getElementById(dropdownId);
+                if (dropdown) {
+                    const currentValue = dropdown.value;
+                    dropdown.innerHTML = '<option value="">Select a category</option>';
+                    
+                    this.categories[type].forEach(category => {
+                        const option = document.createElement('option');
+                        option.value = category;
+                        option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                        dropdown.appendChild(option);
+                    });
+                    
+                    if (currentValue) dropdown.value = currentValue;
+                }
+            }
+
+            updateCategoryList(type) {
+                let globalListId;
+                switch(type) {
+                    case 'books': globalListId = 'globalBookCategories'; break;
+                    case 'images': globalListId = 'globalImageCategories'; break;
+                    case 'audio': globalListId = 'globalAudioCategories'; break;
+                    case 'content': globalListId = 'globalContentCategories'; break;
+                }
+                
+                const container = document.getElementById(globalListId);
+                if (container) {
+                    container.innerHTML = '';
+                    this.categories[type].forEach(category => {
+                        const tag = document.createElement('div');
+                        tag.className = 'category-tag';
+                        tag.innerHTML = `
+                            <span>${category}</span>
+                            <button class="remove-category" onclick="dataManager.removeCategory('${type}', '${category}')" title="Remove category">×</button>
+                        `;
+                        container.appendChild(tag);
+                    });
+                }
+            }
+
+            updateCategoryFilter(type) {
+                let filterId;
+                switch(type) {
+                    case 'books': filterId = 'booksFilter'; break;
+                    case 'images': filterId = 'imageFilter'; break;
+                    case 'audio': filterId = 'audioFilter'; break;
+                    case 'content': filterId = 'contentFilter'; break;
+                }
+                
+                const filter = document.getElementById(filterId);
+                if (filter) {
+                    const currentValue = filter.value;
+                    filter.innerHTML = '<option value="all">All Categories</option>';
+                    this.categories[type].forEach(category => {
+                        const option = document.createElement('option');
+                        option.value = category;
+                        option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                        filter.appendChild(option);
+                    });
+                    filter.value = currentValue;
+                }
+            }
+
+            updateCrossReferenceLists() {
+                const types = ['books', 'images', 'audio', 'content'];
+                types.forEach(type => {
+                    const listId = `${type === 'content' ? 'content' : type === 'audio' ? 'audio' : type}RefList`;
+                    const container = document.getElementById(listId);
+                    if (container && this.data[type]) {
+                        container.innerHTML = '';
+                        if (this.data[type].length === 0) {
+                            container.innerHTML = '<div class="cross-ref-item" style="opacity: 0.5; cursor: default;">No items yet</div>';
+                        } else {
+                            this.data[type].forEach(item => {
+                                const div = document.createElement('div');
+                                div.className = 'cross-ref-item';
+                                div.textContent = `${item.id}: ${item.title}`;
+                                div.onclick = () => this.showRelatedContent(item.id, type);
+                                container.appendChild(div);
+                            });
+                        }
+                    }
+                });
+            }
+
+            showRelatedContent(itemId, itemType) {
+                const resultsContainer = document.getElementById('crossReferenceResults');
+                const displayContainer = document.getElementById('relatedContentDisplay');
+                
+                if (!resultsContainer || !displayContainer) return;
+
+                const relatedItems = this.findRelatedContent(itemId);
+                
+                if (relatedItems.length === 0) {
+                    displayContainer.innerHTML = `<p><strong>Selected:</strong> ${itemId}<br><em>No related content found.</em></p>`;
+                } else {
+                    displayContainer.innerHTML = `
+                        <p><strong>Selected:</strong> ${itemId}</p>
+                        <div style="margin-top: 12px;">
+                            ${relatedItems.map(item => `
+                                <div class="cross-ref-item" style="margin: 8px 0;">
+                                    <strong>${item.type.toUpperCase()}</strong>: ${item.title}
+                                    <br><small>ID: ${item.id} | Category: ${item.category || 'uncategorized'}</small>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+
+                resultsContainer.style.display = 'block';
+                resultsContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            findRelatedContent(itemId) {
+                const related = [];
+                const allTypes = ['books', 'images', 'audio', 'content'];
+
+                allTypes.forEach(type => {
+                    this.data[type].forEach(item => {
+                        // Check if this item references the target item
+                        if (item.relatedContent && item.relatedContent.split(',').map(id => id.trim()).includes(itemId)) {
+                            related.push({
+                                ...item,
+                                type: type.slice(0, -1) // Remove 's' from plural
+                            });
+                        }
+                        
+                        // Check if target item references this item
+                        if (item.id === itemId && item.relatedContent) {
+                            const relatedIds = item.relatedContent.split(',').map(id => id.trim());
+                            relatedIds.forEach(relId => {
+                                allTypes.forEach(t => {
+                                    const foundItem = this.data[t].find(i => i.id === relId);
+                                    if (foundItem && !related.find(r => r.id === foundItem.id)) {
+                                        related.push({
+                                            ...foundItem,
+                                            type: t.slice(0, -1)
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                    });
+                });
+
+                return related;
+            }
+
+            // Form submit handlers
+            handleBookSubmit(e) {
+                e.preventDefault();
+                const formData = this.getFormData('book');
+                
+                if (this.currentEditingItem && this.currentEditingType === 'book') {
+                    this.updateBook(this.currentEditingItem.id, formData);
+                } else {
+                    this.addBook(formData);
+                }
+                
+                this.clearBookForm();
+                this.displayBooks();
+            }
+
+            handleImageSubmit(e) {
+                e.preventDefault();
+                const formData = this.getFormData('image');
+                
+                if (this.currentEditingItem && this.currentEditingType === 'image') {
+                    this.updateImage(this.currentEditingItem.id, formData);
+                } else {
+                    this.addImage(formData);
+                }
+                
+                this.clearImageForm();
+                this.displayImages();
+            }
+
+            handleAudioSubmit(e) {
+                e.preventDefault();
+                const formData = this.getFormData('audio');
+                
+                if (this.currentEditingItem && this.currentEditingType === 'audio') {
+                    this.updateAudio(this.currentEditingItem.id, formData);
+                } else {
+                    this.addAudio(formData);
+                }
+                
+                this.clearAudioForm();
+                this.displayAudio();
+            }
+
+            handleContentSubmit(e) {
+                e.preventDefault();
+                const formData = this.getFormData('content');
+                
+                if (this.currentEditingItem && this.currentEditingType === 'content') {
+                    this.updateContent(this.currentEditingItem.id, formData);
+                } else {
+                    this.addContent(formData);
+                }
+                
+                this.clearContentForm();
+                this.displayContent();
+            }
+
+            getFormData(type) {
+                const data = {};
+                const prefix = type;
+                
+                document.querySelectorAll(`[id^="${prefix}"]`).forEach(element => {
+                    let key = element.id.replace(prefix, '');
+                    key = key.charAt(0).toLowerCase() + key.slice(1);
+                    
+                    if (key && 
+                        !key.includes('Form') && 
+                        !key.includes('List') && 
+                        !key.includes('Btn') && 
+                        !key.includes('Text') &&
+                        !key.includes('Title')) {
+                        if (element.type === 'checkbox') {
+                            data[key] = element.checked;
+                        } else {
+                            data[key] = element.value;
+                        }
+                    }
+                });
+                
+                return data;
+            }
+
+            // Add item functions
+            addBook(book) {
+                if (!book.id) {
+                    book.id = this.generateId('book', book.title);
+                }
+                book.created = new Date().toISOString();
+                book.modified = book.created;
+                this.data.books.push(book);
+                this.saveData();
+                this.showMessage('Book added successfully!', 'success');
+            }
+
+            addImage(image) {
+                if (!image.id) {
+                    image.id = this.generateId('image', image.title);
+                }
+                image.created = new Date().toISOString();
+                image.modified = image.created;
+                this.data.images.push(image);
+                this.saveData();
+                this.showMessage('Image added successfully!', 'success');
+            }
+
+            addAudio(audio) {
+                if (!audio.id) {
+                    audio.id = this.generateId('audio', audio.title);
+                }
+                audio.created = new Date().toISOString();
+                audio.modified = audio.created;
+                this.data.audio.push(audio);
+                this.saveData();
+                this.showMessage('Audio added successfully!', 'success');
+            }
+
+            addContent(content) {
+                if (!content.id) {
+                    content.id = this.generateId('content', content.title);
+                }
+                content.created = new Date().toISOString();
+                content.modified = content.created;
+                this.data.content.push(content);
+                this.saveData();
+                this.showMessage('Content added successfully!', 'success');
+            }
+
+            // Edit functions
+            editBook(id) {
+                const book = this.data.books.find(b => b.id === id);
+                if (book) {
+                    this.populateForm('book', book);
+                    this.currentEditingItem = book;
+                    this.currentEditingType = 'book';
+                    document.getElementById('bookBtnText').textContent = 'Update Book';
+                    document.getElementById('bookFormTitle').textContent = 'Edit Book';
+                    document.getElementById('books').scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            editImage(id) {
+                const image = this.data.images.find(i => i.id === id);
+                if (image) {
+                    this.populateForm('image', image);
+                    this.currentEditingItem = image;
+                    this.currentEditingType = 'image';
+                    document.getElementById('imageBtnText').textContent = 'Update Image';
+                    document.getElementById('imageFormTitle').textContent = 'Edit Image';
+                    document.getElementById('images').scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            editAudio(id) {
+                const audio = this.data.audio.find(a => a.id === id);
+                if (audio) {
+                    this.populateForm('audio', audio);
+                    this.currentEditingItem = audio;
+                    this.currentEditingType = 'audio';
+                    document.getElementById('audioBtnText').textContent = 'Update Audio';
+                    document.getElementById('audioFormTitle').textContent = 'Edit Audio';
+                    document.getElementById('audio').scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            editContent(id) {
+                const content = this.data.content.find(c => c.id === id);
+                if (content) {
+                    this.populateForm('content', content);
+                    this.currentEditingItem = content;
+                    this.currentEditingType = 'content';
+                    document.getElementById('contentBtnText').textContent = 'Update Content';
+                    document.getElementById('contentFormTitle').textContent = 'Edit Content';
+                    document.getElementById('content').scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            populateForm(type, data) {
+                Object.keys(data).forEach(key => {
+                    const element = document.getElementById(type + key.charAt(0).toUpperCase() + key.slice(1));
+                    if (element) {
+                        if (element.type === 'checkbox') {
+                            element.checked = data[key];
+                        } else {
+                            element.value = data[key] || '';
+                        }
+                    }
+                });
+            }
+
+            // Update functions
+            updateBook(id, updatedData) {
+                const index = this.data.books.findIndex(b => b.id === id);
+                if (index !== -1) {
+                    updatedData.id = id;
+                    updatedData.created = this.data.books[index].created;
+                    updatedData.modified = new Date().toISOString();
+                    this.data.books[index] = updatedData;
+                    this.saveData();
+                    this.showMessage('Book updated successfully!', 'success');
+                }
+            }
+
+            updateImage(id, updatedData) {
+                const index = this.data.images.findIndex(i => i.id === id);
+                if (index !== -1) {
+                    updatedData.id = id;
+                    updatedData.created = this.data.images[index].created;
+                    updatedData.modified = new Date().toISOString();
+                    this.data.images[index] = updatedData;
+                    this.saveData();
+                    this.showMessage('Image updated successfully!', 'success');
+                }
+            }
+
+            updateAudio(id, updatedData) {
+                const index = this.data.audio.findIndex(a => a.id === id);
+                if (index !== -1) {
+                    updatedData.id = id;
+                    updatedData.created = this.data.audio[index].created;
+                    updatedData.modified = new Date().toISOString();
+                    this.data.audio[index] = updatedData;
+                    this.saveData();
+                    this.showMessage('Audio updated successfully!', 'success');
+                }
+            }
+
+            updateContent(id, updatedData) {
+                const index = this.data.content.findIndex(c => c.id === id);
+                if (index !== -1) {
+                    updatedData.id = id;
+                    updatedData.created = this.data.content[index].created;
+                    updatedData.modified = new Date().toISOString();
+                    this.data.content[index] = updatedData;
+                    this.saveData();
+                    this.showMessage('Content updated successfully!', 'success');
+                }
+            }
+
+            // Display functions
+            displayBooks() {
+                const books = this.data.books;
+                const container = document.getElementById('booksList');
+                if (!container) return;
+
+                if (books.length === 0) {
+                    container.innerHTML = '<div class="item-card"><p style="text-align: center; color: #666;">No books added yet. Add your first book!</p></div>';
+                    return;
+                }
+
+                container.innerHTML = books.map(book => `
+                    <div class="item-card">
+                        <div class="item-header">
+                            <div class="item-title">${this.escapeHtml(book.title)}</div>
+                            <div class="item-actions">
+                                <button class="btn btn-sm btn-secondary" onclick="dataManager.editBook('${book.id}')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="dataManager.deleteBook('${book.id}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="item-categories">
+                            <span class="item-category">${book.category || 'uncategorized'}</span>
+                            ${book.tags ? book.tags.split(',').map(tag => `<span class="item-category">${tag.trim()}</span>`).join('') : ''}
+                        </div>
+                        <div class="item-meta">
+                            <strong>ID:</strong> ${book.id} <br>
+                            <strong>Author:</strong> ${this.escapeHtml(book.author || 'Unknown')} | 
+                            <strong>Year:</strong> ${this.escapeHtml(book.year || 'N/A')} | 
+                            <strong>Language:</strong> ${this.escapeHtml(book.language || 'N/A')}
+                            ${book.relatedContent ? `<br><strong>Related:</strong> ${book.relatedContent}` : ''}
+                        </div>
+                        ${book.cover ? `<img src="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/web%20content%20manager/${book.cover}" alt="${book.title}" style="max-width: 100px; height: auto; border-radius: 8px; margin: 10px 0;" onerror="this.style.display='none'">` : ''}
+                        ${book.description ? `<div class="item-description">${this.escapeHtml(book.description)}</div>` : ''}
+                    </div>
+                `).join('');
+            }
+
+            displayImages() {
+                const images = this.data.images;
+                const container = document.getElementById('imagesList');
+                if (!container) return;
+
+                if (images.length === 0) {
+                    container.innerHTML = '<div class="item-card"><p style="text-align: center; color: #666;">No images added yet. Add your first image!</p></div>';
+                    return;
+                }
+
+                container.innerHTML = images.map(image => `
+                    <div class="item-card">
+                        <div class="item-header">
+                            <div class="item-title">${this.escapeHtml(image.title)}</div>
+                            <div class="item-actions">
+                                <button class="btn btn-sm btn-secondary" onclick="dataManager.editImage('${image.id}')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="dataManager.deleteImage('${image.id}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="item-categories">
+                            <span class="item-category">${image.category || 'uncategorized'}</span>
+                            ${image.tags ? image.tags.split(',').map(tag => `<span class="item-category">${tag.trim()}</span>`).join('') : ''}
+                        </div>
+                        <div class="item-meta">
+                            <strong>ID:</strong> ${image.id}
+                            ${image.relatedContent ? `<br><strong>Related:</strong> ${image.relatedContent}` : ''}
+                        </div>
+                        ${image.src ? `<img src="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/web%20content%20manager/${image.src}" alt="${image.alt || image.title}" style="max-width: 100%; max-height: 200px; object-fit: cover; border-radius: 8px; margin: 10px 0;" onerror="this.style.display='none'">` : ''}
+                        ${image.description ? `<div class="item-description">${this.escapeHtml(image.description)}</div>` : ''}
+                    </div>
+                `).join('');
+            }
+
+            displayAudio() {
+                const audioList = this.data.audio;
+                const container = document.getElementById('audioList');
+                if (!container) return;
+
+                if (audioList.length === 0) {
+                    container.innerHTML = '<div class="item-card"><p style="text-align: center; color: #666;">No audio files added yet. Add your first audio track!</p></div>';
+                    return;
+                }
+
+                container.innerHTML = audioList.map(audio => `
+                    <div class="item-card">
+                        <div class="item-header">
+                            <div class="item-title">${this.escapeHtml(audio.title)}</div>
+                            <div class="item-actions">
+                                <button class="btn btn-sm btn-secondary" onclick="dataManager.editAudio('${audio.id}')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="dataManager.deleteAudio('${audio.id}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="item-categories">
+                            <span class="item-category">${audio.category || 'uncategorized'}</span>
+                            ${audio.tags ? audio.tags.split(',').map(tag => `<span class="item-category">${tag.trim()}</span>`).join('') : ''}
+                        </div>
+                        <div class="item-meta">
+                            <strong>ID:</strong> ${audio.id} <br>
+                            <strong>Artist:</strong> ${this.escapeHtml(audio.artist || 'Unknown')} | 
+                            <strong>Duration:</strong> ${this.escapeHtml(audio.duration || 'N/A')}
+                            ${audio.relatedContent ? `<br><strong>Related:</strong> ${audio.relatedContent}` : ''}
+                        </div>
+                        ${audio.src ? `
+                            <audio controls style="width: 100%; margin: 10px 0;">
+                                <source src="${audio.src}" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
+                        ` : ''}
+                        ${audio.description ? `<div class="item-description">${this.escapeHtml(audio.description)}</div>` : ''}
+                    </div>
+                `).join('');
+            }
+
+            displayContent() {
+                const content = this.data.content;
+                const container = document.getElementById('contentList');
+                if (!container) return;
+
+                if (content.length === 0) {
+                    container.innerHTML = '<div class="item-card"><p style="text-align: center; color: #666;">No content added yet. Add your first content item!</p></div>';
+                    return;
+                }
+
+                container.innerHTML = content.map(item => `
+                    <div class="item-card">
+                        <div class="item-header">
+                            <div class="item-title">${this.escapeHtml(item.title)}</div>
+                            <div class="item-actions">
+                                <button class="btn btn-sm btn-secondary" onclick="dataManager.editContent('${item.id}')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="dataManager.deleteContent('${item.id}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="item-categories">
+                            <span class="item-category">${item.category || 'uncategorized'}</span>
+                            ${item.tags ? item.tags.split(',').map(tag => `<span class="item-category">${tag.trim()}</span>`).join('') : ''}
+                        </div>
+                        <div class="item-meta">
+                            <strong>ID:</strong> ${item.id} <br>
+                            <strong>Type:</strong> ${this.escapeHtml(item.type || 'N/A')} | 
+                            <strong>Status:</strong> ${this.escapeHtml(item.status || 'N/A')} |
+                            <strong>Created:</strong> ${item.created ? new Date(item.created).toLocaleDateString() : 'N/A'}
+                            ${item.relatedContent ? `<br><strong>Related:</strong> ${item.relatedContent}` : ''}
+                        </div>
+                        ${item.body ? `<div class="item-description">${this.escapeHtml(item.body.substring(0, 200))}${item.body.length > 200 ? '...' : ''}</div>` : ''}
+                    </div>
+                `).join('');
+            }
+
+            // Delete functions
+            deleteBook(id) {
+                if (confirm('Are you sure you want to delete this book?')) {
+                    this.data.books = this.data.books.filter(book => book.id !== id);
+                    this.saveData();
+                    this.displayBooks();
+                    this.showMessage('Book deleted successfully!', 'success');
+                }
+            }
+
+            deleteImage(id) {
+                if (confirm('Are you sure you want to delete this image?')) {
+                    this.data.images = this.data.images.filter(image => image.id !== id);
+                    this.saveData();
+                    this.displayImages();
+                    this.showMessage('Image deleted successfully!', 'success');
+                }
+            }
+
+            deleteAudio(id) {
+                if (confirm('Are you sure you want to delete this audio?')) {
+                    this.data.audio = this.data.audio.filter(audio => audio.id !== id);
+                    this.saveData();
+                    this.displayAudio();
+                    this.showMessage('Audio deleted successfully!', 'success');
+                }
+            }
+
+            deleteContent(id) {
+                if (confirm('Are you sure you want to delete this content?')) {
+                    this.data.content = this.data.content.filter(content => content.id !== id);
+                    this.saveData();
+                    this.displayContent();
+                    this.showMessage('Content deleted successfully!', 'success');
+                }
+            }
+
+            // Clear form functions
+            clearBookForm() {
+                document.getElementById('bookForm').reset();
+                this.currentEditingItem = null;
+                this.currentEditingType = null;
+                document.getElementById('bookBtnText').textContent = 'Add Book';
+                document.getElementById('bookFormTitle').textContent = 'Add New Book';
+            }
+
+            clearImageForm() {
+                document.getElementById('imageForm').reset();
+                this.currentEditingItem = null;
+                this.currentEditingType = null;
+                document.getElementById('imageBtnText').textContent = 'Add Image';
+                document.getElementById('imageFormTitle').textContent = 'Add New Image';
+            }
+
+            clearAudioForm() {
+                document.getElementById('audioForm').reset();
+                this.currentEditingItem = null;
+                this.currentEditingType = null;
+                document.getElementById('audioBtnText').textContent = 'Add Audio';
+                document.getElementById('audioFormTitle').textContent = 'Add New Audio';
+            }
+
+            clearContentForm() {
+                document.getElementById('contentForm').reset();
+                this.currentEditingItem = null;
+                this.currentEditingType = null;
+                document.getElementById('contentBtnText').textContent = 'Add Content';
+                document.getElementById('contentFormTitle').textContent = 'Add New Content';
+            }
+
+            // Search functions
+            searchBooks() {
+                const searchTerm = document.getElementById('booksSearch').value.toLowerCase();
+                const filteredBooks = this.data.books.filter(book => 
+                    book.title.toLowerCase().includes(searchTerm) ||
+                    (book.author && book.author.toLowerCase().includes(searchTerm)) ||
+                    (book.description && book.description.toLowerCase().includes(searchTerm)) ||
+                    (book.tags && book.tags.toLowerCase().includes(searchTerm))
+                );
+                this.displayFilteredBooks(filteredBooks);
+            }
+
+            searchImages() {
+                const searchTerm = document.getElementById('imagesSearch').value.toLowerCase();
+                const filteredImages = this.data.images.filter(image => 
+                    image.title.toLowerCase().includes(searchTerm) ||
+                    (image.description && image.description.toLowerCase().includes(searchTerm)) ||
+                    (image.alt && image.alt.toLowerCase().includes(searchTerm)) ||
+                    (image.tags && image.tags.toLowerCase().includes(searchTerm))
+                );
+                this.displayFilteredImages(filteredImages);
+            }
+
+            searchAudio() {
+                const searchTerm = document.getElementById('audioSearch').value.toLowerCase();
+                const filteredAudio = this.data.audio.filter(audio => 
+                    audio.title.toLowerCase().includes(searchTerm) ||
+                    (audio.artist && audio.artist.toLowerCase().includes(searchTerm)) ||
+                    (audio.description && audio.description.toLowerCase().includes(searchTerm)) ||
+                    (audio.tags && audio.tags.toLowerCase().includes(searchTerm))
+                );
+                this.displayFilteredAudio(filteredAudio);
+            }
+
+            searchContent() {
+                const searchTerm = document.getElementById('contentSearch').value.toLowerCase();
+                const filteredContent = this.data.content.filter(content => 
+                    content.title.toLowerCase().includes(searchTerm) ||
+                    (content.body && content.body.toLowerCase().includes(searchTerm)) ||
+                    (content.tags && content.tags.toLowerCase().includes(searchTerm))
+                );
+                this.displayFilteredContent(filteredContent);
+            }
+
+            // Filter functions
+            filterBooks() {
+                const category = document.getElementById('booksFilter').value;
+                if (category === 'all') {
+                    this.displayBooks();
+                } else {
+                    const filteredBooks = this.data.books.filter(book => book.category === category);
+                    this.displayFilteredBooks(filteredBooks);
+                }
+            }
+
+            filterImages() {
+                const category = document.getElementById('imageFilter').value;
+                if (category === 'all') {
+                    this.displayImages();
+                } else {
+                    const filteredImages = this.data.images.filter(image => image.category === category);
+                    this.displayFilteredImages(filteredImages);
+                }
+            }
+
+            filterAudio() {
+                const category = document.getElementById('audioFilter').value;
+                if (category === 'all') {
+                    this.displayAudio();
+                } else {
+                    const filteredAudio = this.data.audio.filter(audio => audio.category === category);
+                    this.displayFilteredAudio(filteredAudio);
+                }
+            }
+
+            filterContent() {
+                const category = document.getElementById('contentFilter').value;
+                if (category === 'all') {
+                    this.displayContent();
+                } else {
+                    const filteredContent = this.data.content.filter(content => content.category === category);
+                    this.displayFilteredContent(filteredContent);
+                }
+            }
+
+            // Display filtered results (temporary display)
+            displayFilteredBooks(books) {
+                const container = document.getElementById('booksList');
+                if (!container) return;
+                const originalData = this.data.books;
+                this.data.books = books;
+                this.displayBooks();
+                this.data.books = originalData;
+            }
+
+            displayFilteredImages(images) {
+                const container = document.getElementById('imagesList');
+                if (!container) return;
+                const originalData = this.data.images;
+                this.data.images = images;
+                this.displayImages();
+                this.data.images = originalData;
+            }
+
+            displayFilteredAudio(audio) {
+                const container = document.getElementById('audioList');
+                if (!container) return;
+                const originalData = this.data.audio;
+                this.data.audio = audio;
+                this.displayAudio();
+                this.data.audio = originalData;
+            }
+
+            displayFilteredContent(content) {
+                const container = document.getElementById('contentList');
+                if (!container) return;
+                const originalData = this.data.content;
+                this.data.content = content;
+                this.displayContent();
+                this.data.content = originalData;
+            }
+
+            // Export functions
+            exportData(type = 'all') {
+                const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-').replace('T', '_');
+                const filename = `${timestamp}_unified-${type}-data.json`;
+                
+                let exportData;
+                if (type === 'all') {
+                    exportData = {
+                        ...this.data,
+                        categories: this.categories,
+                        metadata: {
+                            exportedAt: new Date().toISOString(),
+                            version: '2.0',
+                            format: 'enhanced-unified',
+                            totalItems: {
+                                books: this.data.books.length,
+                                images: this.data.images.length,
+                                audio: this.data.audio.length,
+                                content: this.data.content.length
+                            }
+                        }
+                    };
+                } else if (type === 'categories') {
+                    exportData = {
+                        categories: this.categories,
+                        metadata: {
+                            exportedAt: new Date().toISOString(),
+                            version: '2.0',
+                            type: 'categories-only'
+                        }
+                    };
+                } else {
+                    exportData = {
+                        [type]: this.data[type],
+                        categories: { [type]: this.categories[type] },
+                        metadata: {
+                            exportedAt: new Date().toISOString(),
+                            version: '2.0',
+                            type: type,
+                            itemCount: this.data[type].length
+                        }
+                    };
+                }
+                
+                const dataStr = JSON.stringify(exportData, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', filename);
+                linkElement.click();
+                
+                this.showMessage(`${type} data exported successfully!`, 'success');
+            }
+
+            exportDataLegacy(type = 'all') {
+                const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-').replace('T', '_');
+                const filename = `${timestamp}_legacy-${type}-data.json`;
+                const exportData = type === 'all' ? this.data : { [type]: this.data[type] };
+                
+                const dataStr = JSON.stringify(exportData, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', filename);
+                linkElement.click();
+                
+                this.showMessage(`Legacy ${type} data exported successfully!`, 'success');
+            }
+
+            importData() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.json';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            try {
+                                const importedData = JSON.parse(e.target.result);
+                                if (confirm('This will replace all current data. Are you sure?')) {
+                                    // Handle different import formats
+                                    if (importedData.metadata && importedData.metadata.format === 'enhanced-unified') {
+                                        this.data = {
+                                            books: importedData.books || [],
+                                            images: importedData.images || [],
+                                            audio: importedData.audio || [],
+                                            content: importedData.content || [],
+                                            siteConfig: importedData.siteConfig || this.data.siteConfig
+                                        };
+                                        this.categories = importedData.categories || this.categories;
+                                    } else {
+                                        // Legacy format
+                                        this.data = {
+                                            books: importedData.books || [],
+                                            images: importedData.images || [],
+                                            audio: importedData.audio || [],
+                                            content: importedData.content || [],
+                                            siteConfig: importedData.siteConfig || this.data.siteConfig
+                                        };
+                                    }
+                                    this.saveData();
+                                    this.updateCategories();
+                                    this.loadInitialData();
+                                    this.showMessage('Data imported successfully!', 'success');
+                                }
+                            } catch (error) {
+                                this.showMessage('Error importing data: Invalid JSON file', 'error');
+                            }
+                        };
+                        reader.readAsText(file);
+                    }
+                };
+                input.click();
+            }
+
+            clearAllData() {
+                if (confirm('Are you sure you want to clear all data? This action cannot be undone!')) {
+                    if (confirm('This will permanently delete all books, images, audio, content, and categories. Click OK to proceed.')) {
+                        this.data = {
+                            books: [],
+                            images: [],
+                            audio: [],
+                            content: [],
+                            siteConfig: this.data.siteConfig
+                        };
+                        this.categories = {
+                            books: [],
+                            images: [],
+                            audio: [],
+                            content: []
+                        };
+                        this.saveData();
+                        this.updateCategories();
+                        this.loadInitialData();
+                        this.showMessage('All data cleared!', 'warning');
+                    }
+                }
+            }
+
+            updateStats() {
+                document.getElementById('totalBooks').textContent = this.data.books.length;
+                document.getElementById('totalImages').textContent = this.data.images.length;
+                document.getElementById('totalAudio').textContent = this.data.audio.length;
+                document.getElementById('totalContent').textContent = this.data.content.length;
+            }
+
+            updatePreview() {
+                const previewElement = document.getElementById('dataPreview');
+                if (previewElement) {
+                    const previewData = {
+                        summary: {
+                            totalBooks: this.data.books.length,
+                            totalImages: this.data.images.length,
+                            totalAudio: this.data.audio.length,
+                            totalContent: this.data.content.length,
+                            categories: this.categories
+                        },
+                        sampleData: {
+                            books: this.data.books.slice(0, 2),
+                            images: this.data.images.slice(0, 2),
+                            audio: this.data.audio.slice(0, 2),
+                            content: this.data.content.slice(0, 2)
+                        },
+                        metadata: {
+                            lastUpdated: new Date().toISOString(),
+                            version: '2.0'
+                        }
+                    };
+                    previewElement.textContent = JSON.stringify(previewData, null, 2);
+                }
+            }
+
+            loadInitialData() {
+                this.displayBooks();
+                this.displayImages();
+                this.displayAudio();
+                this.displayContent();
+            }
+
+            escapeHtml(text) {
+                if (!text) return '';
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            showMessage(message, type = 'info') {
+                const existingMessages = document.querySelectorAll('.message');
+                existingMessages.forEach(msg => msg.remove());
+
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message message-${type}`;
+                
+                let icon = 'fas fa-info-circle';
+                if (type === 'success') icon = 'fas fa-check-circle';
+                if (type === 'error') icon = 'fas fa-exclamation-circle';
+                if (type === 'warning') icon = 'fas fa-exclamation-triangle';
+                
+                messageDiv.innerHTML = `<i class="${icon}"></i> ${message}`;
+                
+                const container = document.querySelector('.container');
+                container.insertBefore(messageDiv, container.children[1]);
+                
+                setTimeout(() => {
+                    messageDiv.remove();
+                }, 5000);
+            }
+        }
+
+        // Global API object for external access
+        window.UnifiedAPI = {
+            getBooks: (category) => dataManager ? dataManager.data.books.filter(book => !category || book.category === category) : [],
+            getImages: (category) => dataManager ? dataManager.data.images.filter(image => !category || image.category === category) : [],
+            getAudio: (category) => dataManager ? dataManager.data.audio.filter(audio => !category || audio.category === category) : [],
+            getContent: (category) => dataManager ? dataManager.data.content.filter(content => !category || content.category === category) : [],
+            getCategoryStats: () => dataManager ? ({
+                books: dataManager.categories.books.length,
+                images: dataManager.categories.images.length,
+                audio: dataManager.categories.audio.length,
+                content: dataManager.categories.content.length
+            }) : {},
+            findRelatedContent: (itemId) => dataManager ? dataManager.findRelatedContent(itemId) : [],
+            addCategory: (type, category) => dataManager ? dataManager.addCategory(type, true) : null,
+            removeCategory: (type, category) => dataManager ? dataManager.removeCategory(type, category) : null,
+            getAllData: () => dataManager ? ({ ...dataManager.data, categories: dataManager.categories }) : {}
+        };
+
+        // Global functions
+        function showTab(tabName) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function addCategory(type, isGlobal = false) {
+            if (dataManager) {
+                dataManager.addCategory(type, isGlobal);
+            }
+        }
+
+        function handleCategoryKeypress(event, type, isGlobal) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                addCategory(type, isGlobal);
+            }
+        }
+
+        // Search functions
+        function searchBooks() { if (dataManager) dataManager.searchBooks(); }
+        function searchImages() { if (dataManager) dataManager.searchImages(); }
+        function searchAudio() { if (dataManager) dataManager.searchAudio(); }
+        function searchContent() { if (dataManager) dataManager.searchContent(); }
+
+        // Filter functions
+        function filterBooks() { if (dataManager) dataManager.filterBooks(); }
+        function filterImages() { if (dataManager) dataManager.filterImages(); }
+        function filterAudio() { if (dataManager) dataManager.filterAudio(); }
+        function filterContent() { if (dataManager) dataManager.filterContent(); }
+
+        // Clear form functions
+        function clearBookForm() { if (dataManager) dataManager.clearBookForm(); }
+        function clearImageForm() { if (dataManager) dataManager.clearImageForm(); }
+        function clearAudioForm() { if (dataManager) dataManager.clearAudioForm(); }
+        function clearContentForm() { if (dataManager) dataManager.clearContentForm(); }
+
+        // Export/Import functions
+        function exportAllData() { if (dataManager) dataManager.exportData('all'); }
+        function exportBooks() { if (dataManager) dataManager.exportData('books'); }
+        function exportImages() { if (dataManager) dataManager.exportData('images'); }
+        function exportAudio() { if (dataManager) dataManager.exportData('audio'); }
+        function exportContent() { if (dataManager) dataManager.exportData('content'); }
+        function exportAllDataLegacy() { if (dataManager) dataManager.exportDataLegacy('all'); }
+        function exportCategories() { if (dataManager) dataManager.exportData('categories'); }
+        function importData() { if (dataManager) dataManager.importData(); }
+        function clearAllData() { if (dataManager) dataManager.clearAllData(); }
+
+        let dataManager;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            dataManager = new EnhancedUnifiedDataManager();
+            window.dataManager = dataManager;
+            
+            // Show a welcome message after initialization
+            setTimeout(() => {
+                if (dataManager.data.books.length === 0 && 
+                    dataManager.data.images.length === 0 && 
+                    dataManager.data.audio.length === 0 && 
+                    dataManager.data.content.length === 0) {
+                    dataManager.showMessage('Welcome! Your Enhanced Web Data Manager is ready. Start by adding some content.', 'info');
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

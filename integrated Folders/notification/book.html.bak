@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Digital Book Experience</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <link href="book.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <header class="book-header">
+      <div class="header-content">
+        <div class="logo">
+          <i class="fas fa-book-open"></i>
+          <h1>Digital Journey</h1>
+        </div>
+        <div class="book-controls">
+          <button class="book-control" id="toggle-toc">
+            <i class="fas fa-list"></i>
+            <span>Contents</span>
+          </button>
+          <button class="book-control" id="toggle-theme">
+            <i class="fas fa-moon"></i>
+            <span>Theme</span>
+          </button>
+          <button class="book-control" id="toggle-fullscreen">
+            <i class="fas fa-expand"></i>
+            <span>Fullscreen</span>
+          </button>
+        </div>
+      </div>
+      <div class="book-progress">
+        <div class="progress-bar" id="reading-progress"></div>
+      </div>
+    </header>
+
+    <div class="page-navigator">
+      <button class="nav-btn prev-btn" id="prev-page">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <div class="page-indicator">
+        <span id="current-page">1</span> / <span id="total-pages">8</span>
+      </div>
+      <button class="nav-btn next-btn" id="next-page">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <aside class="table-of-contents" id="toc">
+      <div class="toc-header">
+        <h2>Table of Contents</h2>
+        <button class="close-toc" id="close-toc">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <ul class="toc-list">
+        <li class="toc-item active" data-section="vertical-section" data-index="0">
+          <span class="toc-number">1.</span> Wildlife in Action
+        </li>
+        <li class="toc-item" data-section="vertical-section" data-index="1">
+          <span class="toc-number">2.</span> The Changing Seasons
+        </li>
+        <li class="toc-item" data-section="vertical-section" data-index="2">
+          <span class="toc-number">3.</span> Guardians of Nature
+        </li>
+        <li class="toc-item" data-section="vertical-section" data-index="3">
+          <span class="toc-number">4.</span> Astral Aesthetics
+        </li>
+        <li class="toc-item" data-section="horizontal-section" data-index="0">
+          <span class="toc-number">5.</span> Wildlife Landscapes
+        </li>
+        <li class="toc-item" data-section="horizontal-section" data-index="1">
+          <span class="toc-number">6.</span> Nature's Symphony
+        </li>
+        <li class="toc-item" data-section="horizontal-section" data-index="2">
+          <span class="toc-number">7.</span> Nature's Masterpieces
+        </li>
+        <li class="toc-item" data-section="horizontal-section" data-index="3">
+          <span class="toc-number">8.</span> The Power of Nature
+        </li>
+      </ul>
+    </aside>
+
+    <main class="main-wrapper">
+      <div class="book-cover" id="book-cover">
+        <div class="cover-content">
+          <h1 class="book-title">The Wonders of Nature</h1>
+          <p class="book-subtitle">An Interactive Journey Through Earth's Beauty</p>
+          <button class="start-reading" id="start-reading">
+            Start Reading <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="section chapter-intro" id="vertical-intro">
+        <div class="container-medium">
+          <div class="padding-vertical">
+            <div class="max-width-large">
+              <div class="chapter-header">
+                <span class="chapter-number">Chapter 1</span>
+                <h1 class="heading">Wildlife & Changing Seasons</h1>
+                <p class="chapter-description">
+                  Explore the stunning diversity of wildlife and learn how nature
+                  adapts to the changing rhythm of seasons.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-section vertical-section section" id="vertical-section">
+        <div class="wrapper">
+          <div role="list" class="list">
+            <div role="listitem" class="item">
+              <div class="page-number">Page 1</div>
+              <div class="item_content">
+                <h2 class="item_number">1</h2>
+                <h2>Wildlife in Action: A Glimpse into Nature's Daily Drama</h2>
+                <p class="item_p">
+                  Witness the fascinating lives of animals in their natural
+                  habitats, from playful cubs to stealthy predators.
+                </p>
+                <div class="page-actions">
+                  <button class="page-action bookmark" data-section="vertical-section" data-index="0">
+                    <i class="fas fa-bookmark"></i>
+                  </button>
+                  <button class="page-action notes" data-section="vertical-section" data-index="0">
+                    <i class="fas fa-sticky-note"></i>
+                  </button>
+                </div>
+              </div>
+              <video
+                src="https://videos.pexels.com/video-files/4763824/4763824-uhd_2560_1440_24fps.mp4"
+                loading="lazy"
+                autoplay
+                muted
+                loop
+                class="item_media"
+              ></video>
+            </div>
+            <div role="listitem" class="item">
+              <div class="page-number">Page 2</div>
+              <div class="item_content">
+                <h2 class="item_number">2</h2>
+                <h2>The Changing Seasons: Nature's Everlasting Cycle</h2>
+                <p class="item_p">
+                  Experience the beauty of nature's transitions, from blooming
+                  spring flowers to snowy winter landscapes.
+                </p>
+                <div class="page-actions">
+                  <button class="page-action bookmark" data-section="vertical-section" data-index="1">
+                    <i class="fas fa-bookmark"></i>
+                  </button>
+                  <button class="page-action notes" data-section="vertical-section" data-index="1">
+                    <i class="fas fa-sticky-note"></i>
+                  </button>
+                </div>
+              </div>
+              <video
+                src="https://videos.pexels.com/video-files/3214448/3214448-uhd_2560_1440_25fps.mp4"
+                loading="lazy"
+                autoplay
+                muted
+                loop
+                class="item_media"
+              ></video>
+            </div>
+            <div role="listitem" class="item">
+              <div class="page-number">Page 3</div>
+              <div class="item_content">
+                <h2 class="item_number">3</h2>
+                <h2>Guardians of Nature: Protecting Our Planet's Future</h2>
+                <p class="item_p">
+                  Learn about the importance of conservation and how we can work
+                  together to preserve the beauty of nature for generations to
+                  come.
+                </p>
+                <div class="page-actions">
+                  <button class="page-action bookmark" data-section="vertical-section" data-index="2">
+                    <i class="fas fa-bookmark"></i>
+                  </button>
+                  <button class="page-action notes" data-section="vertical-section" data-index="2">
+                    <i class="fas fa-sticky-note"></i>
+                  </button>
+                </div>
+              </div>
+              <video
+                src="https://videos.pexels.com/video-files/4328514/4328514-uhd_2560_1440_30fps.mp4"
+                loading="lazy"
+                autoplay
+                muted
+                loop
+                class="item_media"
+              ></video>
+            </div>
+            <div role="listitem" class="item">
+              <div class="page-number">Page 4</div>
+              <div class="item_content">
+                <h2 class="item_number">4</h2>
+                <h2>Astral Aesthetics: Portraits from the Infinite</h2>
+                <p class="item_p">
+                  Experience the boundless beauty of the cosmos through striking
+                  portraits that capture its infinite aesthetic appeal.
+                </p>
+                <div class="page-actions">
+                  <button class="page-action bookmark" data-section="vertical-section" data-index="3">
+                    <i class="fas fa-bookmark"></i>
+                  </button>
+                  <button class="page-action notes" data-section="vertical-section" data-index="3">
+                    <i class="fas fa-sticky-note"></i>
+                  </button>
+                </div>
+              </div>
+              <video
+                src="https://videos.pexels.com/video-files/2871916/2871916-hd_1920_1080_30fps.mp4"
+                loading="lazy"
+                autoplay
+                muted
+                loop
+                class="item_media"
+              ></video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section chapter-intro" id="horizontal-intro">
+        <div class="container-medium">
+          <div class="padding-vertical">
+            <div class="max-width-large">
+              <div class="chapter-header">
+                <span class="chapter-number">Chapter 2</span>
+                <h1 class="heading">Natural Landscapes & Phenomena</h1>
+                <p class="chapter-description">
+                  Discover breathtaking landscapes and natural phenomena that shape
+                  our world's extraordinary beauty.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-section horizontal-section section" id="horizontal-section">
+        <div class="wrapper">
+          <div role="list" class="list">
+            <div role="listitem" class="item">
+              <div class="page-number">Page 5</div>
+              <div class="item_content">
+                <h2 class="item_number">1</h2>
+                <h2>Wildlife in Action: A Glimpse into Nature's Daily Drama</h2>
+                <p class="item_p">
+                  Explore the untouched beauty of forests, mountains, and rivers
+                  as we uncover the hidden secrets of nature's most breathtaking
+                  landscapes.
+                </p>
+                <div class="page-actions">
+                  <button class="page-action bookmark" data-section="horizontal-section" data-index="0">
+                    <i class="fas fa-bookmark"></i>
+                  </button>
+                  <button class="page-action notes" data-section="horizontal-section" data-index="0">
+                    <i class="fas fa-sticky-note"></i>
+                  </button>
+                </div>
+              </div>
+              <video
+                src="https://videos.pexels.com/video-files/10178127/10178127-uhd_2560_1440_30fps.mp4"
+                loading="lazy"
+                autoplay
+                muted
+                loop
+                class="item_media"
+              ></video>
+            </div>
+            <div role="listitem" class="item">
+              <div class="page-number">Page 6</div>
+              <div class="item_content">
+                <h2 class="item_number">2</h2>
+                <h2>Nature's Symphony: The Sounds That Heal the Soul</h2>
+                <p class="item_p">
+                  Immerse yourself in the soothing sounds of chirping birds,
+                  rustling leaves, and flowing streams – nature's music for
+                  peace and tranquility.
+                </p>
+                <div class="page-actions">
+                  <button class="page-action bookmark" data-section="horizontal-section" data-index="1">
+                    <i class="fas fa-bookmark"></i>
+                  </button>
+                  <button class="page-action notes" data-section="horizontal-section" data-index="1">
+                    <i class="fas fa-sticky-note"></i>
+                  </button>
+                </div>
+              </div>
+              <video
+                src="https://videos.pexels.com/video-files/15708463/15708463-uhd_2560_1440_24fps.mp4"
+                loading="lazy"
+                autoplay
+                muted
+                loop
+                class="item_media"
+              ></video>
+            </div>
+            <div role="listitem" class="item">
+              <div class="page-number">Page 7</div>
+              <div class="item_content">
+                <h2 class="item_number">3</h2>
+                <h2>
+                  Nature's Masterpieces: Landscapes That Take Your Breath Away
+                </h2>
+                <p class="item_p">
+                  Discover stunning views of majestic mountains, endless oceans,
+                  and golden sunsets that remind us of nature's artistic
+                  brilliance.
+                </p>
+                <div class="page-actions">
+                  <button class="page-action bookmark" data-section="horizontal-section" data-index="2">
+                    <i class="fas fa-bookmark"></i>
+                  </button>
+                  <button class="page-action notes" data-section="horizontal-section" data-index="2">
+                    <i class="fas fa-sticky-note"></i>
+                  </button>
+                </div>
+              </div>
+              <video
+                src="https://videos.pexels.com/video-files/15708462/15708462-uhd_2560_1440_24fps.mp4"
+                loading="lazy"
+                autoplay
+                muted
+                loop
+                class="item_media"
+              ></video>
+            </div>
+            <div role="listitem" class="item">
+              <div class="page-number">Page 8</div>
+              <div class="item_content">
+                <h2 class="item_number">4</h2>
+                <h2>The Power of Nature: How It Shapes Our World</h2>
+                <p class="item_p">
+                  Dive into the incredible forces of nature – from roaring
+                  waterfalls to mighty hurricanes – and see how they sculpt the
+                  earth we live on.
+                </p>
+                <div class="page-actions">
+                  <button class="page-action bookmark" data-section="horizontal-section" data-index="3">
+                    <i class="fas fa-bookmark"></i>
+                  </button>
+                  <button class="page-action notes" data-section="horizontal-section" data-index="3">
+                    <i class="fas fa-sticky-note"></i>
+                  </button>
+                </div>
+              </div>
+              <video
+                src="https://videos.pexels.com/video-files/5788966/5788966-hd_1920_1080_25fps.mp4"
+                loading="lazy"
+                autoplay
+                muted
+                loop
+                class="item_media"
+              ></video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="book-end">
+        <div class="container-medium">
+          <div class="padding-vertical">
+            <div class="max-width-large">
+              <div class="end-content">
+                <h1 class="heading">Journey Complete</h1>
+                <p class="end-message">
+                  Thank you for experiencing the wonders of nature through our digital book.
+                </p>
+                <div class="end-actions">
+                  <button class="action-btn" id="restart-book">
+                    <i class="fas fa-redo"></i> Read Again
+                  </button>
+                  <button class="action-btn" id="share-book">
+                    <i class="fas fa-share-alt"></i> Share
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="notes-panel" id="notes-panel">
+      <div class="notes-header">
+        <h3>My Notes</h3>
+        <button class="close-notes" id="close-notes">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="notes-content">
+        <textarea id="page-notes" placeholder="Add your notes for this page..."></textarea>
+        <button class="save-notes" id="save-notes">Save Notes</button>
+      </div>
+    </div>
+
+    <div class="notifications" id="notifications"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+    <script src="book.js"></script>
+  </body>
+</html>

@@ -1,0 +1,524 @@
+Here are ALL the template literal fixes needed in the JavaScript code:
+
+1. **Line ~650 in addVideo() function:**
+Find:
+```javascript
+mediaContent = `<div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+    <iframe src="https://www.youtube.com/embed/${videoId}" 
+            frameborder="0" 
+            allowfullscreen 
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+            loading="lazy">
+    </iframe>
+</div>`;
+```
+
+Replace with:
+```javascript
+mediaContent = '<div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">' +
+    '<iframe src="https://www.youtube.com/embed/' + videoId + '" ' +
+    'frameborder="0" ' +
+    'allowfullscreen ' +
+    'style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" ' +
+    'loading="lazy">' +
+    '</iframe>' +
+'</div>';
+```
+
+2. **Line ~665 in addVideo() function (Vimeo):**
+Find:
+```javascript
+mediaContent = `<div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+    <iframe src="https://player.vimeo.com/video/${vimeoId}" 
+            frameborder="0" 
+            allowfullscreen 
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+            loading="lazy">
+    </iframe>
+</div>`;
+```
+
+Replace with:
+```javascript
+mediaContent = '<div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">' +
+    '<iframe src="https://player.vimeo.com/video/' + vimeoId + '" ' +
+    'frameborder="0" ' +
+    'allowfullscreen ' +
+    'style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" ' +
+    'loading="lazy">' +
+    '</iframe>' +
+'</div>';
+```
+
+3. **Line ~675 in addVideo() function (direct video):**
+Find:
+```javascript
+mediaContent = `<video controls style="width: 100%; max-width: 100%;" preload="metadata">
+    <source src="${this.sanitizeUrl(videoUrl)}" type="video/${videoExtension}">
+    <p>Your browser does not support the video tag. <a href="${this.sanitizeUrl(videoUrl)}" target="_blank">Download video</a></p>
+</video>`;
+```
+
+Replace with:
+```javascript
+mediaContent = '<video controls style="width: 100%; max-width: 100%;" preload="metadata">' +
+    '<source src="' + this.sanitizeUrl(videoUrl) + '" type="video/' + videoExtension + '">' +
+    '<p>Your browser does not support the video tag. <a href="' + this.sanitizeUrl(videoUrl) + '" target="_blank">Download video</a></p>' +
+'</video>';
+```
+
+4. **Line ~685 in addVideo() function (video caption):**
+Find:
+```javascript
+mediaContent += `<div class="media-caption" style="padding: 1rem; text-align: center; color: var(--text-secondary);">${this.sanitizeText(videoCaption)}</div>`;
+```
+
+Replace with:
+```javascript
+mediaContent += '<div class="media-caption" style="padding: 1rem; text-align: center; color: var(--text-secondary);">' + this.sanitizeText(videoCaption) + '</div>';
+```
+
+5. **Line ~690 in addVideo() function (drag handle and delete button):**
+Find:
+```javascript
+mediaElement.innerHTML = mediaContent + `
+    <div class="drag-handle" title="Drag to reorder">
+        <i class="fas fa-grip-vertical"></i>
+    </div>
+    <button class="delete-btn" onclick="contentEditor.deleteItem(this)">
+        <i class="fas fa-times"></i>
+    </button>
+`;
+```
+
+Replace with:
+```javascript
+mediaElement.innerHTML = mediaContent + 
+    '<div class="drag-handle" title="Drag to reorder">' +
+        '<i class="fas fa-grip-vertical"></i>' +
+    '</div>' +
+    '<button class="delete-btn" onclick="contentEditor.deleteItem(this)">' +
+        '<i class="fas fa-times"></i>' +
+    '</button>';
+```
+
+6. **Line ~730 in addAudio() function:**
+Find:
+```javascript
+let mediaContent = `<audio controls preload="metadata" style="width: 100%;">
+    <source src="${this.sanitizeUrl(audioUrl)}" type="audio/${audioExtension}">
+    <p>Your browser does not support the audio element. <a href="${this.sanitizeUrl(audioUrl)}" target="_blank">Download audio</a></p>
+</audio>`;
+```
+
+Replace with:
+```javascript
+let mediaContent = '<audio controls preload="metadata" style="width: 100%;">' +
+    '<source src="' + this.sanitizeUrl(audioUrl) + '" type="audio/' + audioExtension + '">' +
+    '<p>Your browser does not support the audio element. <a href="' + this.sanitizeUrl(audioUrl) + '" target="_blank">Download audio</a></p>' +
+'</audio>';
+```
+
+7. **Line ~735 in addAudio() function (audio caption):**
+Find:
+```javascript
+mediaContent += `<div class="media-caption" style="padding: 1rem; text-align: center; color: var(--text-secondary);">${this.sanitizeText(audioTitle)}</div>`;
+```
+
+Replace with:
+```javascript
+mediaContent += '<div class="media-caption" style="padding: 1rem; text-align: center; color: var(--text-secondary);">' + this.sanitizeText(audioTitle) + '</div>';
+```
+
+8. **Line ~740 in addAudio() function (drag handle and delete button):**
+Find:
+```javascript
+                mediaElement.innerHTML = mediaContent + `
+                    <div class="drag-handle" title="Drag to reorder">
+                        <i class="fas fa-grip-vertical"></i>
+                    </div>
+                    <button class="delete-btn" onclick="contentEditor.deleteItem(this)">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+```
+
+Replace with:
+```javascript
+mediaElement.innerHTML = mediaContent + 
+    '<div class="drag-handle" title="Drag to reorder">' +
+        '<i class="fas fa-grip-vertical"></i>' +
+    '</div>' +
+    '<button class="delete-btn" onclick="contentEditor.deleteItem(this)">' +
+        '<i class="fas fa-times"></i>' +
+    '</button>';
+```
+
+9. **Line ~785 in addImage() function:**
+Find:
+```javascript
+let mediaContent = `<img src="${this.sanitizeUrl(imageUrl)}" 
+                        alt="${this.sanitizeText(imageAlt || 'Image')}" 
+                        loading="lazy"
+                        onerror="this.onerror=null; this.alt='Image failed to load: ${this.sanitizeText(imageUrl)}'; this.style.border='2px dashed #ff6b6b'; this.style.padding='1rem';" />`;
+```
+
+Replace with:
+```javascript
+let mediaContent = '<img src="' + this.sanitizeUrl(imageUrl) + '" ' +
+                    'alt="' + this.sanitizeText(imageAlt || 'Image') + '" ' +
+                    'loading="lazy" ' +
+                    'onerror="this.onerror=null; this.alt=\'Image failed to load: ' + this.sanitizeText(imageUrl) + '\'; this.style.border=\'2px dashed #ff6b6b\'; this.style.padding=\'1rem\';" />';
+```
+
+10. **Line ~790 in addImage() function (image caption):**
+Find:
+```javascript
+mediaContent += `<div class="media-caption">${this.sanitizeText(imageCaption)}</div>`;
+```
+
+Replace with:
+```javascript
+mediaContent += '<div class="media-caption">' + this.sanitizeText(imageCaption) + '</div>';
+```
+
+11. **Line ~795 in addImage() function (drag handle and delete button):**
+Find:
+```javascript
+                    mediaElement.innerHTML = mediaContent + `
+                        <div class="drag-handle" title="Drag to reorder">
+                            <i class="fas fa-grip-vertical"></i>
+                        </div>
+                        <button class="delete-btn" onclick="contentEditor.deleteItem(this)">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+```
+
+Replace with:
+```javascript
+mediaElement.innerHTML = mediaContent + 
+    '<div class="drag-handle" title="Drag to reorder">' +
+        '<i class="fas fa-grip-vertical"></i>' +
+    '</div>' +
+    '<button class="delete-btn" onclick="contentEditor.deleteItem(this)">' +
+        '<i class="fas fa-times"></i>' +
+    '</button>';
+```
+
+12. **Line ~840 in addTextContent() function:**
+Find:
+```javascript
+textElement.innerHTML += `
+    <div class="drag-handle" title="Drag to reorder">
+        <i class="fas fa-grip-vertical"></i>
+    </div>
+    <button class="delete-btn" onclick="contentEditor.deleteItem(this)">
+        <i class="fas fa-times"></i>
+    </button>
+`;
+```
+
+
+Replace with:
+```javascript
+textElement.innerHTML += 
+    '<div class="drag-handle" title="Drag to reorder">' +
+        '<i class="fas fa-grip-vertical"></i>' +
+    '</div>' +
+    '<button class="delete-btn" onclick="contentEditor.deleteItem(this)">' +
+        '<i class="fas fa-times"></i>' +
+    '</button>';
+```
+
+13. **Line ~870 in addHeading() function:**
+Find:
+```javascript
+                headingElement.innerHTML += `
+                    <div class="drag-handle" title="Drag to reorder">
+                        <i class="fas fa-grip-vertical"></i>
+                    </div>
+                    <button class="delete-btn" onclick="contentEditor.deleteItem(this)">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+```
+
+Replace with:
+```javascript
+headingElement.innerHTML += 
+    '<div class="drag-handle" title="Drag to reorder">' +
+        '<i class="fas fa-grip-vertical"></i>' +
+    '</div>' +
+    '<button class="delete-btn" onclick="contentEditor.deleteItem(this)">' +
+        '<i class="fas fa-times"></i>' +
+    '</button>';
+```
+
+14. **Line ~895 in addQuote() function:**
+Find:
+```javascript
+                let quoteContent = this.sanitizeText(quoteText);
+                if (quoteAuthor && quoteAuthor.trim()) {
+                    quoteContent += `<br><br><strong>— ${this.sanitizeText(quoteAuthor)}</strong>`;
+                }
+```
+
+Replace with:
+```javascript
+let quoteContent = this.sanitizeText(quoteText);
+if (quoteAuthor && quoteAuthor.trim()) {
+    quoteContent += '<br><br><strong>— ' + this.sanitizeText(quoteAuthor) + '</strong>';
+}
+```
+
+15. **Line ~900 in addQuote() function:**
+Find:
+```javascript
+                quoteElement.innerHTML = quoteContent + `
+                    <div class="drag-handle" title="Drag to reorder">
+                        <i class="fas fa-grip-vertical"></i>
+                    </div>
+                    <button class="delete-btn" onclick="contentEditor.deleteItem(this)">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+```
+
+Replace with:
+```javascript
+quoteElement.innerHTML = quoteContent + 
+    '<div class="drag-handle" title="Drag to reorder">' +
+        '<i class="fas fa-grip-vertical"></i>' +
+    '</div>' +
+    '<button class="delete-btn" onclick="contentEditor.deleteItem(this)">' +
+        '<i class="fas fa-times"></i>' +
+    '</button>';
+```
+
+16. **Line ~950 in handleFiles() function (image):**
+Find:
+```javascript
+                mediaContent = `<img src="${e.target.result}" 
+                                alt="${this.sanitizeText(file.name)}" 
+                                loading="lazy" />`;
+```
+
+Replace with:
+```javascript
+mediaContent = '<img src="' + e.target.result + '" ' +
+               'alt="' + this.sanitizeText(file.name) + '" ' +
+               'loading="lazy" />';
+```
+
+17. **Line ~955 in handleFiles() function (video):**
+Find:
+```javascript
+                mediaContent = `<video controls preload="metadata" style="width: 100%;">
+                                <source src="${e.target.result}" type="${file.type}">
+                                <p>Your browser does not support the video tag.</p>
+                            </video>`;
+```
+
+Replace with:
+```javascript
+mediaContent = '<video controls preload="metadata" style="width: 100%;">' +
+               '<source src="' + e.target.result + '" type="' + file.type + '">' +
+               '<p>Your browser does not support the video tag.</p>' +
+               '</video>';
+```
+
+18. **Line ~960 in handleFiles() function (audio):**
+Find:
+```javascript
+mediaContent = `<audio controls preload="metadata" style="width: 100%;">
+                   <source src="${e.target.result}" type="${file.type}">
+                   <p>Your browser does not support the audio element.</p>
+               </audio>`;
+```
+
+Replace with:
+```javascript
+mediaContent = '<audio controls preload="metadata" style="width: 100%;">' +
+               '<source src="' + e.target.result + '" type="' + file.type + '">' +
+               '<p>Your browser does not support the audio element.</p>' +
+               '</audio>';
+```
+
+19. **Line ~965 in handleFiles() function (media caption):**
+Find:
+```javascript
+mediaContent += `<div class="media-caption">${this.sanitizeText(file.name)}</div>`;
+```
+
+Replace with:
+```javascript
+mediaContent += '<div class="media-caption">' + this.sanitizeText(file.name) + '</div>';
+```
+
+20. **Line ~970 in handleFiles() function (drag handle and delete button):**
+Find:
+```javascript
+mediaElement.innerHTML = mediaContent + `
+    <div class="drag-handle" title="Drag to reorder">
+        <i class="fas fa-grip-vertical"></i>
+    </div>
+        <button class="delete-btn" onclick="contentEditor.deleteItem(this)">
+                        <i class="fas fa-times"></i>
+                    </button>
+`;
+```
+
+Replace with:
+```javascript
+mediaElement.innerHTML = mediaContent + 
+    '<div class="drag-handle" title="Drag to reorder">' +
+        '<i class="fas fa-grip-vertical"></i>' +
+    '</div>' +
+    '<button class="delete-btn" onclick="contentEditor.deleteItem(this)">' +
+        '<i class="fas fa-times"></i>' +
+    '</button>';
+```
+
+21. **Line ~1050 in updateContentList() function:**
+Find:
+```javascript
+listItem.innerHTML = `
+    <div class="item-info">
+        <div class="item-title">${itemTitle}</div>
+        <div class="item-type">${itemType}</div>
+    </div>
+    <div class="item-actions">
+        <button class="item-action-btn" onclick="contentEditor.toggleItemSelection(${index})" title="Select">
+            <i class="fas fa-${isSelected ? 'check-square' : 'square'}"></i>
+        </button>
+        <button class="item-action-btn" onclick="contentEditor.editItem(${index})" title="Edit">
+            <i class="fas fa-edit"></i>
+        </button>
+        <button class="item-action-btn" onclick="contentEditor.deleteItemByIndex(${index})" title="Delete">
+            <i class="fas fa-trash"></i>
+        </button>
+    </div>
+`;
+```
+
+Replace with:
+```javascript
+listItem.innerHTML = 
+    '<div class="item-info">' +
+        '<div class="item-title">' + itemTitle + '</div>' +
+        '<div class="item-type">' + itemType + '</div>' +
+    '</div>' +
+    '<div class="item-actions">' +
+        '<button class="item-action-btn" onclick="contentEditor.toggleItemSelection(' + index + ')" title="Select">' +
+            '<i class="fas fa-' + (isSelected ? 'check-square' : 'square') + '"></i>' +
+        '</button>' +
+        '<button class="item-action-btn" onclick="contentEditor.editItem(' + index + ')" title="Edit">' +
+            '<i class="fas fa-edit"></i>' +
+        '</button>' +
+        '<button class="item-action-btn" onclick="contentEditor.deleteItemByIndex(' + index + ')" title="Delete">' +
+            '<i class="fas fa-trash"></i>' +
+        '</button>' +
+    '</div>';
+```
+
+22. **Line ~1280 in showPreviewModal() function:**
+Find:
+```javascript
+modalBody.innerHTML = `
+    <div style="max-height: 60vh; overflow-y: auto; background: #111; padding: 2rem; border-radius: 0.5rem; border: 1px solid #333;">
+        <h1 style="color: #fff; margin-bottom: 2rem;">${document.getElementById('display-title').textContent}</h1>
+        <div>${document.getElementById('content-body').innerHTML.replace(/<div class="drag-handle"[^>]*>[\s\S]*?<\/div>/g, '').replace(/<button class="delete-btn"[^>]*>[\s\S]*?<\/button>/g, '')}</div>
+    </div>
+    <button class="btn-secondary" onclick="contentEditor.closeModal()" style="margin-top: 1rem;">
+        <i class="fas fa-times"></i>
+        Close Preview
+    </button>
+`;
+```
+
+Replace with:
+```javascript
+modalBody.innerHTML = 
+    '<div style="max-height: 60vh; overflow-y: auto; background: #111; padding: 2rem; border-radius: 0.5rem; border: 1px solid #333;">' +
+        '<h1 style="color: #fff; margin-bottom: 2rem;">' + document.getElementById('display-title').textContent + '</h1>' +
+        '<div>' + document.getElementById('content-body').innerHTML.replace(/<div class="drag-handle"[^>]*>[\s\S]*?<\/div>/g, '').replace(/<button class="delete-btn"[^>]*>[\s\S]*?<\/button>/g, '') + '</div>' +
+    '</div>' +
+    '<button class="btn-secondary" onclick="contentEditor.closeModal()" style="margin-top: 1rem;">' +
+        '<i class="fas fa-times"></i>' +
+        'Close Preview' +
+    '</button>';
+```
+
+23. **Line ~1340 in generatePreviewHTML() function:**
+Find:
+```javascript
+return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>${this.sanitizeText(title)} - Preview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: Inter, sans-serif; background: #000; color: #fff; line-height: 1.6; padding: 2rem; }
+        .container { max-width: 900px; margin: 0 auto; background: #1e1e1e; padding: 3rem; border-radius: 1rem; }
+        h1 { color: #00d4ff; font-size: 3rem; margin-bottom: 2rem; }
+        p { margin-bottom: 2rem; padding: 2rem; background: rgba(0,0,0,0.2); border-radius: 12px; }
+        .media-item { margin: 3rem 0; border-radius: 1rem; overflow: hidden; }
+        img, video { width: 100%; height: auto; }
+        .quote-block { background: rgba(0,212,255,0.1); border-left: 6px solid #00d4ff; padding: 2.5rem; margin: 3rem 0; font-style: italic; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>${this.sanitizeText(title)}</h1>
+        ${author ? `<p><strong>Author:</strong> ${this.sanitizeText(author)}</p>` : ''}
+        ${tags ? `<p><strong>Tags:</strong> ${this.sanitizeText(tags)}</p>` : ''}
+        <div>${body}</div>
+    </div>
+</body>
+</html>`;
+```
+
+Replace with:
+```javascript
+return '<!DOCTYPE html>' +
+'<html lang="en">' +
+'<head>' +
+    '<meta charset="utf-8">' +
+    '<title>' + this.sanitizeText(title) + ' - Preview</title>' +
+    '<meta name="viewport" content="width=device-width, initial-scale=1">' +
+    '<style>' +
+        'body { font-family: Inter, sans-serif; background: #000; color: #fff; line-height: 1.6; padding: 2rem; }' +
+        '.container { max-width: 900px; margin: 0 auto; background: #1e1e1e; padding: 3rem; border-radius: 1rem; }' +
+        'h1 { color: #00d4ff; font-size: 3rem; margin-bottom: 2rem; }' +
+        'p { margin-bottom: 2rem; padding: 2rem; background: rgba(0,0,0,0.2); border-radius: 12px; }' +
+        '.media-item { margin: 3rem 0; border-radius: 1rem; overflow: hidden; }' +
+        'img, video { width: 100%; height: auto; }' +
+        '.quote-block { background: rgba(0,212,255,0.1); border-left: 6px solid #00d4ff; padding: 2.5rem; margin: 3rem 0; font-style: italic; }' +
+    '</style>' +
+'</head>' +
+'<body>' +
+    '<div class="container">' +
+        '<h1>' + this.sanitizeText(title) + '</h1>' +
+        (author ? '<p><strong>Author:</strong> ' + this.sanitizeText(author) + '</p>' : '') +
+        (tags ? '<p><strong>Tags:</strong> ' + this.sanitizeText(tags) + '</p>' : '') +
+        '<div>' + body + '</div>' +
+    '</div>' +
+'</body>' +
+'</html>';
+```
+
+24. **Line ~1180 in generateExportHTML() function (the one you already identified):**
+Find:
+```javascript
+${tags ? `<div class="document-tags">${this.sanitizeText(tags).split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('')}</div>` : ''}
+```
+
+Replace with:
+```javascript
+${tags ? '<div class="document-tags">' + this.sanitizeText(tags).split(',').map(tag => '<span class="tag">' + tag.trim() + '</span>').join('') + '</div>' : ''}
+```
+
+These are all the template literal issues in the code. Replace each one as indicated and the JavaScript syntax errors should be resolved.

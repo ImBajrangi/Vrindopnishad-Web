@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png"
+        type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vrindopnishad | Book Collection & Sacred Texts</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Protest+Strike&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- Supabase & Shared Auth -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../../../js/auth.js" defer></script>
+    <link rel="stylesheet" href="https://imbajrangi.github.io/Company/Vrindopnishad Web/Home/css/styles.css">
+    <link rel="stylesheet" href="https://imbajrangi.github.io/Company/Vrindopnishad Web/Stack/css/stack.css"
+        class="stylesheet">
+    <link rel="stylesheet" href="../../web-extentions/Custom Cursor/custom-cursor.css" class="rel">
+    <script src="https://imbajrangi.github.io/Company/Vrindopnishad Web/book/js/audio.js"></script>
+    <link rel="stylesheet" href="/Vrindopnishad Web/web-extentions/Cookie Consent/cookie-consent.css">
+    <!-- Add after stack.js, before </body> -->
+    <!-- <link rel="stylesheet" href="/Vrindopnishad Web/sketch/css/content-connector.css"> -->
+    <!-- <script src="/Vrindopnishad Web/sketch/js/content_connector.js"></script> -->
+</head>
+
+<body>
+    <!-- Vrindopnishad Random Loader -->
+    <!-- <script
+        src="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/web-extentions/loader/random-loader.js"></script> -->
+
+    <!-- Add noise element for texture --
+    <div class="noise"></div>
+
+    <!-- Site-wide wave effect --
+    <div class="site-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="currentColor" fill-opacity="0.05" d="M0,192L48,176C96,160,192,128,288,122.7C384,117,480,139,576,165.3C672,192,768,224,864,213.3C960,203,1056,149,1152,133.3C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </div>
+    
+    <!-- Site-wide particles effect -->
+    <div class="site-particles"></div>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-circle"></div>
+
+    <!-- Background elements --
+    <div class="bg-element bg-element-1"></div>
+    <div class="bg-element bg-element-2"></div>
+    <div class="bg-element bg-element-3"></div>-->
+
+    <!-- Scroll progress -->
+    <div class="scroll-progress"></div>
+
+    <!-- Custom cursor --
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>-->
+
+    <!-- Menu overlay -->
+    <div class="menu-overlay"></div>
+
+    <!-- Book preview modal -->
+    <div class="book-modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="book-preview">
+                <div class="book-3d">
+                    <div class="book-cover-3d">
+                        https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main<https:
+                            //imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainihttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainmhttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainghttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main
+                            https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainshttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainrhttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainchttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main=https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main"https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main"https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main
+                            https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainahttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainlhttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainthttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main=https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main"https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main"https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main
+                            https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainlhttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainohttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainahttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/maindhttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainihttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainnhttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainghttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main=https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main"https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainlhttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainahttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainzhttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/mainyhttps://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main"https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main>
+                            https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main
+                    </div>
+                </div>
+                <div class="book-details">
+                    <h2 class="book-title"></h2>
+                    <p class="book-description"></p>
+                    <div class="book-meta">
+                        <span class="book-author"></span>
+                        <span class="book-year"></span>
+                    </div>
+                    <div class="book-actions">
+                        <button class="btn magnetic read-btn">Read Now</button>
+                        <button class="btn magnetic download-btn">Download PDF</button>
+                        <button class="btn magnetic share-btn">Share</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search overlay -->
+    <div class="search-overlay">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search books...💛">
+            <div class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Search bar --
+    <div class="search-bar">
+        <input type="text" placeholder="Search books...">
+        <span class="search-icon"><i class="fas fa-search"></i></span>
+    </div>-->
+
+    <!-- Navigation -->
+    <header class="navigation">
+        <a href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/Home/home.html" class="logo magnetic"
+            data-magnetic-strength="0.5">Vrindopnishad</a>
+        <ul>
+            <div class="menu-header">
+                <!--<span>Menu</span> --
+                <div class="menu-close-btn">&times;</div>-->
+            </div>
+            <li><a href="#home"><span class="icon"><i class="fas fa-anchore"></i></span><span class="text"></span></a>
+            </li>
+            <!--<li><a href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/Home/home.html"><span class="icon"><i class="fas fa-home"></i></span><span class="text">Home</span></a></li>-->
+            <li><a href="#"><span class="icon"><i class="fas fa-layer-group"></i></span><span
+                        class="text">Collection</span></a></li>
+            <li class="active"><a href="#"><span class="icon"><i class="fas fa-book"></i></span><span
+                        class="text">Books</span></a></li>
+            <li><a href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/Gallery/Gallery.html"><span
+                        class="icon"><i class="fas fa-images"></i></span><span class="text">Gallery</span></a></li>
+            <li><a href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/about%20code/about.html"><span
+                        class="icon"><i class="fas fa-info-circle"></i></span><span class="text">About</span></a></li>
+        </ul>
+
+        <div class="header-right">
+            <!-- User Auth Icon -->
+            <div id="user-auth-btn" class="search-toggle magnetic" data-magnetic-strength="0.8"
+                aria-label="User Account" role="button" tabindex="0">
+                <i class="fas fa-user"></i>
+            </div>
+
+            <div class="search-toggle magnetic" data-magnetic-strength="0.8" id="searchToggle" aria-label="Search"
+                role="button" tabindex="0">
+                <i class="fas fa-search"></i>
+            </div>
+
+            <div class="mobile-menu-btn magnetic" aria-label="Toggle menu" role="button" tabindex="0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path
+                        d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z">
+                    </path>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main>
+        <section class="hero parallax" data-speed="0.5">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <!--<span class="text-mask">Granthi</span>-->
+                    <span class="text-mask">Granthi</span>
+                </h1>
+                <p class="hero-subtitle fade-up">Explore our curated collection of spiritual texts and ancient wisdom
+                </p>
+                <div class="hero-actions">
+                    <button class="btn magnetic scroll-to-books" data-magnetic-strength="0.4">Explore Books</button>
+                    <button class="btn btn-filter magnetic filter-toggle" data-magnetic-strength="0.4">Filter
+                        Books</button>
+                </div>
+            </div>
+            <!--<div class="hero-background"></div>-->
+        </section>
+
+        <!-- Filter sidebar -->
+        <div class="filter-sidebar">
+            <div class="filter-header">
+                <!--h3>Filter Books</h3>--
+                <button class="filter-close">&times;</button>-->
+            </div>
+            <button class="filter-back-btn"><i class="fas fa-arrow-left"></i> Back to Books</button>
+            <div class="filter-content">
+                <div class="filter-group">
+                    <h4>Categories</h4>
+                    <label><input type="checkbox" value="categories-vedic"> Vedic Scriptures</label>
+                    <label><input type="checkbox" value="categories-puranas"> Puranas & Itihasas</label>
+                    <label><input type="checkbox" value="categories-modern"> Modern Texts</label>
+                </div>
+                <div class="filter-group">
+                    <h4>Language</h4>
+                    <label><input type="checkbox" value="sanskrit"> Sanskrit</label>
+                    <label><input type="checkbox" value="english"> English</label>
+                    <label><input type="checkbox" value="hindi"> Hindi</label>
+                </div>
+                <div class="filter-group">
+                    <h4>Format</h4>
+                    <label><input type="checkbox" value="pdf"> PDF</label>
+                    <label><input type="checkbox" value="epub"> EPUB</label>
+                    <label><input type="checkbox" value="audio"> Audio</label>
+                </div>
+            </div>
+            <div class="filter-actions">
+                <button class="btn btn-apply">Apply Filters</button>
+                <button class="btn btn-reset">Reset</button>
+            </div>
+        </div>
+
+        <!-- <div class="image-gallery"> 
+            <span class="head">Book Collection</span>
+            <div class="des">
+                <span class="des-head">Swagatam</span>
+                <span class="des-des">Dive into our sacred collection of ancient texts and spiritual wisdom. From Vedic scriptures to modern spiritual classics, explore the timeless knowledge that has guided seekers for centuries.</span>
+            </div>
+        </div> -->
+
+        <section class="book-grid" data-scroll-section>
+            <!-- Categories will be dynamically populated by JavaScript -->
+        </section>
+
+        <!-- Reading progress --
+        <div class="reading-progress">
+            <div class="progress-header">
+                <h3>Your Reading Progress</h3>
+            </div>
+            <div class="progress-items">
+                <!-- Progress items will be dynamically added --
+            </div>
+        </div>-->
+
+        <div class="the-end">
+            <span>Hari Om</span>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-wave">
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="currentColor" fill-opacity="0.1" d="M0,192L48,176C96,160,192,128,288,122.7C384,117,480,139,576,165.3C672,192,768,224,864,213.3C960,203,1056,149,1152,133.3C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg> -->
+        </div>
+        <div class="back-to-top">
+            <button id="backToTopBtn" aria-label="Back to top">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+        </div>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Vrindopnishad</h3>
+                <p>A digital sanctuary for spiritual wisdom and knowledge, offering timeless teachings from ancient
+                    texts to modern spiritual classics.</p>
+                <div class="newsletter">
+                    <h4>Subscribe to Connect With Us</h4>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/Home/home.html">Home</a>
+                <a href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/about%20code/about.html">About
+                    Us</a>
+                <a
+                    href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/Gallery/Gallery.html">Gallery</a>
+                <a href="#">Book Collection</a>
+                <a href="#">Spiritual Practices</a>
+                <a href="#">Meditation Guides</a>
+            </div>
+            <div class="footer-section">
+                <h3>Popular Books</h3>
+                <a href="#" onclick="openBookModal(1); return false;">Bhagavad Gita</a>
+                <a href="#" onclick="openBookModal(4); return false;">Ramayana</a>
+                <a href="#" onclick="openBookModal(5); return false;">Mahabharata</a>
+                <a href="#" onclick="openBookModal(7); return false;">Autobiography of a Yogi</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <p>Follow us on social media for updates, spiritual quotes, and community events.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram">
+                        <svg class="social-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Facebook">
+                        <svg class="social-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Twitter">
+                        <svg class="social-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="YouTube">
+                        <svg class="social-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Vrindopnishad. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of
+                    Service</a></p>
+            <div class="footer-credits">
+                <a href="#">Sitemap</a>
+                <a href="#">Contact Us</a>
+                <a href="#">FAQ</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notifications container -->
+    <!-- <div id="notifications" class="notifications"></div>
+    <div id="audio-container">
+        <!-- Background music for notes panel --
+        <audio id="notes-background-music" loop>
+            <source src="" type="audio/mpeg">
+        </audio>
+        
+        <!-- Block-specific audio elements will be added dynamically --
+    </div> -->
+
+    <!-- Loading overlay for initial loading --
+    <div class="loading-overlay">
+        <div class="text-loader">
+            <span>V</span>
+            <span>r</span>
+            <span>i</span>
+            <span>n</span>
+            <span>d</span>
+            <span>o</span>
+            <span>p</span>
+            <span>n</span>
+            <span>i</span>
+            <span>s</span>
+            <span>h</span>
+            <span>a</span>
+            <span>d</span>
+        </div>
+        <!--<div class="loading-text">Loading books...</div>--
+    </div>-->
+
+    <!-- Books Data Loading Script -->
+    <script>
+        // Global state object if not already defined
+        window.state = window.state || {
+            activeFilters: {
+                categories: [],
+                languages: [],
+                formats: []
+            },
+            searchQuery: "",
+            activeBook: null,
+            readingProgress: {},
+            books: [],
+            isLoading: true, // Start with loading state true
+            apiConnected: false
+        };
+
+        // Load books data from JSON file
+        async function loadBooksData() {
+            try {
+                console.log('Attempting to load books from JSON file...');
+                const response = await fetch('./books-data.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load books data');
+                }
+                const data = await response.json();
+                console.log('Books data loaded successfully:', data.books.length, 'books found');
+                return data.books;
+            } catch (error) {
+                console.error('Error loading books data:', error);
+                return [];
+            }
+        }
+
+        // Initialize books loading and rendering
+        async function initializeBooks() {
+            // Only run initialization if stack.js init() hasn't been called yet
+            if (window.stackJsInitialized) {
+                console.log('stack.js already initialized, skipping duplicate init');
+                return;
+            }
+
+            try {
+                // Load books from JSON
+                const books = await loadBooksData();
+
+                if (books && books.length > 0) {
+                    // Store in state
+                    window.state.books = books;
+
+                    // Directly render books
+                    const bookGrid = document.querySelector('.book-grid');
+                    if (bookGrid) {
+                        console.log('Book grid found, rendering books...');
+
+                        // Simple rendering if stack.js functions aren't loaded yet
+                        if (typeof renderBooks !== 'function') {
+                            console.log('renderBooks function not found, using simple rendering');
+
+                            // Group books by category
+                            const categories = {};
+                            books.forEach(book => {
+                                if (!categories[book.category]) {
+                                    categories[book.category] = [];
+                                }
+                                categories[book.category].push(book);
+                            });
+
+                            // Render books by category
+                            bookGrid.innerHTML = '';
+                            Object.entries(categories).forEach(([category, categoryBooks]) => {
+                                const categoryTitle = category.split('-')
+                                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                                    .join(' ');
+
+                                const categorySection = document.createElement('div');
+                                categorySection.className = 'category-section';
+                                categorySection.innerHTML = `
+                                    <h2 class="category-title reveal-element">${categoryTitle}</h2>
+                                    <div class="books-container">
+                                        ${categoryBooks.map(book => `
+                                            <div class="book-card magnetic" data-magnetic-strength="0.1" data-book-id="${book.id}">
+                                                <div class="book-cover">
+                                                    <img src="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/Stack/main/${book.cover}" alt="${book.title}" loading="lazy">
+                                                </div>
+                                                <div class="book-info">
+                                                    <h3>${book.title}</h3>
+                                                    <p>${book.description.length > 100 ? book.description.substring(0, 100) + '...' : book.description}</p>
+                                                    <button class="btn view-book">Read More</button>
+                                                </div>
+                                                ${book.readingProgress ? `
+                                                    <div class="reading-indicator" style="width: ${book.readingProgress}%"></div>
+                                                ` : ''}
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                `;
+
+                                bookGrid.appendChild(categorySection);
+                            });
+
+                            // Add click listeners to book cards
+                            document.querySelectorAll('.book-card').forEach(card => {
+                                card.addEventListener('click', (e) => {
+                                    if (!e.target.matches('.btn')) {
+                                        const bookId = parseInt(card.dataset.bookId);
+                                        console.log('Book clicked:', bookId);
+                                        // Call openBookModal if it exists
+                                        if (typeof openBookModal === 'function') {
+                                            openBookModal(bookId);
+                                        }
+                                    }
+                                });
+                            });
+                        } else {
+                            // Use the provided renderBooks function
+                            console.log('Using stack.js renderBooks function');
+                            renderBooks(books);
+                        }
+                    } else {
+                        console.error('Book grid element not found');
+                    }
+                } else {
+                    console.error('No books found in JSON data');
+                }
+
+            } catch (error) {
+                console.error('Error initializing books:', error);
+            }
+        }
+
+        // Flag to prevent duplicate initialization
+        window.stackJsInitialized = false;
+
+        // DO NOT add a DOMContentLoaded listener here - let stack.js handle initialization
+
+        document.querySelectorAll('.book-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (!e.target.matches('.btn')) {
+                    const bookId = parseInt(card.dataset.bookId);
+                    const section = card.closest('.category-section')?.dataset.section;
+                    const index = card.dataset.index;
+
+                    if (section && index) {
+                        const blockId = `${section}-${index}`;
+                        playBlockAudio(blockId); // Play block-specific audio
+                    }
+
+                    if (typeof openBookModal === 'function') {
+                        openBookModal(bookId);
+                    }
+                }
+            });
+        });
+    </script>
+
+    <!-- Load API Service first -->
+    <!--<script src="api-service.js"></script>-->
+
+    <!-- Then load the main script -->
+    <script src="https://imbajrangi.github.io/Company/Vrindopnishad Web/Stack/js/stack.js"></script>
+    <!-- <script>
+        // Mark stack.js as initialized
+        window.stackJsInitialized = true;
+        
+        // Initialize books after stack.js is loaded
+        initializeBooks();
+    </script> -->
+    <!-- Animation scripts -->
+    <script src="https://imbajrangi.github.io/Company/Vrindopnishad Web/Home/js/animations.js"></script>
+    <script src="https://imbajrangi.github.io/Company/Vrindopnishad Web/Home/js/effects.js"></script>
+    <!-- <script src="/Vrindopnishad Web/Stack/js/utils.js"></script> -->
+    <script src="../../web-extentions/Custom Cursor/custom-cursor.js"></script>
+    <script src="/Vrindopnishad Web/web-extentions/Cookie Consent/cookie-consent.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const exploreButton = document.querySelector('.scroll-to-books');
+
+            if (exploreButton) {
+                exploreButton.addEventListener('click', () => {
+                    // Find the book grid section
+                    const bookGrid = document.querySelector('.book-grid');
+
+                    if (bookGrid) {
+                        // Calculate offset for fixed header
+                        const headerHeight = document.querySelector('.navigation')?.offsetHeight || 0;
+                        const offset = headerHeight + 30; // Add extra padding
+
+                        // Calculate target scroll position
+                        const targetPosition = bookGrid.offsetTop - offset;
+
+                        // Smooth scroll
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        // Start ambient audio
+                        if (window.playBlockAudio) {
+                            const firstSection = bookGrid.querySelector('.category-section');
+                            if (firstSection) {
+                                const sectionId = firstSection.dataset.section;
+                                playBlockAudio(`${sectionId}-0`);
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userBtn = document.getElementById('user-auth-btn');
+
+            if (userBtn && window.AuthService) {
+                // Initialize UI
+                AuthService.updateProfileUI('user-auth-btn');
+
+                // Update UI on auth state change
+                AuthService.onAuthStateChange(() => {
+                    AuthService.updateProfileUI('user-auth-btn');
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

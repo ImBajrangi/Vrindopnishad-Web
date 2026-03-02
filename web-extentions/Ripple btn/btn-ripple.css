@@ -1,0 +1,268 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* body {
+    font-family: Arial, sans-serif;
+    background: #1a1a1a;
+    color: white;
+    padding: 50px;
+    min-height: 100vh;
+} */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #3498db;
+} */
+
+.demo-section {
+    margin-bottom: 50px;
+    padding: 30px;
+    background: #2c3e50;
+    border-radius: 10px;
+}
+
+.demo-section h2 {
+    margin-bottom: 20px;
+    color: #ecf0f1;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Regular buttons without ripple */
+/* .regular-btn {
+    padding: 12px 24px;
+    background: #34495e;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.regular-btn:hover {
+    background: #4a6741;
+} */
+
+/* Full Coverage Ripple Buttons */
+.ripple-btn {
+    position: relative;
+    padding: 15px 30px;
+    background: var(--btn-bg, #3498db);
+    color: var(--btn-color, white);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    overflow: hidden;
+    transition: transform 0.2s ease, color 0.3s ease;
+    z-index: 25;
+    /* Increased to stay above image protection layer (z-index: 10) */
+    isolation: isolate;
+    /* Creates new stacking context */
+}
+
+.ripple-btn:active {
+    transform: scale(0.98);
+}
+
+/* Text layer - Always on top and protected */
+.ripple-btn .btn-text {
+    position: relative;
+    z-index: 100;
+    pointer-events: none;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+/* Background ripple layer */
+.ripple-btn::before {
+    content: '';
+    position: absolute;
+    top: var(--ripple-y, 50%);
+    left: var(--ripple-x, 50%);
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: var(--ripple-color, rgba(255, 255, 255, 0.9));
+    transform: translate(-50%, -50%);
+    transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        height 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Full coverage expansion */
+.ripple-btn.ripple-expanding::before {
+    width: 500px;
+    /* Large enough to cover any button */
+    height: 500px;
+}
+
+.ripple-btn.ripple-shrinking::before {
+    width: 0;
+    height: 0;
+    transition: width 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53),
+        height 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+/* Text color changes when ripple is active */
+.ripple-btn.ripple-expanding .btn-text {
+    color: var(--ripple-text-color, #2c3e50);
+}
+
+/* Color variations with text contrast */
+.ripple-btn.blue {
+    --btn-bg: #3498db;
+    --btn-color: white;
+    --ripple-color: rgba(255, 255, 255, 0.95);
+    --ripple-text-color: #2c3e50;
+}
+
+.ripple-btn.green {
+    --btn-bg: #27ae60;
+    --btn-color: white;
+    --ripple-color: rgba(255, 255, 255, 0.95);
+    --ripple-text-color: #1e8449;
+}
+
+.ripple-btn.red {
+    --btn-bg: #e74c3c;
+    --btn-color: white;
+    --ripple-color: rgba(255, 255, 255, 0.95);
+    --ripple-text-color: #c0392b;
+}
+
+.ripple-btn.purple {
+    --btn-bg: #9b59b6;
+    --btn-color: white;
+    --ripple-color: rgba(255, 255, 255, 0.95);
+    --ripple-text-color: #7d3c98;
+}
+
+.ripple-btn.dark {
+    --btn-bg: #2c3e50;
+    --btn-color: white;
+    --ripple-color: rgba(52, 152, 219, 0.9);
+    --ripple-text-color: white;
+}
+
+.ripple-btn.orange {
+    --btn-bg: #f39c12;
+    --btn-color: white;
+    --ripple-color: rgba(255, 255, 255, 0.95);
+    --ripple-text-color: #d68910;
+}
+
+/* Special gradient variant */
+.ripple-btn.gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --ripple-color: rgba(255, 255, 255, 0.9);
+    --ripple-text-color: #4a5568;
+}
+
+/* Slider demonstration */
+/* .slider-demo {
+    background: #34495e;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.slider-container {
+    position: relative;
+    /* overflow: hidden; *
+    margin: 20px 0;
+}
+
+.slider-track {
+    display: flex;
+    gap: 15px;
+    padding: 20px 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.slider-track::-webkit-scrollbar {
+    display: none;
+}
+
+.slider-item {
+    min-width: 200px;
+    height: 120px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.slider-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+} */
+/* 
+.slider-btn {
+    padding: 8px 16px;
+    background: #95a5a6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+} */
+
+/* .slider-btn:hover {
+    background: #7f8c8d;
+} */
+
+.info-box {
+    color: #fff1db;
+    background: #003236;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+}
+
+.info-box h3 {
+    margin-bottom: 10px;
+}
+
+.info-box ul {
+    padding-left: 20px;
+}
+
+.info-box li {
+    margin-bottom: 8px;
+}
+
+.large-btn {
+    padding: 20px 40px;
+    font-size: 18px;
+}
+
+.small-btn {
+    padding: 8px 16px;
+    font-size: 12px;
+}

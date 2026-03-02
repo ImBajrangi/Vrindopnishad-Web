@@ -1,0 +1,258 @@
+/**
+ * Vrindopnishad Loaders - All 4 Variants
+ * Elegant Nested Rings Animations with Theme Support
+ * 
+ * Loader1: Top-Bottom rings
+ * Loader2: Top-Left-Right rings  
+ * Loader3: Top-Left rings (smooth easing)
+ * Loader4: Color-shifting rings (10 levels deep)
+ */
+
+/* ============================================
+   CSS Variables for Theme Support
+   ============================================ */
+:root {
+    /* Light Mode Colors */
+    --loader-bg: #f8f9fa;
+    --loader-grey: rgba(0, 0, 0, 0.5);
+    --loader-blue: rgba(0, 0, 255, 0.5);
+    --loader-primary: rgba(26, 115, 232, 0.7);
+    --loader-secondary: rgba(100, 181, 246, 0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Dark Mode Colors */
+        --loader-bg: #111111;
+        --loader-grey: rgba(180, 180, 180, 0.6);
+        --loader-blue: rgba(100, 181, 246, 0.7);
+        --loader-primary: rgba(100, 181, 246, 0.8);
+        --loader-secondary: rgba(144, 202, 249, 0.5);
+    }
+}
+
+/* ============================================
+   Keyframe Animations
+   ============================================ */
+@keyframes vrindaRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(180deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes vrindaRotate2 {
+    0% {
+        transform: rotate(0deg);
+        border-top-color: var(--loader-grey);
+    }
+
+    50% {
+        transform: rotate(180deg);
+        border-top-color: var(--loader-blue);
+    }
+
+    100% {
+        transform: rotate(360deg);
+        border-top-color: var(--loader-grey);
+    }
+}
+
+/* ============================================
+   Loader Overlay (Full Page)
+   ============================================ */
+.vrinda-loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--loader-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vrinda-loader-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* ============================================
+   Base Loader Styles
+   ============================================ */
+.loader {
+    position: relative;
+    margin: 0 auto;
+    width: 120px;
+    height: 120px;
+    display: block;
+    overflow: hidden;
+}
+
+.loader div {
+    height: 100%;
+}
+
+/* Shared mixin styles for all loaders */
+.loader,
+.loader div {
+    border-radius: 50%;
+    padding: 6px;
+    border: 2px solid transparent;
+    animation: vrindaRotate linear 3.5s infinite;
+    will-change: transform;
+    box-sizing: border-box;
+}
+
+/* ============================================
+   Loader 1: Top-Bottom Rings
+   ============================================ */
+.loader1,
+.loader1 div {
+    border-top-color: var(--loader-grey);
+    border-bottom-color: var(--loader-blue);
+}
+
+/* ============================================
+   Loader 2: Top-Left-Right Rings
+   ============================================ */
+.loader2,
+.loader2 div {
+    border-top-color: var(--loader-blue);
+    border-left-color: var(--loader-grey);
+    border-right-color: var(--loader-grey);
+}
+
+/* ============================================
+   Loader 3: Top-Left Rings (Smooth Easing)
+   ============================================ */
+.loader3,
+.loader3 div {
+    border-top-color: var(--loader-grey);
+    border-left-color: var(--loader-blue);
+    animation-timing-function: cubic-bezier(.55, .38, .21, .88);
+    animation-duration: 3s;
+}
+
+/* ============================================
+   Loader 4: Color-Shifting Rings
+   ============================================ */
+.loader4,
+.loader4 div {
+    border-radius: 50%;
+    padding: 4px;
+    animation: vrindaRotate2 4s infinite linear;
+}
+
+/* ============================================
+   Hover Pause Effect
+   ============================================ */
+.loader div:hover {
+    animation-play-state: paused;
+}
+
+/* ============================================
+   Size Variants
+   ============================================ */
+.loader.loader-sm {
+    width: 60px;
+    height: 60px;
+}
+
+.loader.loader-sm,
+.loader.loader-sm div {
+    padding: 3px;
+    border-width: 1.5px;
+}
+
+.loader.loader-lg {
+    width: 180px;
+    height: 180px;
+}
+
+.loader.loader-lg,
+.loader.loader-lg div {
+    padding: 8px;
+    border-width: 3px;
+}
+
+.loader.loader-xl {
+    width: 240px;
+    height: 240px;
+}
+
+.loader.loader-xl,
+.loader.loader-xl div {
+    padding: 10px;
+    border-width: 4px;
+}
+
+/* ============================================
+   Alternative Color Themes
+   ============================================ */
+/* Gold/Spiritual Theme */
+.loader.loader-gold,
+.loader.loader-gold div {
+    --loader-grey: rgba(139, 119, 42, 0.7);
+    --loader-blue: rgba(255, 215, 0, 0.6);
+}
+
+/* Purple/Mystical Theme */
+.loader.loader-purple,
+.loader.loader-purple div {
+    --loader-grey: rgba(128, 0, 128, 0.6);
+    --loader-blue: rgba(186, 85, 211, 0.5);
+}
+
+/* Teal/Peaceful Theme */
+.loader.loader-teal,
+.loader.loader-teal div {
+    --loader-grey: rgba(0, 128, 128, 0.6);
+    --loader-blue: rgba(64, 224, 208, 0.5);
+}
+
+/* Red/Energetic Theme */
+.loader.loader-red,
+.loader.loader-red div {
+    --loader-grey: rgba(139, 0, 0, 0.6);
+    --loader-blue: rgba(255, 99, 71, 0.5);
+}
+
+/* Green/Nature Theme */
+.loader.loader-green,
+.loader.loader-green div {
+    --loader-grey: rgba(34, 139, 34, 0.6);
+    --loader-blue: rgba(50, 205, 50, 0.5);
+}
+
+/* ============================================
+   Hide page content until loaded
+   ============================================ */
+body.vrinda-loading {
+    overflow: hidden;
+}
+
+body.vrinda-loading>*:not(.vrinda-loader-overlay):not(.cursor-dot):not(.cursor-circle) {
+    opacity: 0;
+    visibility: hidden;
+}
+
+body:not(.vrinda-loading)>*:not(.vrinda-loader-overlay):not(.cursor-dot):not(.cursor-circle) {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}

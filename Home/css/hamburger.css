@@ -1,0 +1,81 @@
+.menu {
+    position: relative;
+    border: none;
+    background: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 999999;
+    overflow: hidden;
+}
+
+.menu svg {
+    width: 64px;
+    height: 48px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* stroke: var(--color); */
+    stroke-width: 4px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    /* fill: none; */
+    /* display: block; */
+    position: absolute;
+    transition: stroke 0.3s ease;
+}
+
+/* Prevent stroke from disappearing on hover by maintaining contrast */
+.menu:hover svg {
+    stroke: var(--color);
+}
+
+.menu svg path {
+    transition: stroke-dasharray var(--duration, .85s) var(--easing, ease) var(--delay, 0s),
+        stroke-dashoffset var(--duration, .85s) var(--easing, ease) var(--delay, 0s);
+    stroke-dasharray: var(--array-1, 26px) var(--array-2, 100px);
+    stroke-dashoffset: var(--offset, 126px);
+    transform: translateZ(0);
+}
+
+.menu svg path:nth-child(2) {
+    --duration: .7s;
+    --easing: ease-in;
+    --offset: 100px;
+    --array-2: 74px;
+}
+
+.menu svg path:nth-child(3) {
+    --offset: 133px;
+    --array-2: 107px;
+}
+
+.menu.active svg path {
+    --offset: 57px;
+}
+
+.menu.active svg path:nth-child(1),
+.menu.active svg path:nth-child(3) {
+    --delay: .15s;
+    --easing: cubic-bezier(.2, .4, .2, 1.1);
+}
+
+.menu.active svg path:nth-child(2) {
+    --duration: .4s;
+    --offset: 2px;
+    --array-1: 1px;
+}
+
+.menu.active svg path:nth-child(3) {
+    --offset: 58px;
+}
+
+* {
+    box-sizing: inherit;
+}
+
+*:before,
+*:after {
+    box-sizing: inherit;
+}

@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../../class/logo/v-logo-transparent.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vrindopnishad - Paath</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rozha+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- Supabase & Shared Auth -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../../../js/auth.js" defer></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --text-color: #161f27;
+            --font-headings: 'Poppins', 'Rozha One', "Montserrat", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-body: 'laila', "Roboto", "Helvetica Neue", Arial, sans-serif;
+            --line-height: 1.8;
+            --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --border-radius-md: 20px;
+            --blur-effect: blur(20px);
+            --shadow-md: 0 15px 35px rgba(31, 38, 135, 0.5);
+            --star-color: rgba(255, 255, 255, 0.8);
+            --nebula-color-1: rgba(123, 31, 162, 0.15);
+            --nebula-color-2: rgba(32, 84, 174, 0.15);
+            --nebula-color-3: rgb(175, 38, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            background: #0a0015;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.2;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes shooting-star {
+            0% {
+                transform: translateX(0) translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(1000px) translateY(1000px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes authorFade {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+
+        @keyframes titleFade {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: var(--line-height);
+            color: var(--text-color);
+            min-height: 100vh;
+            font-size: 18px;
+            position: relative;
+            background: #0a0015;
+            overflow-x: hidden;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                linear-gradient(45deg, rgba(0, 8, 45, 0.8), transparent),
+                linear-gradient(-45deg, rgba(63, 0, 125, 0.6), transparent),
+                linear-gradient(135deg, rgba(45, 0, 102, 0.7), transparent),
+                linear-gradient(-135deg, rgba(74, 0, 114, 0.6), transparent);
+            background-size: 400% 400%, 400% 400%, 400% 400%, 400% 400%;
+            z-index: -2;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(2px 2px at 20% 30%, var(--star-color) 50%, transparent 50%),
+                radial-gradient(2px 2px at 40% 70%, var(--star-color) 50%, transparent 50%),
+                radial-gradient(2px 2px at 60% 20%, var(--star-color) 50%, transparent 50%),
+                radial-gradient(2px 2px at 80% 90%, var(--star-color) 50%, transparent 50%);
+            background-size: 200px 200px, 300px 300px, 250px 250px, 275px 275px;
+            z-index: -1;
+            opacity: 0.8;
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--star-color);
+            animation: twinkle 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, white, transparent);
+            animation: shooting-star 2s linear infinite;
+            opacity: 0;
+        }
+
+        .nebula {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background:
+                radial-gradient(circle at 30% 50%, var(--nebula-color-1) 0%, transparent 60%),
+                radial-gradient(circle at 70% 50%, var(--nebula-color-2) 0%, transparent 60%),
+                radial-gradient(circle at 50% 80%, var(--nebula-color-3) 0%, transparent 60%);
+            mix-blend-mode: screen;
+            opacity: 0.3;
+            z-index: -1;
+            pointer-events: none;
+            will-change: opacity;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .logo {
+            font-family: var(--font-body);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .author-header {
+            font-family: "poppins";
+            font-size: 1.1rem;
+            color: rgb(255, 255, 255);
+            text-shadow: 0px 0px 5px rgba(255, 237, 132, 0.6);
+            transition: opacity 0.5s var(--transition-smooth);
+            animation: authorFade 0.5s var(--transition-smooth);
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 90px auto 0;
+            position: relative;
+            padding: 0 2rem 2rem;
+            min-height: calc(100vh - 90px);
+        }
+
+        .grid-container {
+            max-width: 1200px;
+            margin: 90px auto 0;
+            padding: 0 2rem 2rem;
+            min-height: calc(100vh - 90px);
+        }
+
+        h1.page-title {
+            font-family: var(--font-headings);
+            color: white;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.7));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h1.dynamic-title {
+            font-family: var(--font-headings);
+            color: white;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.7));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.5s var(--transition-smooth);
+            animation: titleFade 0.5s var(--transition-smooth);
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 70px;
+            width: 320px;
+            height: calc(100vh - 70px);
+            background: rgba(15, 5, 30, 0.95);
+            backdrop-filter: var(--blur-effect);
+            border-right: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 2rem;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 999;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .category-filter h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            color: #c4b5fd;
+            font-weight: 600;
+            text-align: center;
+            font-family: var(--font-headings);
+        }
+
+        .category-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem 1.2rem;
+            margin-bottom: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-family: var(--font-body);
+            font-size: 1rem;
+        }
+
+        .category-btn:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.4);
+            transform: translateX(5px);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #5b21b6, #7c3aed);
+            border-color: transparent;
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            will-change: transform;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.5);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(167, 139, 250, 0.4);
+        }
+
+        .content-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #c4b5fd;
+            font-weight: 600;
+            font-family: var(--font-headings);
+        }
+
+        .content-card p {
+            opacity: 0.85;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .content-card .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: rgba(142, 68, 173, 0.3);
+            color: white;
+            padding: 0.4rem 0.9rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(142, 68, 173, 0.5);
+        }
+
+        .reader-view {
+            display: none;
+        }
+
+        .reader-view.active {
+            display: block;
+        }
+
+        .reader {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            padding: 3rem;
+            border-radius: var(--border-radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+            transition: all 0.4s var(--transition-bounce);
+        }
+
+        .poem-title {
+            font-family: var(--font-headings);
+            font-size: 2.2rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .poem-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+
+        .poem-author {
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.1rem;
+        }
+
+        .poem-type,
+        .poem-status {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .poem-type {
+            background: rgba(103, 126, 234, 0.3);
+            color: white;
+            border: 1px solid rgba(103, 126, 234, 0.5);
+        }
+
+        .poem-status {
+            background: rgba(46, 204, 113, 0.3);
+            color: white;
+            border: 1px solid rgba(46, 204, 113, 0.5);
+        }
+
+        .poem-status.draft {
+            background: rgba(241, 196, 15, 0.3);
+            border-color: rgba(241, 196, 15, 0.5);
+        }
+
+        .poem-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .poem-content {
+            white-space: pre-line;
+            font-size: 1.25rem;
+            line-height: 2;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .media-gallery,
+        .media-audio,
+        .media-links {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .media-title {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            text-align: center;
+            font-family: var(--font-headings);
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .media-item {
+            text-align: center;
+        }
+
+        .media-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s var(--transition-smooth);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
+        .media-item img:hover {
+            transform: scale(1.03);
+            border-color: rgba(167, 139, 250, 0.5);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        .media-caption {
+            margin-top: 0.7rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .audio-player {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .audio-player audio {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .audio-info {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .audio-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .links-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .sacred-link {
+            display: block;
+            padding: 1.2rem;
+            background: rgba(118, 0, 158, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sacred-link:hover {
+            background: rgba(139, 92, 246, 0.4);
+            border-color: rgba(167, 139, 250, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .sacred-link::before {
+            content: '🔗';
+            position: absolute;
+            right: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.5;
+            font-size: 1.3rem;
+        }
+
+        .link-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 0.4rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .link-description {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 1.8rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .poem-counter {
+            color: white;
+            font-weight: 500;
+            font-size: 1.05rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .controls:hover {
+            opacity: 1;
+        }
+
+        .controls-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .music-player-container {
+            background: rgba(20, 10, 40, 0.95);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.2rem;
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            min-width: 300px;
+            max-width: 340px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .music-player-container.active {
+            display: flex;
+        }
+
+        .music-player-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .music-close-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.4rem;
+            padding: 0;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .music-close-btn:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .music-track-info {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            max-height: 45px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .music-player-container audio {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .music-toggle-btn {
+            position: relative;
+        }
+
+        .music-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            border-radius: 50%;
+            border: 2px solid rgba(10, 0, 21, 0.8);
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.15);
+                opacity: 0.8;
+            }
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: auto;
+            height: auto;
+        }
+
+        .control-btn:hover {
+            background: rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        #themeToggle i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        #themeToggle i.fa-sun {
+            color: #ffd700;
+        }
+
+        #themeToggle i.fa-moon {
+            color: #afc3ff;
+        }
+
+        #themeToggle:hover i {
+            transform: rotate(180deg);
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 60px;
+            height: 50px;
+            background: transparent;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .wrapper-menu {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: transform 330ms ease-out;
+            padding: 8px 0;
+        }
+
+        .wrapper-menu.open {
+            transform: rotate(-45deg);
+        }
+
+        .line-menu {
+            background-color: #fff;
+            border-radius: 3px;
+            width: 100%;
+            height: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .line-menu.half {
+            width: 70%;
+        }
+
+        .line-menu.start {
+            transition: transform 330ms cubic-bezier(0.54, -0.81, 0.57, 0.57);
+            transform-origin: right;
+        }
+
+        .wrapper-menu.open .line-menu.start {
+            transform: rotate(-90deg) translateX(3px);
+        }
+
+        .line-menu.end {
+            align-self: flex-end;
+            transition: transform 330ms cubic-bezier(0.54, -0.81, 0.57, 0.57);
+            transform-origin: left;
+        }
+
+        .wrapper-menu.open .line-menu.end {
+            transform: rotate(-90deg) translateX(-3px);
+        }
+
+        footer {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #8b5cf6, #ec4899, transparent);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 3rem;
+        }
+
+        .footer-section h3 {
+            font-family: var(--font-headings);
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #8b5cf6, #ec4899);
+            border-radius: 2px;
+        }
+
+        .footer-section p {
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-about {
+            padding-right: 1rem;
+        }
+
+        .footer-quote {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(139, 92, 246, 0.1);
+            border-left: 3px solid #8b5cf6;
+            border-radius: 5px;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a::before {
+            content: '→';
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #a78bfa;
+            padding-left: 0.5rem;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.4s var(--transition-bounce);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            transform: translate(-50%, -50%);
+            transition: all 0.4s ease;
+        }
+
+        .social-icon i {
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-icon:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .social-icon:hover {
+            border-color: transparent;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .footer-newsletter {
+            margin-top: 1.5rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: white;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .newsletter-btn {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .newsletter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.5);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .footer-copyright {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-bottom-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: #a78bfa;
+        }
+
+        .heart-icon {
+            color: #ec4899;
+            animation: heartbeat 1.5s ease infinite;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(1.1);
+            }
+
+            50% {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+
+            h1.page-title {
+                font-size: 2.5rem;
+            }
+
+            .content-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                height: 60px;
+                padding: 0.8rem 1rem;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .author-header {
+                font-size: 0.85rem;
+                max-width: 150px;
+            }
+
+            .container,
+            .grid-container {
+                margin-top: 80px;
+                padding: 0 1rem 1.5rem;
+            }
+
+            .sidebar {
+                width: 100%;
+                top: 60px;
+                height: calc(100vh - 60px);
+            }
+
+            .menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .wrapper-menu {
+                width: 40px;
+                height: 40px;
+            }
+
+            .line-menu {
+                height: 5px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .reader {
+                padding: 1.5rem;
+            }
+
+            h1.page-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            h1.dynamic-title {
+                font-size: 1.8rem;
+            }
+
+            .poem-title {
+                font-size: 1.6rem;
+            }
+
+            .poem-content {
+                font-size: 1.1rem;
+                line-height: 1.9;
+            }
+
+            .controls {
+                bottom: 1rem;
+                right: 1rem;
+                gap: 0.5rem;
+            }
+
+            .control-btn {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-btn {
+                width: 100%;
+                padding: 0.9rem 1.5rem;
+            }
+
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .media-item img {
+                height: 250px;
+            }
+
+            .music-player-container {
+                min-width: 260px;
+                max-width: 290px;
+                padding: 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            .footer-about {
+                padding-right: 0;
+            }
+
+            .footer-social {
+                justify-content: flex-start;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-btn {
+                width: 100%;
+            }
+
+            .footer-bottom {
+                padding: 2rem 1rem 0;
+            }
+
+            .footer-bottom-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .footer-copyright {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .footer-bottom-links {
+                justify-content: center;
+                gap: 1rem;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1000px;
+            }
+
+            .grid-container {
+                max-width: 1400px;
+            }
+
+            h1.page-title {
+                font-size: 3.5rem;
+            }
+
+            .content-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nebula"></div>
+    <header>
+        <div class="logo">वृंदोपनिषद्</div>
+        <div id="authorDisplay" class="author-header"></div>
+        <div class="header-controls">
+            <!-- User Authentication Button -->
+            <button class="control-btn" id="user-auth-btn" aria-label="User Account"
+                style="margin-right: 1rem; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; padding: 0; overflow: hidden;">
+                <i class="fas fa-user"></i>
+            </button>
+
+            <button class="control-btn menu-toggle" id="menuToggle">
+                <div class="wrapper-menu" id="wrapperMenu">
+                    <div class="line-menu half start"></div>
+                    <div class="line-menu"></div>
+                    <div class="line-menu half end"></div>
+                </div>
+            </button>
+            <button class="control-btn" id="backBtn" style="display: none;">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <div class="category-filter">
+            <h3>Categories</h3>
+            <button class="category-btn active" data-category="all">All Content</button>
+            <div id="categoryList"></div>
+        </div>
+    </div>
+
+    <div class="grid-container" id="gridContainer">
+        <h1 class="page-title">वृंदोपनिषद्</h1>
+        <div id="gridView" class="content-grid"></div>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section footer-about">
+                    <h3>वृंदोपनिषद्</h3>
+                    <p>A sacred collection of devotional poetry and spiritual wisdom dedicated to divine love and
+                        consciousness.</p>
+                    <div class="footer-quote">
+                        "राधे राधे"
+                    </div>
+                    <div class="footer-newsletter">
+                        <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">Stay inspired with daily wisdom</p>
+                        <form class="newsletter-form"
+                            onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+                            <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+                            <button type="submit" class="newsletter-btn">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="filterByCategory('all'); return false;">All Content</a></li>
+                        <li><a href="#"
+                                onclick="document.getElementById('menuToggle').click(); return false;">Categories</a>
+                        </li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Sacred Texts</a></li>
+                        <li><a href="#">Audio Library</a></li>
+                        <li><a href="#">Image Gallery</a></li>
+                        <li><a href="#">Teachings</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <p>Follow for daily inspiration and spiritual guidance</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon" title="Facebook" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" title="Twitter" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon" title="Instagram" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" title="YouTube" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-icon" title="Telegram" aria-label="Telegram">
+                            <i class="fab fa-telegram-plane"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="footer-copyright">
+                        <span>© 2026 वृंदोपनिषद् • All Rights Reserved</span>
+                        <span>Made with <span class="heart-icon">♥</span> for devotion</span>
+                    </div>
+                    <div class="footer-bottom-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Use</a>
+                        <a href="#">Sitemap</a>
+                        <a href="#">Accessibility</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div class="container" id="readerContainer" style="display: none;">
+        <h1 id="dynamicTitle" class="dynamic-title"></h1>
+        <div id="contentArea"></div>
+    </div>
+
+    <div class="controls">
+        <div class="music-player-container" id="musicPlayer">
+            <div class="music-player-header">
+                <span><i class="fas fa-music"></i> Now Playing</span>
+                <button class="music-close-btn" id="closeMusicPlayer">×</button>
+            </div>
+            <div class="music-track-info" id="musicTrackInfo">Select a track</div>
+            <audio id="audioPlayer" controls preload="metadata"></audio>
+        </div>
+        <div class="controls-row">
+            <button class="control-btn music-toggle-btn" id="musicToggle" style="display: none;">
+                <i class="fas fa-music"></i>
+                <span class="music-badge"></span>
+            </button>
+            <button class="control-btn" id="fontDown">A-</button>
+            <button class="control-btn" id="fontUp">A+</button>
+            <button class="control-btn" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // const JSON_FILES = [
+        //     '../ ../class/json/Default%20Collection-2026-09-24T15-20-20.json',
+        //     '../ ../class/json/ye%20dekho%20shyam%20audio-file.json'
+        // ];
+
+        let allEntries = [];
+        let filteredEntries = [];
+        let currentEntry = null;
+        let currentIndex = 0;
+        let categories = new Set();
+        let isDark = false;
+
+        const gridView = document.getElementById('gridView');
+        const gridContainer = document.getElementById('gridContainer');
+        const readerContainer = document.getElementById('readerContainer');
+        const contentArea = document.getElementById('contentArea');
+        const dynamicTitle = document.getElementById('dynamicTitle');
+        const authorDisplay = document.getElementById('authorDisplay');
+        const categoryList = document.getElementById('categoryList');
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menuToggle');
+        const wrapperMenu = document.getElementById('wrapperMenu');
+        const backBtn = document.getElementById('backBtn');
+        const musicToggle = document.getElementById('musicToggle');
+        const musicPlayer = document.getElementById('musicPlayer');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const musicTrackInfo = document.getElementById('musicTrackInfo');
+        const closeMusicPlayer = document.getElementById('closeMusicPlayer');
+
+        let currentAudioUrl = null;
+
+        async function loadAllData() {
+            gridView.innerHTML = '<p style="text-align: center; padding: 3rem; opacity: 0.7; color: white;">Loading content...</p>';
+
+            try {
+                // Fetch directly from Supabase
+                if (!window.supabaseClient) {
+                    throw new Error('Supabase client not initialized. Check your connection or scripts.');
+                }
+
+                const { data, error } = await window.supabaseClient
+                    .from('content')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                if (data) {
+                    allEntries = data;
+                }
+
+                if (allEntries.length === 0) {
+                    throw new Error('No entries found in database');
+                }
+
+                categories.clear();
+                allEntries.forEach(entry => {
+                    if (entry.category) categories.add(entry.category);
+                });
+
+                renderCategories();
+                filterByCategory('all');
+
+            } catch (error) {
+                console.error('Data Load Error:', error);
+                gridView.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 12px;">
+                        <h3 style="color: #ef4444; margin-bottom: 1rem;">Error Loading Content</h3>
+                        <p style="color: white;">${error.message}</p>
+                        <p style="color: grey; font-size: 0.8rem; margin-top: 1rem;">Please check your internet connection or Supabase configuration.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderCategories() {
+            categories.forEach(category => {
+                const btn = document.createElement('button');
+                btn.className = 'category-btn';
+                btn.textContent = category;
+                btn.dataset.category = category;
+                btn.onclick = () => filterByCategory(category);
+                categoryList.appendChild(btn);
+            });
+        }
+
+        function filterByCategory(category) {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.category === category);
+            });
+
+            filteredEntries = category === 'all'
+                ? allEntries
+                : allEntries.filter(e => e.category === category);
+
+            renderGrid();
+            sidebar.classList.remove('active');
+            wrapperMenu.classList.remove('open');
+        }
+
+        function renderGrid() {
+            gridView.innerHTML = filteredEntries.map(entry => `
+                <div class="content-card" onclick="openReader('${entry.id}')">
+                    <h3>${entry.title || 'Untitled'}</h3>
+                    <p>${entry.description || entry.content?.excerpt || ''}</p>
+                    ${entry.tags?.length ? `
+                        <div class="tags">
+                            ${entry.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function openReader(entryId) {
+            currentEntry = allEntries.find(e => e.id === entryId);
+            currentIndex = filteredEntries.findIndex(e => e.id === entryId);
+
+            if (!currentEntry) return;
+
+            const poemContent = currentEntry.content || {};
+            const contentBody = currentEntry.content_text || poemContent.content || '';
+            const content = formatContent(contentBody);
+
+            dynamicTitle.style.opacity = '0';
+            authorDisplay.style.opacity = '0';
+
+            setTimeout(() => {
+                dynamicTitle.textContent = currentEntry.title || poemContent.title || 'वृंदोपनिषद्';
+                authorDisplay.textContent = currentEntry.author || currentEntry.description || poemContent.excerpt || '';
+                dynamicTitle.style.opacity = '1';
+                authorDisplay.style.opacity = '1';
+            }, 250);
+
+            if (currentEntry.audio_url) {
+                currentAudioUrl = currentEntry.audio_url;
+                musicToggle.style.display = 'flex';
+            } else if (currentEntry.videos && currentEntry.videos.length > 0) {
+                currentAudioUrl = currentEntry.videos[0].url;
+                musicToggle.style.display = 'flex';
+            } else {
+                currentAudioUrl = null;
+                musicToggle.style.display = 'none';
+                musicPlayer.classList.remove('active');
+            }
+
+            const { imageContent, audioContent, linkContent } = generateMediaContent(currentEntry);
+
+            const navigation = filteredEntries.length > 1 ? `
+                <div class="navigation">
+                    <button class="nav-btn" ${currentIndex === 0 ? 'disabled' : ''} onclick="navigate(-1)">← Previous</button>
+                    <div class="poem-counter">${currentIndex + 1} of ${filteredEntries.length}</div>
+                    <button class="nav-btn" ${currentIndex === filteredEntries.length - 1 ? 'disabled' : ''} onclick="navigate(1)">Next →</button>
+                </div>
+            ` : '';
+
+            contentArea.innerHTML = `
+                <div class="reader">
+                    <h2 class="poem-title">${currentEntry.title || 'Untitled'}</h2>
+                    <div class="poem-meta">
+                        <div class="poem-author">${currentEntry.description || 'श्री हरिवंश'}</div>
+                        <div class="poem-type">${currentEntry.category || 'भाव'}</div>
+                        <div class="poem-status ${currentEntry.status === 'draft' ? 'draft' : ''}">${currentEntry.status || 'published'}</div>
+                    </div>
+                    ${currentEntry.tags?.length ? `
+                        <div class="poem-tags">
+                            ${currentEntry.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                    <div class="poem-content">${content}</div>
+                    ${linkContent}
+                    ${audioContent}
+                    ${imageContent}
+                </div>
+                ${navigation}
+            `;
+
+            gridContainer.style.display = 'none';
+            readerContainer.style.display = 'block';
+            backBtn.style.display = 'flex';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function formatContent(content) {
+            if (!content) return '';
+
+            let formattedContent = content.trim();
+
+            const words = formattedContent.split(/\s+/);
+            if (words.length > 10 && words.every(word => word.toLowerCase() === words[0].toLowerCase())) {
+                const uniqueWord = words[0];
+                const count = words.length;
+
+                if (count > 20) {
+                    let formatted = '';
+                    for (let i = 0; i < count; i++) {
+                        if (i > 0 && i % 8 === 0) {
+                            formatted += '\n\n';
+                        } else if (i > 0) {
+                            formatted += ' ';
+                        }
+                        formatted += uniqueWord;
+                    }
+                    return formatted;
+                }
+            }
+
+            return formattedContent
+                .replace(/\n\s*\n\s*\n/g, '\n\n')
+                .replace(/\n/g, '\n');
+        }
+
+        function generateMediaContent(entry) {
+            const images = entry.image_urls || (entry.images ? entry.images.map(img => img.url) : []);
+            const imageContent = images.length > 0
+                ? `<div class="media-gallery">
+                    <h3 class="media-title">Sacred Images</h3>
+                    <div class="image-grid">
+                        ${images.map((url, idx) => {
+                    const fullUrl = url.startsWith('http') ? url : `https://imbajrangi.github.io/Company/Vrindopnishad%20Web/sketch/main/${url}`;
+                    const title = (entry.images && entry.images[idx] && entry.images[idx].title) || 'Sacred Darshan';
+                    return `
+                                <div class="media-item">
+                                    <img src="${fullUrl}" alt="${title}" loading="lazy" onclick="openImageModal('${url}', '${title}')">
+                                    <p class="media-caption">${title}</p>
+                                </div>
+                            `;
+                }).join('')}
+                    </div>
+                </div>`
+                : '';
+
+            const videos = entry.video_urls || (entry.videos ? entry.videos.map(v => v.url) : []);
+            const audioSrc = entry.audio_url || (entry.videos && entry.videos.length > 0 ? entry.videos[0].url : null);
+
+            const audioContent = audioSrc
+                ? `<div class="media-audio">
+                    <h3 class="media-title">Sacred Audio</h3>
+                    <div class="audio-player">
+                        <audio controls preload="metadata">
+                            <source src="${audioSrc}" type="audio/mpeg">
+                            <source src="${audioSrc}" type="video/mp4">
+                        </audio>
+                        <div class="audio-info">
+                            <p class="audio-title">${entry.title || 'Sacred Track'}</p>
+                        </div>
+                    </div>
+                </div>`
+                : '';
+
+            const links = entry.media_links?.filter(m => m.type === 'link') || entry.links || [];
+            const linkContent = links.length > 0
+                ? `<div class="media-links">
+                    <h3 class="media-title">Related Sacred Links</h3>
+                    <div class="links-grid">
+                        ${links.map(link => `
+                            <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="sacred-link">
+                                <div class="link-title">${link.title || 'Link'}</div>
+                                ${link.description ? `<div class="link-description">${link.description}</div>` : ''}
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>`
+                : '';
+
+            return { imageContent, audioContent, linkContent };
+        }
+
+        function openImageModal(src, title) {
+            const modal = document.createElement('div');
+            modal.className = 'image-modal';
+            modal.innerHTML = `
+                <div class="modal-backdrop" onclick="closeImageModal()"></div>
+                <div class="modal-content">
+                    <button class="modal-close" onclick="closeImageModal()">×</button>
+                    <img src="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/sketch/main/${src}" alt="${title}" class="modal-image">
+                    <p class="modal-title">${title}</p>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+            modal.style.display = 'flex';
+
+            if (!document.querySelector('#modal-styles')) {
+                const styles = document.createElement('style');
+                styles.id = 'modal-styles';
+                styles.textContent = `
+                    .image-modal {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0, 0, 0, 0.95);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        z-index: 10000;
+                        backdrop-filter: blur(10px);
+                    }
+                    .modal-backdrop {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                    }
+                    .modal-content {
+                        position: relative;
+                        max-width: 90vw;
+                        max-height: 90vh;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                    }
+                    .modal-image {
+                        max-width: 100%;
+                        max-height: 80vh;
+                        object-fit: contain;
+                        border-radius: 10px;
+                        box-shadow: 0 10px 50px rgba(0, 0, 0, 0.7);
+                    }
+                    .modal-title {
+                        color: white;
+                        margin-top: 1rem;
+                        text-align: center;
+                        font-size: 1.2rem;
+                    }
+                    .modal-close {
+                        position: absolute;
+                        top: -40px;
+                        right: 0;
+                        background: rgba(255, 255, 255, 0.2);
+                        color: white;
+                        border: none;
+                        font-size: 2rem;
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 0;
+                        line-height: 1;
+                        transition: background 0.3s ease;
+                    }
+                `;
+                document.head.appendChild(styles);
+            }
+        }
+
+        function closeImageModal() {
+            const modal = document.querySelector('.image-modal');
+            if (modal) modal.remove();
+        }
+
+        function navigate(direction) {
+            currentIndex += direction;
+            if (currentIndex >= 0 && currentIndex < filteredEntries.length) {
+                openReader(filteredEntries[currentIndex].id);
+            }
+        }
+
+        backBtn.onclick = () => {
+            readerContainer.style.display = 'none';
+            gridContainer.style.display = 'block';
+            backBtn.style.display = 'none';
+            authorDisplay.textContent = '';
+            musicToggle.style.display = 'none';
+            musicPlayer.classList.remove('active');
+            audioPlayer.pause();
+        };
+
+        menuToggle.onclick = () => {
+            sidebar.classList.toggle('active');
+            wrapperMenu.classList.toggle('open');
+        };
+
+        musicToggle.onclick = () => {
+            if (musicPlayer.classList.contains('active')) {
+                musicPlayer.classList.remove('active');
+            } else {
+                musicPlayer.classList.add('active');
+                if (currentAudioUrl && currentEntry) {
+                    audioPlayer.src = currentAudioUrl;
+                    const trackTitle = currentEntry.videos?.[0]?.title || currentEntry.title || 'Sacred Audio';
+                    musicTrackInfo.textContent = trackTitle;
+                }
+            }
+        };
+
+        closeMusicPlayer.onclick = () => {
+            musicPlayer.classList.remove('active');
+            audioPlayer.pause();
+        };
+
+        document.getElementById('fontDown').onclick = () => {
+            const content = document.querySelector('.poem-content');
+            if (content) {
+                const size = parseFloat(getComputedStyle(content).fontSize);
+                content.style.fontSize = Math.max(size * 0.85, 16) + 'px';
+            }
+        };
+
+        document.getElementById('fontUp').onclick = () => {
+            const content = document.querySelector('.poem-content');
+            if (content) {
+                const size = parseFloat(getComputedStyle(content).fontSize);
+                content.style.fontSize = Math.min(size * 1.15, 40) + 'px';
+            }
+        };
+
+        document.getElementById('themeToggle').onclick = () => {
+            if (isDark) {
+                document.body.style.background = '#0a0015';
+                document.documentElement.style.setProperty('--nebula-color-1', 'rgba(123, 31, 162, 0.15)');
+                document.documentElement.style.setProperty('--nebula-color-2', 'rgba(32, 84, 174, 0.15)');
+                document.documentElement.style.setProperty('--nebula-color-3', 'rgba(175, 38, 255, 0.15)');
+
+                document.body.style.setProperty('--gradient-1', 'rgba(0, 8, 45, 0.8)');
+                document.body.style.setProperty('--gradient-2', 'rgba(63, 0, 125, 0.6)');
+                document.body.style.setProperty('--gradient-3', 'rgba(45, 0, 102, 0.7)');
+                document.body.style.setProperty('--gradient-4', 'rgba(74, 0, 114, 0.6)');
+
+                document.getElementById('themeToggle').innerHTML = '<i class="fas fa-moon"></i>';
+            } else {
+                document.body.style.background = '#000015';
+                document.documentElement.style.setProperty('--nebula-color-1', 'rgba(60, 0, 120, 0.35)');
+                document.documentElement.style.setProperty('--nebula-color-2', 'rgba(0, 45, 105, 0.35)');
+                document.documentElement.style.setProperty('--nebula-color-3', 'rgba(73, 0, 115, 0.35)');
+
+                document.body.style.setProperty('--gradient-1', 'rgba(0, 0, 54, 0.9)');
+                document.body.style.setProperty('--gradient-2', 'rgba(0, 0, 71, 0.7)');
+                document.body.style.setProperty('--gradient-3', 'rgba(45, 0, 102, 0.8)');
+                document.body.style.setProperty('--gradient-4', 'rgba(51, 0, 79, 0.7)');
+
+                document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            isDark = !isDark;
+        };
+
+        document.addEventListener('keydown', (e) => {
+            if (readerContainer.style.display === 'block') {
+                if (e.key === 'ArrowLeft' && currentIndex > 0) navigate(-1);
+                if (e.key === 'ArrowRight' && currentIndex < filteredEntries.length - 1) navigate(1);
+                if (e.key === 'Escape') backBtn.click();
+            }
+        });
+
+        function createStars(count) {
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'particle';
+                star.style.width = (Math.random() * 3 + 1) + 'px';
+                star.style.height = star.style.width;
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(star);
+            }
+        }
+
+        function createShootingStar() {
+            const star = document.createElement('div');
+            star.className = 'shooting-star';
+            star.style.top = Math.random() * window.innerHeight + 'px';
+            star.style.left = Math.random() * window.innerWidth + 'px';
+            star.style.transform = `rotate(${Math.random() * 45}deg)`;
+            document.body.appendChild(star);
+            setTimeout(() => star.remove(), 2000);
+        }
+
+        createStars(50);
+        setInterval(createShootingStar, 8000);
+
+        // Initialize Shared Auth & Load Data
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.AuthService) {
+                // Initialize Auth UI
+                AuthService.updateProfileUI('user-auth-btn');
+                AuthService.onAuthStateChange(() => {
+                    AuthService.updateProfileUI('user-auth-btn');
+                });
+            }
+
+            // Load content after auth is ready
+            loadAllData();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Content Manager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+            background: #000000;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            /* background: linear-gradient(135deg, #667eea, #764ba2); */
+            background: #000000;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            height: fit-content;
+        }
+
+        .content-area {
+            background: rgb(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            min-height: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #232323;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #000000;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+        }
+
+        .btn {
+            /* background: linear-gradient(135deg, #667eea, #764ba2); */
+            background: #202020;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-right: 12px;
+            margin-bottom: 12px;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 6px 6px 0 rgb(0, 54, 88);
+        }
+        /* .btn:active {
+            transform: translate3d(10px, 10px, 0);
+            box-shadow: none;
+        } */
+
+        .btn-secondary {
+            background: #414141;
+        }
+        .btn-secondary:hover {
+            box-shadow: 6px 6px 0 rgb(33, 33, 33);
+        }
+        /* .btn-secondary:active {
+            transform: translate3d(10px, 10px, 0);
+            box-shadow: none;
+        } */
+
+        .btn-ternary {
+            background: #e38800;
+        }
+        .btn-ternary:hover {
+            box-shadow: 6px 6px 0 rgb(141, 75, 0);
+        }
+        .btn-ternary:active {
+            transform: translate3d(10px, 10px, 0);
+            box-shadow: none;
+        }
+
+        .btn-export {
+            background: #00505e;
+        }
+        .btn-export:hover {
+            box-shadow: 6px 6px 0 rgb(0, 41, 48);
+        }
+        /* .btn-export:active {
+            transform: translate3d(10px, 10px, 0);
+            box-shadow: none;
+        } */
+
+        .btn-danger {
+            background: #ff0000;
+        }
+        .btn-danger:hover {
+            box-shadow: 6px 6px 0 rgb(153, 0, 0);
+        }
+        /* .btn-danger:active {
+            transform: translate3d(10px, 10px, 0);
+            box-shadow: none;
+        } */
+
+        .content-list {
+            margin-top: 24px;
+        }
+
+        .content-item {
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .content-item:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .content-item h3 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .content-item p {
+            color: #444444;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .content-item .meta {
+            font-size: 12px;
+            color: #5b5b5b;
+            margin-bottom: 12px;
+        }
+
+        .content-item .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .content-preview {
+            background: white;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            padding: 24px;
+            margin-top: 24px;
+            min-height: 200px;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e1e5e9;
+        }
+
+        .preview-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .preview-content {
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .preview-content h1, .preview-content h2, .preview-content h3 {
+            margin: 20px 0 12px 0;
+            color: #333;
+        }
+
+        .preview-content p {
+            margin-bottom: 16px;
+        }
+
+        .preview-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffcc31, #210068);
+            /* background: #000; */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 16px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .toolbar {
+                justify-content: center;
+            }
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #5f5f5f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Web Content Manager</h1>
+            <p>Create, edit, and manage your web content with ease</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalContent">0</div>
+                <div class="stat-label">Total Content</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="publishedContent">0</div>
+                <div class="stat-label">Published</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="draftContent">0</div>
+                <div class="stat-label">Drafts</div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <h2>Content Editor</h2>
+                <form id="contentForm">
+                    <div class="form-group">
+                        <label for="contentTitle">Title</label>
+                        <input type="text" id="contentTitle" name="title" placeholder="Enter content title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contentType">Content Type</label>
+                        <select id="contentType" name="type">
+                            <option value="page">Page</option>
+                            <option value="post">Blog Post</option>
+                            <option value="article">Article</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contentStatus">Status</label>
+                        <select id="contentStatus" name="status">
+                            <option value="draft">Draft</option>
+                            <option value="published">Published</option>
+                            <option value="private">Private</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contentExcerpt">Author/Expert</label>
+                        <textarea id="contentExcerpt" name="excerpt" placeholder="Write Author's Name here"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contentBody">Content</label>
+                        <textarea id="contentBody" name="content" rows="12" placeholder="Write your content here... You can use HTML tags for formatting."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contentTags">Tags (comma-separated)</label>
+                        <input type="text" id="contentTags" name="tags" placeholder="web design, tutorial, javascript">
+                    </div>
+                    
+                    <div class="toolbar">
+                        <button type="submit" class="btn" id="saveBtn">Save Content</button>
+                        <button type="button" class="btn btn-ternary" onclick="previewContent()">Preview</button>
+                        <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
+                        <button type="button" class="btn btn-export" onclick="exportContent()">Export All</button>
+                        <button type="button" class="btn btn-secondary" onclick="importContent()">Import</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="content-area">
+                <h2>Content Library</h2>
+                <div id="contentList" class="content-list">
+                    <p style="text-align: center; color: #666; padding: 40px;">No content created yet. Start by adding your first piece of content!</p>
+                </div>
+                
+                <div id="contentPreview" class="content-preview" style="display: none;">
+                    <div class="preview-header">
+                        <div class="preview-title">Content Preview</div>
+                        <button onclick="closePreview()" class="close">&times;</button>
+                    </div>
+                    <div class="preview-content" id="previewContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Content</h3>
+                <button class="close" onclick="closeEditModal()">&times;</button>
+            </div>
+            <form id="editForm">
+                <div class="form-group">
+                    <label for="editTitle">Title</label>
+                    <input type="text" id="editTitle" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="editType">Type</label>
+                    <select id="editType" name="type">
+                        <option value="page">Page</option>
+                        <option value="post">Blog Post</option>
+                        <option value="article">Article</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editStatus">Status</label>
+                    <select id="editStatus" name="status">
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                        <option value="private">Private</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editExcerpt">Excerpt</label>
+                    <textarea id="editExcerpt" name="excerpt"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="editContent">Content</label>
+                    <textarea id="editContent" name="content" rows="8"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="editTags">Tags</label>
+                    <input type="text" id="editTags" name="tags">
+                </div>
+                <button type="submit" class="btn">Update Content</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let contentData = JSON.parse(localStorage.getItem('webContent')) || [];
+        let editingIndex = -1;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            displayContent();
+            updateStats();
+        });
+
+        // Form submission
+        document.getElementById('contentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            saveContent();
+        });
+
+        document.getElementById('editForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            updateContent();
+        });
+
+        function saveContent() {
+            const formData = new FormData(document.getElementById('contentForm'));
+            const content = {
+                id: Date.now(),
+                title: formData.get('title'),
+                type: formData.get('type'),
+                status: formData.get('status'),
+                excerpt: formData.get('excerpt'),
+                content: formData.get('content'),
+                tags: formData.get('tags').split(',').map(tag => tag.trim()).filter(tag => tag),
+                created: new Date().toISOString(),
+                modified: new Date().toISOString()
+            };
+
+            contentData.push(content);
+            localStorage.setItem('webContent', JSON.stringify(contentData));
+            
+            displayContent();
+            updateStats();
+            clearForm();
+            
+            // Show success message
+            showMessage('Content saved successfully!', 'success');
+        }
+
+        function displayContent() {
+            const contentList = document.getElementById('contentList');
+            
+            if (contentData.length === 0) {
+                contentList.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">No content created yet. Start by adding your first piece of content!</p>';
+                return;
+            }
+
+            contentList.innerHTML = contentData.map((item, index) => `
+                <div class="content-item">
+                    <h3>${item.title}</h3>
+                    <p>${item.excerpt || 'No description provided.'}</p>
+                    <div class="meta">
+                        Type: ${item.type} | Status: ${item.status} | 
+                        Created: ${new Date(item.created).toLocaleDateString()} |
+                        Tags: ${item.tags.length ? item.tags.join(', ') : 'No tags'}
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-primary" onclick="editContent(${index})">Edit</button>
+                        <button class="btn btn-ternary" onclick="viewContent(${index})">View</button>
+                        <button class="btn btn-secondary" onclick="duplicateContent(${index})">Duplicate</button>
+                        <button class="btn btn-danger" onclick="deleteContent(${index})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function editContent(index) {
+            editingIndex = index;
+            const item = contentData[index];
+            
+            document.getElementById('editTitle').value = item.title;
+            document.getElementById('editType').value = item.type;
+            document.getElementById('editStatus').value = item.status;
+            document.getElementById('editExcerpt').value = item.excerpt || '';
+            document.getElementById('editContent').value = item.content || '';
+            document.getElementById('editTags').value = item.tags.join(', ');
+            
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        function updateContent() {
+            const formData = new FormData(document.getElementById('editForm'));
+            
+            contentData[editingIndex] = {
+                ...contentData[editingIndex],
+                title: formData.get('title'),
+                type: formData.get('type'),
+                status: formData.get('status'),
+                excerpt: formData.get('excerpt'),
+                content: formData.get('content'),
+                tags: formData.get('tags').split(',').map(tag => tag.trim()).filter(tag => tag),
+                modified: new Date().toISOString()
+            };
+
+            localStorage.setItem('webContent', JSON.stringify(contentData));
+            displayContent();
+            updateStats();
+            closeEditModal();
+            
+            showMessage('Content updated successfully!', 'success');
+        }
+
+        function deleteContent(index) {
+            if (confirm('Are you sure you want to delete this content?')) {
+                contentData.splice(index, 1);
+                localStorage.setItem('webContent', JSON.stringify(contentData));
+                displayContent();
+                updateStats();
+                showMessage('Content deleted successfully!', 'success');
+            }
+        }
+
+        function duplicateContent(index) {
+            const original = contentData[index];
+            const duplicate = {
+                ...original,
+                id: Date.now(),
+                title: original.title + ' (Copy)',
+                created: new Date().toISOString(),
+                modified: new Date().toISOString()
+            };
+            
+            contentData.push(duplicate);
+            localStorage.setItem('webContent', JSON.stringify(contentData));
+            displayContent();
+            updateStats();
+            showMessage('Content duplicated successfully!', 'success');
+        }
+
+        function viewContent(index) {
+            const item = contentData[index];
+            document.getElementById('previewContent').innerHTML = `
+                <h1>${item.title}</h1>
+                <div style="color: #666; margin-bottom: 20px; font-size: 14px;">
+                    ${item.type} | ${item.status} | ${new Date(item.created).toLocaleDateString()}
+                    ${item.tags.length ? `<br>Tags: ${item.tags.join(', ')}` : ''}
+                </div>
+                ${item.excerpt ? `<p><strong>Excerpt:</strong> ${item.excerpt}</p>` : ''}
+                <div style="margin-top: 20px;">
+                    ${item.content || '<p>No content available.</p>'}
+                </div>
+            `;
+            document.getElementById('contentPreview').style.display = 'block';
+        }
+
+        function previewContent() {
+            const title = document.getElementById('contentTitle').value;
+            const content = document.getElementById('contentBody').value;
+            const excerpt = document.getElementById('contentExcerpt').value;
+            const type = document.getElementById('contentType').value;
+            const status = document.getElementById('contentStatus').value;
+            const tags = document.getElementById('contentTags').value;
+
+            document.getElementById('previewContent').innerHTML = `
+                <h1>${title || 'Untitled'}</h1>
+                <div style="color: #666; margin-bottom: 20px; font-size: 14px;">
+                    ${type} | ${status} | ${new Date().toLocaleDateString()}
+                    ${tags ? `<br>Tags: ${tags}` : ''}
+                </div>
+                ${excerpt ? `<p><strong>Excerpt:</strong> ${excerpt}</p>` : ''}
+                <div style="margin-top: 20px;">
+                    ${content || '<p>No content to preview.</p>'}
+                </div>
+            `;
+            document.getElementById('contentPreview').style.display = 'block';
+        }
+
+        function closePreview() {
+            document.getElementById('contentPreview').style.display = 'none';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+            editingIndex = -1;
+        }
+
+        function clearForm() {
+            document.getElementById('contentForm').reset();
+        }
+
+        function updateStats() {
+            const total = contentData.length;
+            const published = contentData.filter(item => item.status === 'published').length;
+            const drafts = contentData.filter(item => item.status === 'draft').length;
+
+            document.getElementById('totalContent').textContent = total;
+            document.getElementById('publishedContent').textContent = published;
+            document.getElementById('draftContent').textContent = drafts;
+        }
+
+        function exportContent() {
+            if (contentData.length === 0) {
+                showMessage('No content to export!', 'error');
+                return;
+            }
+
+            const dataStr = JSON.stringify(contentData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `content-export-${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            showMessage('Content exported successfully!', 'success');
+        }
+
+        function importContent() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        try {
+                            const importedData = JSON.parse(e.target.result);
+                            if (Array.isArray(importedData)) {
+                                contentData = [...contentData, ...importedData];
+                                localStorage.setItem('webContent', JSON.stringify(contentData));
+                                displayContent();
+                                updateStats();
+                                showMessage('Content imported successfully!', 'success');
+                            } else {
+                                showMessage('Invalid file format!', 'error');
+                            }
+                        } catch (error) {
+                            showMessage('Error reading file!', 'error');
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            };
+            input.click();
+        }
+
+        function showMessage(message, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.textContent = message;
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 16px 24px;
+                border-radius: 8px;
+                color: white;
+                font-weight: 600;
+                z-index: 1001;
+                background: ${type === 'success' ? '#e38800' : '#ff0000'};
+                box-shadow: -4px 4px 0 rgba(0,0,0);
+            `;
+            
+            document.body.appendChild(messageDiv);
+            setTimeout(() => {
+                document.body.removeChild(messageDiv);
+            }, 3000);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('editModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEditModal();
+            }
+        });
+    </script>
+</body>
+</html>

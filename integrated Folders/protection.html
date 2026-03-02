@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Protection System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .demo-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .demo-section h3 {
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        /* Protected Image Styles */
+        .protected-image {
+            position: relative;
+            display: inline-block;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        
+        .protected-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            z-index: 10;
+            pointer-events: auto;
+        }
+        
+        .protected-image img {
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-user-drag: none;
+            -moz-user-drag: none;
+            -ms-user-drag: none;
+            -user-drag: none;
+            max-width: 300px;
+            border-radius: 8px;
+        }
+        
+        /* Canvas Protection */
+        .canvas-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .canvas-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 5;
+        }
+        
+        #protectedCanvas {
+            border-radius: 8px;
+            user-select: none;
+            pointer-events: none;
+        }
+        
+        /* Watermark styles */
+        .watermarked-image {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: bold;
+            pointer-events: none;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            z-index: 2;
+        }
+        
+        .code-section {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+        
+        .usage-example {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        
+        .stats {
+            background: #e7f3ff;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛡️ Advanced Image Protection System</h1>
+        
+        <div class="warning">
+            <strong>Important:</strong> No client-side protection is 100% foolproof. Determined users can always view source, disable JavaScript, or use browser dev tools. This system makes downloading significantly more difficult for average users.
+        </div>
+        
+        <div class="demo-section">
+            <h3>1. CSS + HTML Protection</h3>
+            <p>Basic protection using CSS and HTML attributes to disable right-click, dragging, and selection.</p>
+            
+            <div class="protected-image">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect width='100%25' height='100%25' fill='%234a90e2'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-size='20'%3EProtected Image 1%3C/text%3E%3C/svg%3E" alt="Protected Image" id="protectedImg1">
+            </div>
+            
+            <div class="code-section">
+HTML:
+&lt;div class="protected-image"&gt;
+    &lt;img src="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/integrated%20Folders/your-image.jpg" alt="Protected" class="no-drag"&gt;
+&lt;/div&gt;
+
+CSS:
+.protected-image {
+    position: relative;
+    display: inline-block;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.protected-image::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: transparent;
+    z-index: 10;
+}
+
+.protected-image img {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h3>2. Canvas-Based Protection</h3>
+            <p>Images rendered on canvas are harder to save directly and lose their original extensions.</p>
+            
+            <div class="canvas-container">
+                <canvas id="protectedCanvas" width="300" height="200"></canvas>
+                <div class="canvas-overlay"></div>
+            </div>
+            
+            <div class="code-section">
+JavaScript Function:
+function loadProtectedImage(canvasId, imageSrc, watermarkText = '') {
+    const canvas = document.getElementById(canvasId);
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    
+    img.crossOrigin = 'anonymous'; // For CORS if needed
+    img.onload = function() {
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw image
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        
+        // Add watermark
+        if (watermarkText) {
+            ctx.font = '20px Arial';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.textAlign = 'center';
+            ctx.save();
+            ctx.translate(canvas.width/2, canvas.height/2);
+            ctx.rotate(-Math.PI/4);
+            ctx.fillText(watermarkText, 0, 0);
+            ctx.restore();
+        }
+        
+        // Disable context menu
+        canvas.addEventListener('contextmenu', e => e.preventDefault());
+    };
+    
+    // Use base64 or data URL instead of direct file path
+    img.src = imageSrc;
+}
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h3>3. Watermarked Protection</h3>
+            <p>Images with visible watermarks to discourage unauthorized use.</p>
+            
+            <div class="watermarked-image">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect width='100%25' height='100%25' fill='%23f39c12'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-size='18'%3EOriginal Content%3C/text%3E%3C/svg%3E" alt="Watermarked Image" style="max-width: 300px; border-radius: 8px;">
+                <div class="watermark">© YOUR BRAND</div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h3>4. Complete JavaScript Protection Function</h3>
+            
+            <div class="code-section">
+/**
+ * ImageProtector - Complete image protection system
+ * Usage: ImageProtector.protect(element, options)
+ */
+class ImageProtector {
+    
+    static protect(element, options = {}) {
+        const defaults = {
+            disableRightClick: true,
+            disableDragging: true,
+            disableSelection: true,
+            addWatermark: false,
+            watermarkText: '© Protected',
+            useCanvas: false,
+            onAttemptedDownload: null
+        };
+        
+        const config = { ...defaults, ...options };
+        
+        // Apply CSS protection
+        this.applyCSSProtection(element, config);
+        
+        // Add event listeners
+        this.addEventListeners(element, config);
+        
+        // Convert to canvas if requested
+        if (config.useCanvas) {
+            this.convertToCanvas(element, config);
+        }
+        
+        // Add watermark
+        if (config.addWatermark) {
+            this.addWatermark(element, config.watermarkText);
+        }
+    }
+    
+    static applyCSSProtection(element, config) {
+        const styles = {
+            userSelect: 'none',
+            webkitUserSelect: 'none',
+            mozUserSelect: 'none',
+            msUserSelect: 'none',
+            pointerEvents: config.disableDragging ? 'none' : 'auto',
+            webkitUserDrag: 'none',
+            mozUserDrag: 'none',
+            msUserDrag: 'none',
+            userDrag: 'none'
+        };
+        
+        Object.assign(element.style, styles);
+    }
+    
+    static addEventListeners(element, config) {
+        // Disable right-click
+        if (config.disableRightClick) {
+            element.addEventListener('contextmenu', e => {
+                e.preventDefault();
+                if (config.onAttemptedDownload) {
+                    config.onAttemptedDownload('rightclick');
+                }
+                return false;
+            });
+        }
+        
+        // Disable various key combinations
+        document.addEventListener('keydown', e => {
+            if (
+                (e.ctrlKey && (e.key === 's' || e.key === 'S')) ||  // Ctrl+S
+                (e.ctrlKey && (e.key === 'a' || e.key === 'A')) ||  // Ctrl+A
+                e.key === 'F12' ||  // F12
+                (e.ctrlKey && e.shiftKey && e.key === 'I') ||  // Ctrl+Shift+I
+                (e.ctrlKey && e.shiftKey && e.key === 'C')     // Ctrl+Shift+C
+            ) {
+                e.preventDefault();
+                if (config.onAttemptedDownload) {
+                    config.onAttemptedDownload('keyboard');
+                }
+                return false;
+            }
+        });
+        
+        // Disable drag events
+        ['dragstart', 'drag', 'dragend'].forEach(event => {
+            element.addEventListener(event, e => {
+                e.preventDefault();
+                return false;
+            });
+        });
+    }
+    
+    static convertToCanvas(imgElement, config) {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = imgElement.width || 300;
+        canvas.height = imgElement.height || 200;
+        
+        // Copy image styles
+        canvas.style.cssText = imgElement.style.cssText;
+        canvas.className = imgElement.className;
+        
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = function() {
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            
+            // Replace original image with canvas
+            imgElement.parentNode.replaceChild(canvas, imgElement);
+            
+            // Apply protection to canvas
+            ImageProtector.protect(canvas, { ...config, useCanvas: false });
+        };
+        
+        img.src = imgElement.src;
+    }
+    
+    static addWatermark(element, text) {
+        const container = document.createElement('div');
+        container.style.cssText = 'position: relative; display: inline-block;';
+        
+        const watermark = document.createElement('div');
+        watermark.textContent = text;
+        watermark.style.cssText = `
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: bold;
+            pointer-events: none;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            z-index: 2;
+        `;
+        
+        element.parentNode.insertBefore(container, element);
+        container.appendChild(element);
+        container.appendChild(watermark);
+    }
+}
+            </div>
+            
+            <div class="usage-example">
+                <strong>Usage Examples:</strong><br><br>
+                
+                <strong>Basic Protection:</strong><br>
+                <code>ImageProtector.protect(document.getElementById('myImage'));</code><br><br>
+                
+                <strong>Advanced Protection:</strong><br>
+                <code>ImageProtector.protect(document.getElementById('myImage'), {
+    disableRightClick: true,
+    disableDragging: true,
+    addWatermark: true,
+    watermarkText: '© My Brand 2024',
+    useCanvas: true,
+    onAttemptedDownload: (method) => {
+        console.log('Download attempt detected:', method);
+        alert('This image is protected!');
+    }
+});</code>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h3>5. Server-Side Solutions (Recommended)</h3>
+            
+            <div class="code-section">
+PHP Example - Serve images without extensions:
+
+&lt;?php
+// protect-image.php
+function serveProtectedImage($imagePath) {
+    // Verify user authentication/permissions here
+    
+    if (file_exists($imagePath)) {
+        // Get image info
+        $imageInfo = getimagesize($imagePath);
+        $mimeType = $imageInfo['mime'];
+        
+        // Set headers to prevent caching and remove filename hints
+        header('Content-Type: ' . $mimeType);
+        header('Content-Disposition: inline; filename="protected_image"'); // No extension!
+        header('Cache-Control: no-store, no-cache, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        
+        // Output image
+        readfile($imagePath);
+        exit;
+    } else {
+        http_response_code(404);
+        exit('Image not found');
+    }
+}
+
+// Usage: protect-image.php?id=12345
+$imageId = $_GET['id'] ?? null;
+if ($imageId) {
+    $imagePath = "images/" . preg_replace('/[^a-zA-Z0-9]/', '', $imageId) . ".jpg";
+    serveProtectedImage($imagePath);
+}
+?&gt;
+
+HTML Usage:
+&lt;img src="protect-image.php?id=12345" alt="Protected Image"&gt;
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h3>6. Test the Protection</h3>
+            <p>Try right-clicking, dragging, or using Ctrl+S on the images above!</p>
+            
+            <button onclick="testProtection()">Apply Protection to Demo Images</button>
+            <button onclick="showStats()">Show Protection Stats</button>
+            
+            <div id="stats" class="stats" style="display: none;">
+                <strong>Protection Status:</strong><br>
+                • Right-click disabled: ✅<br>
+                • Drag & drop disabled: ✅<br>
+                • Text selection disabled: ✅<br>
+                • Keyboard shortcuts blocked: ✅<br>
+                • Canvas rendering: ✅<br>
+                • Watermark applied: ✅
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize canvas demo
+        function initCanvasDemo() {
+            const canvas = document.getElementById('protectedCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Create a sample image
+            ctx.fillStyle = '#e74c3c';
+            ctx.fillRect(0, 0, 300, 200);
+            
+            ctx.fillStyle = 'white';
+            ctx.font = '20px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Canvas Protected Image', 150, 100);
+            
+            // Add watermark
+            ctx.save();
+            ctx.translate(150, 100);
+            ctx.rotate(-Math.PI/4);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.font = '16px Arial';
+            ctx.fillText('© PROTECTED', 0, 30);
+            ctx.restore();
+            
+            // Disable context menu
+            canvas.addEventListener('contextmenu', e => {
+                e.preventDefault();
+                alert('This image is protected!');
+                return false;
+            });
+        }
+        
+        // Test protection function
+        function testProtection() {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                ImageProtector.protect(img, {
+                    disableRightClick: true,
+                    disableDragging: true,
+                    onAttemptedDownload: (method) => {
+                        alert(`Protection activated! Attempt method: ${method}`);
+                    }
+                });
+            });
+            
+            alert('Protection applied to all images!');
+        }
+        
+        function showStats() {
+            document.getElementById('stats').style.display = 'block';
+        }
+        
+        // ImageProtector class (from above)
+        class ImageProtector {
+            static protect(element, options = {}) {
+                const defaults = {
+                    disableRightClick: true,
+                    disableDragging: true,
+                    disableSelection: true,
+                    addWatermark: false,
+                    watermarkText: '© Protected',
+                    useCanvas: false,
+                    onAttemptedDownload: null
+                };
+                
+                const config = { ...defaults, ...options };
+                
+                this.applyCSSProtection(element, config);
+                this.addEventListeners(element, config);
+                
+                if (config.useCanvas) {
+                    this.convertToCanvas(element, config);
+                }
+                
+                if (config.addWatermark) {
+                    this.addWatermark(element, config.watermarkText);
+                }
+            }
+            
+            static applyCSSProtection(element, config) {
+                const styles = {
+                    userSelect: 'none',
+                    webkitUserSelect: 'none',
+                    mozUserSelect: 'none',
+                    msUserSelect: 'none',
+                    pointerEvents: config.disableDragging ? 'none' : 'auto',
+                    webkitUserDrag: 'none',
+                    mozUserDrag: 'none',
+                    msUserDrag: 'none',
+                    userDrag: 'none'
+                };
+                
+                Object.assign(element.style, styles);
+            }
+            
+            static addEventListeners(element, config) {
+                if (config.disableRightClick) {
+                    element.addEventListener('contextmenu', e => {
+                        e.preventDefault();
+                        if (config.onAttemptedDownload) {
+                            config.onAttemptedDownload('rightclick');
+                        }
+                        return false;
+                    });
+                }
+                
+                document.addEventListener('keydown', e => {
+                    if (
+                        (e.ctrlKey && (e.key === 's' || e.key === 'S')) ||
+                        (e.ctrlKey && (e.key === 'a' || e.key === 'A')) ||
+                        e.key === 'F12' ||
+                        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                        (e.ctrlKey && e.shiftKey && e.key === 'C')
+                    ) {
+                        e.preventDefault();
+                        if (config.onAttemptedDownload) {
+                            config.onAttemptedDownload('keyboard');
+                        }
+                        return false;
+                    }
+                });
+                
+                ['dragstart', 'drag', 'dragend'].forEach(event => {
+                    element.addEventListener(event, e => {
+                        e.preventDefault();
+                        return false;
+                    });
+                });
+            }
+            
+            static addWatermark(element, text) {
+                const container = document.createElement('div');
+                container.style.cssText = 'position: relative; display: inline-block;';
+                
+                const watermark = document.createElement('div');
+                watermark.textContent = text;
+                watermark.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%) rotate(-45deg);
+                    font-size: 20px;
+                    color: rgba(255, 255, 255, 0.7);
+                    font-weight: bold;
+                    pointer-events: none;
+                    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+                    z-index: 2;
+                `;
+                
+                element.parentNode.insertBefore(container, element);
+                container.appendChild(element);
+                container.appendChild(watermark);
+            }
+        }
+        
+        // Initialize demos when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initCanvasDemo();
+        });
+        
+        // Global protection for the entire page
+        document.addEventListener('selectstart', e => e.preventDefault());
+        document.addEventListener('dragstart', e => e.preventDefault());
+    </script>
+</body>
+</html>

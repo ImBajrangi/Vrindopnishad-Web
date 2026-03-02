@@ -1,0 +1,135 @@
+{
+  "blocks": {
+    "vertical-section-0": {
+      "title": "Wildlife in Action",
+      "audioSrc": "https://cdn.pixabay.com/download/audio/2023/05/18/audio_eb24c03b07.mp3?filename=cinematic-wildlife-11122.mp3",
+      "audioType": "audio/mp3",
+      "description": "A cinematic wildlife soundtrack with atmospheric tones and gentle percussion",
+      "duration": "2:45",
+      "artist": "AudioStock",
+      "visualizer": true,
+      "id": "block-audio-vertical-0"
+    },
+    "vertical-section-1": {
+      "title": "The Changing Seasons",
+      "audioSrc": "https://cdn.pixabay.com/download/audio/2023/05/23/audio_8f9242dfd7.mp3?filename=natural-atmosphere-11227.mp3",
+      "audioType": "audio/mp3",
+      "description": "Natural atmospheric sounds capturing the essence of changing seasons",
+      "duration": "3:12",
+      "artist": "NatureSound",
+      "visualizer": true,
+      "id": "block-audio-vertical-1"
+    },
+    "vertical-section-2": {
+      "title": "Guardians of Nature",
+      "audioSrc": "https://cdn.pixabay.com/download/audio/2022/01/18/audio_bbf1f8c58d.mp3?filename=birds-in-spring-6897.mp3",
+      "audioType": "audio/mp3",
+      "description": "Birds chirping in spring with subtle forest ambience",
+      "duration": "1:58",
+      "artist": "WildRecordings",
+      "visualizer": true,
+      "id": "block-audio-vertical-2"
+    },
+    "vertical-section-3": {
+      "title": "Astral Aesthetics",
+      "audioSrc": "https://cdn.pixabay.com/download/audio/2022/08/23/audio_c83e6cc303.mp3?filename=space-atmospheric-background-124841.mp3",
+      "audioType": "audio/mp3",
+      "description": "Space atmospheric background with ethereal synths and cosmic tones",
+      "duration": "2:30",
+      "artist": "CosmicSounds",
+      "visualizer": true,
+      "id": "block-audio-vertical-3"
+    },
+    "horizontal-section-0": {
+      "title": "Wildlife Landscapes",
+      "audioSrc": "https://cdn.pixabay.com/download/audio/2022/10/17/audio_f1fa4a1de4.mp3?filename=water-weather-atmosphere-14778.mp3",
+      "audioType": "audio/mp3",
+      "description": "Water and weather atmospheric sounds for serene landscapes",
+      "duration": "2:15",
+      "artist": "EarthTones",
+      "visualizer": true,
+      "id": "block-audio-horizontal-0"
+    },
+    "horizontal-section-1": {
+      "title": "Nature's Symphony",
+      "audioSrc": "https://cdn.pixabay.com/download/audio/2022/08/31/audio_c2f2b95f75.mp3?filename=nature-soundscape-with-stream-and-birds-125372.mp3",
+      "audioType": "audio/mp3",
+      "description": "Nature soundscape featuring flowing streams and birdsong",
+      "duration": "3:42",
+      "artist": "NaturaSounds",
+      "visualizer": true,
+      "id": "block-audio-horizontal-1"
+    },
+    "horizontal-section-2": {
+      "title": "Nature's Masterpieces",
+      "audioSrc": "https://cdn.pixabay.com/download/audio/2022/04/27/audio_1add29502c.mp3?filename=epical-landscape-10714.mp3",
+      "audioType": "audio/mp3",
+      "description": "Epic landscape soundtrack with powerful orchestral elements",
+      "duration": "2:36",
+      "artist": "EpicSoundscapes",
+      "visualizer": true,
+      "id": "block-audio-horizontal-2"
+    },
+    "horizontal-section-3": {
+      "title": "The Power of Nature",
+      "audioSrc": "https://cdn.pixabay.com/download/audio/2022/08/17/audio_c90658a89a.mp3?filename=force-of-nature-ambient-music-122862.mp3",
+      "audioType": "audio/mp3",
+      "description": "Force of nature ambient music with dynamic elements",
+      "duration": "3:21",
+      "artist": "AmbientForces",
+      "visualizer": true,
+      "id": "block-audio-horizontal-3"
+    }
+  },
+  "backgroundMusic": {
+    "notesPanel": {
+      "title": "Ambient Piano & Strings",
+      "audioSrc": "https://cdn.pixabay.com/download/audio/2023/04/05/audio_68d90fcd9d.mp3?filename=ambient-piano-amp-strings-10711.mp3",
+      "audioType": "audio/mp3",
+      "description": "Gentle ambient piano with strings for background concentration",
+      "duration": "2:53",
+      "artist": "AmbientWorks",
+      "loop": true,
+      "volume": 0.3,
+      "id": "notes-background-music"
+    }
+  },
+  "additionalTracks": [
+    {
+      "title": "Forest Ambience",
+      "audioSrc": "https://cdn.pixabay.com/download/audio/2021/04/07/audio_c8c8a73467.mp3?filename=forest-with-small-river-birds-and-nature-field-recording-6735.mp3",
+      "audioType": "audio/mp3",
+      "description": "Forest with small river, birds and natural field recording",
+      "duration": "4:16",
+      "artist": "NatureRecords",
+      "category": "Nature"
+    },
+    {
+      "title": "Meditation Bells",
+      "audioSrc": "https://cdn.pixabay.com/download/audio/2022/03/10/audio_2deaf6fc7c.mp3?filename=tibetan-bells-meditation-music-8487.mp3",
+      "audioType": "audio/mp3",
+      "description": "Tibetan bells meditation music for deep relaxation",
+      "duration": "3:42",
+      "artist": "MeditationSounds",
+      "category": "Meditation"
+    },
+    {
+      "title": "Ocean Waves",
+      "audioSrc": "https://cdn.pixabay.com/download/audio/2021/09/06/audio_7b11420d22.mp3?filename=ocean-waves-112762.mp3",
+      "audioType": "audio/mp3",
+      "description": "Calming ocean waves for relaxation and focus",
+      "duration": "2:57",
+      "artist": "OceanSounds",
+      "category": "Nature"
+    },
+    {
+      "title": "Gentle Rain",
+      "audioSrc": "https://cdn.pixabay.com/download/audio/2021/08/09/audio_971f2074e7.mp3?filename=gentle-rainfall-16566.mp3",
+      "audioType": "audio/mp3",
+      "description": "Gentle rainfall ambience for reading and concentration",
+      "duration": "3:24",
+      "artist": "RainScapes",
+      "category": "Nature"
+    }
+  ]
+} 

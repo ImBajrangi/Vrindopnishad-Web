@@ -1,0 +1,361 @@
+{
+  "bookInfo": {
+    "title": "The Wonders of Nature",
+    "subtitle": "An Interactive Journey Through Earth's Beauty",
+    "totalPages": 8
+  },
+  "chapters": [
+    {
+      "id": "vertical-section",
+      "chapterNumber": 1,
+      "title": "Wildlife & Changing Seasons",
+      "description": "Explore the stunning diversity of wildlife and learn how nature adapts to the changing rhythm of seasons.",
+      "scrollType": "vertical",
+      "pages": [
+        {
+          "id": 0,
+          "pageNumber": 1,
+          "itemNumber": 1,
+          "title": "Wildlife in Action: A Glimpse into Nature's Daily Drama",
+          "description": "Witness the fascinating lives of animals in their natural habitats, from playful cubs to stealthy predators.",
+          "mediaType": "video",
+          "mediaUrl": "https://videos.pexels.com/video-files/4763824/4763824-uhd_2560_1440_24fps.mp4",
+          "tocTitle": "Wildlife in Action",
+          "relatedContent": {
+            "youtube": "dQw4w9WgXcQ",
+            "canva": "https://www.canva.com/design/example1",
+            "links": [
+              {
+                "title": "National Geographic Wildlife",
+                "url": "https://www.nationalgeographic.com/animals",
+                "description": "Explore amazing wildlife photography and stories",
+                "icon": "fas fa-paw"
+              },
+              {
+                "title": "BBC Wildlife Magazine",
+                "url": "https://www.discoverwildlife.com",
+                "description": "Latest wildlife news and conservation stories",
+                "icon": "fas fa-leaf"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1,
+          "pageNumber": 2,
+          "itemNumber": 2,
+          "title": "The Changing Seasons: Nature's Everlasting Cycle",
+          "description": "Experience the beauty of nature's transitions, from blooming spring flowers to snowy winter landscapes.",
+          "mediaType": "video",
+          "mediaUrl": "https://videos.pexels.com/video-files/3214448/3214448-uhd_2560_1440_25fps.mp4",
+          "tocTitle": "The Changing Seasons",
+          "relatedContent": {
+            "youtube": "ScMzIvxBSi4",
+            "canva": "https://www.canva.com/design/example2",
+            "links": [
+              {
+                "title": "Seasons Around the World",
+                "url": "https://www.timeanddate.com/calendar/seasons.html",
+                "description": "Understanding seasonal changes globally",
+                "icon": "fas fa-sun"
+              }
+            ]
+          }
+        },
+        {
+          "id": 2,
+          "pageNumber": 3,
+          "itemNumber": 3,
+          "title": "Guardians of Nature: Protecting Our Planet's Future",
+          "description": "Learn about the importance of conservation and how we can work together to preserve the beauty of nature for generations to come.",
+          "mediaType": "video",
+          "mediaUrl": "https://videos.pexels.com/video-files/4328514/4328514-uhd_2560_1440_30fps.mp4",
+          "tocTitle": "Guardians of Nature",
+          "relatedContent": {
+            "youtube": "6Af6b_wyiwI",
+            "canva": "https://www.canva.com/design/example3",
+            "links": [
+              {
+                "title": "World Wildlife Fund",
+                "url": "https://www.worldwildlife.org",
+                "description": "Leading conservation organization",
+                "icon": "fas fa-shield-alt"
+              },
+              {
+                "title": "Conservation International",
+                "url": "https://www.conservation.org",
+                "description": "Protecting nature for humanity",
+                "icon": "fas fa-globe-americas"
+              }
+            ]
+          }
+        },
+        {
+          "id": 3,
+          "pageNumber": 4,
+          "itemNumber": 4,
+          "title": "Astral Aesthetics: Portraits from the Infinite",
+          "description": "Experience the boundless beauty of the cosmos through striking portraits that capture its infinite aesthetic appeal.",
+          "mediaType": "video",
+          "mediaUrl": "https://videos.pexels.com/video-files/2871916/2871916-hd_1920_1080_30fps.mp4",
+          "tocTitle": "Astral Aesthetics",
+          "relatedContent": {
+            "youtube": "ejzin_3t1Kk",
+            "canva": "https://www.canva.com/design/example4",
+            "links": [
+              {
+                "title": "NASA Hubble Gallery",
+                "url": "https://hubblesite.org/contents/media/images",
+                "description": "Stunning space imagery from Hubble telescope",
+                "icon": "fas fa-rocket"
+              },
+              {
+                "title": "Space Photography",
+                "url": "https://www.nasa.gov/multimedia/imagegallery/",
+                "description": "NASA's image gallery",
+                "icon": "fas fa-star"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "horizontal-section",
+      "chapterNumber": 2,
+      "title": "Natural Landscapes & Phenomena",
+      "description": "Discover breathtaking landscapes and natural phenomena that shape our world's extraordinary beauty.",
+      "scrollType": "horizontal",
+      "pages": [
+        {
+          "id": 0,
+          "pageNumber": 5,
+          "itemNumber": 5,
+          "title": "Wildlife in Action: A Glimpse into Nature's Daily Drama",
+          "description": "Explore the untouched beauty of forests, mountains, and rivers as we uncover the hidden secrets of nature's most breathtaking landscapes.",
+          "mediaType": "video",
+          "mediaUrl": "https://videos.pexels.com/video-files/10178127/10178127-uhd_2560_1440_30fps.mp4",
+          "tocTitle": "Wildlife Landscapes",
+          "relatedContent": {
+            "youtube": "BjHIoM5oxKc",
+            "canva": "https://www.canva.com/design/example5",
+            "links": [
+              {
+                "title": "National Parks Service",
+                "url": "https://www.nps.gov",
+                "description": "Explore America's national parks",
+                "icon": "fas fa-mountain"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1,
+          "pageNumber": 6,
+          "itemNumber": 6,
+          "title": "Nature's Symphony: The Sounds That Heal the Soul",
+          "description": "Immerse yourself in the soothing sounds of chirping birds, rustling leaves, and flowing streams — nature's music for peace and tranquility.",
+          "mediaType": "video",
+          "mediaUrl": "https://videos.pexels.com/video-files/15708463/15708463-uhd_2560_1440_24fps.mp4",
+          "tocTitle": "Nature's Symphony",
+          "relatedContent": {
+            "youtube": "McnAJcwUp9A",
+            "canva": "https://www.canva.com/design/example6",
+            "links": [
+              {
+                "title": "Nature Sounds for Relaxation",
+                "url": "https://www.calm.com",
+                "description": "Meditation and nature sounds app",
+                "icon": "fas fa-volume-up"
+              }
+            ]
+          }
+        },
+        {
+          "id": 2,
+          "pageNumber": 7,
+          "itemNumber": 7,
+          "title": "Nature's Masterpieces: Landscapes That Take Your Breath Away",
+          "description": "Discover stunning views of majestic mountains, endless oceans, and golden sunsets that remind us of nature's artistic brilliance.",
+          "mediaType": "video",
+          "mediaUrl": "https://videos.pexels.com/video-files/15708462/15708462-uhd_2560_1440_24fps.mp4",
+          "tocTitle": "Nature's Masterpieces",
+          "relatedContent": {
+            "youtube": "lFcCpVt5HdM",
+            "canva": "https://www.canva.com/design/example7",
+            "links": [
+              {
+                "title": "Earth Landscapes",
+                "url": "https://earthobservatory.nasa.gov",
+                "description": "NASA Earth Observatory",
+                "icon": "fas fa-globe"
+              }
+            ]
+          }
+        },
+        {
+          "id": 3,
+          "pageNumber": 8,
+          "itemNumber": 8,
+          "title": "The Power of Nature: How It Shapes Our World",
+          "description": "Dive into the incredible forces of nature — from roaring waterfalls to mighty hurricanes — and see how they sculpt the earth we live on.",
+          "mediaType": "video",
+          "mediaUrl": "https://videos.pexels.com/video-files/5788966/5788966-hd_1920_1080_25fps.mp4",
+          "tocTitle": "The Power of Nature",
+          "relatedContent": {
+            "youtube": "YbgnlkJPga4",
+            "canva": "https://www.canva.com/design/example8",
+            "links": [
+              {
+                "title": "Natural Disasters Education",
+                "url": "https://www.usgs.gov",
+                "description": "US Geological Survey information",
+                "icon": "fas fa-bolt"
+              },
+              {
+                "title": "Weather Phenomena",
+                "url": "https://www.weather.gov",
+                "description": "National Weather Service",
+                "icon": "fas fa-cloud-rain"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endContent": {
+    "title": "Journey Complete",
+    "message": "Thank you for experiencing the wonders of nature through our digital book."
+  },
+  "pageContentData": {
+    "vertical-section-0": {
+      "title": "Wildlife in Action",
+      "youtube": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "canva": "https://www.canva.com/design/example1",
+      "links": [
+        {
+          "title": "National Geographic Wildlife",
+          "url": "https://www.nationalgeographic.com/animals",
+          "description": "Explore amazing wildlife photography and stories",
+          "icon": "fas fa-paw"
+        },
+        {
+          "title": "BBC Wildlife Magazine",
+          "url": "https://www.discoverwildlife.com",
+          "description": "Latest wildlife news and conservation stories",
+          "icon": "fas fa-leaf"
+        }
+      ]
+    },
+    "vertical-section-1": {
+      "title": "The Changing Seasons",
+      "youtube": "https://www.youtube.com/embed/ScMzIvxBSi4",
+      "canva": "https://www.canva.com/design/example2",
+      "links": [
+        {
+          "title": "Seasons Around the World",
+          "url": "https://www.timeanddate.com/calendar/seasons.html",
+          "description": "Understanding seasonal changes globally",
+          "icon": "fas fa-sun"
+        }
+      ]
+    },
+    "vertical-section-2": {
+      "title": "Guardians of Nature",
+      "youtube": "https://www.youtube.com/embed/6Af6b_wyiwI",
+      "canva": "https://www.canva.com/design/example3",
+      "links": [
+        {
+          "title": "World Wildlife Fund",
+          "url": "https://www.worldwildlife.org",
+          "description": "Leading conservation organization",
+          "icon": "fas fa-shield-alt"
+        },
+        {
+          "title": "Conservation International",
+          "url": "https://www.conservation.org",
+          "description": "Protecting nature for humanity",
+          "icon": "fas fa-globe-americas"
+        }
+      ]
+    },
+    "vertical-section-3": {
+      "title": "Astral Aesthetics",
+      "youtube": "https://www.youtube.com/embed/ejzin_3t1Kk",
+      "canva": "https://www.canva.com/design/example4",
+      "links": [
+        {
+          "title": "NASA Hubble Gallery",
+          "url": "https://hubblesite.org/contents/media/images",
+          "description": "Stunning space imagery from Hubble telescope",
+          "icon": "fas fa-rocket"
+        },
+        {
+          "title": "Space Photography",
+          "url": "https://www.nasa.gov/multimedia/imagegallery/",
+          "description": "NASA's image gallery",
+          "icon": "fas fa-star"
+        }
+      ]
+    },
+    "horizontal-section-0": {
+      "title": "Wildlife Landscapes",
+      "youtube": "https://www.youtube.com/embed/BjHIoM5oxKc",
+      "canva": "https://www.canva.com/design/example5",
+      "links": [
+        {
+          "title": "National Parks Service",
+          "url": "https://www.nps.gov",
+          "description": "Explore America's national parks",
+          "icon": "fas fa-mountain"
+        }
+      ]
+    },
+    "horizontal-section-1": {
+      "title": "Nature's Symphony",
+      "youtube": "https://www.youtube.com/embed/McnAJcwUp9A",
+      "canva": "https://www.canva.com/design/example6",
+      "links": [
+        {
+          "title": "Nature Sounds for Relaxation",
+          "url": "https://www.calm.com",
+          "description": "Meditation and nature sounds app",
+          "icon": "fas fa-volume-up"
+        }
+      ]
+    },
+    "horizontal-section-2": {
+      "title": "Nature's Masterpieces",
+      "youtube": "https://www.youtube.com/embed/lFcCpVt5HdM",
+      "canva": "https://www.canva.com/design/example7",
+      "links": [
+        {
+          "title": "Earth Landscapes",
+          "url": "https://earthobservatory.nasa.gov",
+          "description": "NASA Earth Observatory",
+          "icon": "fas fa-globe"
+        }
+      ]
+    },
+    "horizontal-section-3": {
+      "title": "The Power of Nature",
+      "youtube": "https://www.youtube.com/embed/YbgnlkJPga4",
+      "canva": "https://www.canva.com/design/example8",
+      "links": [
+        {
+          "title": "Natural Disasters Education",
+          "url": "https://www.usgs.gov",
+          "description": "US Geological Survey information",
+          "icon": "fas fa-bolt"
+        },
+        {
+          "title": "Weather Phenomena",
+          "url": "https://www.weather.gov",
+          "description": "National Weather Service",
+          "icon": "fas fa-cloud-rain"
+        }
+      ]
+    }
+  }
+}

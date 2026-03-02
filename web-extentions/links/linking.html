@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page-Specific Asset Manager</title>
+    <script src="https://imbajrangi.github.io/Company/Vrindopnishad Web/web-extentions/links/linkme.js"></script>
+    <!-- We load Tailwind here just for styling this demo page -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: "Inter", sans-serif; }
+        #demo-box { transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 font-inter p-6 md:p-10">
+
+    <div class="max-w-4xl mx-auto space-y-8">
+
+        <header class="text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-teal-400">Page-Specific Asset Manager</h1>
+            <p class="text-lg text-gray-400 mt-2">One file to manage all assets for all your pages.</p>
+        </header>
+
+        <!-- Explanation -->
+        <div class="bg-gray-800 p-6 rounded-lg shadow-xl">
+            <h2 class="text-2xl font-semibold text-white mb-4">How This Works</h2>
+            <p class="mb-2">
+                You still only add <strong>one</strong> file: <code>&lt;script src="asset-manager.js"&gt;&lt;/script&gt;</code>.
+            </p>
+            <p class="mb-4">
+                But now, in your page's HTML, you add a *second* small script tag to call the *specific* assets for that page.
+            </p>
+            <p class="font-mono text-sm mb-2">On your homepage (e.g., <code>index.html</code>):</p>
+            <pre class="bg-gray-900 text-cyan-300 p-3 rounded-md overflow-x-auto"><code>&lt;script&gt;loadPageAssets('home');&lt;/script&gt;</code></pre>
+            <p class="font-mono text-sm mt-4 mb-2">On your about page (e.g., <code>about.html</code>):</p>
+            <pre class="bg-gray-900 text-cyan-300 p-3 rounded-md overflow-x-auto"><code>&lt;script&gt;loadPageAssets('about');&lt;/script&gt;</code></pre>
+        </div>
+
+        <!-- Live Demo Box -->
+        <div id="demo-box" class="bg-teal-800 border border-teal-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl font-bold mb-2">Live Demo (Homepage)</h3>
+            <p>We called <code>loadPageAssets('home')</code> on this page.</p>
+            <p class="mt-2">It loaded <code>Animate.css</code> from the <strong class="text-yellow-300">'common'</strong> package and <code>lodash.js</code> from the <strong class="text-yellow-300">'home'</strong> package.</p>
+            <p id="lodash-output" class="mt-4 font-mono text-yellow-300"></p>
+        </div>
+
+        <!-- The Code to Copy (This would be asset-manager.js) -->
+        <div class="bg-gray-800 p-6 rounded-lg shadow-xl">
+            <h2 class="text-2xl font-semibold text-white mb-4">The Code for <code>asset-manager.js</code></h2>
+            <p class="mb-4">
+                Copy this code into a new file named <code>asset-manager.js</code> and link it to all your HTML pages.
+            </p>
+
+            <pre class="bg-gray-900 text-gray-300 p-4 rounded-md overflow-x-auto"><code><span class="text-green-400">// --- This is the content for asset-manager.js ---</span>
+
+<span class="text-gray-500">// 1. DEFINE ALL YOUR ASSETS HERE</span>
+const pageAssets = {
+  <span class="text-gray-500">// 'common' assets load on EVERY page</span>
+  common: {
+    css: [
+      'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css' <span class="text-gray-500">// Demo: Animate.css</span>
+      <span class="text-gray-500">// 'styles/main-sitewide.css'</span>
+    ],
+    js: [
+      <span class="text-gray-500">// 'scripts/main-sitewide.js'</span>
+    ]
+  },
+  
+  <span class="text-gray-500">// 'home' assets only load when you call loadPageAssets('home')</span>
+  home: {
+    css: [
+      <span class="text-gray-500">// 'styles/home-slider.css'</span>
+    ],
+    js: [
+      'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js' <span class="text-gray-500">// Demo: lodash</span>
+      <span class="text-gray-500">// 'scripts/home-slider.js'</span>
+    ]
+  },
+
+  <span class="text-gray-500">// 'about' assets for the about page</span>
+  about: {
+    css: [
+      <span class="text-gray-500">// 'styles/timeline.css'</span>
+    ],
+    js: []
+  },
+
+  <span class="text-gray-500">// 'contact' assets for the contact page</span>
+  contact: {
+    css: [],
+    js: [
+      <span class="text-gray-500">// 'scripts/contact-form-validation.js'</span>
+    ]
+  }
+};
+
+<span class="text-gray-500">// 2. HELPER FUNCTIONS TO LOAD FILES</span>
+
+<span class="text-gray-500">/**
+ * Creates and appends a CSS &lt;link&gt; tag to the &lt;head&gt;.
+ * @param {string} href - The URL of the CSS file.
+ */</span>
+function loadCss(href) {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = href;
+  link.onerror = () => console.error(`Failed to load CSS: ${href}`);
+  document.head.appendChild(link);
+  console.log(`Loading CSS: ${href}`);
+}
+
+<span class="text-gray-500">/**
+ * Creates and appends a JS &lt;script&gt; tag to the &lt;body&gt;.
+ * @param {string} src - The URL of the JS file.
+ */</span>
+function loadJs(src) {
+  const script = document.createElement('script');
+  script.src = src;
+  script.defer = true;
+  script.onload = () => {
+      console.log(`Loaded JS: ${src}`);
+      <span class="text-gray-500">// --- This part is just for the demo to work ---</span>
+      if (typeof runDemo === 'function' && src.includes('lodash')) {
+          runDemo();
+      }
+      <span class="text-gray-500">// --- End of demo-only code ---</span>
+  };
+  script.onerror = () => console.error(`Failed to load JS: ${src}`);
+  document.body.appendChild(script);
+  console.log(`Loading JS: ${src}`);
+}
+
+<span class="text-gray-500">// 3. THE MAIN FUNCTION TO CALL FROM YOUR HTML</span>
+
+<span class="text-gray-500">/**
+ * Loads all 'common' assets and all assets for a specific page.
+ * @param {string} pageName - The key from pageAssets (e.g., 'home', 'about').
+ */</span>
+function loadPageAssets(pageName) {
+  console.log(`Loading assets for: ${pageName}`);
+  
+  <span class="text-gray-500">// Always load common assets</span>
+  const common = pageAssets.common;
+  if (common) {
+    common.css.forEach(loadCss);
+    common.js.forEach(loadJs);
+  }
+
+  <span class="text-gray-500">// Load page-specific assets</span>
+  const page = pageAssets[pageName];
+  if (page) {
+    page.css.forEach(loadCss);
+    page.js.forEach(loadJs);
+  } else {
+    console.warn(`No assets found for page: ${pageName}`);
+  }
+}
+</code></pre>
+        </div>
+    </div>
+
+    <!-- 
+      This script block is *only* for this demo page.
+      In your real project, you would just have:
+      1. <script src="path/to/asset-manager.js"></script>
+      2. <script>loadPageAssets('home');</script>
+    -->
+    <script>
+        // // --- This script is embedded for demo purposes ---
+        // // --- In your real project, this code would be in 'asset-manager.js' ---
+
+        // // 1. DEFINE ALL YOUR ASSETS HERE
+        // const pageAssets = {
+        //   common: {
+        //     css: ['https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css'],
+        //     js: []
+        //   },
+        //   home: {
+        //     css: [],
+        //     js: ['https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js']
+        //   },
+        //   about: {
+        //     css: ['styles/timeline.css'],
+        //     js: []
+        //   },
+        //   contact: {
+        //     css: [],
+        //     js: ['scripts/contact-form-validation.js']
+        //   }
+        // };
+
+        // // 2. HELPER FUNCTIONS TO LOAD FILES
+        // function loadCss(href) {
+        //   const link = document.createElement('link');
+        //   link.rel = 'stylesheet';
+        //   link.href = href;
+        //   link.onerror = () => console.error(`Failed to load CSS: ${href}`);
+        //   document.head.appendChild(link);
+        //   console.log(`Loading CSS: ${href}`);
+        // }
+
+        // function loadJs(src) {
+        //   const script = document.createElement('script');
+        //   script.src = src;
+        //   script.defer = true;
+        //   script.onload = () => {
+        //       console.log(`Loaded JS: ${src}`);
+        //       // This part is just for the demo to work
+        //       if (typeof runDemo === 'function' && src.includes('lodash')) {
+        //           runDemo();
+        //       }
+        //       // --- End of demo-only code ---
+        //   };
+        //   script.onerror = () => console.error(`Failed to load JS: ${src}`);
+        //   document.body.appendChild(script);
+        //   console.log(`Loading JS: ${src}`);
+        // }
+
+        // // 3. THE MAIN FUNCTION TO CALL FROM YOUR HTML
+        // function loadPageAssets(pageName) {
+        //   console.log(`Loading assets for: ${pageName}`);
+          
+        //   // Always load common assets
+        //   const common = pageAssets.common;
+        //   if (common) {
+        //     common.css.forEach(loadCss);
+        //     common.js.forEach(loadJs);
+        //   }
+
+        //   // Load page-specific assets
+        //   const page = pageAssets[pageName];
+        //   if (page) {
+        //     page.css.forEach(loadCss);
+        //     page.js.forEach(loadJs);
+        //   } else {
+        //     console.warn(`No assets found for page: ${pageName}`);
+        //   }
+        // }
+        
+        // // --- This is the script that runs this demo page ---
+        // // --- You would NOT include this in asset-manager.js ---
+        // function runDemo() {
+        //     console.log("Running demo...");
+        //     const demoBox = document.getElementById('demo-box');
+        //     const lodashOutput = document.getElementById('lodash-output');
+
+        //     // 1. Animate the box with Animate.css (from 'common')
+        //     setTimeout(() => {
+        //         if (demoBox) {
+        //             demoBox.classList.add('animate__animated', 'animate__pulse', 'animate__infinite');
+        //             demoBox.style.borderColor = '#0f766e';
+        //             console.log('Animation applied.');
+        //         }
+        //     }, 500);
+
+        //     // 2. Use lodash (from 'home')
+        //     let checkLodash = setInterval(() => {
+        //         if (typeof _ !== 'undefined') {
+        //             clearInterval(checkLodash);
+        //             const demoText = 'Lodash.js (from home) has transformed this text!';
+        //             if (lodashOutput) {
+        //                 lodashOutput.textContent = _.startCase(demoText);
+        //                 console.log('Lodash function executed.');
+        //             }
+        //         }
+        //     }, 100);
+        // }
+        
+      //  // --- This is what you would call from your index.html ---
+      //  // This call starts everything.
+        loadPageAssets('home');
+    </script>
+</body>
+</html>

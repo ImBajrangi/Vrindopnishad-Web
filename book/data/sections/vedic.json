@@ -1,0 +1,86 @@
+{
+  "blocks": [
+    {
+      "id": "upanishad-intro",
+      "title": "Introduction to Upanishads",
+      "content": {
+        "sanskrit": "ॐ सह नाववतु सह नौ भुनक्तु",
+        "translation": "Om! May He protect us both (teacher and student)",
+        "explanation": "This is the peace invocation from the Upanishads..."
+      },
+      "media": {
+        "video": "/media/videos/upanishad-intro.mp4",
+        "audio": "/audio/blocks/upanishad-chants.mp3"
+      }
+    },
+    {
+      "id": "vedic-meditation",
+      "title": "Ancient Meditation Techniques",
+      "pageNumber": 5,
+      "content": {
+        "sanskrit": "योग: चित्त वृत्ति निरोध:",
+        "translation": "Yoga is the cessation of the modifications of the mind",
+        "explanation": "The fundamental definition of yoga from Patanjali...",
+        "practice": {
+          "duration": "30 minutes",
+          "steps": [
+            "Sit in a comfortable position",
+            "Focus on breath",
+            "Observe thoughts without attachment"
+          ]
+        }
+      },
+      "media": {
+        "video": "/media/videos/meditation-guide.mp4",
+        "audio": "/audio/blocks/meditation-ambient.mp3",
+        "images": [
+          {
+            "url": "/media/images/vedic/postures.jpg",
+            "caption": "Traditional meditation postures"
+          }
+        ]
+      }
+    },
+    {
+      "id": "vedic-rituals",
+      "title": "Sacred Rituals",
+      "pageNumber": 8,
+      "content": {
+        "sanskrit": "अग्निमीळे पुरोहितं यज्ञस्य देवमृत्विजम्",
+        "translation": "I praise Agni, the priest, the divine minister of the sacrifice",
+        "explanation": "The opening verse of Rigveda describing the importance of fire ritual",
+        "ritual": {
+          "name": "Agnihotra",
+          "materials": ["Copper vessel", "Sacred wood", "Ghee"],
+          "timing": "Sunrise and Sunset",
+          "benefits": [
+            "Purifies atmosphere",
+            "Enhances mental clarity",
+            "Brings peace"
+          ]
+        }
+      },
+      "media": {
+        "video": "/media/videos/agnihotra.mp4",
+        "diagrams": [
+          {
+            "url": "/media/images/vedic/ritual-setup.svg",
+            "description": "Proper setup for the ritual"
+          }
+        ]
+      }
+    }
+  ],
+  "theme": "light",
+  "background": "/audio/ambient/vedic.mp3",
+  "styles": {
+    "fontFamily": "Sanskrit2003",
+    "textAlignment": "center",
+    "verseSpacing": "2rem"
+  },
+  "navigation": {
+    "previous": "introduction",
+    "next": "vedanta",
+    "suggested": ["meditation", "chanting"]
+  }
+}

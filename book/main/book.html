@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png"
+    type="image/png">
+  <meta charset="utf-8" />
+  <title>Vrindopnishad-Pustak</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Laila:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&family=Prompt:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Sarabun:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="/Vrindopnishad Web/book/css/book.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="../../web-extentions/Custom Cursor/custom-cursor.css" class="css">
+  <!--<link rel="stylesheet" href="css/notification-manager.css">-->
+  <link rel="stylesheet" href="/Vrindopnishad Web/book/css/content-loader.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Protest+Strike&display=swap"
+    rel="stylesheet">
+  <!-- GSAP for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <!-- Content loader script -->
+  <script src="/Vrindopnishad Web/book/js/content-loader.js"></script>
+  <script src="/Vrindopnishad Web/book/js/audio.js"></script>
+
+  <div class="cursor-dot"></div>
+  <div class="cursor-circle"></div>
+
+  <!-- Notification System -->
+  <script src="/Vrindopnishad Web/book/js/notification-manager.js"></script>
+  <script>
+    /* Initialize NotificationManager with error-only mode if needed
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set the notification manager to show errors always but silence non-critical messages
+      if (window.NotificationManager && typeof window.NotificationManager.setSilent === 'function') {
+        window.NotificationManager.setSilent(true); // Only show important notifications by default
+      }
+      
+      // Enable notification sounds only for errors
+      if (window.NotificationManager && typeof window.NotificationManager.setAudio === 'function') {
+        window.NotificationManager.setAudio(false); // Disable sounds by default
+      }
+      
+      // Check for saved preference
+      const silentMode = localStorage.getItem('notification_silent_mode');
+      if (silentMode === 'false' && window.NotificationManager) {
+        window.NotificationManager.setSilent(false);
+      }
+      
+      // Remove debug notification
+      // Test notification on startup has been removed to reduce unnecessary notifications
+    });*/
+  </script>
+
+  <!-- Add type="module" to use ES modules -->
+  <script type="module">
+    import BlockContent from '/book/js/BlockContent.js';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const blockContent = new BlockContent();
+      await blockContent.initializeContent();
+
+      // Initialize audio and other features after content is loaded
+      if (window.initAudio) {
+        window.initAudio();
+      }
+    });
+  </script>
+  <script src="../../web-extentions/Custom Cursor/custom-cursor.js"></script>
+</head>
+
+<body>
+  <!-- Vrindopnishad Random Loader -->
+  <!-- <script
+    src="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/web-extentions/loader/random-loader.js"></script> -->
+
+  <header class="book-header">
+    <div class="header-content">
+      <div class="logo">
+        <i class="fas fa-book-open"></i>
+        <h1>Vrindopnishad - Pustak</h1>
+      </div>
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="book-controls">
+        <button class="book-control" id="toggle-toc">
+          <i class="fas fa-list"></i>
+          <span>Contents</span>
+        </button>
+        <button class="book-control" id="toggle-theme">
+          <i class="fas fa-moon"></i>
+          <span>Theme</span>
+        </button>
+        <button class="book-control" id="toggle-fullscreen">
+          <i class="fas fa-expand"></i>
+          <span>Fullscreen</span>
+        </button>
+      </div>
+    </div>
+    <div class="book-progress">
+      <div class="progress-bar" id="reading-progress"></div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-header">
+      <h3>Menu</h3>
+      <button class="close-mobile-menu" id="close-mobile-menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="mobile-menu-content">
+      <ul class="mobile-menu-items">
+        <li>
+          <button class="mobile-menu-item" id="mobile-toc">
+            <i class="fas fa-list"></i>
+            <span>Table of Contents</span>
+          </button>
+        </li>
+        <li>
+          <button class="mobile-menu-item" id="mobile-theme">
+            <i class="fas fa-moon"></i>
+            <span>Toggle Dark Mode</span>
+          </button>
+        </li>
+        <li>
+          <button class="mobile-menu-item" id="mobile-fullscreen">
+            <i class="fas fa-expand"></i>
+            <span>Toggle Fullscreen</span>
+          </button>
+        </li>
+        <li>
+          <button class="mobile-menu-item" id="mobile-share">
+            <i class="fas fa-share-nodes"></i>
+            <span>Share Book</span>
+          </button>
+        </li>
+        <li>
+          <button class="mobile-menu-item" id="mobile-restart">
+            <i class="fas fa-redo"></i>
+            <span>Restart Book</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-navigator">
+    <button class="nav-btn prev-btn" id="prev-page" aria-label="Previous page">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <div class="page-indicator">
+      <span id="current-page">1</span>/<span id="total-pages">8</span>
+    </div>
+    <button class="nav-btn next-btn" id="next-page" aria-label="Next page">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <aside class="table-of-contents" id="toc">
+    <div class="toc-header">
+      <h2>Table of Contents</h2>
+      <button class="close-toc" id="close-toc">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <ul class="toc-list">
+      <li class="toc-item active" data-section="vertical-section" data-index="0">
+        <span class="toc-number">1.</span> तरुवर छाव तीर यमुना के
+      </li>
+      <li class="toc-item" data-section="vertical-section" data-index="1">
+        <span class="toc-number">2.</span> The Changing Seasons
+      </li>
+      <li class="toc-item" data-section="vertical-section" data-index="2">
+        <span class="toc-number">3.</span> Guardians of Nature
+      </li>
+      <li class="toc-item" data-section="vertical-section" data-index="3">
+        <span class="toc-number">4.</span> Astral Aesthetics
+      </li>
+      <li class="toc-item" data-section="horizontal-section" data-index="0">
+        <span class="toc-number">5.</span> Wildlife Landscapes
+      </li>
+      <li class="toc-item" data-section="horizontal-section" data-index="1">
+        <span class="toc-number">6.</span> Nature's Symphony
+      </li>
+      <li class="toc-item" data-section="horizontal-section" data-index="2">
+        <span class="toc-number">7.</span> Nature's Masterpieces
+      </li>
+      <li class="toc-item" data-section="horizontal-section" data-index="3">
+        <span class="toc-number">8.</span> The Power of Nature
+      </li>
+    </ul>
+  </aside>
+
+  <main class="main-wrapper">
+    <div class="book-cover" id="book-cover">
+      <div class="cover-content">
+        <h1 class="book-title">The Wonders of Nature</h1>
+        <p class="book-subtitle">An Interactive Journey Through Earth's Beauty</p>
+        <button class="start-reading" id="start-reading">
+          Start Reading <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="section chapter-intro" id="vertical-intro">
+      <div class="container-medium">
+        <div class="padding-vertical">
+          <div class="max-width-large">
+            <div class="chapter-header">
+              <span class="chapter-number">Chapter 1</span>
+              <h1 class="heading">Wildlife & Changing Seasons</h1>
+              <p class="chapter-description">
+                Explore the stunning diversity of wildlife and learn how nature
+                adapts to the changing rhythm of seasons.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-section vertical-section section" id="vertical-section">
+      <div class="wrapper">
+        <div role="list" class="list">
+          <div role="listitem" class="item">
+            <div class="page-number">Page 1</div>
+            <div class="item_content">
+              <h2 class="item_number">1</h2>
+              <h2>Wildlife in Action: A Glimpse into Nature's Daily Drama</h2>
+              <p class="item_p">
+                Witness the fascinating lives of animals in their natural
+                habitats, from playful cubs to stealthy predators.
+              </p>
+              <div class="page-actions">
+                <button class="page-action bookmark" data-section="vertical-section" data-index="0">
+                  <i class="fas fa-bookmark"></i>
+                </button>
+                <button class="page-action notes" data-section="vertical-section" data-index="0">
+                  <i class="fas fa-sticky-note"></i>
+                </button>
+                <button class="page-action block-music" data-section="vertical-section" data-index="0">
+                  <i class="fas fa-music"></i>
+                </button>
+                <button class="page-action link-page" data-section="vertical-section" data-index="0"
+                  data-title="Wildlife in Action">
+                  <i class="fas fa-link"></i>
+                </button>
+              </div>
+            </div>
+            <video src="https://videos.pexels.com/video-files/4763824/4763824-uhd_2560_1440_24fps.mp4" loading="lazy"
+              autoplay muted loop class="item_media"></video>
+          </div>
+          <div role="listitem" class="item">
+            <div class="page-number">Page 2</div>
+            <div class="item_content">
+              <h2 class="item_number">2</h2>
+              <h2>The Changing Seasons: Nature's Everlasting Cycle</h2>
+              <p class="item_p">
+                Experience the beauty of nature's transitions, from blooming
+                spring flowers to snowy winter landscapes.
+              </p>
+              <div class="page-actions">
+                <button class="page-action bookmark" data-section="vertical-section" data-index="1">
+                  <i class="fas fa-bookmark"></i>
+                </button>
+                <button class="page-action notes" data-section="vertical-section" data-index="1">
+                  <i class="fas fa-sticky-note"></i>
+                </button>
+                <button class="page-action block-music" data-section="vertical-section" data-index="1">
+                  <i class="fas fa-music"></i>
+                </button>
+                <button class="page-action link-page" data-section="vertical-section" data-index="1"
+                  data-title="The Changing Seasons">
+                  <i class="fas fa-link"></i>
+                </button>
+              </div>
+            </div>
+            <video src="https://videos.pexels.com/video-files/3214448/3214448-uhd_2560_1440_25fps.mp4" loading="lazy"
+              autoplay muted loop class="item_media"></video>
+          </div>
+          <div role="listitem" class="item">
+            <div class="page-number">Page 3</div>
+            <div class="item_content">
+              <h2 class="item_number">3</h2>
+              <h2>Guardians of Nature: Protecting Our Planet's Future</h2>
+              <p class="item_p">
+                Learn about the importance of conservation and how we can work
+                together to preserve the beauty of nature for generations to
+                come.
+              </p>
+              <div class="page-actions">
+                <button class="page-action bookmark" data-section="vertical-section" data-index="2">
+                  <i class="fas fa-bookmark"></i>
+                </button>
+                <button class="page-action notes" data-section="vertical-section" data-index="2">
+                  <i class="fas fa-sticky-note"></i>
+                </button>
+                <button class="page-action block-music" data-section="vertical-section" data-index="2">
+                  <i class="fas fa-music"></i>
+                </button>
+                <button class="page-action link-page" data-section="vertical-section" data-index="2"
+                  data-title="Guardians of Nature">
+                  <i class="fas fa-link"></i>
+                </button>
+              </div>
+            </div>
+            <video src="https://videos.pexels.com/video-files/4328514/4328514-uhd_2560_1440_30fps.mp4" loading="lazy"
+              autoplay muted loop class="item_media"></video>
+          </div>
+          <div role="listitem" class="item">
+            <div class="page-number">Page 4</div>
+            <div class="item_content">
+              <h2 class="item_number">4</h2>
+              <h2>Astral Aesthetics: Portraits from the Infinite</h2>
+              <p class="item_p">
+                Experience the boundless beauty of the cosmos through striking
+                portraits that capture its infinite aesthetic appeal.
+              </p>
+              <div class="page-actions">
+                <button class="page-action bookmark" data-section="vertical-section" data-index="3">
+                  <i class="fas fa-bookmark"></i>
+                </button>
+                <button class="page-action notes" data-section="vertical-section" data-index="3">
+                  <i class="fas fa-sticky-note"></i>
+                </button>
+                <button class="page-action block-music" data-section="vertical-section" data-index="3">
+                  <i class="fas fa-music"></i>
+                </button>
+                <button class="page-action link-page" data-section="vertical-section" data-index="3"
+                  data-title="Astral Aesthetics">
+                  <i class="fas fa-link"></i>
+                </button>
+              </div>
+            </div>
+            <video src="https://videos.pexels.com/video-files/2871916/2871916-hd_1920_1080_30fps.mp4" loading="lazy"
+              autoplay muted loop class="item_media"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section chapter-intro" id="horizontal-intro">
+      <div class="container-medium">
+        <div class="padding-vertical">
+          <div class="max-width-large">
+            <div class="chapter-header">
+              <span class="chapter-number">Chapter 2</span>
+              <h1 class="heading">Natural Landscapes & Phenomena</h1>
+              <p class="chapter-description">
+                Discover breathtaking landscapes and natural phenomena that shape
+                our world's extraordinary beauty.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-section horizontal-section section" id="horizontal-section">
+      <div class="wrapper">
+        <div role="list" class="list">
+          <div role="listitem" class="item">
+            <div class="page-number">Page 5</div>
+            <div class="item_content">
+              <h2 class="item_number">5</h2>
+              <h2>Wildlife in Action: A Glimpse into Nature's Daily Drama</h2>
+              <p class="item_p">
+                Explore the untouched beauty of forests, mountains, and rivers
+                as we uncover the hidden secrets of nature's most breathtaking
+                landscapes.
+              </p>
+              <div class="page-actions">
+                <button class="page-action bookmark" data-section="horizontal-section" data-index="0">
+                  <i class="fas fa-bookmark"></i>
+                </button>
+                <button class="page-action notes" data-section="horizontal-section" data-index="0">
+                  <i class="fas fa-sticky-note"></i>
+                </button>
+                <button class="page-action block-music" data-section="horizontal-section" data-index="0">
+                  <i class="fas fa-music"></i>
+                </button>
+                <button class="page-action link-page" data-section="horizontal-section" data-index="0"
+                  data-title="Wildlife Landscapes">
+                  <i class="fas fa-link"></i>
+                </button>
+              </div>
+            </div>
+            <video src="https://videos.pexels.com/video-files/10178127/10178127-uhd_2560_1440_30fps.mp4" loading="lazy"
+              autoplay muted loop class="item_media"></video>
+          </div>
+          <div role="listitem" class="item">
+            <div class="page-number">Page 6</div>
+            <div class="item_content">
+              <h2 class="item_number">6</h2>
+              <h2>Nature's Symphony: The Sounds That Heal the Soul</h2>
+              <p class="item_p">
+                Immerse yourself in the soothing sounds of chirping birds,
+                rustling leaves, and flowing streams – nature's music for
+                peace and tranquility.
+              </p>
+              <div class="page-actions">
+                <button class="page-action bookmark" data-section="horizontal-section" data-index="1">
+                  <i class="fas fa-bookmark"></i>
+                </button>
+                <button class="page-action notes" data-section="horizontal-section" data-index="1">
+                  <i class="fas fa-sticky-note"></i>
+                </button>
+                <button class="page-action block-music" data-section="horizontal-section" data-index="1">
+                  <i class="fas fa-music"></i>
+                </button>
+                <button class="page-action link-page" data-section="horizontal-section" data-index="1"
+                  data-title="Nature's Symphony">
+                  <i class="fas fa-link"></i>
+                </button>
+              </div>
+            </div>
+            <video src="https://videos.pexels.com/video-files/15708463/15708463-uhd_2560_1440_24fps.mp4" loading="lazy"
+              autoplay muted loop class="item_media"></video>
+          </div>
+          <div role="listitem" class="item">
+            <div class="page-number">Page 7</div>
+            <div class="item_content">
+              <h2 class="item_number">7</h2>
+              <h2>
+                Nature's Masterpieces: Landscapes That Take Your Breath Away
+              </h2>
+              <p class="item_p">
+                Discover stunning views of majestic mountains, endless oceans,
+                and golden sunsets that remind us of nature's artistic
+                brilliance.
+              </p>
+              <div class="page-actions">
+                <button class="page-action bookmark" data-section="horizontal-section" data-index="2">
+                  <i class="fas fa-bookmark"></i>
+                </button>
+                <button class="page-action notes" data-section="horizontal-section" data-index="2">
+                  <i class="fas fa-sticky-note"></i>
+                </button>
+                <button class="page-action block-music" data-section="horizontal-section" data-index="2">
+                  <i class="fas fa-music"></i>
+                </button>
+                <button class="page-action link-page" data-section="horizontal-section" data-index="2"
+                  data-title="Nature's Masterpieces">
+                  <i class="fas fa-link"></i>
+                </button>
+              </div>
+            </div>
+            <video src="https://videos.pexels.com/video-files/15708462/15708462-uhd_2560_1440_24fps.mp4" loading="lazy"
+              autoplay muted loop class="item_media"></video>
+          </div>
+          <div role="listitem" class="item">
+            <div class="page-number">Page 8</div>
+            <div class="item_content">
+              <h2 class="item_number">8</h2>
+              <h2>The Power of Nature: How It Shapes Our World</h2>
+              <p class="item_p">
+                Dive into the incredible forces of nature – from roaring
+                waterfalls to mighty hurricanes – and see how they sculpt the
+                earth we live on.
+              </p>
+              <div class="page-actions">
+                <button class="page-action bookmark" data-section="horizontal-section" data-index="3">
+                  <i class="fas fa-bookmark"></i>
+                </button>
+                <button class="page-action notes" data-section="horizontal-section" data-index="3">
+                  <i class="fas fa-sticky-note"></i>
+                </button>
+                <button class="page-action block-music" data-section="horizontal-section" data-index="3">
+                  <i class="fas fa-music"></i>
+                </button>
+                <button class="page-action link-page" data-section="horizontal-section" data-index="3"
+                  data-title="The Power of Nature">
+                  <i class="fas fa-link"></i>
+                </button>
+              </div>
+            </div>
+            <video src="https://videos.pexels.com/video-files/5788966/5788966-hd_1920_1080_25fps.mp4" loading="lazy"
+              autoplay muted loop class="item_media"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="book-end">
+      <div class="container-medium">
+        <div class="padding-vertical">
+          <div class="max-width-large">
+            <div class="end-content">
+              <h1 class="heading">Journey Complete</h1>
+              <p class="end-message">
+                Thank you for experiencing the wonders of nature through our digital book.
+              </p>
+              <div class="end-actions">
+                <button class="action-btn" id="restart-book">
+                  <i class="fas fa-redo"></i> Read Again
+                </button>
+                <button class="action-btn" id="share-book">
+                  <i class="fas fa-link"></i> Share
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="notes-panel" id="notes-panel">
+    <div class="notes-header">
+      <h3>My Notes</h3>
+      <div class="notes-controls">
+        <div class="music-controls">
+          <button id="toggle-music" class="music-toggle" title="Toggle background music">
+            <i class="fas fa-music"></i>
+          </button>
+          <div class="volume-control">
+            <i class="fas fa-volume-down"></i>
+            <input type="range" id="music-volume" min="0" max="100" value="30">
+            <i class="fas fa-volume-up"></i>
+          </div>
+        </div>
+        <button id="expand-notes" class="expand-notes" title="Expand to fullscreen">
+          <i class="fas fa-expand"></i>
+        </button>
+      </div>
+      <button class="close-notes" id="close-notes">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="notes-content">
+      <textarea id="page-notes" placeholder="Add your notes for this page..."
+        style="font-size: 2rem; font-family: 'Roboto', 'Laila', sans-serif;"></textarea>
+      <div class="notes-actions">
+        <button class="save-notes" id="save-notes">Save Notes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Link Popup Panel -->
+  <div class="link-panel" id="link-panel">
+    <div class="link-panel-header">
+      <h3 id="link-panel-title">Related Content</h3>
+      <div class="link-panel-controls">
+        <button id="link-panel-fullscreen" class="link-panel-control" title="Toggle fullscreen">
+          <i class="fas fa-expand"></i>
+        </button>
+        <button class="close-link-panel" id="close-link-panel">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="link-panel-content">
+      <div class="link-panel-tabs">
+        <button class="link-panel-tab active" data-tab="video">
+          <i class="fas fa-video"></i> Video
+        </button>
+        <button class="link-panel-tab" data-tab="canva">
+          <i class="fas fa-globe"></i> Web Content
+        </button>
+        <button class="link-panel-tab" data-tab="links">
+          <i class="fas fa-external-link-alt"></i> Links
+        </button>
+      </div>
+      <div class="link-panel-tab-content">
+        <!-- YouTube Tab Content -->
+        <div class="tab-pane active" id="video-tab">
+          <div class="youtube-container">
+            <div class="youtube-wrapper">
+              <iframe id="youtube-iframe" class="youtube-iframe" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- Canva Tab Content -->
+        <div class="tab-pane" id="canva-tab">
+          <div class="canva-container">
+            <iframe id="canva-iframe" class="canva-iframe" allowfullscreen="allowfullscreen"
+              allow="fullscreen"></iframe>
+          </div>
+        </div>
+
+        <!-- Links Tab Content -->
+        <div class="tab-pane" id="links-tab">
+          <div class="links-container">
+            <div class="links-list" id="links-list">
+              <!-- Links will be populated dynamically -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay for Link Panel -->
+  <div class="link-panel-overlay" id="link-panel-overlay"></div>
+
+  <div id="notifications" class="notifications"></div>
+
+  <!-- Audio Container -->
+  <div class="audio-container">
+    <!-- Audio elements will be dynamically added based on BlockContent data -->
+  </div>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Force reload notes panel styles -->
+  <style id="notes-panel-style">
+    #page-notes {
+      width: 100% !important;
+      min-height: 200px !important;
+      padding: 1.25rem !important;
+      font-size: 1.2rem !important;
+      font-weight: 400 !important;
+      font-family: 'Roboto', sans-serif !important;
+      border: 1px solid rgba(0, 0, 0, 0.1) !important;
+      border-radius: var(--border-radius) !important;
+      background-color: rgba(0, 0, 0, 0.02) !important;
+      resize: vertical !important;
+      transition: var(--transition) !important;
+    }
+
+    #page-notes:lang(hi),
+    #page-notes [lang="hi"] {
+      font-family: 'Laila', var(--body-font) !important;
+    }
+
+    @media (max-width: 575px) {
+      #page-notes {
+        font-size: 1rem !important;
+      }
+    }
+
+    /* Ensure notifications have proper styling */
+    .notification {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .notification-close {
+      position: absolute !important;
+      top: 6px !important;
+      right: 6px !important;
+      width: 20px !important;
+      height: 20px !important;
+      border-radius: 50% !important;
+      background-color: rgba(0, 0, 0, 0.15) !important;
+      color: rgba(0, 0, 0, 0.6) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 10px !important;
+      border: none !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      padding: 0 !important;
+      z-index: 3 !important;
+    }
+
+    .notification.swiping {
+      transition: none !important;
+      animation: none !important;
+      will-change: transform, opacity !important;
+    }
+
+    .notification.swipe-left {
+      animation: swipeLeft 0.3s cubic-bezier(0.23, 1, 0.32, 1) forwards !important;
+    }
+
+    .notification.swipe-right {
+      animation: swipeRight 0.3s cubic-bezier(0.23, 1, 0.32, 1) forwards !important;
+    }
+
+    @keyframes swipeLeft {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-100vw);
+        opacity: 0;
+      }
+    }
+
+    @keyframes swipeRight {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(100vw);
+        opacity: 0;
+      }
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+  <script src="/Vrindopnishad Web/book/js/book.js"></script>
+  <script src="/Vrindopnishad Web/book/js/enhanced-audio.js"></script>
+  <!-- <script src="audio.js"></script> -->
+  <script src="/Vrindopnishad Web/Security/disable-right-click.js"></script>
+  <script src="/Vrindopnishad Web/book/js/dynamic-book.js"></script>
+
+  <!-- Books Data Loading Script -->
+  <script>
+    // Load books data from JSON
+    // async function loadBooksData() {
+    //     try {
+    //         const response = await fetch('../Stack/books-data.json');
+    //         if (!response.ok) {
+    //             throw new Error('Failed to load books data');
+    //         }
+    //         const data = await response.json();
+    //         return data.books;
+    //     } catch (error) {
+    //         console.error('Error loading books:', error);
+    //         return [];
+    //     }
+    // }
+
+    // Update book content with data
+    // function updateBookContent(books) {
+    //     const bookContainer = document.querySelector('.book-container');
+    //     if (!bookContainer) return;
+
+    //     bookContainer.innerHTML = books.map(book => `
+    //         <div class="book-item" data-id="${book.id}">
+    //             <div class="book-cover">
+    //                 <img src="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/book/main/${book.cover}" alt="${book.title}">
+    //             </div>
+    //             <div class="book-info">
+    //                 <h2>${book.title}</h2>
+    //                 <h3>by ${book.author}</h3>
+    //                 <p class="book-description">${book.description}</p>
+    //                 <div class="book-meta">
+    //                     <span class="year">${book.year}</span>
+    //                     <span class="category">${book.category}</span>
+    //                     <span class="language">${book.language}</span>
+    //                 </div>
+    //                 <div class="book-actions">
+    //                     <div class="book-formats">
+    //                         ${book.format.map(format => `
+    //                             <button class="format-btn ${format}" data-format="${format}" data-book-id="${book.id}">
+    //                                 ${format.toUpperCase()}
+    //                             </button>
+    //                         `).join('')}
+    //                     </div>
+    //                     <button class="share-btn" data-book-id="${book.id}" data-book-title="${book.title.replace(/"/g, '&quot;')}" data-book-author="${book.author.replace(/"/g, '&quot;')}">
+    //                         <i class="fas fa-share-alt"></i> Share
+    //                     </button>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     `).join('');
+
+    // Add event listeners to format buttons
+    const formatButtons = document.querySelectorAll('.format-btn');
+    formatButtons.forEach(btn => {
+      btn.addEventListener('click', function () {
+        const format = this.getAttribute('data-format');
+        const bookId = this.getAttribute('data-book-id');
+        openFormat(format, bookId);
+      });
+    });
+
+    // Add event listeners to share buttons
+    const shareButtons = document.querySelectorAll('.share-btn');
+    shareButtons.forEach(btn => {
+      btn.addEventListener('click', function () {
+        const bookId = this.getAttribute('data-book-id');
+        const title = this.getAttribute('data-book-title');
+        const author = this.getAttribute('data-book-author');
+        shareBook(bookId, title, author);
+      });
+    });
+    // }
+
+    // Format opener function
+    function openFormat(format, bookId) {
+      switch (format) {
+        case 'pdf':
+          window.location.href = `../pdf/pdf-viewer.html?book=${bookId}`;
+          break;
+        case 'epub':
+          // Add epub viewer logic
+          break;
+        case 'audio':
+          // Add audio player logic
+          break;
+      }
+    }
+
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', async () => {
+      const books = await loadBooksData();
+      if (books.length > 0) {
+        updateBookContent(books);
+      }
+    });
+
+    // Share book function
+    function shareBook(bookId, title, author) {
+      try {
+        const bookUrl = window.location.origin + window.location.pathname + `?book=${bookId}`;
+        const shareTitle = `${title} by ${author}`;
+        const shareText = `Check out this book: "${title}" by ${author}`;
+
+        // First try to use the sharePage function from book.js if available
+        if (window.sharePage && typeof window.sharePage === 'function') {
+          window.sharePage(shareTitle, shareText, bookUrl);
+          return;
+        }
+
+        // If sharePage not available, implement sharing directly
+        if (navigator.share) {
+          navigator.share({
+            title: shareTitle,
+            text: shareText,
+            url: bookUrl
+          })
+            .then(() => {
+              if (window.showNotification && typeof window.showNotification === 'function') {
+                window.showNotification('Book shared successfully!', 'success');
+              } else {
+                console.log('Book shared successfully!');
+              }
+            })
+            .catch(error => {
+              console.error('Error sharing:', error);
+              // Fallback to clipboard copy if sharing fails
+              fallbackToClipboard(bookUrl);
+            });
+        } else {
+          // Fallback for browsers that don't support Web Share API
+          fallbackToClipboard(bookUrl);
+        }
+      } catch (err) {
+        console.error('Error in shareBook function:', err);
+        alert('An error occurred while trying to share this book. Please try again.');
+      }
+    }
+
+    // Helper function for clipboard fallback
+    function fallbackToClipboard(url) {
+      try {
+        navigator.clipboard.writeText(url)
+          .then(() => {
+            if (window.showNotification && typeof window.showNotification === 'function') {
+              window.showNotification('Link copied to clipboard!', 'success');
+            } else {
+              alert('Link copied to clipboard!');
+            }
+          })
+          .catch(error => {
+            console.error('Error copying link:', error);
+            alert('Could not copy link automatically. The URL is: ' + url);
+          });
+      } catch (err) {
+        console.error('Clipboard API error:', err);
+        alert('Could not copy link automatically. The URL is: ' + url);
+      }
+    }
+  </script>
+
+  <!-- Debug Tools - Only visible when ?debug=true is in URL -->
+  <div id="debug-tools"
+    style="display: none; position: fixed; bottom: 20px; left: 20px; z-index: 9999; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 5px; color: white;">
+    <h4 style="margin: 0 0 10px 0; font-size: 14px;">Debug Tools</h4>
+    <button id="test-loader-btn"
+      style="background: #64B5F6; border: none; color: black; padding: 5px 10px; margin: 5px; border-radius: 3px; cursor: pointer;">Test
+      Loader</button>
+    <button id="test-link-panel-btn"
+      style="background: #64B5F6; border: none; color: black; padding: 5px 10px; margin: 5px; border-radius: 3px; cursor: pointer;">Test
+      Link Panel</button>
+    <button id="test-notification-btn"
+      style="background: #4CAF50; border: none; color: white; padding: 5px 10px; margin: 5px; border-radius: 3px; cursor: pointer;">Test
+      Notification Sound</button>
+  </div>
+
+  <script src="/Vrindopnishad Web/Custom/custom-cursor.js"></script>
+  <script>
+    // Show debug tools if debug=true is in URL
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.location.search.includes('debug=true')) {
+        const debugTools = document.getElementById('debug-tools');
+        if (debugTools) {
+          debugTools.style.display = 'block';
+
+          // Test loader button
+          document.getElementById('test-loader-btn').addEventListener('click', function () {
+            const container = document.querySelector('main');
+            const loaderId = ContentLoader.show(container, {
+              loaderText: "Debug",
+              text: "Testing main page loader...",
+              minDisplayTime: 3000
+            });
+
+            setTimeout(() => {
+              ContentLoader.hide(loaderId);
+            }, 3000);
+          });
+
+          // Test link panel button
+          document.getElementById('test-link-panel-btn').addEventListener('click', function () {
+            const linkPanel = document.getElementById('link-panel');
+            const linkPanelOverlay = document.getElementById('link-panel-overlay');
+
+            if (linkPanel && linkPanelOverlay) {
+              // Load the first content section
+              loadPanelContent('vertical-section-0', 'Wildlife in Action');
+
+              // Show the panel
+              linkPanel.classList.add('active');
+              linkPanelOverlay.classList.add('active');
+
+              // Reset tabs - always show YouTube tab first
+              resetTabs();
+            }
+          });
+
+          // Test notification button
+          document.getElementById('test-notification-btn').addEventListener('click', function () {
+            // Ensure user interaction has been recorded for audio
+            if (window.NotificationManager) {
+              // Show all notification types with sound
+              window.NotificationManager.show('Success notification with sound', 'success', {
+                duration: 3000,
+                appName: 'Sound Test'
+              });
+
+              setTimeout(() => {
+                window.NotificationManager.show('Error notification with sound', 'error', {
+                  duration: 3000,
+                  appName: 'Sound Test'
+                });
+              }, 1500);
+
+              setTimeout(() => {
+                window.NotificationManager.show('Info notification with sound', 'info', {
+                  duration: 3000,
+                  appName: 'Sound Test'
+                });
+              }, 3000);
+            } else {
+              alert('NotificationManager not available');
+            }
+          });
+        }
+      }
+    });
+  </script>
+  <script type="module">
+    import BlockContent from '/book/js/BlockContent.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const blockContent = new BlockContent();
+      blockContent.initializeContent();
+    });
+  </script>
+  <!-- Add a mobile overlay for when mobile menu is open -->
+  <div class="mobile-overlay" id="mobile-overlay"></div>
+</body>
+
+</html>

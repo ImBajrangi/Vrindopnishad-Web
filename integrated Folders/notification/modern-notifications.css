@@ -1,0 +1,261 @@
+/**
+ * Modern Notification System CSS
+ * Provides styles for a clean, modern Apple/Samsung style notification system.
+ */
+
+/* Notifications container */
+.notifications {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  max-width: 320px;
+  pointer-events: none;
+}
+
+/* Individual notification */
+.notification {
+  background-color: rgba(245, 245, 245, 0.85);
+  color: #000;
+  padding: 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+  overflow: hidden;
+  transform-origin: top;
+  animation: notifSlideIn 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  will-change: transform, opacity;
+  touch-action: pan-x pan-y;
+}
+
+/* Swiping state to improve performance */
+.notification.swiping {
+  transition: none;
+  animation: none;
+  will-change: transform, opacity;
+}
+
+/* Dark mode support */
+.dark-mode .notification,
+[data-theme="dark"] .notification,
+body.dark .notification {
+  background-color: rgba(58, 58, 60, 0.85);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Notification header with app icon, name and time */
+.notification-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px 4px;
+}
+
+/* App icon styles */
+.notification-app-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  margin-right: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Success notification icon */
+.notification.success .notification-app-icon {
+  background: linear-gradient(135deg, #34c759, #30d158);
+}
+
+/* Error notification icon */
+.notification.error .notification-app-icon {
+  background: linear-gradient(135deg, #ff453a, #ff3b30);
+}
+
+/* Info notification icon */
+.notification.info .notification-app-icon {
+  background: linear-gradient(135deg, #007aff, #0a84ff);
+}
+
+/* App name styles */
+.notification-app-name {
+  font-weight: 600;
+  font-size: 11px;
+}
+
+/* Time display styles */
+.notification-time {
+  margin-left: auto;
+  font-size: 10px;
+  color: #8e8e93;
+}
+
+/* Notification content area */
+.notification-content {
+  padding: 2px 12px 10px;
+}
+
+/* Text inside notification */
+.notification span {
+  font-size: 12px;
+  line-height: 1.3;
+  display: block;
+}
+
+/* Icon styles inside notification */
+.notification i {
+  font-size: 10px;
+  color: white;
+}
+
+/* Close button styles */
+.notification-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: #8e8e93;
+  opacity: 0.7;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+  padding: 0;
+  z-index: 5;
+}
+
+/* Close button hover effect */
+.notification-close:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  opacity: 1;
+}
+
+/* Dark mode close button */
+.dark-mode .notification-close,
+[data-theme="dark"] .notification-close,
+body.dark .notification-close {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Dark mode close button hover */
+.dark-mode .notification-close:hover,
+[data-theme="dark"] .notification-close:hover,
+body.dark .notification-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Animation for sliding in */
+@keyframes notifSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Hiding animation */
+.notification.hide {
+  animation: notifSlideOut 0.3s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Animation for sliding out */
+@keyframes notifSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.96);
+  }
+}
+
+/* Swipe animations in different directions */
+.notification.swipe-left {
+  animation: swipeLeft 0.3s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.notification.swipe-right {
+  animation: swipeRight 0.3s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.notification.swipe-up {
+  animation: swipeUp 0.3s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.notification.swipe-down {
+  animation: swipeDown 0.3s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes swipeLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100vw);
+    opacity: 0;
+  }
+}
+
+@keyframes swipeRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+}
+
+@keyframes swipeUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes swipeDown {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 480px) {
+  .notifications {
+    max-width: 92%;
+  }
+  
+  .notification-header {
+    padding: 8px 10px 3px;
+  }
+  
+  .notification-content {
+    padding: 2px 10px 8px;
+  }
+} 

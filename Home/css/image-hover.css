@@ -1,0 +1,134 @@
+/* Simple and efficient image hover styles */
+.image-hover {
+    position: fixed;
+    pointer-events: none;
+    z-index: 100;
+    width: 480px;
+    height: 320px;
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.8);
+    -webkit-transform: translate3d(0, 0, 0) scale(0.8);
+    transition: opacity 0.15s ease;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.1);
+    will-change: transform, opacity;
+    /* Enable hardware acceleration */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+    
+    /* Modern browsers */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.hover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    opacity: 0;
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    transition: opacity 0.15s ease;
+    will-change: transform, opacity;
+    
+    /* Optimize image rendering */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.image-hover.visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    animation: bounceIn 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.image-hover.visible .hover-image {
+    opacity: 1;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    animation: bounceImage 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes bounceImage {
+    0% {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+    70% {
+        opacity: 0.9;
+        transform: scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.project-item {
+    cursor: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.3s ease;
+}
+
+.project-item:hover {
+    transform: translateY(-5px);
+}
+
+/* Fallback for browsers that don't support backdrop-filter */
+@supports not (backdrop-filter: blur(8px)) {
+    .image-hover {
+        background: rgba(255, 255, 255, 0.9);
+    }
+}
+
+/* Disable hover effect for tablets and mobile devices */
+@media (max-width: 1024px) {
+    .image-hover {
+        display: none;
+    }
+    
+    .project-item {
+        cursor: default;
+    }
+    
+    .project-item:hover {
+        transform: none;
+    }
+}
+
+/* Additional touch device optimization */
+@media (hover: none), (pointer: coarse) {
+    .image-hover {
+        display: none;
+    }
+    
+    .project-item {
+        cursor: default;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .project-item:hover {
+        transform: none;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .image-hover,
+    .project-item,
+    .hover-image {
+        transition: none !important;
+    }
+}
+
+/* High-performance animation class */
+.smooth-move {
+    transition: none !important;
+}

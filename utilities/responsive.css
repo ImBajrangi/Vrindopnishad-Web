@@ -1,0 +1,14 @@
+/* Combined perfect-responsive + bootstrap-animations */
+@media (max-width: 768px) {
+  .cosmic-navbar {
+    padding: 1rem !important;
+  }
+  
+  .gallery-item {
+    margin-bottom: 1.5rem;
+  }
+  
+  .fade-in-mobile {
+    animation: fadeIn 0.3s ease-in;
+  }
+} 

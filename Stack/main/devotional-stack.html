@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png"
+        type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vrindopnishad - Granthi</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Devanagari:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../web-extentions/Custom Cursor/custom-cursor.css">
+    <script src="../../web-extentions/Custom Cursor/custom-cursor.js" defer></script>
+    <link rel="stylesheet" href="/Vrindopnishad Web/web-extentions/Cookie Consent/cookie-consent.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff6b35;
+            --btn-hover: #86665a;
+            --primary-dark: #e55a2b;
+            --secondary: #ffd700;
+            --accent: #8b4513;
+            --bg-dark: #0a0908;
+            --bg-light: #1a1815;
+            --text-primary: #f5f3f0;
+            --text-secondary: #c9c5bf;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        ::selection {
+            background: var(--btn-hover);
+            color: var(--secondary);
+        }
+
+        ::-moz-selection {
+            background: var(--primary);
+            color: var(--text-primary);
+        }
+
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(139, 69, 19, 0.08) 0%, transparent 50%);
+            animation: bgPulse 20s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+
+            0%,
+            100% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0);
+            }
+
+            10% {
+                opacity: 1;
+                transform: translateY(80vh) scale(1);
+            }
+
+            90% {
+                opacity: 1;
+                transform: translateY(10vh) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(0) scale(0);
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(10, 9, 8, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        nav.scrolled {
+            padding: 1rem 5%;
+            background: rgba(10, 9, 8, 0.98);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Crimson Text', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sanskrit-blessing {
+            font-family: 'Devanagari', serif;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+
+            0%,
+            100% {
+                text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            }
+
+            50% {
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.4);
+            }
+        }
+
+        h1 {
+            font-family: 'Crimson Text', serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--primary));
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 600px;
+            margin: 4rem auto;
+            padding: 0 1rem;
+        }
+
+        .search-bar {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.2rem 3.5rem 1.2rem 1.5rem;
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            border-radius: 50px;
+            background: rgba(26, 24, 21, 0.8);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .filter-tab {
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 25px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tab:hover {
+            background: rgba(255, 107, 53, 0.2);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .filter-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Books Grid */
+        .books-section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .book-card {
+            background: linear-gradient(135deg, rgba(26, 24, 21, 0.9), rgba(26, 24, 21, 0.7));
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .book-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(255, 215, 0, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .book-card:hover::before {
+            opacity: 1;
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+        }
+
+        .book-cover {
+            height: 300px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .book-card:hover .book-cover img {
+            transform: scale(1.1);
+        }
+
+        .book-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--secondary);
+            color: var(--bg-dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .book-info {
+            padding: 1.5rem;
+        }
+
+        .book-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .book-author {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .book-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .book-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .book-btn {
+            flex: 1;
+            padding: 0.7rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-read {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-read:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-download {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-download:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: var(--bg-light);
+            border-radius: 20px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-light);
+            padding: 4rem 2rem 2rem;
+            margin-top: 6rem;
+            border-top: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-family: 'Crimson Text', serif;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 107, 53, 0.1);
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+
+            .books-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-circle"></div>
+
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Custom Cursor -->
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Vrindopnishad</a>
+            <div class="nav-links">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#collection" class="nav-link">Collection</a>
+                <a href="#vedic" class="nav-link">Vedic Texts</a>
+                <a href="#modern" class="nav-link">Modern Classics</a>
+                <a href="#about" class="nav-link">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="sanskrit-blessing">ॐ सह नाववतु । सह नौ भुनक्तु ।</div>
+            <h1>Granthi</h1>
+            <p class="hero-subtitle">Journey through timeless wisdom from ancient Vedic scriptures to modern spiritual
+                classics</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="scrollToSection('collection')">Explore Collection</button>
+                <button class="btn btn-secondary" onclick="openSearchModal()">Search Books</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <div class="search-container">
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search for wisdom..." id="searchInput">
+            <span class="search-icon">🔍</span>
+        </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <div class="filter-tabs">
+            <div class="filter-tab active" onclick="filterBooks('all')">All Books</div>
+            <div class="filter-tab" onclick="filterBooks('vedic')">Vedic Scriptures</div>
+            <div class="filter-tab" onclick="filterBooks('puranas')">Puranas & Itihasas</div>
+            <div class="filter-tab" onclick="filterBooks('modern')">Modern Texts</div>
+            <div class="filter-tab" onclick="filterBooks('audio')">Audio Books</div>
+        </div>
+    </div>
+
+    <!-- Books Section -->
+    <section class="books-section" id="collection">
+        <div class="section-header">
+            <h2 class="section-title">Sacred Collection</h2>
+            <p class="hero-subtitle">Discover the pearls of spiritual wisdom</p>
+        </div>
+
+        <!-- Vedic Texts -->
+        <h3 style="color: var(--primary); margin-bottom: 2rem; font-family: 'Crimson Text', serif;">Vedic Scriptures
+        </h3>
+        <div class="books-grid" id="vedic">
+            <div class="book-card" onclick="openBookDetails('bhagavad-gita')">
+                <div class="book-cover">
+                    <img src="https://images.unsplash.com/photo-1609358905581-e5381612486e?w=300&h=400&fit=crop"
+                        alt="Bhagavad Gita">
+                    <span class="book-badge">Must Read</span>
+                </div>
+                <div class="book-info">
+                    <h3 class="book-title">Bhagavad Gita</h3>
+                    <p class="book-author">Ved Vyasa</p>
+                    <p class="book-description">The eternal dialogue between Arjuna and Krishna, revealing the essence
+                        of dharma, karma, and spiritual wisdom.</p>
+                    <div class="book-actions">
+                        <button class="book-btn btn-read">Read Now</button>
+                        <button class="book-btn btn-download">Download</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-card" onclick="openBookDetails('upanishads')">
+                <div class="book-cover">
+                    <img src="https://images.unsplash.com/photo-1628619876503-2db74e724757?w=300&h=400&fit=crop"
+                        alt="Upanishads">
+                    <span class="book-badge">Essential</span>
+                </div>
+                <div class="book-info">
+                    <h3 class="book-title">Principal Upanishads</h3>
+                    <p class="book-author">Ancient Rishis</p>
+                    <p class="book-description">The philosophical essence of the Vedas, exploring the nature of reality,
+                        consciousness, and the ultimate truth.</p>
+                    <div class="book-actions">
+                        <button class="book-btn btn-read">Read Now</button>
+                        <button class="book-btn btn-download">Download</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-card" onclick="openBookDetails('rigveda')">
+                <div class="book-cover">
+                    <img src="https://images.unsplash.com/photo-1625948515291-69613efd103f?w=300&h=400&fit=crop"
+                        alt="Rig Veda">
+                </div>
+                <div class="book-info">
+                    <h3 class="book-title">Rig Veda</h3>
+                    <p class="book-author">Ancient Rishis</p>
+                    <p class="book-description">The oldest known Vedic Sanskrit text, containing hymns dedicated to
+                        various deities and cosmic principles.</p>
+                    <div class="book-actions">
+                        <button class="book-btn btn-read">Read Now</button>
+                        <button class="book-btn btn-download">Download</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Puranas & Epics -->
+        <h3 style="color: var(--primary); margin: 3rem 0 2rem; font-family: 'Crimson Text', serif;">Puranas & Itihasas
+        </h3>
+        <div class="books-grid">
+            <div class="book-card" onclick="openBookDetails('ramayana')">
+                <div class="book-cover">
+                    <img src="https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=300&h=400&fit=crop"
+                        alt="Ramayana">
+                    <span class="book-badge">Epic</span>
+                </div>
+                <div class="book-info">
+                    <h3 class="book-title">Ramayana</h3>
+                    <p class="book-author">Valmiki</p>
+                    <p class="book-description">The epic journey of Lord Rama, exemplifying dharma, devotion, and the
+                        triumph of good over evil.</p>
+                    <div class="book-actions">
+                        <button class="book-btn btn-read">Read Now</button>
+                        <button class="book-btn btn-download">Download</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-card" onclick="openBookDetails('mahabharata')">
+                <div class="book-cover">
+                    <img src="https://images.unsplash.com/photo-1583119912267-cc97c911e416?w=300&h=400&fit=crop"
+                        alt="Mahabharata">
+                    <span class="book-badge">Epic</span>
+                </div>
+                <div class="book-info">
+                    <h3 class="book-title">Mahabharata</h3>
+                    <p class="book-author">Ved Vyasa</p>
+                    <p class="book-description">The great epic of the Bharata dynasty, containing profound teachings on
+                        dharma, karma, and human nature.</p>
+                    <div class="book-actions">
+                        <button class="book-btn btn-read">Read Now</button>
+                        <button class="book-btn btn-download">Download</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-card" onclick="openBookDetails('bhagavata-purana')">
+                <div class="book-cover">
+                    <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=300&h=400&fit=crop"
+                        alt="Bhagavata Purana">
+                </div>
+                <div class="book-info">
+                    <h3 class="book-title">Srimad Bhagavatam</h3>
+                    <p class="book-author">Ved Vyasa</p>
+                    <p class="book-description">The beautiful narration of Lord Krishna's pastimes and the path of
+                        devotional service.</p>
+                    <div class="book-actions">
+                        <button class="book-btn btn-read">Read Now</button>
+                        <button class="book-btn btn-download">Download</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modern Spiritual Texts -->
+        <h3 style="color: var(--primary); margin: 3rem 0 2rem; font-family: 'Crimson Text', serif;" id="modern">Modern
+            Spiritual Classics</h3>
+        <div class="books-grid">
+            <div class="book-card" onclick="openBookDetails('autobiography-yogi')">
+                <div class="book-cover">
+                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=400&fit=crop"
+                        alt="Autobiography of a Yogi">
+                    <span class="book-badge">Bestseller</span>
+                </div>
+                <div class="book-info">
+                    <h3 class="book-title">Autobiography of a Yogi</h3>
+                    <p class="book-author">Paramahansa Yogananda</p>
+                    <p class="book-description">A spiritual classic that introduces the Western world to the teachings
+                        of meditation and yoga.</p>
+                    <div class="book-actions">
+                        <button class="book-btn btn-read">Read Now</button>
+                        <button class="book-btn btn-download">Download</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-card" onclick="openBookDetails('power-now')">
+                <div class="book-cover">
+                    <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=300&h=400&fit=crop"
+                        alt="The Power of Now">
+                    <span class="book-badge">Popular</span>
+                </div>
+                <div class="book-info">
+                    <h3 class="book-title">The Power of Now</h3>
+                    <p class="book-author">Eckhart Tolle</p>
+                    <p class="book-description">A guide to spiritual enlightenment and the importance of living in the
+                        present moment.</p>
+                    <div class="book-actions">
+                        <button class="book-btn btn-read">Read Now</button>
+                        <button class="book-btn btn-download">Download</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-card" onclick="openBookDetails('be-here-now')">
+                <div class="book-cover">
+                    <img src="https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?w=300&h=400&fit=crop"
+                        alt="Be Here Now">
+                </div>
+                <div class="book-info">
+                    <h3 class="book-title">Be Here Now</h3>
+                    <p class="book-author">Ram Dass</p>
+                    <p class="book-description">A seminal work on consciousness, spirituality, and the journey of
+                        awakening to one's true nature.</p>
+                    <div class="book-actions">
+                        <button class="book-btn btn-read">Read Now</button>
+                        <button class="book-btn btn-download">Download</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Book Details -->
+    <div class="modal" id="bookModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div style="padding: 2rem;">
+                <h2 id="modalTitle" style="color: var(--primary); margin-bottom: 1rem;"></h2>
+                <p id="modalContent" style="line-height: 1.8;"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Vrindopnishad</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    A digital sanctuary preserving and sharing the timeless wisdom of ancient scriptures and modern
+                    spiritual teachings.
+                </p>
+                <div class="sanskrit-blessing" style="font-size: 1rem;">
+                    सर्वे भवन्तु सुखिनः<br>
+                    सर्वे सन्तु निरामयाः
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#collection">Book Collection</a>
+                    <a href="#vedic">Vedic Texts</a>
+                    <a href="#modern">Modern Classics</a>
+                    <a href="#about">About Us</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Categories</h3>
+                <div class="footer-links">
+                    <a href="#">Bhagavad Gita</a>
+                    <a href="#">Upanishads</a>
+                    <a href="#">Puranas</a>
+                    <a href="#">Yoga Texts</a>
+                    <a href="#">Meditation Guides</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                    Join our community of seekers and explore the path of spiritual wisdom together.
+                </p>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button class="btn btn-primary" style="padding: 0.8rem 1.5rem;">Subscribe</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2024 Vrindopnishad. Made with devotion and love. | हरि ॐ</p>
+        </div>
+    </footer>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 5;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Filter books functionality
+        function filterBooks(category) {
+            const tabs = document.querySelectorAll('.filter-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Add filtering logic here
+            console.log('Filtering by:', category);
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const bookCards = document.querySelectorAll('.book-card');
+
+            bookCards.forEach(card => {
+                const title = card.querySelector('.book-title').textContent.toLowerCase();
+                const author = card.querySelector('.book-author').textContent.toLowerCase();
+                const description = card.querySelector('.book-description').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || author.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Book details modal
+        const bookDetails = {
+            'bhagavad-gita': {
+                title: 'Bhagavad Gita - The Song of the Divine',
+                content: `The Bhagavad Gita is a 700-verse Hindu scripture that is part of the epic Mahabharata. It is a sacred text of the Hindu religion and is considered one of the most important philosophical classics of the world.
+
+The text is structured as a dialogue between Pandava prince Arjuna and his guide and charioteer Krishna. At the start of the Dharma Yudhha (righteous war) between Pandavas and Kauravas, Arjuna is filled with moral dilemma and despair about the violence and death the war will cause. He wonders if he should renounce and seeks Krishna's counsel, whose answers and discourse constitute the Bhagavad Gita.
+
+The Gita presents a synthesis of Hindu ideas about dharma, theistic bhakti, and the yogic ideals of moksha. The text covers jnana, bhakti, karma, and Raja Yoga, incorporating ideas from the Samkhya-Yoga philosophy.`
+            },
+            'upanishads': {
+                title: 'The Principal Upanishads',
+                content: `The Upanishads are late Vedic Sanskrit texts of religious teachings and ideas still revered in Hinduism. They are the most recent part of the oldest scriptures of Hinduism, the Vedas, that deal with meditation, philosophy, and spiritual knowledge.
+
+The Upanishads discuss the nature of reality, the concept of Brahman (universal soul), Atman (individual soul), and the relationship between the two. They explore profound questions about the purpose of life, consciousness, and the path to liberation (moksha).
+
+Among the most important Upanishads are the Chandogya, Brihadaranyaka, Aitareya, Taittiriya, Kena, Isha, Mundaka, and Katha Upanishads. Each offers unique insights into the nature of existence and the spiritual journey.`
+            },
+            'ramayana': {
+                title: 'Ramayana - The Journey of Rama',
+                content: `The Ramayana is one of the two major Sanskrit epics of ancient India, the other being the Mahabharata. Attributed to the sage Valmiki, it narrates the life of Rama, the legendary prince of Ayodhya.
+
+The epic follows Rama's journey from his exile from the kingdom, the abduction of his wife Sita by the demon king Ravana, and his eventual victory over evil. It beautifully depicts the ideals of dharma, devotion, loyalty, and righteousness.
+
+The Ramayana is not just a story but a guide to living a virtuous life. It teaches through examples of ideal behavior in various relationships - as a son, husband, brother, friend, and king.`
+            },
+            'mahabharata': {
+                title: 'Mahabharata - The Great Epic of the Bharata Dynasty',
+                content: `The Mahabharata is the longest epic poem known and has been described as "the longest poem ever written." Its longest version consists of over 100,000 shloka or over 200,000 individual verse lines.
+
+The epic narrates the Kurukshetra War and the fates of the Kaurava and the Pandava princes. It contains philosophical and devotional material, including the Bhagavad Gita, discussions on the four "goals of life" or purusharthas.
+
+Beyond its narrative, the Mahabharata explores complex themes of dharma, karma, and the human condition. It presents moral dilemmas and their resolutions, making it a timeless guide to ethical living.`
+            },
+            'autobiography-yogi': {
+                title: 'Autobiography of a Yogi',
+                content: `Autobiography of a Yogi is an autobiography of Paramahansa Yogananda first published in 1946. It introduces Western readers to India's ancient science of Yoga and meditation.
+
+The book traces Yogananda's life from his childhood in India, his search for his guru, his training in the hermitage, and his journey to America where he established the Self-Realization Fellowship.
+
+Through personal experiences and encounters with spiritual figures of both East and West, Yogananda explains the subtle laws that govern the universe and demonstrates how yoga and meditation can help individuals achieve self-realization.`
+            }
+        };
+
+        function openBookDetails(bookId) {
+            const modal = document.getElementById('bookModal');
+            const details = bookDetails[bookId];
+
+            if (details) {
+                document.getElementById('modalTitle').textContent = details.title;
+                document.getElementById('modalContent').textContent = details.content;
+                modal.classList.add('active');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('bookModal').classList.remove('active');
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Close modal on outside click
+        document.getElementById('bookModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('bookModal')) {
+                closeModal();
+            }
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all book cards
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.book-card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+
+        // Add hover effect to buttons
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function (e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.width = '0';
+                ripple.style.height = '0';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.5)';
+                ripple.style.transform = 'translate(-50%, -50%)';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.animation = 'ripple 0.6s ease-out';
+
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    width: 200px;
+                    height: 200px;
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+    <script src="/Vrindopnishad Web/web-extentions/Cookie Consent/cookie-consent.js"></script>
+</body>
+
+</html>

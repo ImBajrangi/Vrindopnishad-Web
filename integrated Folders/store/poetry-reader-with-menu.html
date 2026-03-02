@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A peaceful poetry reading experience">
+    <meta name="theme-color" content="#2c3e50">
+    <title>Peaceful Poetry Reader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --text-color: #161f27;
+            --text-color-rgb: 22, 31, 39;
+            --background-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg-color-rgb: 26, 26, 26;
+            --paper-color: rgba(255, 255, 255, 0.1);
+            --accent-color: #8e44ad;
+            --font-body: 'Lora', serif;
+            --font-headings: 'Cormorant Garamond', serif;
+            --line-height: 1.8;
+            --transition-speed: 0.3s;
+            --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 2rem;
+            --border-radius-sm: 12px;
+            --border-radius-md: 20px;
+            --blur-effect: blur(20px);
+            --shadow-sm: 0 8px 32px rgba(31, 38, 135, 0.37);
+            --shadow-md: 0 15px 35px rgba(31, 38, 135, 0.5);
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-lg: 1.25rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: var(--line-height);
+            color: var(--text-color);
+            background: var(--background-color);
+            min-height: 100vh;
+            font-size: 18px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 164, 170, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(233, 208, 164, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(142, 68, 173, 0.2) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        /* Floating particles effect */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Header with advanced glassmorphism */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .logo {
+            font-family: var(--font-headings);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.6s var(--transition-smooth);
+        }
+
+        .logo:hover::after {
+            width: 100%;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+        }
+
+        /* Tools menu button */
+        .tools-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s var(--transition-bounce);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tools-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .tools-icon:hover::before {
+            opacity: 1;
+        }
+
+        .tools-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .tools-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        /* Advanced mobile menu button */
+        .mobile-menu-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1001;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s var(--transition-bounce);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-menu-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .mobile-menu-btn:hover::before {
+            opacity: 1;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: white;
+            transition: all 0.4s var(--transition-bounce);
+            margin: 3px 0;
+            border-radius: 2px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .mobile-menu-btn.active {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Tools Menu */
+        .tools-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.6s var(--transition-smooth);
+        }
+
+        .tools-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tools-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tools-menu-logo {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: white;
+        }
+
+        .tools-menu-close {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.4s var(--transition-bounce);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 24px;
+        }
+
+        .tools-menu-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .tools-menu-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--spacing-md);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s var(--transition-smooth);
+        }
+
+        .tools-menu.active .tools-grid {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tool-item {
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-md);
+            transition: all 0.5s var(--transition-bounce);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 200px;
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .tools-menu.active .tool-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tools-menu.active .tool-item:nth-child(1) { transition-delay: 0.1s; }
+        .tools-menu.active .tool-item:nth-child(2) { transition-delay: 0.2s; }
+        .tools-menu.active .tool-item:nth-child(3) { transition-delay: 0.3s; }
+        .tools-menu.active .tool-item:nth-child(4) { transition-delay: 0.4s; }
+
+        .tool-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .tool-item:hover::before {
+            opacity: 1;
+        }
+
+        .tool-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-md);
+        }
+
+        .tool-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-sm);
+            transition: all 0.4s var(--transition-bounce);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 32px;
+        }
+
+        .tool-item:hover .tool-icon {
+            transform: scale(1.2) translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .tool-info h3 {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: white;
+            position: relative;
+        }
+
+        .tool-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.5s var(--transition-smooth);
+        }
+
+        .tool-item:hover .tool-info h3::after {
+            width: 100%;
+        }
+
+        .tool-info p {
+            font-size: var(--font-size-sm);
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 400px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            z-index: 1000;
+            padding: 6rem 2rem 2rem;
+            transition: right 0.6s var(--transition-smooth);
+            box-shadow: -10px 0 50px rgba(31, 38, 135, 0.3);
+            overflow-y: auto;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        nav.active {
+            right: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.5s var(--transition-bounce);
+        }
+
+        nav.active ul li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        nav.active ul li:nth-child(1) { transition-delay: 0.1s; }
+        nav.active ul li:nth-child(2) { transition-delay: 0.15s; }
+        nav.active ul li:nth-child(3) { transition-delay: 0.2s; }
+        nav.active ul li:nth-child(4) { transition-delay: 0.25s; }
+        nav.active ul li:nth-child(5) { transition-delay: 0.3s; }
+        nav.active ul li:nth-child(6) { transition-delay: 0.35s; }
+
+        nav ul li a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            padding: 1rem;
+            border-radius: var(--border-radius-sm);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s var(--transition-bounce);
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        nav ul li a:hover::before {
+            left: 100%;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(10px) scale(1.02);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Menu overlay with advanced effects */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 100%);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.6s var(--transition-smooth);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        body.menu-open .menu-overlay,
+        body.tools-menu-open .menu-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        body.menu-open,
+        body.tools-menu-open {
+            overflow: hidden;
+        }
+
+        /* Main content with glassmorphism */
+        .container {
+            max-width: 900px;
+            margin: 6rem auto 0;
+            position: relative;
+            padding: 0 2rem;
+        }
+
+        .reader {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            padding: 3rem;
+            border-radius: var(--border-radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+            transition: all 0.4s var(--transition-bounce);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reader::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .reader:hover::before {
+            opacity: 1;
+        }
+
+        .reader:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 20px 60px rgba(31, 38, 135, 0.4);
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-headings);
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff, rgba(255,255,255,0.7));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .poem-title {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .poem-author {
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .poem-content {
+            white-space: pre-line;
+            font-size: 1.3rem;
+            line-height: 2.2;
+            transition: font-size var(--transition-speed) ease;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        /* Advanced controls */
+        .controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            opacity: 0.7;
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .controls:hover {
+            opacity: 1;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 500;
+            transition: all 0.4s var(--transition-bounce);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .control-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .control-btn:hover::before {
+            left: 100%;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .tools-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .container {
+                margin-top: 5rem;
+                padding: 0 1rem;
+            }
+
+            .reader {
+                padding: 2rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .poem-title {
+                font-size: 1.6rem;
+            }
+
+            .controls {
+                bottom: 1rem;
+                right: 1rem;
+                gap: 0.5rem;
+            }
+
+            .control-btn {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        .dark-theme {
+            --background-color: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            --paper-color: rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating particles -->
+    <div class="particle" style="top: 10%; left: 10%; width: 4px; height: 4px; animation-delay: 0s;"></div>
+    <div class="particle" style="top: 20%; left: 80%; width: 6px; height: 6px; animation-delay: 2s;"></div>
+    <div class="particle" style="top: 70%; left: 20%; width: 8px; height: 8px; animation-delay: 4s;"></div>
+    <div class="particle" style="top: 80%; left: 90%; width: 5px; height: 5px; animation-delay: 1s;"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">✨ Poetry Reader</div>
+        <div class="header-right">
+            <div class="tools-icon" onclick="toggleToolsMenu()">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                </svg>
+            </div>
+            <div class="mobile-menu-btn" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tools Menu -->
+    <div class="tools-menu" id="toolsMenu">
+        <div class="tools-menu-header">
+            <div class="tools-menu-logo">🛠️ Tools & Settings</div>
+            <div class="tools-menu-close" onclick="closeToolsMenu()">×</div>
+        </div>
+        <div class="tools-menu-content">
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <div class="tool-icon">📚</div>
+                    <div class="tool-info">
+                        <h3>My Library</h3>
+                        <p>Manage your personal poetry collection with advanced organization features</p>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon">🎨</div>
+                    <div class="tool-info">
+                        <h3>Themes</h3>
+                        <p>Customize your reading experience with beautiful visual themes</p>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon">🔊</div>
+                    <div class="tool-info">
+                        <h3>Audio Settings</h3>
+                        <p>Configure text-to-speech and ambient sound preferences</p>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon">📊</div>
+                    <div class="tool-info">
+                        <h3>Reading Stats</h3>
+                        <p>Track your reading progress and discover insights about your habits</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="mobileNav">
+        <ul>
+            <li><a href="#home" onclick="closeMenu()">🏠 Home</a></li>
+            <li><a href="#collection" onclick="closeMenu()">📖 My Collection</a></li>
+            <li><a href="#favorites" onclick="closeMenu()">❤️ Favorites</a></li>
+            <li><a href="#discover" onclick="closeMenu()">🔍 Discover</a></li>
+            <li><a href="#settings" onclick="closeMenu()">⚙️ Settings</a></li>
+            <li><a href="#about" onclick="closeMenu()">ℹ️ About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Menu overlay -->
+    <div class="menu-overlay" onclick="closeAllMenus()"></div>
+
+    <!-- Main content -->
+    <div class="container">
+        <h1>Peaceful Poetry Reader</h1>
+        <div class="reader" role="article">
+            <div class="poem">
+                <h2 class="poem-title">The Road Not Taken</h2>
+                <div class="poem-author" role="doc-subtitle">by Robert Frost</div>
+                <div class="poem-content" aria-label="Poem content">Two roads diverged in a yellow wood,
+And sorry I could not travel both
+And be one traveler, long I stood
+And looked down one as far as I could
+To where it bent in the undergrowth;
+
+Then took the other, as just as fair,
+And having perhaps the better claim,
+Because it was grassy and wanted wear;
+Though as for that the passing there
+Had worn them really about the same,
+
+And both that morning equally lay
+In leaves no step had trodden black.
+Oh, I kept the first for another day!
+Yet knowing how way leads on to way,
+I doubted if I should ever come back.
+
+I shall be telling this with a sigh
+Somewhere ages and ages hence:
+Two roads diverged in a wood, and I—
+I took the one less traveled by,
+And that has made all the difference.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls" role="toolbar" aria-label="Reading controls">
+        <div class="font-size-controls">
+            <button class="control-btn" onclick="adjustFontSize('decrease')" aria-label="Decrease font size">A-</button>
+            <button class="control-btn" onclick="adjustFontSize('increase')" aria-label="Increase font size">A+</button>
+        </div>
+        <button class="control-btn" onclick="toggleTheme()" aria-label="Toggle light/dark theme">🌙</button>
+    </div>
+
+    <script>
+        // Advanced menu functionality with smooth animations
+        function toggleMenu() {
+            const nav = document.getElementById('mobileNav');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const body = document.body;
+            
+            nav.classList.toggle('active');
+            menuBtn.classList.toggle('active');
+            body.classList.toggle('menu-open');
+        }
+
+        function closeMenu() {
+            const nav = document.getElementById('mobileNav');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const body = document.body;
+            
+            nav.classList.remove('active');
+            menuBtn.classList.remove('active');
+            body.classList.remove('menu-open');
+        }
+
+        function toggleToolsMenu() {
+            const toolsMenu = document.getElementById('toolsMenu');
+            const body = document.body;
+            
+            toolsMenu.classList.toggle('active');
+            body.classList.toggle('tools-menu-open');
+        }
+
+        function closeToolsMenu() {
+            const toolsMenu = document.getElementById('toolsMenu');
+            const body = document.body;
+            
+            toolsMenu.classList.remove('active');
+            body.classList.remove('tools-menu-open');
+        }
+
+        function closeAllMenus() {
+            closeMenu();
+            closeToolsMenu();
+        }
+
+        // Enhanced theme system
+        let currentTheme = 'light';
+        
+        function toggleTheme() {
+            const body = document.body;
+            const themeBtn = document.querySelector('.controls button:last-child');
+            
+            if (currentTheme === 'light') {
+                body.classList.add('dark-theme');
+                themeBtn.textContent = '☀️';
+                themeBtn.setAttribute('aria-label', 'Switch to light theme');
+                currentTheme = 'dark';
+            } else {
+                body.classList.remove('dark-theme');
+                themeBtn.textContent = '🌙';
+                themeBtn.setAttribute('aria-label', 'Switch to dark theme');
+                currentTheme = 'light';
+            }
+            
+            // Add theme transition effect
+            body.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            setTimeout(() => {
+                body.style.transition = '';
+            }, 600);
+        }
+
+        function adjustFontSize(action) {
+            const content = document.querySelector('.poem-content');
+            const currentSize = parseFloat(window.getComputedStyle(content).fontSize);
+            const minSize = 16;
+            const maxSize = 40;
+            let newSize;
+
+            if (action === 'increase') {
+                newSize = Math.min(currentSize * 1.15, maxSize);
+            } else {
+                newSize = Math.max(currentSize * 0.85, minSize);
+            }
+
+            content.style.fontSize = newSize + 'px';
+            
+            // Add scaling animation
+            content.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                content.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // Advanced keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Close menus with Escape
+            if (e.key === 'Escape') {
+                closeAllMenus();
+            }
+            
+            // Toggle tools menu with Ctrl/Cmd + T
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 't') {
+                e.preventDefault();
+                toggleToolsMenu();
+            }
+            
+            // Toggle navigation with Ctrl/Cmd + M
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'm') {
+                e.preventDefault();
+                toggleMenu();
+            }
+            
+            // Font size shortcuts
+            if ((e.ctrlKey || e.metaKey) && e.key === '+') {
+                e.preventDefault();
+                adjustFontSize('increase');
+            }
+            if ((e.ctrlKey || e.metaKey) && e.key === '-') {
+                e.preventDefault();
+                adjustFontSize('decrease');
+            }
+            
+            // Theme toggle
+            if ((e.ctrlKey || e.metaKey) && e.altKey && e.key.toLowerCase() === 't') {
+                e.preventDefault();
+                toggleTheme();
+            }
+        });
+
+        // Magnetic effect for interactive elements
+        // function addMagneticEffect() {
+        //     const magneticElements = document.querySelectorAll('.tools-icon, .mobile-menu-btn, .control-btn, .tool-item');
+            
+        //     magneticElements.forEach(el => {
+        //         el.addEventListener('mousemove', (e) => {
+        //             const rect = el.getBoundingClientRect();
+        //             const x = e.clientX - rect.left - rect.width / 2;
+        //             const y = e.clientY - rect.top - rect.height / 2;
+                    
+        //             el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        //         });
+                
+        //         el.addEventListener('mouseleave', () => {
+        //             el.style.transform = '';
+        //         });
+        //     });
+        // }
+
+        // Initialize advanced effects
+        document.addEventListener('DOMContentLoaded', () => {
+            addMagneticEffect();
+            
+            // Add staggered animation to particles
+            const particles = document.querySelectorAll('.particle');
+            particles.forEach((particle, index) => {
+                particle.style.animationDelay = `${index * 0.5}s`;
+            });
+            
+            // Detect system theme preference
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                toggleTheme();
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                closeAllMenus();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Enhanced click outside detection
+        document.addEventListener('click', (e) => {
+            const nav = document.getElementById('mobileNav');
+            const toolsMenu = document.getElementById('toolsMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const toolsBtn = document.querySelector('.tools-icon');
+            
+            // Close mobile nav if clicking outside
+            if (nav.classList.contains('active') && 
+                !nav.contains(e.target) && 
+                !menuBtn.contains(e.target)) {
+                closeMenu();
+            }
+            
+            // Close tools menu if clicking outside
+            if (toolsMenu.classList.contains('active') && 
+                !toolsMenu.contains(e.target) && 
+                !toolsBtn.contains(e.target)) {
+                closeToolsMenu();
+            }
+        });
+
+        // Performance optimization: throttle scroll events
+        let ticking = false;
+        
+        function updateScrollEffects() {
+            const scrollTop = window.pageYOffset;
+            const header = document.querySelector('header');
+            
+            // Add/remove header background based on scroll
+            if (scrollTop > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.2)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.1)';
+            }
+            
+            ticking = false;
+        }
+        
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateScrollEffects);
+                ticking = true;
+            }
+        });
+
+        // Add ripple effect to buttons
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement('span');
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+            
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
+            circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
+            circle.classList.add('ripple');
+            
+            const ripple = button.getElementsByClassName('ripple')[0];
+            if (ripple) {
+                ripple.remove();
+            }
+            
+            button.appendChild(circle);
+        }
+
+        // Apply ripple effect to buttons
+        document.querySelectorAll('.control-btn, .tool-item').forEach(button => {
+            button.addEventListener('click', createRipple);
+        });
+        
+        // Add ripple CSS
+        const rippleStyle = document.createElement('style');
+        rippleStyle.textContent = `
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                background-color: rgba(255, 255, 255, 0.2);
+                transform: scale(0);
+                animation: ripple-animation 0.6s linear;
+                pointer-events: none;
+            }
+            
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(rippleStyle);
+    </script>
+</body>
+</html>

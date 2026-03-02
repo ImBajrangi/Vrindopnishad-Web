@@ -1,0 +1,121 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "Bhagavad Gita",
+      "description": "The divine song of spiritual wisdom that forms part of the Hindu epic Mahabharata. It contains a conversation between Prince Arjuna and Lord Krishna on life's philosophical and spiritual questions.",
+      "author": "Vyasa",
+      "year": "~400 BCE",
+      "category": "vedic",
+      "language": "sanskrit",
+      "format": ["pdf", "epub"],
+      "cover": "/image/images_page_02/img_k1.png",
+      "readingProgress": 0,
+      "gallery_images": ["../image/images_page_02/img_k1.png", "./Gallery/image/images_page_02/img_k2.png"]
+    },
+    {
+      "id": 2,
+      "title": "Upanishads",
+      "description": "Ancient Sanskrit texts that contain the philosophical and spiritual teachings of Hinduism. They explore concepts of Brahman, Atman, and the nature of reality.",
+      "author": "Various Sages",
+      "year": "~800-500 BCE",
+      "category": "vedic",
+      "language": "sanskrit",
+      "format": ["pdf"],
+      "cover": "/image/images_page_02/img_n1.jpg",
+      "readingProgress": 0,
+      "gallery_images": ["/Gallery/image/images_page_02/img_n1.jpg", "./Gallery/image/images_page_02/img_n2.jpg"]
+    },
+    {
+      "id": 3,
+      "title": "Vedas",
+      "description": "The oldest sacred texts of Hinduism, composed in Vedic Sanskrit. They contain hymns, philosophical discussions, and instructions for rituals.",
+      "author": "Various Rishis",
+      "year": "~1500-500 BCE",
+      "category": "vedic",
+      "language": "sanskrit",
+      "format": ["pdf", "audio"],
+      "cover": "../image/images_page_02/model.png",
+      "readingProgress": 0,
+      "gallery_images": ["./image/images_page_02/model.png", "./Gallery/image/images_page_02/model_k3.png"]
+    },
+    {
+      "id": 4,
+      "title": "Ramayana",
+      "description": "An ancient Indian epic that narrates the journey of Rama, a prince of Ayodhya, whose wife Sita is abducted by the demon king Ravana.",
+      "author": "Valmiki",
+      "year": "~500-100 BCE",
+      "category": "puranas",
+      "language": "sanskrit",
+      "format": ["pdf", "epub"],
+      "cover": "../image/images_page_02/img_rv2.jpg",
+      "readingProgress": 0,
+      "gallery_images": ["./image/images_page_02/img_rv2.jpg", "./Gallery/image/images_page_02/img_rv3.jpg", "./Gallery/image/images_page_02/img_rv4.jpg"]
+    },
+    {
+      "id": 5,
+      "title": "Mahabharata",
+      "description": "One of the two major Sanskrit epics of ancient India. It narrates the struggle between two groups of cousins in the Kurukshetra War and the fates of the Kaurava and the Pandava princes.",
+      "author": "Vyasa",
+      "year": "~400 BCE-400 CE",
+      "category": "puranas",
+      "language": "sanskrit",
+      "format": ["pdf", "epub", "audio"],
+      "cover": "/image/images_page_02/img_bs1.jpg",
+      "readingProgress": 0,
+      "gallery_images": ["./image/images_page_02/img_bs1.jpg"]
+    },
+    {
+      "id": 6,
+      "title": "Srimad Bhagavatam",
+      "description": "One of the eighteen Puranas, a text from ancient India. It is the most complete and authoritative exposition of Vedantic philosophy, focusing on the devotion to Lord Krishna.",
+      "author": "Vyasa",
+      "year": "~800-1000 CE",
+      "category": "puranas",
+      "language": "sanskrit",
+      "format": ["pdf"],
+      "cover": "../image/images_page_02/img_s2.jpg",
+      "readingProgress": 0,
+      "gallery_images": ["./Gallery/image/images_page_02/img_s2.jpg", "./Gallery/image/images_page_02/img_s3.jpg"]
+    },
+    {
+      "id": 7,
+      "title": "Autobiography of a Yogi",
+      "description": "The autobiography of Paramahansa Yogananda that introduces the reader to his life and his encounters with spiritual figures of both the Eastern and the Western world.",
+      "author": "Paramahansa Yogananda",
+      "year": "1946",
+      "category": "modern",
+      "language": "english",
+      "format": ["pdf", "epub", "audio"],
+      "cover": "../image/Home Pics/img_rv04.png",
+      "readingProgress": 0,
+      "gallery_images": ["../Gallery/image/images_page_02/bg.png"]
+    },
+    {
+      "id": 8,
+      "title": "Living with the Himalayan Masters",
+      "description": "Swami Rama shares his experiences with the great teachers who guided his life, revealing the spiritual wisdom he received from them.",
+      "author": "Swami Rama",
+      "year": "1978",
+      "category": "modern",
+      "language": "english",
+      "format": ["pdf", "epub"],
+      "cover": "../image/images_page_02/img_rp1.jpg",
+      "readingProgress": 0,
+      "gallery_images": ["./Gallery/image/images_page_02/img_rp1.jpg", "./Gallery/image/images_page_02/img_rp3.jpg", "./Gallery/image/images_page_02/img_rp4.jpg"]
+    },
+    {
+      "id": 9,
+      "title": "The Gospel of Sri Ramakrishna",
+      "description": "A firsthand account of the life and teachings of Sri Ramakrishna, written by his disciple Mahendranath Gupta, who recorded his conversations with the master.",
+      "author": "Mahendranath Gupta",
+      "year": "1942",
+      "category": "modern",
+      "language": "english",
+      "format": ["pdf"],
+      "cover": "../image/images_page_02/img_rv2.jpg",
+      "readingProgress": 0,
+      "gallery_images": []
+    }
+  ]
+} 

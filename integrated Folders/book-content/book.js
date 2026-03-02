@@ -1,0 +1,862 @@
+// Make ScrollTrigger available for use in GSAP animations
+gsap.registerPlugin(ScrollTrigger);
+
+// Document ready function
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize book functionality
+  initBookInterface();
+  initScrollSections();
+  initBookNavigation();
+  initTableOfContents();
+  initThemeToggle();
+  initNotes();
+  initFullscreen();
+  updateReadingProgress();
+});
+
+// Initialize the main book interface
+function initBookInterface() {
+  // Show cover on load
+  const bookCover = document.getElementById('book-cover');
+  const startReadingBtn = document.getElementById('start-reading');
+  
+  if (bookCover && startReadingBtn) {
+    // Check if user has already started reading
+    const hasStartedReading = sessionStorage.getItem('hasStartedReading');
+    
+    if (hasStartedReading) {
+      bookCover.style.display = 'none';
+    } else {
+      // When user clicks start reading, hide cover
+      startReadingBtn.addEventListener('click', function() {
+        gsap.to(bookCover, {
+          opacity: 0,
+          duration: 0.5,
+          onComplete: function() {
+            bookCover.style.display = 'none';
+            sessionStorage.setItem('hasStartedReading', 'true');
+          }
+        });
+      });
+    }
+  }
+
+  // Handle restart reading button
+  const restartBtn = document.getElementById('restart-book');
+  if (restartBtn) {
+    restartBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (bookCover) {
+        bookCover.style.display = 'flex';
+        gsap.fromTo(bookCover, 
+          { opacity: 0 }, 
+          { opacity: 1, duration: 0.5 }
+        );
+        sessionStorage.removeItem('hasStartedReading');
+      }
+    });
+  }
+
+  // Handle share button
+  const shareBtn = document.getElementById('share-book');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', function() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'The Wonders of Nature',
+          text: 'Check out this amazing interactive book about nature!',
+          url: window.location.href
+        })
+        .then(() => showNotification('Book shared successfully!', 'success'))
+        .catch(() => showNotification('Could not share the book', 'error'));
+      } else {
+        // Fallback for browsers that don't support the Web Share API
+        navigator.clipboard.writeText(window.location.href)
+          .then(() => showNotification('Link copied to clipboard!', 'success'))
+          .catch(() => showNotification('Could not copy link', 'error'));
+      }
+    });
+  }
+}
+
+// Initialize scroll sections
+function initScrollSections() {
+  // Select the HTML elements needed for the animation
+  const scrollSections = document.querySelectorAll(".scroll-section");
+
+  // Setup scroll sections
+  scrollSections.forEach((section) => {
+    const wrapper = section.querySelector(".wrapper");
+    const items = wrapper.querySelectorAll(".item");
+
+    // Initialize direction
+    let direction = null;
+
+    if (section.classList.contains("vertical-section")) {
+      direction = "vertical";
+    } else if (section.classList.contains("horizontal-section")) {
+      direction = "horizontal";
+    }
+
+    initScroll(section, items, direction);
+  });
+
+  // Handle bookmark buttons
+  const bookmarkButtons = document.querySelectorAll('.bookmark');
+  bookmarkButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.classList.toggle('active');
+      const section = this.getAttribute('data-section');
+      const index = this.getAttribute('data-index');
+      const isActive = this.classList.contains('active');
+      
+      if (isActive) {
+        saveBookmark(section, index);
+        showNotification('Page bookmarked!', 'success');
+      } else {
+        removeBookmark(section, index);
+        showNotification('Bookmark removed', 'info');
+      }
+    });
+  });
+
+  // Handle note buttons
+  const noteButtons = document.querySelectorAll('.notes');
+  const notesPanel = document.getElementById('notes-panel');
+  const pageNotesTextarea = document.getElementById('page-notes');
+  const saveNotesBtn = document.getElementById('save-notes');
+  const closeNotesBtn = document.getElementById('close-notes');
+  
+  let currentNoteSection = '';
+  let currentNoteIndex = '';
+
+  noteButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      currentNoteSection = this.getAttribute('data-section');
+      currentNoteIndex = this.getAttribute('data-index');
+      
+      // Load existing notes
+      const noteKey = `note_${currentNoteSection}_${currentNoteIndex}`;
+      const existingNote = localStorage.getItem(noteKey) || '';
+      
+      if (pageNotesTextarea) {
+        pageNotesTextarea.value = existingNote;
+      }
+      
+      if (notesPanel) {
+        notesPanel.classList.add('active');
+      }
+    });
+  });
+
+  if (closeNotesBtn) {
+    closeNotesBtn.addEventListener('click', function() {
+      notesPanel.classList.remove('active');
+    });
+  }
+
+  if (saveNotesBtn) {
+    saveNotesBtn.addEventListener('click', function() {
+      const noteKey = `note_${currentNoteSection}_${currentNoteIndex}`;
+      localStorage.setItem(noteKey, pageNotesTextarea.value);
+      showNotification('Notes saved successfully!', 'success');
+      
+      // Highlight note button if there's content
+      if (pageNotesTextarea.value.trim() !== '') {
+        document.querySelector(`.notes[data-section="${currentNoteSection}"][data-index="${currentNoteIndex}"]`).classList.add('active');
+      } else {
+        document.querySelector(`.notes[data-section="${currentNoteSection}"][data-index="${currentNoteIndex}"]`).classList.remove('active');
+      }
+    });
+  }
+
+  // Load existing bookmarks and notes
+  loadSavedBookmarks();
+  loadSavedNotes();
+}
+
+// Initialize the scroll animation for a section
+function initScroll(section, items, direction) {
+  // Initial states
+  items.forEach((item, index) => {
+    if (index !== 0) {
+      direction == "horizontal"
+        ? gsap.set(item, { xPercent: 100 })
+        : gsap.set(item, { yPercent: 100 });
+    }
+  });
+
+  // Store ID of ScrollTrigger for later access
+  const sectionId = section.id || "section-" + Math.random().toString(36).substr(2, 9);
+  section.id = sectionId;
+
+  const timeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: section,
+      pin: true,
+      start: "top top",
+      end: () => `+=${items.length * 100}%`,
+      scrub: 1,
+      id: sectionId, // Assign ID for later reference
+      invalidateOnRefresh: true,
+      onUpdate: function(self) {
+        updatePageIndicator(self, section, items);
+      }
+    },
+    defaults: { ease: "none" },
+  });
+  
+  items.forEach((item, index) => {
+    timeline.to(item, {
+      scale: 0.9,
+      borderRadius: "10px",
+    });
+
+    direction == "horizontal"
+      ? timeline.to(
+          items[index + 1],
+          {
+            xPercent: 0,
+          },
+          "<"
+        )
+      : timeline.to(
+          items[index + 1],
+          {
+            yPercent: 0,
+          },
+          "<"
+        );
+  });
+}
+
+// Handle book navigation
+function initBookNavigation() {
+  const prevBtn = document.getElementById('prev-page');
+  const nextBtn = document.getElementById('next-page');
+  const currentPageEl = document.getElementById('current-page');
+  const totalPagesEl = document.getElementById('total-pages');
+  
+  // Calculate total pages
+  const totalItems = document.querySelectorAll('.item').length;
+  
+  if (totalPagesEl) {
+    totalPagesEl.textContent = totalItems;
+  }
+  
+  if (prevBtn) {
+    prevBtn.addEventListener('click', function() {
+      const currentPage = parseInt(currentPageEl.textContent);
+      if (currentPage > 1) {
+        navigateToPage(currentPage - 1);
+      }
+    });
+  }
+  
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function() {
+      const currentPage = parseInt(currentPageEl.textContent);
+      if (currentPage < totalItems) {
+        navigateToPage(currentPage + 1);
+      }
+    });
+  }
+  
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    const currentPage = parseInt(currentPageEl.textContent);
+    
+    if (e.key === 'ArrowLeft' && currentPage > 1) {
+      navigateToPage(currentPage - 1);
+    } else if (e.key === 'ArrowRight' && currentPage < totalItems) {
+      navigateToPage(currentPage + 1);
+    }
+  });
+}
+
+// Navigate to a specific page
+function navigateToPage(pageNumber) {
+  const items = document.querySelectorAll('.item');
+  const currentPageEl = document.getElementById('current-page');
+  const prevBtn = document.getElementById('prev-page');
+  const nextBtn = document.getElementById('next-page');
+  
+  if (pageNumber < 1 || pageNumber > items.length) {
+    return;
+  }
+  
+  // Update page indicator
+  if (currentPageEl) {
+    currentPageEl.textContent = pageNumber;
+  }
+  
+  // Update button states
+  if (prevBtn) {
+    prevBtn.disabled = pageNumber === 1;
+  }
+  
+  if (nextBtn) {
+    nextBtn.disabled = pageNumber === items.length;
+  }
+  
+  // Find section containing the target page
+  let targetSection;
+  let targetIndex;
+  
+  if (pageNumber <= 4) {
+    targetSection = 'vertical-section';
+    targetIndex = pageNumber - 1;
+  } else {
+    targetSection = 'horizontal-section';
+    targetIndex = pageNumber - 5;
+  }
+  
+  // Find the section element
+  const section = document.querySelector(`.${targetSection}`);
+  if (!section) return;
+  
+  // Scroll to section first
+  const sectionRect = section.getBoundingClientRect();
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const sectionTop = scrollTop + sectionRect.top;
+  
+  // Scroll to section
+  window.scrollTo({
+    top: sectionTop,
+    behavior: 'smooth'
+  });
+  
+  // Let the scroll complete, then handle the page change
+  setTimeout(() => {
+    // Get items in this section
+    const sectionItems = section.querySelectorAll('.item');
+    const targetItem = sectionItems[targetIndex];
+    
+    if (!targetItem) return;
+    
+    // For direct access to the ScrollTrigger instance
+    const stInstance = ScrollTrigger.getById(section.id);
+    
+    if (stInstance) {
+      // Calculate progress value for the target page
+      const progressValue = targetIndex / (sectionItems.length - 1);
+      
+      // Directly set the scroll position for the ScrollTrigger instance
+      gsap.to(window, {
+        scrollTo: {
+          y: stInstance.start + ((stInstance.end - stInstance.start) * progressValue),
+          autoKill: false
+        },
+        duration: 0.5,
+        ease: "power2.inOut"
+      });
+    } else {
+      // Fallback method if ScrollTrigger instance is not found
+      // Force scroll manually
+      const progress = targetIndex / (sectionItems.length - 1);
+      const scrollDistance = section.scrollHeight * progress;
+      
+      // Manually change appearance
+      sectionItems.forEach((item, idx) => {
+        if (idx < targetIndex) {
+          gsap.set(item, { scale: 0.9, borderRadius: "10px" });
+          
+          // Set position based on direction
+          if (section.classList.contains("horizontal-section")) {
+            gsap.set(item, { xPercent: 0 });
+          } else {
+            gsap.set(item, { yPercent: 0 });
+          }
+        } else if (idx === targetIndex) {
+          gsap.set(item, { scale: 1, borderRadius: 0 });
+          
+          // Set position based on direction
+          if (section.classList.contains("horizontal-section")) {
+            gsap.set(item, { xPercent: 0 });
+          } else {
+            gsap.set(item, { yPercent: 0 });
+          }
+        } else {
+          // Set position based on direction
+          if (section.classList.contains("horizontal-section")) {
+            gsap.set(item, { xPercent: 100 });
+          } else {
+            gsap.set(item, { yPercent: 100 });
+          }
+        }
+      });
+    }
+  }, 300); // Give time for the scroll to section to complete
+  
+  // Update TOC highlighting
+  document.querySelectorAll('.toc-item').forEach(item => {
+    item.classList.remove('active');
+  });
+  
+  const tocItem = document.querySelector(`.toc-item[data-section="${targetSection}"][data-index="${targetIndex}"]`);
+  if (tocItem) {
+    tocItem.classList.add('active');
+  }
+}
+
+// Update page indicator during scroll
+function updatePageIndicator(self, section, items) {
+  const currentPageEl = document.getElementById('current-page');
+  const prevBtn = document.getElementById('prev-page');
+  const nextBtn = document.getElementById('next-page');
+  
+  if (!currentPageEl) return;
+  
+  // Calculate current page based on progress
+  const progress = Math.round(self.progress * (items.length - 1));
+  let pageNumber;
+  
+  if (section.classList.contains('vertical-section')) {
+    pageNumber = progress + 1;
+  } else {
+    pageNumber = progress + 5; // Start from 5 for horizontal section
+  }
+  
+  // Update page indicator
+  currentPageEl.textContent = pageNumber;
+  
+  // Update button states
+  if (prevBtn) {
+    prevBtn.disabled = pageNumber === 1;
+  }
+  
+  if (nextBtn) {
+    nextBtn.disabled = pageNumber === document.querySelectorAll('.item').length;
+  }
+  
+  // Update TOC highlighting
+  updateTocHighlighting(section.className, progress);
+}
+
+// Initialize table of contents
+function initTableOfContents() {
+  const toggleTocBtn = document.getElementById('toggle-toc');
+  const closeTocBtn = document.getElementById('close-toc');
+  const toc = document.getElementById('toc');
+  const tocItems = document.querySelectorAll('.toc-item');
+  
+  if (toggleTocBtn && toc) {
+    toggleTocBtn.addEventListener('click', function() {
+      toc.classList.toggle('active');
+    });
+  }
+  
+  if (closeTocBtn && toc) {
+    closeTocBtn.addEventListener('click', function() {
+      toc.classList.remove('active');
+    });
+  }
+  
+  // Handle TOC item clicks
+  tocItems.forEach(item => {
+    item.addEventListener('click', function() {
+      const section = this.getAttribute('data-section');
+      const index = parseInt(this.getAttribute('data-index'));
+      let pageNumber;
+      
+      if (section === 'vertical-section') {
+        pageNumber = index + 1;
+      } else {
+        pageNumber = index + 5;
+      }
+      
+      navigateToPage(pageNumber);
+      
+      // Close TOC on mobile
+      if (window.innerWidth < 768) {
+        toc.classList.remove('active');
+      }
+    });
+  });
+}
+
+// Update TOC highlighting based on current section and progress
+function updateTocHighlighting(sectionClass, progress) {
+  const tocItems = document.querySelectorAll('.toc-item');
+  
+  tocItems.forEach(item => {
+    item.classList.remove('active');
+  });
+  
+  let section = '';
+  if (sectionClass.includes('vertical-section')) {
+    section = 'vertical-section';
+  } else if (sectionClass.includes('horizontal-section')) {
+    section = 'horizontal-section';
+  }
+  
+  const activeItem = document.querySelector(`.toc-item[data-section="${section}"][data-index="${progress}"]`);
+  if (activeItem) {
+    activeItem.classList.add('active');
+  }
+}
+
+// Initialize dark/light theme toggle
+function initThemeToggle() {
+  const themeToggle = document.getElementById('toggle-theme');
+  
+  // Check saved theme
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+    if (themeToggle) {
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i><span>Light</span>';
+    }
+  }
+  
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function() {
+      document.body.classList.toggle('dark-mode');
+      
+      if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i><span>Light</span>';
+      } else {
+        localStorage.setItem('theme', 'light');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i><span>Dark</span>';
+      }
+    });
+  }
+}
+
+// Initialize notes functionality
+function initNotes() {
+  // Implemented in initScrollSections for simplicity
+}
+
+// Initialize fullscreen functionality
+function initFullscreen() {
+  const fullscreenBtn = document.getElementById('toggle-fullscreen');
+  
+  if (fullscreenBtn) {
+    fullscreenBtn.addEventListener('click', function() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          showNotification('Fullscreen mode is not supported by your browser', 'error');
+        });
+        fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i><span>Exit</span>';
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+          fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i><span>Fullscreen</span>';
+        }
+      }
+    });
+  }
+  
+  // Handle fullscreen change
+  document.addEventListener('fullscreenchange', function() {
+    if (!document.fullscreenElement && fullscreenBtn) {
+      fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i><span>Fullscreen</span>';
+    }
+  });
+}
+
+// Update reading progress bar
+function updateReadingProgress() {
+  const progressBar = document.getElementById('reading-progress');
+  
+  window.addEventListener('scroll', function() {
+    if (progressBar) {
+      const windowHeight = document.documentElement.clientHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      
+      const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+      progressBar.style.width = scrollPercent + '%';
+    }
+  });
+}
+
+// Save bookmark to localStorage
+function saveBookmark(section, index) {
+  const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+  const bookmark = { section, index };
+  
+  // Check if bookmark already exists
+  const exists = bookmarks.some(b => b.section === section && b.index === index);
+  
+  if (!exists) {
+    bookmarks.push(bookmark);
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  }
+}
+
+// Remove bookmark from localStorage
+function removeBookmark(section, index) {
+  const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+  const filteredBookmarks = bookmarks.filter(b => !(b.section === section && b.index === index));
+  
+  localStorage.setItem('bookmarks', JSON.stringify(filteredBookmarks));
+}
+
+// Load saved bookmarks from localStorage
+function loadSavedBookmarks() {
+  const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+  
+  bookmarks.forEach(bookmark => {
+    const btn = document.querySelector(`.bookmark[data-section="${bookmark.section}"][data-index="${bookmark.index}"]`);
+    if (btn) {
+      btn.classList.add('active');
+    }
+  });
+}
+
+// Load saved notes
+function loadSavedNotes() {
+  const noteButtons = document.querySelectorAll('.notes');
+  
+  noteButtons.forEach(btn => {
+    const section = btn.getAttribute('data-section');
+    const index = btn.getAttribute('data-index');
+    const noteKey = `note_${section}_${index}`;
+    const existingNote = localStorage.getItem(noteKey);
+    
+    if (existingNote && existingNote.trim() !== '') {
+      btn.classList.add('active');
+    }
+  });
+}
+
+// Play notification sound based on type
+function playNotificationSound(type) {
+  // Create audio context only when needed to comply with autoplay policies
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContext) return;
+  
+  try {
+    const context = new AudioContext();
+    const oscillator = context.createOscillator();
+    const gainNode = context.createGain();
+    
+    // Configure sound based on notification type
+    switch(type) {
+      case 'success':
+        // Success: Gentle chime sound
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(880, context.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(660, context.currentTime + 0.2);
+        gainNode.gain.setValueAtTime(0.15, context.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, context.currentTime + 0.5);
+        break;
+      case 'error':
+        // Error: Double low tone
+        oscillator.type = 'triangle';
+        oscillator.frequency.setValueAtTime(320, context.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(180, context.currentTime + 0.3);
+        gainNode.gain.setValueAtTime(0.15, context.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, context.currentTime + 0.4);
+        break;
+      default: // info
+        // Info: Soft ping
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(520, context.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(480, context.currentTime + 0.2);
+        gainNode.gain.setValueAtTime(0.1, context.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, context.currentTime + 0.3);
+    }
+    
+    // Connect the nodes and start
+    oscillator.connect(gainNode);
+    gainNode.connect(context.destination);
+    oscillator.start();
+    
+    // Stop the sound after duration
+    oscillator.stop(context.currentTime + 0.7);
+  } catch (e) {
+    console.log('Audio notification error:', e);
+    // Silently fail if browser doesn't support audio
+  }
+}
+
+// Show notification
+function showNotification(message, type = 'info') {
+  const notifications = document.getElementById('notifications');
+  
+  if (!notifications) return;
+  
+  // Play notification sound
+  playNotificationSound(type);
+  
+  const notification = document.createElement('div');
+  notification.className = `notification ${type}`;
+  
+  // Get current time
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const formattedTime = `${hours % 12 || 12}:${minutes < 10 ? '0' + minutes : minutes} ${hours >= 12 ? 'PM' : 'AM'}`;
+  
+  // Create notification content
+  let appName = '';
+  let icon = '';
+  if (type === 'success') {
+    appName = 'Success';
+    icon = '<i class="fas fa-check"></i>';
+  } else if (type === 'error') {
+    appName = 'Alert';
+    icon = '<i class="fas fa-exclamation"></i>';
+  } else {
+    appName = 'Info';
+    icon = '<i class="fas fa-info"></i>';
+  }
+  
+  // Create notification header
+  const header = document.createElement('div');
+  header.className = 'notification-header';
+  header.innerHTML = `
+    <div class="notification-app-icon">${icon}</div>
+    <div class="notification-app-name">${appName}</div>
+    <div class="notification-time">${formattedTime}</div>
+  `;
+  
+  // Create notification content
+  const content = document.createElement('div');
+  content.className = 'notification-content';
+  content.innerHTML = `<span>${message}</span>`;
+  
+  notification.appendChild(header);
+  notification.appendChild(content);
+  notifications.appendChild(notification);
+  
+  // Mobile device haptic feedback (if available)
+  if (window.navigator && window.navigator.vibrate) {
+    try {
+      window.navigator.vibrate(50);
+    } catch (e) {
+      // Silently fail if vibration API not supported
+    }
+  }
+  
+  // Auto remove after delay
+  const timeoutId = setTimeout(() => {
+    notification.classList.add('hide');
+    setTimeout(() => {
+      notification.remove();
+    }, 300);
+  }, 3000);
+  
+  // If user hovers, pause the auto-removal
+  notification.addEventListener('mouseenter', () => {
+    clearTimeout(timeoutId);
+  });
+  
+  // Resume auto-removal on mouse leave
+  notification.addEventListener('mouseleave', () => {
+    const newTimeoutId = setTimeout(() => {
+      notification.classList.add('hide');
+      setTimeout(() => {
+        notification.remove();
+      }, 300);
+    }, 1500);
+    
+    // Store the new timeout ID
+    notification.dataset.timeoutId = newTimeoutId;
+  });
+  
+  // Add swipe functionality
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchEndX = 0;
+  let touchEndY = 0;
+  const minSwipeDistance = 50;
+  
+  notification.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].clientX;
+    touchStartY = e.changedTouches[0].clientY;
+    
+    // Add class to indicate touch in progress
+    notification.classList.add('swiping');
+  }, { passive: true });
+  
+  notification.addEventListener('touchmove', e => {
+    // Get current touch position
+    const currentX = e.changedTouches[0].clientX;
+    const currentY = e.changedTouches[0].clientY;
+    
+    // Calculate distance moved
+    const deltaX = currentX - touchStartX;
+    const deltaY = currentY - touchStartY;
+    
+    // Apply transform based on movement (horizontal movement takes precedence)
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      notification.style.transform = `translateX(${deltaX}px)`;
+    } else {
+      notification.style.transform = `translateY(${deltaY}px)`;
+    }
+    
+    // Decrease opacity as it's moved
+    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    const maxDistance = 150;
+    const opacity = Math.max(0, 1 - distance / maxDistance);
+    notification.style.opacity = opacity;
+  }, { passive: true });
+  
+  notification.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].clientX;
+    touchEndY = e.changedTouches[0].clientY;
+    
+    // Remove swiping class
+    notification.classList.remove('swiping');
+    
+    // Calculate distance
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    
+    if (distance >= minSwipeDistance) {
+      // Determine direction for animation class
+      let direction;
+      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        direction = deltaX > 0 ? 'right' : 'left';
+      } else {
+        direction = deltaY > 0 ? 'down' : 'up';
+      }
+      
+      // Add appropriate direction class
+      notification.classList.add(`swipe-${direction}`);
+      
+      // Vibrate if supported
+      if (window.navigator && window.navigator.vibrate) {
+        try {
+          window.navigator.vibrate(20);
+        } catch (e) {
+          // Silently fail
+        }
+      }
+      
+      // Remove after animation
+      setTimeout(() => {
+        notification.remove();
+      }, 300);
+    } else {
+      // Reset transform and opacity if not swiped far enough
+      notification.style.transform = '';
+      notification.style.opacity = '';
+    }
+  }, { passive: true });
+  
+  return notification;
+}
+
+// Add GSAP scrollTo plugin to handle smoother scrolling
+window.addEventListener('load', function() {
+  // Check if GSAP ScrollToPlugin is available
+  if (gsap.getProperty && typeof gsap.getProperty === 'function') {
+    if (!gsap.plugins || !gsap.plugins.scrollTo) {
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js';
+      script.async = true;
+      document.head.appendChild(script);
+      
+      script.onload = function() {
+        console.log('ScrollToPlugin loaded successfully');
+      };
+    }
+  }
+});

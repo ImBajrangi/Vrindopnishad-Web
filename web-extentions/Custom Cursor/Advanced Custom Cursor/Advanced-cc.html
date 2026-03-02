@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://imbajrangi.github.io/Company/Vrindopnishad%20Web/class/logo/v-logo-transparent.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Cursor Example</title>
+    
+    <!-- Include the custom cursor CSS -->
+    <link rel="stylesheet" href="Advanced-cc.css">
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 4rem 2rem;
+            min-height: 100vh;
+            background: #000000;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #6366f1;
+            color: #6366f1;
+        }
+
+        .card {
+            color: #000000;
+            background: rgb(255, 255, 255);
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body>
+    <!-- Required HTML for cursor -->
+    <div class="cursor">
+        <div class="cursor-core"></div>
+        <div class="cursor-ring"></div>
+    </div>
+    <div class="cursor-connector"></div>
+    <div class="cursor-text"></div>
+
+    <!-- Your page content -->
+    <div class="container">
+        <h1>Custom Cursor Example</h1>
+        
+        <p>Move your cursor around to see the physics-based motion. Hover over interactive elements to see the label bar appear.</p>
+
+        <div class="card">
+            <h2>Interactive Card</h2>
+            <p>This card will show cursor interactions when you hover over the buttons below.</p>
+            
+            <div class="button-group">
+                <button class="btn btn-primary">Primary Button</button>
+                <button class="btn btn-secondary">Secondary Button</button>
+                <a href="#" class="btn btn-primary">Link Button</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>More Content</h2>
+            <p>The cursor will follow your movements smoothly with spring physics and create particle trails.</p>
+        </div>
+    </div>
+
+    <!-- Include the custom cursor JavaScript -->
+    <script src="Advanced-cc.js"></script>
+
+    <!-- Optional: Custom configuration -->
+    <script>
+        // The cursor is auto-initialized, but you can configure it:
+        
+        // window.customCursor = initCustomCursor({
+        //     springConstant: 0.35,
+        //     damping: 0.75,
+        //     labelLerp: 0.12,
+        //     interactiveElements: {
+        //         'a': { text: 'Navigate', icon: '→' },
+        //         'button': { text: 'Click', icon: '✦' },
+        //         '.btn-primary': { text: 'Submit', icon: '✓' },
+        //         '.card': { text: 'View Card', icon: '👁' }
+        //     }
+        // });
+        
+
+        // Add custom interactive elements dynamically:
+        if (window.customCursor) {
+            window.customCursor.addInteractiveElement('.card', 'Explore', '📄');
+        }
+    </script>
+</body>
+</html>

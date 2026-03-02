@@ -1,0 +1,257 @@
+{
+    "overview": {
+        "title": "Welcome to Vrindopnishad Privacy & Terms",
+        "lastModified": "December 20, 2026",
+        "pdfUrl": "../assets/pdfs/privacy_overview.pdf",
+        "sections": [
+            {
+                "id": "overview-intro",
+                "title": "",
+                "items": [
+                    {
+                        "type": "text",
+                        "content": "When you use Vrindopnishad services, you trust us with your information. This Privacy & Terms site is meant to help you understand what data we collect, why we collect it, and what we do with it."
+                    },
+                    {
+                        "type": "text",
+                        "content": "We build a range of services that help thousands of people explore the spiritual and creative world in new ways. Our services include:"
+                    },
+                    {
+                        "type": "list",
+                        "content": [
+                            "Vrindopnishad Digital Sanctuary and interactive stories",
+                            "Vrinda Chat community platform",
+                            "Brij Yatra pilgrimage visualizers",
+                            "Creative WebGL experiments and art galleries"
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "privacy-basics",
+                "title": "Privacy Basics",
+                "items": [
+                    {
+                        "type": "text",
+                        "content": "You can use our services in a variety of ways to manage your privacy. For example, you can sign up for a Vrindopnishad Account if you want to create and manage content like messages or saved pilgrimage routes."
+                    }
+                ]
+            }
+        ]
+    },
+    "privacy": {
+        "title": "Vrindopnishad Privacy Policy",
+        "lastModified": "December 20, 2026",
+        "pdfUrl": "../assets/pdfs/privacy_policy.pdf",
+        "sections": [
+            {
+                "id": "privacy-intro",
+                "title": "",
+                "items": [
+                    {
+                        "type": "text",
+                        "content": "Privacy is fundamental to Vrindopnishad. We build services that help you explore the spiritual world, and protecting your data is part of that mission. This Privacy Policy explains what information we collect and why."
+                    }
+                ]
+            },
+            {
+                "id": "data-collect",
+                "title": "Information Vrindopnishad collects",
+                "items": [
+                    {
+                        "type": "text",
+                        "content": "We want you to understand the types of information we collect as you use our services:"
+                    },
+                    {
+                        "type": "list",
+                        "content": [
+                            "Things you create or provide to us (like messages in Vrinda Chat or your profile info)",
+                            "Information we collect as you use our services (like your interactions with Brij Yatra maps)",
+                            "Device information and browser types used to access our WebGL experiments"
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "why-collect",
+                "title": "Why Vrindopnishad collects data",
+                "items": [
+                    {
+                        "type": "text",
+                        "content": "We use the information we collect from all of our services for the following purposes:"
+                    },
+                    {
+                        "type": "list",
+                        "content": [
+                            "Provide our services: To deliver immersive spiritual experiences",
+                            "Maintain & improve our services: To ensure our shaders run smoothly on your device",
+                            "Develop new services: Using community feedback from Vrinda Chat",
+                            "Measure performance: To understand how our digital galleries are being explored"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "terms": {
+        "title": "Vrindopnishad Terms of Service",
+        "lastModified": "December 20, 2026",
+        "pdfUrl": "../assets/pdfs/terms_of_service.pdf",
+        "sections": [
+            {
+                "id": "intro",
+                "title": "",
+                "items": [
+                    {
+                        "type": "text",
+                        "content": "We know it’s tempting to skip these Terms of Service, but it’s important to establish what you can expect from us as you use Vrindopnishad services, and what we expect from you."
+                    },
+                    {
+                        "type": "text",
+                        "content": "These Terms of Service reflect the way Vrindopnishad’s business works, the laws that apply to our company, and certain things we’ve always believed to be true."
+                    }
+                ]
+            },
+            {
+                "id": "service-rules",
+                "title": "Using Vrindopnishad services",
+                "items": [
+                    {
+                        "type": "text",
+                        "content": "You must follow any policies made available to you within the services. Don’t misuse our services. For example, don’t interfere with our services or try to access them using a method other than the interface and the instructions that we provide."
+                    }
+                ]
+            },
+            {
+                "id": "content-rights",
+                "title": "Content in Vrindopnishad services",
+                "items": [
+                    {
+                        "type": "text",
+                        "content": "Some of our services allow you to upload, submit, store, send or receive content. You retain ownership of any intellectual property rights that you hold in that content. In short, what belongs to you stays yours."
+                    }
+                ]
+            }
+        ]
+    },
+    "technologies": {
+        "title": "Technologies and Principles",
+        "lastModified": "December 20, 2026",
+        "sections": [
+            {
+                "id": "tech-overview",
+                "title": "Our technical approach",
+                "items": [
+                    {
+                        "type": "text",
+                        "content": "Vrindopnishad is built at the intersection of spirituality and modern technology. We use a variety of tools to create our immersive environments:"
+                    },
+                    {
+                        "type": "list",
+                        "content": [
+                            "WebGL & GLSL: For high-performance visual effects and particle systems",
+                            "Three.js: For 3D rendering and scene management",
+                            "GSAP: For smooth, cinematic animations and transitions",
+                            "Locomotive Scroll: To provide a premium, smooth scrolling experience"
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "data-security",
+                "title": "Security technologies",
+                "items": [
+                    {
+                        "type": "text",
+                        "content": "We use industry-standard encryption and security protocols to protect your data in Vrinda Chat and during your account management."
+                    }
+                ]
+            }
+        ]
+    },
+    "faq": {
+        "title": "Frequently Asked Questions",
+        "lastModified": "December 20, 2026",
+        "sections": [
+            {
+                "id": "general-faq",
+                "title": "General Inquiries",
+                "items": [
+                    {
+                        "id": "q1",
+                        "title": "How do I update my profile?",
+                        "type": "text",
+                        "content": "You can update your profile information in the 'Account Settings' section of the Vrinda Chat application."
+                    },
+                    {
+                        "id": "q2",
+                        "title": "Are the Brij Yatra maps accurate?",
+                        "type": "text",
+                        "content": "Our maps are carefully curated spiritual guides. While based on real-world locations, they are optimized for spiritual exploration and story-telling."
+                    }
+                ]
+            },
+            {
+                "id": "technical-faq",
+                "title": "Technical Support",
+                "items": [
+                    {
+                        "id": "t1",
+                        "title": "Why is the page slow on my device?",
+                        "type": "text",
+                        "content": "Our WebGL experiments require a modern GPU. If you experience lag, try closing other browser tabs or updating your graphics drivers."
+                    }
+                ]
+            }
+        ]
+    },
+    "returns": {
+        "title": "Vrindopnishad Returns & Refunds",
+        "lastModified": "January 31, 2026",
+        "sections": [
+            {
+                "id": "return-overview",
+                "title": "Overview",
+                "items": [
+                    {
+                        "type": "text",
+                        "content": "Thank you for supporting Chitra Vrinda and Vrindopnishad. We strive to provide the highest quality divine art and spiritual experiences."
+                    }
+                ]
+            },
+            {
+                "id": "return-policy",
+                "title": "Standard Return Policy",
+                "items": [
+                    {
+                        "type": "text",
+                        "content": "We accept returns for products that are defective or damaged upon arrival. For non-defective products, we offer a 30-day return window from the date of purchase."
+                    },
+                    {
+                        "type": "list",
+                        "content": [
+                            "Returns must be initiated within 30 days of receiving your item.",
+                            "Items must be in the same condition as received.",
+                            "Exchanges are available for defective or incorrectly shipped items.",
+                            "Digital downloads are generally non-refundable once the file has been accessed."
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "refund-process",
+                "title": "Refund Process",
+                "items": [
+                    {
+                        "type": "text",
+                        "content": "Once your return is received and inspected, we will send you an email to notify you of the approval or rejection of your refund."
+                    },
+                    {
+                        "type": "text",
+                        "content": "If approved, your refund will be processed, and a credit will automatically be applied to your original method of payment within a certain amount of days."
+                    }
+                ]
+            }
+        ]
+    }
+}
