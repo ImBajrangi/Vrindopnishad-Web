@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "npm run setup-assets && vite",
-    "setup-assets": "mkdir -p public/class && cp -r ../../class/* public/class/ 2>/dev/null || true",
+    "setup-assets": "rm -rf public/class && mkdir -p public/class && cp -r ../../class/* public/class/ 2>/dev/null || true",
     "build": "npm run setup-assets && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
