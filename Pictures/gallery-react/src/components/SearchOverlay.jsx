@@ -25,7 +25,7 @@ const SearchOverlay = ({ active, onClose, collectionsData, onItemClick }) => {
         const filtered = allItems.filter(item =>
             (item.title && item.title.toLowerCase().includes(query.toLowerCase())) ||
             (item.description && item.description.toLowerCase().includes(query.toLowerCase())) ||
-            (item.tags && item.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())))
+            (Array.isArray(item.tags) && item.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())))
         ).slice(0, 10);
 
         setResults(filtered);

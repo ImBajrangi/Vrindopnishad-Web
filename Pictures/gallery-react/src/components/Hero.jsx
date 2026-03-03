@@ -1,7 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { useNotifications } from '../context/NotificationContext';
 
 const Hero = () => {
+    const { showNotification } = useNotifications();
+    const [currentBg, setCurrentBg] = useState(0);
+    const backgrounds = [
+        '/Pictures/gallery-react/public/class/v-logo-rounded/android-chrome-512x512.png', // Placeholder for actual hero backgrounds
+        '/Pictures/gallery-react/src/assets/react.svg'
+    ];
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentBg(prev => (prev + 1) % backgrounds.length);
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const handleExplore = () => {
+        showNotification('Exploring divine collections...', 'info');
+        document.querySelector('.featured-collections')?.scrollIntoView({ behavior: 'smooth' });
+    };
+
     return (
         <section className="hero">
             <div className="hero-content">
@@ -15,7 +35,7 @@ const Hero = () => {
                 </p>
                 <button
                     className="ripple-btn orange hero-cta-btn"
-                    onClick={() => document.querySelector('.featured-collections')?.scrollIntoView({ behavior: 'smooth' })}
+                    onClick={handleExplore}
                 >
                     <span className="btn-text">
                         Explore Collection
@@ -25,7 +45,10 @@ const Hero = () => {
             </div>
             <div className="hero-visual">
                 <div className="hero-image-wrapper">
-                    <div className="hero-image"></div>
+                    <div
+                        className="hero-image active"
+                        style={{ backgroundImage: `url(${backgrounds[currentBg]})`, transition: 'background-image 1s ease-in-out' }}
+                    ></div>
                     <div className="hero-image-overlay"></div>
                 </div>
                 <div className="hero-image-label">

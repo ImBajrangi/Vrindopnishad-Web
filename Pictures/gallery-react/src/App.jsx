@@ -5,8 +5,13 @@ import CollectionRow from './components/CollectionRow';
 import PopupModal from './components/PopupModal';
 import SearchOverlay from './components/SearchOverlay';
 import Footer from './components/Footer';
+import CollectionDetails from './components/CollectionDetails';
+import CustomCursor from './components/CustomCursor';
+import CookieConsent from './components/CookieConsent';
+import { NotificationProvider } from './context/NotificationContext';
 import { supabase } from './lib/supabaseClient';
 import './index.css';
+import './styles/premium-sync.css';
 
 function App() {
   const [collectionsData, setCollectionsData] = useState({});
@@ -17,9 +22,20 @@ function App() {
   });
   const [searchActive, setSearchActive] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [currentView, setCurrentView] = useState('gallery'); // 'gallery' or 'details'
+  const [detailsData, setDetailsData] = useState(null);
 
   useEffect(() => {
     fetchCollections();
+
+    // Disable right-click for image protection like vanilla version
+    const handleContextMenu = (e) => {
+      if (e.target.tagName === 'IMG' || e.target.closest('.collection-item') || e.target.closest('.main-image-container')) {
+        e.preventDefault();
+      }
+    };
+    document.addEventListener('contextmenu', handleContextMenu);
+    return () => document.removeEventListener('contextmenu', handleContextMenu);
   }, []);
 
   const fixPath = (path) => {
@@ -52,7 +68,7 @@ function App() {
           const fixedItem = {
             ...item,
             image: fixPath(item.image),
-            images: item.images ? item.images.map(img => fixPath(img)) : []
+            images: Array.isArray(item.images) ? item.images.map(img => fixPath(img)) : []
           };
 
           if (structuredData[section]) {
@@ -86,59 +102,86 @@ function App() {
     localStorage.setItem('myCollectionList', JSON.stringify(newList));
   };
 
+  const handleViewDetails = (item) => {
+    setDetailsData(item);
+    setCurrentView('details');
+    setSelectedItem(null);
+    window.scrollTo(0, 0);
+  };
+
+  const handleGoBack = () => {
+    setCurrentView('gallery');
+    setDetailsData(null);
+    window.scrollTo(0, 0);
+  };
+
   return (
-    <div className="app-container">
-      <Navbar
-        onSearchClick={() => setSearchActive(true)}
-        myListCount={myList.length}
-      />
+    <NotificationProvider>
+      <div className="app-container">
+        <CustomCursor />
+        <Navbar
+          onSearchClick={() => setSearchActive(true)}
+          myListCount={myList.length}
+        />
 
-      <SearchOverlay
-        active={searchActive}
-        onClose={() => setSearchActive(false)}
-        collectionsData={collectionsData}
-        onItemClick={(item) => {
-          setSelectedItem(item);
-          setSearchActive(false);
-        }}
-      />
+        <SearchOverlay
+          active={searchActive}
+          onClose={() => setSearchActive(false)}
+          collectionsData={collectionsData}
+          onItemClick={(item) => {
+            setSelectedItem(item);
+            setSearchActive(false);
+          }}
+        />
 
-      <Hero />
+        {currentView === 'gallery' ? (
+          <main className="main-content">
+            <Hero />
 
-      <main className="main-content">
-        {myList.length > 0 && (
-          <CollectionRow
-            title="My List"
-            items={myList}
-            onItemClick={setSelectedItem}
-            isMyList={true}
+            {myList.length > 0 && (
+              <CollectionRow
+                title="My List"
+                items={myList}
+                onItemClick={setSelectedItem}
+                isMyList={true}
+              />
+            )}
+
+            {Object.entries(collectionsData).map(([key, section]) => (
+              section.items.length > 0 && (
+                <CollectionRow
+                  key={key}
+                  title={section.title}
+                  items={section.items}
+                  onItemClick={setSelectedItem}
+                />
+              )
+            ))}
+
+            {loading && <div className="loading-state">Loading divine collections...</div>}
+            {error && <div className="error-state">Error: {error}</div>}
+          </main>
+        ) : (
+          <CollectionDetails
+            data={detailsData}
+            onBack={handleGoBack}
+            onToggleMyList={toggleMyList}
+            isInList={detailsData ? myList.some(i => i.id === detailsData.id) : false}
           />
         )}
 
-        {Object.entries(collectionsData).map(([key, section]) => (
-          section.items.length > 0 && (
-            <CollectionRow
-              key={key}
-              title={section.title}
-              items={section.items}
-              onItemClick={setSelectedItem}
-            />
-          )
-        ))}
+        <PopupModal
+          item={selectedItem}
+          onClose={() => setSelectedItem(null)}
+          onToggleMyList={toggleMyList}
+          isInList={selectedItem ? myList.some(i => i.id === selectedItem.id) : false}
+          onViewDetails={handleViewDetails}
+        />
 
-        {loading && <div className="loading-state">Loading divine collections...</div>}
-        {error && <div className="error-state">Error: {error}</div>}
-      </main>
-
-      <PopupModal
-        item={selectedItem}
-        onClose={() => setSelectedItem(null)}
-        onToggleMyList={toggleMyList}
-        isInList={selectedItem ? myList.some(i => i.id === selectedItem.id) : false}
-      />
-
-      <Footer />
-    </div>
+        <CookieConsent />
+        <Footer />
+      </div>
+    </NotificationProvider>
   );
 }
 

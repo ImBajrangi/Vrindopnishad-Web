@@ -1,7 +1,7 @@
 import React from 'react';
-import { X, Star, Play, Info, Share2, Plus, Check } from 'lucide-react';
+import { X, Star, Play, Share2, Plus, Check } from 'lucide-react';
 
-const PopupModal = ({ item, onClose, onToggleMyList, isInList }) => {
+const PopupModal = ({ item, onClose, onToggleMyList, isInList, onViewDetails }) => {
     if (!item) return null;
 
     return (
@@ -31,10 +31,7 @@ const PopupModal = ({ item, onClose, onToggleMyList, isInList }) => {
                     <div className="popup-actions">
                         <button
                             className="popup-btn popup-btn-primary"
-                            onClick={() => {
-                                sessionStorage.setItem('collectionData', JSON.stringify(item));
-                                window.location.href = `collection-details.html?id=${item.id}`;
-                            }}
+                            onClick={() => onViewDetails(item)}
                         >
                             <Play size={18} fill="currentColor" style={{ marginRight: '8px' }} /> View Collection
                         </button>
