@@ -1,8 +1,5 @@
-// Collection data - will be populated from JSON
+// Collection data - will be populated from Supabase
 let collectionsData = {};
-// Using relative path to avoid CORS issues when accessed from custom domain (vrindopnishad.in)
-// const dataUrl = "https://imbajrangi.github.io/Company/Vrindopnishad Web/class/json/collections_data.json";
-const dataUrl = "../../class/json/collection_data_price.json";
 
 // Search functionality
 function initializeSearch() {
@@ -283,67 +280,83 @@ function initializeSliders() {
 
 // Load collections data from JSON or Supabase
 async function loadCollectionsData() {
+    console.log('loadCollectionsData called');
+    let loadedFromSupabase = false;
     try {
         // --- NEW: Try fetching from Supabase first ---
         if (window.supabaseClient && typeof window.supabaseClient.from === 'function') {
-            console.log('Fetching collections from Supabase...');
-            const { data, error } = await window.supabaseClient
-                .from('collections')
-                .select('*');
+            console.log('Fetching collections data from Supabase...');
+            try {
+                const { data, error } = await window.supabaseClient
+                    .from('collections')
+                    .select('*');
 
-            if (!error && data && data.length > 0) {
-                console.log(`Loaded ${data.length} collections from Supabase`);
+                if (error) throw error;
 
-                // Group the flat Supabase data into the structured format the UI expects
-                const structuredData = {
-                    featured: { title: "Featured Collections", items: [] },
-                    popular: { title: "Popular Right Now", items: [] },
-                    rapper: { title: "Rapper Style", items: [] },
-                    anime: { title: "Anime Style", items: [] },
-                    dark: { title: "Dark Aesthetic", items: [] },
-                    warrior: { title: "Warrior Styles", items: [] },
-                    chhibi: { title: "Chhibi Styles", items: [] }
-                };
+                if (data && data.length > 0) {
+                    console.log(`Loaded ${data.length} collections from Supabase`);
 
-                data.forEach(item => {
-                    const section = item.cat_section || 'featured';
-                    if (structuredData[section]) {
-                        structuredData[section].items.push(item);
-                    } else {
-                        // If section doesn't exist, put in featured as fallback or create new
-                        if (!structuredData[section]) {
-                            structuredData[section] = { title: item.cat_section, items: [] };
+                    // Group the flat Supabase data into the structured format the UI expects
+                    const structuredData = {
+                        featured: { title: "Featured Collections", items: [] },
+                        popular: { title: "Popular Right Now", items: [] },
+                        rapper: { title: "Rapper Style", items: [] },
+                        anime: { title: "Anime Style", items: [] },
+                        dark: { title: "Dark Aesthetic", items: [] },
+                        warrior: { title: "Warrior Styles", items: [] },
+                        chhibi: { title: "Chhibi Styles", items: [] }
+                    };
+
+                    data.forEach(item => {
+                        const section = item.cat_section || 'featured';
+                        if (structuredData[section]) {
+                            structuredData[section].items.push(item);
+                        } else {
+                            if (!structuredData[section]) {
+                                structuredData[section] = { title: item.cat_section || section, items: [] };
+                            }
+                            structuredData[section].items.push(item);
                         }
-                        structuredData[section].items.push(item);
-                    }
-                });
+                    });
 
-                collectionsData = structuredData;
-                sessionStorage.setItem('allCollectionsData', JSON.stringify(structuredData));
-                return true;
-            } else if (error) {
-                console.warn('Supabase fetch error:', error.message);
+                    collectionsData = structuredData;
+                    sessionStorage.setItem('allCollectionsData', JSON.stringify(structuredData));
+
+                    // Trigger rendering
+                    if (typeof renderCollections === 'function') {
+                        renderCollections(collectionsData);
+                    }
+                    loadedFromSupabase = true;
+                } else {
+                    console.log('Supabase returned empty data, falling back to JSON');
+                }
+            } catch (err) {
+                console.warn('Supabase fetch failed:', err.message, err);
+                console.log('Falling back to local collections JSON...');
             }
         }
 
-        // --- FALLBACK: Load from local JSON ---
-        console.log('Falling back to local collections JSON...');
-        const response = await fetch(dataUrl);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.json();
-        collectionsData = data.collections || data;
-
-        if (data.collections) {
-            sessionStorage.setItem('allCollectionsData', JSON.stringify(data.collections));
+        // --- FALLBACK REMOVED: Load ONLY from Supabase ---
+        if (!loadedFromSupabase) {
+            console.warn('Gallery failed to load from Supabase and JSON fallback is disabled.');
+            // Display an error message to the user in the UI
+            const container = document.querySelector('.main-content') || document.body;
+            if (container) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'supabase-error-message';
+                errorDiv.style.cssText = 'text-align: center; padding: 50px; color: #ff4444; font-family: Inter, sans-serif;';
+                errorDiv.innerHTML = `
+                    <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                    <h2>Connection Error</h2>
+                    <p>Unable to load divine collections from the database. Please check your connection or try again later.</p>
+                `;
+                container.prepend(errorDiv);
+            }
         }
 
-        if (data.heroSection) updateHeroSection(data.heroSection);
-        if (data.siteConfig) updateSiteConfig(data.siteConfig);
-        if (data.navigation) updateNavigation(data.navigation);
-
-        return true;
+        return loadedFromSupabase;
     } catch (error) {
-        console.error('Error loading collections data:', error);
+        console.error('Critical error in loadCollectionsData:', error);
         return false;
     }
 }
