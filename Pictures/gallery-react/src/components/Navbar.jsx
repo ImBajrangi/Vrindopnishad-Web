@@ -33,7 +33,7 @@ const Navbar = ({ onSearchClick, myListCount }) => {
         <>
             <header className={`header ${isScrolled ? 'scrolled' : ''}`} id="header">
                 <a href="/" className="logo">
-                    <img src="/class/logo/v-logo-transparent.png" alt="Chitra Vrinda" className="logo-img" />
+                    <img src="https://vrindopnishad.in/class/logo/v-logo-transparent.png" alt="Chitra Vrinda" className="logo-img" />
                     <span className="logo-text">Chitra Vrinda</span>
                 </a>
 

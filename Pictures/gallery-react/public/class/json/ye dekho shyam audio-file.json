@@ -1,0 +1,106 @@
+{
+  "collection": {
+    "name": "Shri Harivansh",
+    "entries": [
+      {
+        "id": "entry-1760193083639-lnwlonauq",
+        "title": "Ye Dekho Shyam",
+        "description": "",
+        "category": "",
+        "tags": [],
+        "content": {
+          "id": 1760193083640,
+          "title": "Ye Dekho Shyam",
+          "type": "page",
+          "status": "published",
+          "excerpt": "",
+          "content": "ये देखो श्याम,\nये देखो श्याम ,\nयही तो हैं मेरे जीवन प्राण ।\nनैनाभीराम बंक मुस्कान,\nबोह मरोड़, लजावत काम ।\nलीलाभीराम प्रेम निधान,\nयही तो हैं मेरे सुंदर श्याम ।",
+          "tags": [
+            "इंद्रेश जी महाराज",
+            "श्री राजेंद्रदास जी महाराज"
+          ],
+          "created": "2026-10-11T14:31:23.640Z",
+          "modified": "2026-10-11T14:31:23.640Z"
+        },
+        "images": [],
+        "videos": [
+          {
+            "id": "entry-1760193078228-fh3hs12m7",
+            "title": "Shri Indresh ji maharaj Voice",
+            "url": "https://youtu.be/MVoGt_WoP1w",
+            "type": "video"
+          }
+        ],
+        "audios": [
+          {
+            "id": "entry-1760192305966-7sgyltsox",
+            "title": "Ye Dekho Shyam",
+            "url": "https://youtu.be/NfhbqEMZD4Y?list=RDjZlbuIQlvlQ",
+            "type": "audio"
+          }
+        ],
+        "links": [],
+        "created": "2026-10-11T14:31:23.640Z",
+        "modified": "2026-10-11T14:31:23.640Z"
+      },
+      {
+        "id": "entry-1760194564512-yu59x1hnp",
+        "title": "ये देखो श्याम",
+        "description": "",
+        "category": "",
+        "tags": [],
+        "content": {
+          "id": 1760194564512,
+          "title": "ये देखो श्याम",
+          "type": "page",
+          "status": "draft",
+          "excerpt": "",
+          "content": "ये देखो श्याम,\nये देखो श्याम ,\nयही तो हैं मेरे जीवन प्राण ।\nनैनाभीराम बंक मुस्कान,\nबोह मरोड़, लजावत काम ।\nलीलाभीराम प्रेम निधान,\nयही तो हैं मेरे सुंदर श्याम ।",
+          "tags": [
+            "इंद्रेश जी महाराज",
+            "श्री राजेंद्रदास जी महाराज"
+          ],
+          "created": "2026-10-11T14:56:04.512Z",
+          "modified": "2026-10-11T14:56:04.512Z"
+        },
+        "images": [],
+        "videos": [
+          {
+            "id": "entry-1760194468718-k63ezeqx5",
+            "title": "Video On Youtube",
+            "url": "https://youtu.be/NfhbqEMZD4Y",
+            "type": "video"
+          },
+          {
+            "id": "entry-1760194559869-l3wk5458b",
+            "title": "Video On Bhakti Path",
+            "url": "https://youtu.be/MVoGt_WoP1w",
+            "type": "video"
+          }
+        ],
+        "audios": [
+          {
+            "id": "entry-1760194384051-y5jdfumii",
+            "title": "Voice Of Pujya Shri Indresh Ji Maharaj",
+            "url": "https://github.com/ImBajrangi/Company/tree/main/Vrindopnishad%20Web/class/audio/Yeh Dekho Shyam - Pujya Shri Indresh Ji Maharaj.m4a",
+            "type": "audio"
+          },
+          {
+            "id": "entry-1760194441835-lk883ytkr",
+            "title": "Voice Of Pujya Shri Rajendra Daas Ji Maharaj Ji",
+            "url": "https://github.com/ImBajrangi/Company/tree/main/Vrindopnishad%20Web/class/audio/Ye Dekho Shyam - Pujya Shri Rajendra das Ji Maharaj.m4a",
+            "type": "audio"
+          }
+        ],
+        "links": [],
+        "created": "2026-10-11T14:56:04.512Z",
+        "modified": "2026-10-11T14:56:04.512Z"
+      }
+    ],
+    "created": "2026-09-21T11:51:26.105Z"
+  },
+  "metadata": {
+    "exportedAt": "2026-10-11T14:56:28.919Z",
+    "version": "1.0"
+  }
+}

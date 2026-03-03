@@ -7,7 +7,7 @@ const Footer = () => {
             <div className="footer-content">
                 <div className="footer-brand">
                     <div className="logo">
-                        <img src="/class/logo/v-logo-transparent.png" alt="Chitra Vrinda" className="logo-img" />
+                        <img src="https://vrindopnishad.in/class/logo/v-logo-transparent.png" alt="Chitra Vrinda" className="logo-img" />
                         <span className="logo-text">Chitra Vrinda</span>
                     </div>
                     <p className="footer-tagline">Preserving the divine beauty of Vrindavan through sacred art and photography.</p>

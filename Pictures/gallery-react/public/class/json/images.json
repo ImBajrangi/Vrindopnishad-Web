@@ -1,0 +1,225 @@
+{
+"categories": [
+    {
+        "id": "all",
+        "name": "All",
+        "count": 0
+    },
+    {
+        "id": "anime",
+        "name": "Anime",
+        "count": 0
+    },
+    {
+        "id": "portrait",
+        "name": "Portrait",
+        "count": 0
+    },
+    {
+        "id": "nature",
+        "name": "Nature",
+        "count": 0
+    },
+    {
+        "id": "space-theme",
+        "name": "Space Theme",
+        "count": 0
+    },
+    {
+        "id": "spiritual",
+        "name": "Spiritual",
+        "count": 0
+    },
+    {
+        "id": "landscape",
+        "name": "Landscape",
+        "count": 0
+    }
+],
+"images": [
+    {
+        "id": "1",
+        "src": "https://i.postimg.cc/y6nMpbfG/1.avif",
+        "alt": "Beautiful Anime Scene",
+        "category": "anime",
+        "title": "Beautiful Anime Scene",
+        "description": "A stunning anime landscape with vibrant colors"
+    },
+    {
+        "id": "2",
+        "src": "https://i.postimg.cc/D0CRWSJh/2.avif",
+        "alt": "Shri Rasik Bihari Ji",
+        "category": "spiritual",
+        "title": "Shri Rasik Bihari Ji",
+        "description": "Divine spiritual artwork"
+    },
+    {
+        "id": "3",
+        "src": "https://i.postimg.cc/ncz6yGgh/3.avif",
+        "alt": "Anime Character",
+        "category": "anime",
+        "title": "Anime Character",
+        "description": "Beautiful anime character illustration"
+    },
+    {
+        "id": "4",
+        "src": "https://i.postimg.cc/d3Qzt20n/4.avif",
+        "alt": "Scenic Landscape",
+        "category": "landscape",
+        "title": "Scenic Landscape",
+        "description": "Breathtaking natural landscape view"
+    },
+    {
+        "id": "5",
+        "src": "https://i.postimg.cc/wjYQX6XY/5.avif",
+        "alt": "Anime Art",
+        "category": "anime",
+        "title": "Anime Art",
+        "description": "Colorful anime artwork"
+    },
+    {
+        "id": "6",
+        "src": "https://i.postimg.cc/PfpyhkC8/1.avif",
+        "alt": "Anime Scene",
+        "category": "anime",
+        "title": "Anime Scene",
+        "description": "Dynamic anime scene"
+    },
+    {
+        "id": "7",
+        "src": "https://i.postimg.cc/jSdJxzMk/10.avif",
+        "alt": "Mountain View",
+        "category": "landscape",
+        "title": "Mountain View",
+        "description": "Majestic mountain landscape"
+    },
+    {
+        "id": "8",
+        "src": "https://i.postimg.cc/9XYMDDw3/11.avif",
+        "alt": "Anime Fantasy",
+        "category": "anime",
+        "title": "Anime Fantasy",
+        "description": "Fantasy anime illustration"
+    },
+    {
+        "id": "9",
+        "src": "https://i.postimg.cc/V6TFMKV6/12.avif",
+        "alt": "Natural Beauty",
+        "category": "nature",
+        "title": "Natural Beauty",
+        "description": "Beautiful nature scene"
+    },
+    {
+        "id": "10",
+        "src": "https://i.postimg.cc/TP3js881/13.avif",
+        "alt": "Anime Portrait",
+        "category": "anime",
+        "title": "Anime Portrait",
+        "description": "Stunning anime character portrait"
+    },
+    {
+        "id": "11",
+        "src": "https://i.postimg.cc/xT9X5vVT/14.avif",
+        "alt": "Anime Style",
+        "category": "anime",
+        "title": "Anime Style",
+        "description": "Modern anime style artwork"
+    },
+    {
+        "id": "12",
+        "src": "https://i.postimg.cc/bN1RDHHy/15.avif",
+        "alt": "Anime Design",
+        "category": "anime",
+        "title": "Anime Design",
+        "description": "Creative anime design"
+    },
+    {
+        "id": "13",
+        "src": "https://i.postimg.cc/dVvj8k48/16.avif",
+        "alt": "Panoramic View",
+        "category": "landscape",
+        "title": "Panoramic View",
+        "description": "Wide panoramic landscape"
+    },
+    {
+        "id": "14",
+        "src": "https://i.postimg.cc/J0k5QjfQ/2.avif",
+        "alt": "Anime Collection",
+        "category": "anime",
+        "title": "Anime Collection",
+        "description": "Part of anime collection"
+    },
+    {
+        "id": "15",
+        "src": "https://i.postimg.cc/HWwJbSKh/3.avif",
+        "alt": "Forest Scene",
+        "category": "nature",
+        "title": "Forest Scene",
+        "description": "Peaceful forest environment"
+    },
+    {
+        "id": "16",
+        "src": "https://i.postimg.cc/ZnxCZRpS/4.avif",
+        "alt": "Anime World",
+        "category": "anime",
+        "title": "Anime World",
+        "description": "Immersive anime world"
+    },
+    {
+        "id": "17",
+        "src": "https://i.postimg.cc/C1y1qD40/5.avif",
+        "alt": "Anime Aesthetic",
+        "category": "anime",
+        "title": "Anime Aesthetic",
+        "description": "Aesthetic anime artwork"
+    },
+    {
+        "id": "18",
+        "src": "https://i.postimg.cc/ZYGc5DNs/6.avif",
+        "alt": "Anime Vision",
+        "category": "anime",
+        "title": "Anime Vision",
+        "description": "Creative anime vision"
+    },
+    {
+        "id": "19",
+        "src": "https://i.postimg.cc/WbShHdsm/7.avif",
+        "alt": "Anime Dreams",
+        "category": "anime",
+        "title": "Anime Dreams",
+        "description": "Dreamlike anime scene"
+    },
+    {
+        "id": "20",
+        "src": "https://i.postimg.cc/3xcW3z4d/8.avif",
+        "alt": "Anime Magic",
+        "category": "anime",
+        "title": "Anime Magic",
+        "description": "Magical anime illustration"
+    },
+    {
+        "id": "21",
+        "src": "https://i.postimg.cc/mDhwtvVJ/9.avif",
+        "alt": "Anime Spirit",
+        "category": "anime",
+        "title": "Anime Spirit",
+        "description": "Spiritual anime artwork"
+    },
+    {
+        "id": "22",
+        "src": "https://i.postimg.cc/3wBhKcxP/17.avif",
+        "alt": "Anime Journey",
+        "category": "anime",
+        "title": "Anime Journey",
+        "description": "Epic anime journey scene"
+    },
+    {
+        "id": "23",
+        "src": "https://i.postimg.cc/MKVKCt18/18.avif",
+        "alt": "Anime Adventure",
+        "category": "anime",
+        "title": "Anime Adventure",
+        "description": "Adventure-themed anime art"
+    }
+]
+}

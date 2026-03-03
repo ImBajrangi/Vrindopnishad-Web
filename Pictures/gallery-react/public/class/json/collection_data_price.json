@@ -1,0 +1,1317 @@
+{
+  "siteConfig": {
+    "siteName": "Vrindopnishad",
+    "siteIcon": "fas fa-photo-video",
+    "tagline": "Spiritual & Divine Collection",
+    "description": "Discover sacred images and divine artworks that inspire the soul. Explore our carefully curated collection of spiritual photography and religious art."
+  },
+  "navigation": [
+    {
+      "name": "Home",
+      "href": "#",
+      "active": true
+    },
+    {
+      "name": "Collections",
+      "href": "#",
+      "active": false
+    },
+    {
+      "name": "My List",
+      "href": "#",
+      "active": false
+    },
+    {
+      "name": "Browse by Category",
+      "href": "#",
+      "active": false
+    }
+  ],
+  "heroSection": {
+    "title": "Spiritual & Divine Collection",
+    "description": "Discover sacred images and divine artworks that inspire the soul. Explore our carefully curated collection of spiritual photography and religious art.",
+    "backgroundImage": "/Vrindopnishad%20Web/class/image/Home%20Pics/img_sn01.png",
+    "buttons": [
+      {
+        "text": "Explore Now",
+        "icon": "fas fa-play",
+        "type": "primary",
+        "action": "explore"
+      },
+      {
+        "text": "More Info",
+        "icon": "fas fa-info-circle",
+        "type": "secondary",
+        "action": "info"
+      }
+    ]
+  },
+  "collections": {
+    "featured": {
+      "title": "Featured Collections",
+      "items": [
+        {
+          "id": "sacred-temples",
+          "title": "Sacred Temples",
+          "description": "Ancient temples and spiritual architecture",
+          "count": 45,
+          "rating": 4.8,
+          "image": "https://i.postimg.cc/G2Jtvrzx/tempImageN7Ynt8.avif",
+          "category": "architecture",
+          "featured": true,
+          "price": 2999,
+          "tags": [
+            "temples",
+            "architecture",
+            "spiritual",
+            "heritage",
+            "ancient"
+          ],
+          "images": [
+            "https://i.postimg.cc/G2Jtvrzx/tempImageN7Ynt8.avif",
+            "https://i.postimg.cc/hjgy2bbR/tempImageO8LIr2.avif",
+            "https://i.postimg.cc/nzYrqZTT/tempImagepeTFpY.avif",
+            "https://i.postimg.cc/L82pZfGK/tempImage0MZ1Qo.avif"
+          ]
+        },
+        {
+          "id": "divine-portraits",
+          "title": "Divine Portraits",
+          "description": "Beautiful deity artwork and paintings",
+          "count": 67,
+          "rating": 4.9,
+          "image": "https://i.postimg.cc/yx32SQ76/62.avif",
+          "category": "art",
+          "featured": true,
+          "price": 3499,
+          "tags": [
+            "portraits",
+            "deities",
+            "art",
+            "paintings",
+            "divine"
+          ],
+          "images": [
+            "https://i.postimg.cc/yx32SQ76/62.avif",
+            "https://i.postimg.cc/G2Jtvrzx/tempImageN7Ynt8.avif",
+            "https://i.postimg.cc/SsNLXZf8/tempImageXR0Khf.avif",
+            "https://i.postimg.cc/66ZV8GdG/tempImageEpdAxY.avif"
+          ]
+        },
+        {
+          "id": "spiritual-landscapes",
+          "title": "Spiritual Landscapes",
+          "description": "Sacred places and holy sites",
+          "count": 34,
+          "rating": 4.7,
+          "image": "https://i.postimg.cc/nzYrqZTT/tempImagepeTFpY.avif",
+          "category": "nature",
+          "featured": true,
+          "price": 2499,
+          "tags": [
+            "landscapes",
+            "nature",
+            "sacred",
+            "pilgrimage",
+            "holy"
+          ],
+          "images": [
+            "https://i.postimg.cc/nzYrqZTT/tempImagepeTFpY.avif",
+            "https://i.postimg.cc/VsxMwHMk/temp-Image-DVx-VWQ.avif",
+            "https://i.postimg.cc/h4zxHqXr/temp-Image0m4o-HY.avif",
+            "https://i.postimg.cc/g2Yxk92N/temp-Image-Y61d7-W.avif"
+          ]
+        },
+        {
+          "id": "festival-moments",
+          "title": "Festival Moments",
+          "description": "Captured spiritual celebrations",
+          "count": 89,
+          "rating": 4.6,
+          "image": "https://i.postimg.cc/L82pZfGK/tempImage0MZ1Qo.avif",
+          "category": "events",
+          "featured": true,
+          "price": 3999,
+          "tags": [
+            "festivals",
+            "celebrations",
+            "culture",
+            "events",
+            "spiritual"
+          ],
+          "images": [
+            "https://i.postimg.cc/L82pZfGK/tempImage0MZ1Qo.avif",
+            "https://i.postimg.cc/L89jQCG1/tempImageQAFHVQ.avif",
+            "https://i.postimg.cc/cJ6w0KxH/tempImageyiRJ1l.avif",
+            "https://i.postimg.cc/Fs1PCKcg/tempImagez5mFhZ.avif"
+          ]
+        },
+        {
+          "id": "meditation-spaces",
+          "title": "Meditation Spaces",
+          "description": "Peaceful environments for contemplation",
+          "count": 23,
+          "rating": 4.8,
+          "image": "https://i.postimg.cc/hjgy2bbR/tempImageO8LIr2.avif",
+          "category": "nature",
+          "featured": true,
+          "price": 2799,
+          "tags": [
+            "meditation",
+            "peace",
+            "zen",
+            "tranquility",
+            "nature"
+          ],
+          "images": [
+            "https://i.postimg.cc/hjgy2bbR/tempImageO8LIr2.avif",
+            "https://i.postimg.cc/nzYrqZTT/tempImagepeTFpY.avif",
+            "https://i.postimg.cc/VsxMwHMk/temp-Image-DVx-VWQ.avif",
+            "https://i.postimg.cc/g2Yxk92N/temp-Image-Y61d7-W.avif"
+          ]
+        }
+      ]
+    },
+    "popular": {
+      "title": "Popular Right Now",
+      "items": [
+        {
+          "id": "trending-now",
+          "title": "Trending Now",
+          "description": "Most viewed this week",
+          "count": 156,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/SsNLXZf8/tempImageXR0Khf.avif",
+          "category": "trending",
+          "views": 15600,
+          "price": 1999,
+          "tags": [
+            "trending",
+            "popular",
+            "hot",
+            "viewed"
+          ],
+          "images": [
+            "https://i.postimg.cc/SsNLXZf8/tempImageXR0Khf.avif",
+            "https://i.postimg.cc/66ZV8GdG/tempImageEpdAxY.avif",
+            "https://i.postimg.cc/L89jQCG1/tempImageQAFHVQ.avif",
+            "https://i.postimg.cc/cJ6w0KxH/tempImageyiRJ1l.avif"
+          ]
+        },
+        {
+          "id": "rising-stars",
+          "title": "Rising Stars",
+          "description": "Newly popular collections",
+          "count": 78,
+          "rating": 4.7,
+          "image": "https://i.postimg.cc/66ZV8GdG/tempImageEpdAxY.avif",
+          "category": "new",
+          "views": 8900,
+          "price": 1499,
+          "tags": [
+            "new",
+            "rising",
+            "popular",
+            "fresh"
+          ],
+          "images": [
+            "https://i.postimg.cc/66ZV8GdG/tempImageEpdAxY.avif",
+            "https://i.postimg.cc/L89jQCG1/tempImageQAFHVQ.avif",
+            "https://i.postimg.cc/cJ6w0KxH/tempImageyiRJ1l.avif",
+            "https://i.postimg.cc/Fs1PCKcg/tempImagez5mFhZ.avif"
+          ]
+        },
+        {
+          "id": "community-favorites",
+          "title": "Community Favorites",
+          "description": "Highly rated by users",
+          "count": 234,
+          "rating": 4.9,
+          "image": "https://i.postimg.cc/L89jQCG1/tempImageQAFHVQ.avif",
+          "category": "community",
+          "views": 23400,
+          "price": 2999,
+          "tags": [
+            "community",
+            "favorites",
+            "rated",
+            "popular"
+          ],
+          "images": [
+            "https://i.postimg.cc/L89jQCG1/tempImageQAFHVQ.avif",
+            "https://i.postimg.cc/cJ6w0KxH/tempImageyiRJ1l.avif",
+            "https://i.postimg.cc/Fs1PCKcg/tempImagez5mFhZ.avif",
+            "https://i.postimg.cc/VsxMwHMk/temp-Image-DVx-VWQ.avif"
+          ]
+        },
+        {
+          "id": "editors-choice",
+          "title": "Editor's Choice",
+          "description": "Curated by our team",
+          "count": 123,
+          "rating": 4.8,
+          "image": "https://i.postimg.cc/cJ6w0KxH/tempImageyiRJ1l.avif",
+          "category": "editorial",
+          "views": 12300,
+          "price": 3199,
+          "tags": [
+            "editorial",
+            "curated",
+            "choice",
+            "featured"
+          ],
+          "images": [
+            "https://i.postimg.cc/cJ6w0KxH/tempImageyiRJ1l.avif",
+            "https://i.postimg.cc/Fs1PCKcg/tempImagez5mFhZ.avif",
+            "https://i.postimg.cc/VsxMwHMk/temp-Image-DVx-VWQ.avif",
+            "https://i.postimg.cc/h4zxHqXr/temp-Image0m4o-HY.avif"
+          ]
+        },
+        {
+          "id": "most-downloaded",
+          "title": "Most Downloaded",
+          "description": "Popular downloads",
+          "count": 345,
+          "rating": 4.6,
+          "image": "https://i.postimg.cc/Fs1PCKcg/tempImagez5mFhZ.avif",
+          "category": "downloads",
+          "views": 34500,
+          "price": 499,
+          "tags": [
+            "downloaded",
+            "popular",
+            "files",
+            "assets"
+          ],
+          "images": [
+            "https://i.postimg.cc/Fs1PCKcg/tempImagez5mFhZ.avif",
+            "https://i.postimg.cc/VsxMwHMk/temp-Image-DVx-VWQ.avif",
+            "https://i.postimg.cc/h4zxHqXr/temp-Image0m4o-HY.avif",
+            "https://i.postimg.cc/g2Yxk92N/temp-Image-Y61d7-W.avif"
+          ]
+        }
+      ]
+    },
+    "anime": {
+      "title": "Anime Style",
+      "items": [
+        {
+          "id": "mountain-vistas",
+          "title": "Mountain Vistas",
+          "description": "Breathtaking mountain landscapes",
+          "count": 67,
+          "rating": 4.7,
+          "image": "https://i.postimg.cc/VsxMwHMk/temp-Image-DVx-VWQ.avif",
+          "category": "mountains",
+          "price": 1899,
+          "tags": [
+            "mountains",
+            "vistas",
+            "landscapes",
+            "nature",
+            "anime"
+          ],
+          "images": [
+            "https://i.postimg.cc/VsxMwHMk/temp-Image-DVx-VWQ.avif",
+            "https://i.postimg.cc/h4zxHqXr/temp-Image0m4o-HY.avif",
+            "https://i.postimg.cc/g2Yxk92N/temp-Image-Y61d7-W.avif",
+            "https://i.postimg.cc/PJHFPtVy/32.avif"
+          ]
+        },
+        {
+          "id": "ocean-views",
+          "title": "Ocean Views",
+          "description": "Stunning seascapes and beaches",
+          "count": 89,
+          "rating": 4.6,
+          "image": "https://i.postimg.cc/h4zxHqXr/temp-Image0m4o-HY.avif",
+          "category": "ocean",
+          "price": 2199,
+          "tags": [
+            "ocean",
+            "sea",
+            "beach",
+            "nature",
+            "anime"
+          ],
+          "images": [
+            "https://i.postimg.cc/h4zxHqXr/temp-Image0m4o-HY.avif",
+            "https://i.postimg.cc/g2Yxk92N/temp-Image-Y61d7-W.avif",
+            "https://i.postimg.cc/PJHFPtVy/32.avif",
+            "https://i.postimg.cc/Ghc5Rmyh/33.avif"
+          ]
+        },
+        {
+          "id": "forest-paths",
+          "title": "Forest Paths",
+          "description": "Mystical forest photography",
+          "count": 45,
+          "rating": 4.8,
+          "image": "https://i.postimg.cc/g2Yxk92N/temp-Image-Y61d7-W.avif",
+          "category": "forest",
+          "price": 1999,
+          "tags": [
+            "forest",
+            "paths",
+            "nature",
+            "mystical",
+            "anime"
+          ],
+          "images": [
+            "https://i.postimg.cc/g2Yxk92N/temp-Image-Y61d7-W.avif",
+            "https://i.postimg.cc/PJHFPtVy/32.avif",
+            "https://i.postimg.cc/Ghc5Rmyh/33.avif",
+            "https://i.postimg.cc/VsxMwHMk/temp-Image-DVx-VWQ.avif"
+          ]
+        },
+        {
+          "id": "desert-landscapes",
+          "title": "Desert Landscapes",
+          "description": "Vast desert scenery",
+          "count": 34,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/PJHFPtVy/32.avif",
+          "category": "desert",
+          "price": 1799,
+          "tags": [
+            "desert",
+            "landscapes",
+            "nature",
+            "vast",
+            "anime"
+          ],
+          "images": [
+            "https://i.postimg.cc/PJHFPtVy/32.avif",
+            "https://i.postimg.cc/Ghc5Rmyh/33.avif",
+            "https://i.postimg.cc/VsxMwHMk/temp-Image-DVx-VWQ.avif",
+            "https://i.postimg.cc/h4zxHqXr/temp-Image0m4o-HY.avif"
+          ]
+        },
+        {
+          "id": "wildlife",
+          "title": "Wildlife",
+          "description": "Amazing animal photography",
+          "count": 123,
+          "rating": 4.9,
+          "image": "https://i.postimg.cc/Ghc5Rmyh/33.avif",
+          "category": "animals",
+          "price": 2599,
+          "tags": [
+            "wildlife",
+            "animals",
+            "nature",
+            "photography",
+            "anime"
+          ],
+          "images": [
+            "https://i.postimg.cc/Ghc5Rmyh/33.avif",
+            "https://i.postimg.cc/VsxMwHMk/temp-Image-DVx-VWQ.avif",
+            "https://i.postimg.cc/h4zxHqXr/temp-Image0m4o-HY.avif",
+            "https://i.postimg.cc/g2Yxk92N/temp-Image-Y61d7-W.avif"
+          ]
+        }
+      ]
+    },
+    "rapper": {
+      "title": "Rapper Style",
+      "items": [
+        {
+          "id": "classic-rapper",
+          "title": "Classic Rapper",
+          "description": "Timeless rap artwork",
+          "count": 234,
+          "rating": 4.8,
+          "image": "https://i.postimg.cc/15935GrX/temp-Image5xgxp-E.avif",
+          "category": "classic",
+          "price": 2999,
+          "tags": [
+            "rapper",
+            "classic",
+            "hiphop",
+            "art",
+            "music"
+          ],
+          "images": [
+            "https://i.postimg.cc/15935GrX/temp-Image5xgxp-E.avif",
+            "https://i.postimg.cc/bN3NGZmF/temp-Imagefa-W5wa.avif",
+            "https://i.postimg.cc/RZhCwvYL/temp-Image-Fsblv-Q.avif",
+            "https://i.postimg.cc/L6H86t3s/temp-Image6-M4-FDA.avif"
+          ]
+        },
+        {
+          "id": "modern-art",
+          "title": "Modern Art",
+          "description": "Contemporary anime styles",
+          "count": 145,
+          "rating": 4.7,
+          "image": "https://i.postimg.cc/bN3NGZmF/temp-Imagefa-W5wa.avif",
+          "category": "modern",
+          "price": 2499,
+          "tags": [
+            "rapper",
+            "modern",
+            "art",
+            "contemporary",
+            "anime"
+          ],
+          "images": [
+            "https://i.postimg.cc/bN3NGZmF/temp-Imagefa-W5wa.avif",
+            "https://i.postimg.cc/RZhCwvYL/temp-Image-Fsblv-Q.avif",
+            "https://i.postimg.cc/L6H86t3s/temp-Image6-M4-FDA.avif",
+            "https://i.postimg.cc/hPpPJX24/temp-Imageg-VDr-Y9.avif"
+          ]
+        },
+        {
+          "id": "character-art",
+          "title": "Character Art",
+          "description": "Detailed character illustrations",
+          "count": 178,
+          "rating": 4.6,
+          "image": "https://i.postimg.cc/RZhCwvYL/temp-Image-Fsblv-Q.avif",
+          "category": "characters",
+          "price": 4999,
+          "tags": [
+            "rapper",
+            "characters",
+            "illustrations",
+            "art",
+            "style"
+          ],
+          "images": [
+            "https://i.postimg.cc/RZhCwvYL/temp-Image-Fsblv-Q.avif",
+            "https://i.postimg.cc/L6H86t3s/temp-Image6-M4-FDA.avif",
+            "https://i.postimg.cc/hPpPJX24/temp-Imageg-VDr-Y9.avif",
+            "https://i.postimg.cc/9FJF4DLF/temp-Image-IZi-RGt.avif"
+          ]
+        },
+        {
+          "id": "fantasy-worlds",
+          "title": "Fantasy Worlds",
+          "description": "Magical anime landscapes",
+          "count": 89,
+          "rating": 4.9,
+          "image": "https://i.postimg.cc/L6H86t3s/temp-Image6-M4-FDA.avif",
+          "category": "fantasy",
+          "price": 3499,
+          "tags": [
+            "rapper",
+            "fantasy",
+            "worlds",
+            "anime",
+            "art"
+          ],
+          "images": [
+            "https://i.postimg.cc/L6H86t3s/temp-Image6-M4-FDA.avif",
+            "https://i.postimg.cc/hPpPJX24/temp-Imageg-VDr-Y9.avif",
+            "https://i.postimg.cc/9FJF4DLF/temp-Image-IZi-RGt.avif",
+            "https://i.postimg.cc/9FJF4DLd/temp-Imageo-NP2g-B.avif"
+          ]
+        },
+        {
+          "id": "abstract-designs-rapper",
+          "title": "Abstract Designs Rapper",
+          "description": "Artistic interpretations rapper style",
+          "count": 67,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/hPpPJX24/temp-Imageg-VDr-Y9.avif",
+          "category": "abstract",
+          "price": 2299,
+          "tags": [
+            "rapper",
+            "abstract",
+            "designs",
+            "art",
+            "style"
+          ],
+          "images": [
+            "https://i.postimg.cc/hPpPJX24/temp-Imageg-VDr-Y9.avif",
+            "https://i.postimg.cc/9FJF4DLF/temp-Image-IZi-RGt.avif",
+            "https://i.postimg.cc/9FJF4DLd/temp-Imageo-NP2g-B.avif",
+            "https://i.postimg.cc/yYV8Ymyd/temp-Imagew-PU6id.avif"
+          ]
+        },
+        {
+          "id": "abstract-designs-2",
+          "title": "Abstract Designs 2",
+          "description": "Artistic interpretations",
+          "count": 67,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/9FJF4DLF/temp-Image-IZi-RGt.avif",
+          "category": "abstract",
+          "price": 2299,
+          "tags": [
+            "rapper",
+            "abstract",
+            "designs",
+            "art",
+            "style"
+          ],
+          "images": [
+            "https://i.postimg.cc/9FJF4DLF/temp-Image-IZi-RGt.avif",
+            "https://i.postimg.cc/9FJF4DLd/temp-Imageo-NP2g-B.avif",
+            "https://i.postimg.cc/yYV8Ymyd/temp-Imagew-PU6id.avif",
+            "https://i.postimg.cc/Fs9HsyVJ/temp-Imagex8-E6l-H.avif"
+          ]
+        },
+        {
+          "id": "abstract-designs-3",
+          "title": "Abstract Designs 3",
+          "description": "Artistic interpretations",
+          "count": 67,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/9FJF4DLd/temp-Imageo-NP2g-B.avif",
+          "category": "abstract",
+          "price": 2299,
+          "tags": [
+            "rapper",
+            "abstract",
+            "designs",
+            "art",
+            "style"
+          ],
+          "images": [
+            "https://i.postimg.cc/9FJF4DLd/temp-Imageo-NP2g-B.avif",
+            "https://i.postimg.cc/yYV8Ymyd/temp-Imagew-PU6id.avif",
+            "https://i.postimg.cc/Fs9HsyVJ/temp-Imagex8-E6l-H.avif",
+            "https://i.postimg.cc/15935GrX/temp-Image5xgxp-E.avif"
+          ]
+        },
+        {
+          "id": "abstract-designs-4",
+          "title": "Abstract Designs 4",
+          "description": "Artistic interpretations",
+          "count": 67,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/yYV8Ymyd/temp-Imagew-PU6id.avif",
+          "category": "abstract",
+          "price": 2299,
+          "tags": [
+            "rapper",
+            "abstract",
+            "designs",
+            "art",
+            "style"
+          ],
+          "images": [
+            "https://i.postimg.cc/yYV8Ymyd/temp-Imagew-PU6id.avif",
+            "https://i.postimg.cc/Fs9HsyVJ/temp-Imagex8-E6l-H.avif",
+            "https://i.postimg.cc/15935GrX/temp-Image5xgxp-E.avif",
+            "https://i.postimg.cc/bN3NGZmF/temp-Imagefa-W5wa.avif"
+          ]
+        },
+        {
+          "id": "abstract-designs-5",
+          "title": "Abstract Designs 5",
+          "description": "Artistic interpretations",
+          "count": 67,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/Fs9HsyVJ/temp-Imagex8-E6l-H.avif",
+          "category": "abstract",
+          "price": 2299,
+          "tags": [
+            "rapper",
+            "abstract",
+            "designs",
+            "art",
+            "style"
+          ],
+          "images": [
+            "https://i.postimg.cc/Fs9HsyVJ/temp-Imagex8-E6l-H.avif",
+            "https://i.postimg.cc/15935GrX/temp-Image5xgxp-E.avif",
+            "https://i.postimg.cc/bN3NGZmF/temp-Imagefa-W5wa.avif",
+            "https://i.postimg.cc/RZhCwvYL/temp-Image-Fsblv-Q.avif"
+          ]
+        }
+      ]
+    },
+    "dark": {
+      "title": "Dark Aesthetic",
+      "items": [
+        {
+          "id": "modern-buildings",
+          "title": "Modern Buildings",
+          "description": "Contemporary architecture",
+          "count": 89,
+          "rating": 4.6,
+          "image": "https://i.postimg.cc/rsQv1t57/temp-Imageq2-Af-Gz.avif",
+          "category": "architecture",
+          "views": 15600,
+          "price": 3799,
+          "tags": [
+            "dark",
+            "modern",
+            "buildings",
+            "architecture",
+            "aesthetic"
+          ],
+          "images": [
+            "https://i.postimg.cc/rsQv1t57/temp-Imageq2-Af-Gz.avif",
+            "https://i.postimg.cc/FFVmFYkR/temp-Imageoo-RS7-Y.avif",
+            "https://i.postimg.cc/fWCnn11f/temp-Image-Qu2-Bi-Z.avif",
+            "https://i.postimg.cc/rFGD2ns7/94.avif"
+          ]
+        },
+        {
+          "id": "historic-structures",
+          "title": "Historic Structures",
+          "description": "Ancient architectural marvels",
+          "count": 67,
+          "rating": 4.8,
+          "image": "https://i.postimg.cc/FFVmFYkR/temp-Imageoo-RS7-Y.avif",
+          "category": "architecture",
+          "views": 12300,
+          "price": 3299,
+          "tags": [
+            "dark",
+            "historic",
+            "structures",
+            "architecture",
+            "aesthetic"
+          ],
+          "images": [
+            "https://i.postimg.cc/FFVmFYkR/temp-Imageoo-RS7-Y.avif",
+            "https://i.postimg.cc/fWCnn11f/temp-Image-Qu2-Bi-Z.avif",
+            "https://i.postimg.cc/rFGD2ns7/94.avif",
+            "https://i.postimg.cc/GmH1jz7H/temp-Image-UQR4i-G.avif"
+          ]
+        },
+        {
+          "id": "city-skylines",
+          "title": "City Skylines",
+          "description": "Urban landscape photography",
+          "count": 123,
+          "rating": 4.7,
+          "image": "https://i.postimg.cc/fWCnn11f/temp-Image-Qu2-Bi-Z.avif",
+          "category": "architecture",
+          "views": 18900,
+          "price": 3599,
+          "tags": [
+            "dark",
+            "city",
+            "skyline",
+            "urban",
+            "aesthetic"
+          ],
+          "images": [
+            "https://i.postimg.cc/fWCnn11f/temp-Image-Qu2-Bi-Z.avif",
+            "https://i.postimg.cc/rFGD2ns7/94.avif",
+            "https://i.postimg.cc/GmH1jz7H/temp-Image-UQR4i-G.avif",
+            "https://i.postimg.cc/NFpW6rRP/temp-Image-Xfywpn.avif"
+          ]
+        },
+        {
+          "id": "bridges-roads",
+          "title": "Bridges & Roads",
+          "description": "Infrastructure photography",
+          "count": 45,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/rFGD2ns7/94.avif",
+          "category": "architecture",
+          "views": 9800,
+          "price": 2999,
+          "tags": [
+            "dark",
+            "bridges",
+            "roads",
+            "infrastructure",
+            "aesthetic"
+          ],
+          "images": [
+            "https://i.postimg.cc/rFGD2ns7/94.avif",
+            "https://i.postimg.cc/GmH1jz7H/temp-Image-UQR4i-G.avif",
+            "https://i.postimg.cc/NFpW6rRP/temp-Image-Xfywpn.avif",
+            "https://i.postimg.cc/tC2C1sBT/temp-Imageh-Vn64z.avif"
+          ]
+        },
+        {
+          "id": "interior-design",
+          "title": "Interior Design",
+          "description": "Beautiful indoor spaces",
+          "count": 78,
+          "rating": 4.7,
+          "image": "https://i.postimg.cc/GmH1jz7H/temp-Image-UQR4i-G.avif",
+          "category": "architecture",
+          "views": 14500,
+          "price": 3199,
+          "tags": [
+            "dark",
+            "interior",
+            "design",
+            "spaces",
+            "aesthetic"
+          ],
+          "images": [
+            "https://i.postimg.cc/GmH1jz7H/temp-Image-UQR4i-G.avif",
+            "https://i.postimg.cc/NFpW6rRP/temp-Image-Xfywpn.avif",
+            "https://i.postimg.cc/tC2C1sBT/temp-Imageh-Vn64z.avif",
+            "https://i.postimg.cc/3JKxJXFJ/temp-Image-VVft-EX.avif"
+          ]
+        },
+        {
+          "id": "modern-buildings-dark",
+          "title": "Modern Buildings Dark",
+          "description": "Contemporary architecture dark",
+          "count": 89,
+          "rating": 4.6,
+          "image": "https://i.postimg.cc/NFpW6rRP/temp-Image-Xfywpn.avif",
+          "category": "modern",
+          "price": 3799,
+          "tags": [
+            "dark",
+            "modern",
+            "buildings",
+            "architecture",
+            "aesthetic"
+          ],
+          "images": [
+            "https://i.postimg.cc/NFpW6rRP/temp-Image-Xfywpn.avif",
+            "https://i.postimg.cc/tC2C1sBT/temp-Imageh-Vn64z.avif",
+            "https://i.postimg.cc/3JKxJXFJ/temp-Image-VVft-EX.avif",
+            "https://i.postimg.cc/x1hVpHhM/temp-Imageb-UOb-Rv.avif"
+          ]
+        },
+        {
+          "id": "historic-structures-dark",
+          "title": "Historic Structures Dark",
+          "description": "Ancient architectural marvels dark",
+          "count": 67,
+          "rating": 4.8,
+          "image": "https://i.postimg.cc/tC2C1sBT/temp-Imageh-Vn64z.avif",
+          "category": "historic",
+          "price": 3299,
+          "tags": [
+            "dark",
+            "historic",
+            "structures",
+            "architecture",
+            "aesthetic"
+          ],
+          "images": [
+            "https://i.postimg.cc/tC2C1sBT/temp-Imageh-Vn64z.avif",
+            "https://i.postimg.cc/3JKxJXFJ/temp-Image-VVft-EX.avif",
+            "https://i.postimg.cc/x1hVpHhM/temp-Imageb-UOb-Rv.avif",
+            "https://i.postimg.cc/3JLTpzB8/temp-Image-Jc5pu-P.avif"
+          ]
+        },
+        {
+          "id": "city-skylines-dark",
+          "title": "City Skylines Dark",
+          "description": "Urban landscape photography dark",
+          "count": 123,
+          "rating": 4.7,
+          "image": "https://i.postimg.cc/3JKxJXFJ/temp-Image-VVft-EX.avif",
+          "category": "urban",
+          "price": 3599,
+          "tags": [
+            "dark",
+            "city",
+            "skyline",
+            "urban",
+            "aesthetic"
+          ],
+          "images": [
+            "https://i.postimg.cc/3JKxJXFJ/temp-Image-VVft-EX.avif",
+            "https://i.postimg.cc/x1hVpHhM/temp-Imageb-UOb-Rv.avif",
+            "https://i.postimg.cc/3JLTpzB8/temp-Image-Jc5pu-P.avif",
+            "https://i.postimg.cc/rsQv1t57/temp-Imageq2-Af-Gz.avif"
+          ]
+        },
+        {
+          "id": "bridges-roads-dark",
+          "title": "Bridges & Roads Dark",
+          "description": "Infrastructure photography dark",
+          "count": 45,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/x1hVpHhM/temp-Imageb-UOb-Rv.avif",
+          "category": "infrastructure",
+          "price": 2999,
+          "tags": [
+            "dark",
+            "bridges",
+            "roads",
+            "infrastructure",
+            "aesthetic"
+          ],
+          "images": [
+            "https://i.postimg.cc/x1hVpHhM/temp-Imageb-UOb-Rv.avif",
+            "https://i.postimg.cc/3JLTpzB8/temp-Image-Jc5pu-P.avif",
+            "https://i.postimg.cc/rsQv1t57/temp-Imageq2-Af-Gz.avif",
+            "https://i.postimg.cc/FFVmFYkR/temp-Imageoo-RS7-Y.avif"
+          ]
+        },
+        {
+          "id": "interior-design-dark",
+          "title": "Interior Design Dark",
+          "description": "Beautiful indoor spaces dark",
+          "count": 78,
+          "rating": 4.4,
+          "image": "https://i.postimg.cc/3JLTpzB8/temp-Image-Jc5pu-P.avif",
+          "category": "interior",
+          "price": 3199,
+          "tags": [
+            "dark",
+            "interior",
+            "design",
+            "spaces",
+            "aesthetic"
+          ],
+          "images": [
+            "https://i.postimg.cc/3JLTpzB8/temp-Image-Jc5pu-P.avif",
+            "https://i.postimg.cc/rsQv1t57/temp-Imageq2-Af-Gz.avif",
+            "https://i.postimg.cc/FFVmFYkR/temp-Imageoo-RS7-Y.avif",
+            "https://i.postimg.cc/fWCnn11f/temp-Image-Qu2-Bi-Z.avif"
+          ]
+        }
+      ]
+    },
+    "warrior": {
+      "title": "Warrior Theme",
+      "items": [
+        {
+          "id": "samurai-culture",
+          "title": "Samurai Culture",
+          "description": "Ancient Japanese warriors",
+          "count": 56,
+          "rating": 4.8,
+          "image": "https://i.postimg.cc/XqVRBgBX/temp-Image-KVsh-Fy.avif",
+          "category": "samurai",
+          "price": 3299,
+          "tags": [
+            "warrior",
+            "samurai",
+            "japan",
+            "culture",
+            "ancient"
+          ],
+          "images": [
+            "https://i.postimg.cc/XqVRBgBX/temp-Image-KVsh-Fy.avif",
+            "https://i.postimg.cc/0yF1XmFV/temp-Image-PRh2-Km.avif",
+            "https://i.postimg.cc/nzY8LWzT/temp-Image0-GHro6.avif",
+            "https://i.postimg.cc/BnXGCNYt/temp-Image4-RTJPu.avif"
+          ]
+        },
+        {
+          "id": "medieval-knights",
+          "title": "Medieval Knights",
+          "description": "European knightly traditions",
+          "count": 78,
+          "rating": 4.7,
+          "image": "https://i.postimg.cc/0yF1XmFV/temp-Image-PRh2-Km.avif",
+          "category": "knights",
+          "price": 3199,
+          "tags": [
+            "warrior",
+            "knights",
+            "medieval",
+            "europe",
+            "armor"
+          ],
+          "images": [
+            "https://i.postimg.cc/0yF1XmFV/temp-Image-PRh2-Km.avif",
+            "https://i.postimg.cc/nzY8LWzT/temp-Image0-GHro6.avif",
+            "https://i.postimg.cc/BnXGCNYt/temp-Image4-RTJPu.avif",
+            "https://i.postimg.cc/4dJP64sG/tempImage6EgCLR.avif"
+          ]
+        },
+        {
+          "id": "viking-heritage",
+          "title": "Viking Heritage",
+          "description": "Norse warrior culture",
+          "count": 45,
+          "rating": 4.6,
+          "image": "https://i.postimg.cc/nzY8LWzT/temp-Image0-GHro6.avif",
+          "category": "viking",
+          "price": 3099,
+          "tags": [
+            "warrior",
+            "viking",
+            "norse",
+            "heritage",
+            "culture"
+          ],
+          "images": [
+            "https://i.postimg.cc/nzY8LWzT/temp-Image0-GHro6.avif",
+            "https://i.postimg.cc/BnXGCNYt/temp-Image4-RTJPu.avif",
+            "https://i.postimg.cc/4dJP64sG/tempImage6EgCLR.avif",
+            "https://i.postimg.cc/v84q3B5D/tempImageid8ES0.avif"
+          ]
+        },
+        {
+          "id": "spartan-warriors",
+          "title": "Spartan Warriors",
+          "description": "Ancient Greek fighters",
+          "count": 34,
+          "rating": 4.9,
+          "image": "https://i.postimg.cc/BnXGCNYt/temp-Image4-RTJPu.avif",
+          "category": "spartan",
+          "price": 3499,
+          "tags": [
+            "warrior",
+            "spartan",
+            "greek",
+            "ancient",
+            "fighters"
+          ],
+          "images": [
+            "https://i.postimg.cc/BnXGCNYt/temp-Image4-RTJPu.avif",
+            "https://i.postimg.cc/4dJP64sG/tempImage6EgCLR.avif",
+            "https://i.postimg.cc/v84q3B5D/tempImageid8ES0.avif",
+            "https://i.postimg.cc/43RB3b07/tempImageIWRFom.avif"
+          ]
+        },
+        {
+          "id": "native-warriors",
+          "title": "Native Warriors",
+          "description": "Indigenous fighting traditions",
+          "count": 23,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/4dJP64sG/tempImage6EgCLR.avif",
+          "category": "native",
+          "price": 2899,
+          "tags": [
+            "warrior",
+            "native",
+            "indigenous",
+            "traditions",
+            "culture"
+          ],
+          "images": [
+            "https://i.postimg.cc/4dJP64sG/tempImage6EgCLR.avif",
+            "https://i.postimg.cc/v84q3B5D/tempImageid8ES0.avif",
+            "https://i.postimg.cc/43RB3b07/tempImageIWRFom.avif",
+            "https://i.postimg.cc/SNq9j1Qm/tempImagel86fFm.avif"
+          ]
+        },
+        {
+          "id": "native-warriors-2",
+          "title": "Native Warriors 2",
+          "description": "Indigenous fighting traditions",
+          "count": 23,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/v84q3B5D/tempImageid8ES0.avif",
+          "category": "native",
+          "price": 2899,
+          "tags": [
+            "warrior",
+            "native",
+            "indigenous",
+            "traditions",
+            "culture"
+          ],
+          "images": [
+            "https://i.postimg.cc/v84q3B5D/tempImageid8ES0.avif",
+            "https://i.postimg.cc/43RB3b07/tempImageIWRFom.avif",
+            "https://i.postimg.cc/SNq9j1Qm/tempImagel86fFm.avif",
+            "https://i.postimg.cc/TwG7tqjQ/tempImageKypZIV.avif"
+          ]
+        },
+        {
+          "id": "native-warriors-3",
+          "title": "Native Warriors 3",
+          "description": "Indigenous fighting traditions",
+          "count": 23,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/43RB3b07/tempImageIWRFom.avif",
+          "category": "native",
+          "price": 2899,
+          "tags": [
+            "warrior",
+            "native",
+            "indigenous",
+            "traditions",
+            "culture"
+          ],
+          "images": [
+            "https://i.postimg.cc/43RB3b07/tempImageIWRFom.avif",
+            "https://i.postimg.cc/SNq9j1Qm/tempImagel86fFm.avif",
+            "https://i.postimg.cc/TwG7tqjQ/tempImageKypZIV.avif",
+            "https://i.postimg.cc/PxtyWfTk/tempImageN3ABj4.avif"
+          ]
+        },
+        {
+          "id": "native-warriors-4",
+          "title": "Native Warriors 4",
+          "description": "Indigenous fighting traditions",
+          "count": 23,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/SNq9j1Qm/tempImagel86fFm.avif",
+          "category": "native",
+          "price": 2899,
+          "tags": [
+            "warrior",
+            "native",
+            "indigenous",
+            "traditions",
+            "culture"
+          ],
+          "images": [
+            "https://i.postimg.cc/SNq9j1Qm/tempImagel86fFm.avif",
+            "https://i.postimg.cc/TwG7tqjQ/tempImageKypZIV.avif",
+            "https://i.postimg.cc/PxtyWfTk/tempImageN3ABj4.avif",
+            "https://i.postimg.cc/XqVRBgBX/temp-Image-KVsh-Fy.avif"
+          ]
+        },
+        {
+          "id": "native-warriors-5",
+          "title": "Native Warriors 5",
+          "description": "Indigenous fighting traditions",
+          "count": 23,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/TwG7tqjQ/tempImageKypZIV.avif",
+          "category": "native",
+          "price": 2899,
+          "tags": [
+            "warrior",
+            "native",
+            "indigenous",
+            "traditions",
+            "culture"
+          ],
+          "images": [
+            "https://i.postimg.cc/TwG7tqjQ/tempImageKypZIV.avif",
+            "https://i.postimg.cc/PxtyWfTk/tempImageN3ABj4.avif",
+            "https://i.postimg.cc/XqVRBgBX/temp-Image-KVsh-Fy.avif",
+            "https://i.postimg.cc/0yF1XmFV/temp-Image-PRh2-Km.avif"
+          ]
+        },
+        {
+          "id": "native-warriors-6",
+          "title": "Native Warriors 6",
+          "description": "Indigenous fighting traditions",
+          "count": 23,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/PxtyWfTk/tempImageN3ABj4.avif",
+          "category": "native",
+          "price": 2899,
+          "tags": [
+            "warrior",
+            "native",
+            "indigenous",
+            "traditions",
+            "culture"
+          ],
+          "images": [
+            "https://i.postimg.cc/PxtyWfTk/tempImageN3ABj4.avif",
+            "https://i.postimg.cc/XqVRBgBX/temp-Image-KVsh-Fy.avif",
+            "https://i.postimg.cc/0yF1XmFV/temp-Image-PRh2-Km.avif",
+            "https://i.postimg.cc/nzY8LWzT/temp-Image0-GHro6.avif"
+          ]
+        }
+      ]
+    },
+    "chhibi": {
+      "title": "Chhibi Style",
+      "items": [
+        {
+          "id": "cute-characters",
+          "title": "Cute Characters",
+          "description": "Adorable chibi illustrations",
+          "count": 123,
+          "rating": 4.9,
+          "image": "https://i.postimg.cc/65SMkNLH/tempImagett5arh.avif",
+          "category": "cute",
+          "price": 1599,
+          "tags": [
+            "chibi",
+            "cute",
+            "characters",
+            "illustrations",
+            "adorable"
+          ],
+          "images": [
+            "https://i.postimg.cc/65SMkNLH/tempImagett5arh.avif",
+            "https://i.postimg.cc/RFs7wcgR/tempImagej79Z1R.avif",
+            "https://i.postimg.cc/zfkSGmWd/tempImagedDXBmr.avif",
+            "https://i.postimg.cc/zGKF4HfL/tempImagemb1IW9.avif"
+          ]
+        },
+        {
+          "id": "fantasy-chibis",
+          "title": "Fantasy Chibis",
+          "description": "Magical chibi designs",
+          "count": 89,
+          "rating": 4.8,
+          "image": "https://i.postimg.cc/RFs7wcgR/tempImagej79Z1R.avif",
+          "category": "fantasy",
+          "price": 1799,
+          "tags": [
+            "chibi",
+            "fantasy",
+            "magical",
+            "designs",
+            "cute"
+          ],
+          "images": [
+            "https://i.postimg.cc/RFs7wcgR/tempImagej79Z1R.avif",
+            "https://i.postimg.cc/zfkSGmWd/tempImagedDXBmr.avif",
+            "https://i.postimg.cc/zGKF4HfL/tempImagemb1IW9.avif",
+            "https://i.postimg.cc/1tJHJx3C/tempImagenyhCwi.avif"
+          ]
+        },
+        {
+          "id": "animal-chibis",
+          "title": "Animal Chibis",
+          "description": "Chibi animal characters",
+          "count": 67,
+          "rating": 4.7,
+          "image": "https://i.postimg.cc/zfkSGmWd/tempImagedDXBmr.avif",
+          "category": "animals",
+          "price": 1499,
+          "tags": [
+            "chibi",
+            "animals",
+            "characters",
+            "cute",
+            "pets"
+          ],
+          "images": [
+            "https://i.postimg.cc/zfkSGmWd/tempImagedDXBmr.avif",
+            "https://i.postimg.cc/zGKF4HfL/tempImagemb1IW9.avif",
+            "https://i.postimg.cc/1tJHJx3C/tempImagenyhCwi.avif",
+            "https://i.postimg.cc/sDFcmJjy/tempImageQzI30m.avif"
+          ]
+        },
+        {
+          "id": "everyday-chibis",
+          "title": "Everyday Chibis",
+          "description": "Daily life in chibi form",
+          "count": 45,
+          "rating": 4.6,
+          "image": "https://i.postimg.cc/zGKF4HfL/tempImagemb1IW9.avif",
+          "category": "daily",
+          "price": 1299,
+          "tags": [
+            "chibi",
+            "everyday",
+            "daily",
+            "life",
+            "cute"
+          ],
+          "images": [
+            "https://i.postimg.cc/zGKF4HfL/tempImagemb1IW9.avif",
+            "https://i.postimg.cc/1tJHJx3C/tempImagenyhCwi.avif",
+            "https://i.postimg.cc/sDFcmJjy/tempImageQzI30m.avif",
+            "https://i.postimg.cc/1zD70YFk/tempImagerYw6TE.avif"
+          ]
+        },
+        {
+          "id": "holiday-chibis",
+          "title": "Holiday Chibis",
+          "description": "Festive chibi celebrations",
+          "count": 34,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/1tJHJx3C/tempImagenyhCwi.avif",
+          "category": "holiday",
+          "price": 999,
+          "tags": [
+            "chibi",
+            "holiday",
+            "festive",
+            "celebrations",
+            "cute"
+          ],
+          "images": [
+            "https://i.postimg.cc/1tJHJx3C/tempImagenyhCwi.avif",
+            "https://i.postimg.cc/sDFcmJjy/tempImageQzI30m.avif",
+            "https://i.postimg.cc/1zD70YFk/tempImagerYw6TE.avif",
+            "https://i.postimg.cc/fRqS2wcD/tempImage7ir1Kw.avif"
+          ]
+        },
+        {
+          "id": "holiday-chibis-2",
+          "title": "Holiday Chibis 2",
+          "description": "Festive chibi celebrations",
+          "count": 34,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/sDFcmJjy/tempImageQzI30m.avif",
+          "category": "holiday",
+          "price": 999,
+          "tags": [
+            "chibi",
+            "holiday",
+            "festive",
+            "celebrations",
+            "cute"
+          ],
+          "images": [
+            "https://i.postimg.cc/sDFcmJjy/tempImageQzI30m.avif",
+            "https://i.postimg.cc/1zD70YFk/tempImagerYw6TE.avif",
+            "https://i.postimg.cc/fRqS2wcD/tempImage7ir1Kw.avif",
+            "https://i.postimg.cc/65SMkNLH/tempImagett5arh.avif"
+          ]
+        },
+        {
+          "id": "holiday-chibis-3",
+          "title": "Holiday Chibis 3",
+          "description": "Festive chibi celebrations",
+          "count": 34,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/1zD70YFk/tempImagerYw6TE.avif",
+          "category": "holiday",
+          "price": 999,
+          "tags": [
+            "chibi",
+            "holiday",
+            "festive",
+            "celebrations",
+            "cute"
+          ],
+          "images": [
+            "https://i.postimg.cc/1zD70YFk/tempImagerYw6TE.avif",
+            "https://i.postimg.cc/fRqS2wcD/tempImage7ir1Kw.avif",
+            "https://i.postimg.cc/65SMkNLH/tempImagett5arh.avif",
+            "https://i.postimg.cc/RFs7wcgR/tempImagej79Z1R.avif"
+          ]
+        },
+        {
+          "id": "holiday-chibis-4",
+          "title": "Holiday Chibis 4",
+          "description": "Festive chibi celebrations",
+          "count": 34,
+          "rating": 4.5,
+          "image": "https://i.postimg.cc/fRqS2wcD/tempImage7ir1Kw.avif",
+          "category": "holiday",
+          "price": 999,
+          "tags": [
+            "chibi",
+            "holiday",
+            "festive",
+            "celebrations",
+            "cute"
+          ],
+          "images": [
+            "https://i.postimg.cc/fRqS2wcD/tempImage7ir1Kw.avif",
+            "https://i.postimg.cc/65SMkNLH/tempImagett5arh.avif",
+            "https://i.postimg.cc/RFs7wcgR/tempImagej79Z1R.avif",
+            "https://i.postimg.cc/zfkSGmWd/tempImagedDXBmr.avif"
+          ]
+        }
+      ]
+    }
+  },
+  "socialLinks": [
+    {
+      "platform": "facebook",
+      "icon": "fab fa-facebook",
+      "url": "#"
+    },
+    {
+      "platform": "instagram",
+      "icon": "fab fa-instagram",
+      "url": "#"
+    },
+    {
+      "platform": "pinterest",
+      "icon": "fab fa-pinterest",
+      "url": "#"
+    },
+    {
+      "platform": "youtube",
+      "icon": "fab fa-youtube",
+      "url": "#"
+    }
+  ],
+  "footer": {
+    "copyrightText": "© 2026 Vrindopnishad Collection. All images are property of their respective owners."
+  }
+}

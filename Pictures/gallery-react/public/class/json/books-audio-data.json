@@ -1,0 +1,60 @@
+{
+  "blocks": {
+    "vertical-section-0": {
+      "background": "/audio/blocks/nature-ambience.mp3",
+      "narration": "/audio/blocks/wildlife-narration.mp3"
+    },
+    "vertical-section-1": {
+      "background": "/audio/blocks/forest-sounds.mp3",
+      "narration": "/audio/blocks/seasons-narration.mp3"
+    },
+    "vertical-section-2": {
+      "background": "/audio/blocks/meditation-music.mp3",
+      "narration": "/audio/blocks/wisdom-narration.mp3"
+    },
+    "vertical-section-3": {
+      "background": "/audio/blocks/cosmic-ambience.mp3",
+      "narration": "/audio/blocks/astral-narration.mp3"
+    },
+    "horizontal-section-0": {
+      "background": "/audio/blocks/rainforest-sounds.mp3",
+      "narration": "/audio/blocks/landscape-narration.mp3"
+    },
+    "horizontal-section-1": {
+      "background": "/audio/blocks/river-sounds.mp3",
+      "narration": "/audio/blocks/water-narration.mp3"
+    },
+    "horizontal-section-2": {
+      "background": "/audio/blocks/wind-sounds.mp3",
+      "narration": "/audio/blocks/nature-narration.mp3"
+    },
+    "horizontal-section-3": {
+      "background": "/audio/blocks/thunder-sounds.mp3",
+      "narration": "/audio/blocks/elements-narration.mp3"
+    },
+    "vedic-section-0": {
+      "background": "/audio/blocks/vedic/ambient.mp3"
+    },
+    "puranas-section-0": {
+      "background": "/audio/blocks/puranas/ambient.mp3"  
+    },
+    "modern-section-0": {
+      "background": "/audio/blocks/modern/ambient.mp3"
+    }
+  },
+  "backgroundMusic": {
+    "default": "/audio/background/ambient-main.mp3",
+    "notes": "/audio/background/meditation-flow.mp3"
+  },
+  "effects": {
+    "notification": {
+      "success": "/audio/effects/success-chime.mp3",
+      "error": "/audio/effects/error-tone.mp3",
+      "info": "/audio/effects/info-ping.mp3"
+    },
+    "ui": {
+      "click": "/audio/effects/soft-click.mp3",
+      "hover": "/audio/effects/gentle-hover.mp3"
+    }
+  }
+}
