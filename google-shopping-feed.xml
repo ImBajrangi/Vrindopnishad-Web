@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
   <channel>
+      
     <title>Chitra Vrinda - Vrindopnishad</title>
     <link>https://vrindopnishad.in/Vrindopnishad%20Web/Pictures/main/Gallery.html</link>
     <description>Divine spiritual art and photography from Vrindavan.</description>
     <item>
       <g:id>1</g:id>
+      
       <g:title>Beautiful Anime Scene</g:title>
       <g:description>A stunning anime landscape with vibrant colors</g:description>
       <g:link>https://vrindopnishad.in/Vrindopnishad%20Web/Pictures/main/Gallery.html?id=1</g:link>

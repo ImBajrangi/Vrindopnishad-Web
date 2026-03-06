@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Modern Particle Morphing</title>
+    <style>
+        :root {
+            --bg-color: #02040a;
+            --text-color: #e0e5ea;
+            --primary: #1abedb;
+            --secondary: #8b5cf6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #0a1128 0%, #02040a 100%);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            touch-action: none;
+            /* Prevent scroll on touch devices */
+        }
+
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #ui-container {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            z-index: 10;
+            pointer-events: none;
+            /* Let clicks pass through to canvas if needed, but enable on buttons */
+            width: 95%;
+            max-width: 800px;
+        }
+
+        .btn {
+            pointer-events: auto;
+            background: rgba(26, 190, 219, 0.1);
+            border: 1px solid rgba(26, 190, 219, 0.3);
+            color: var(--text-color);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            outline: none;
+            box-shadow: 0 0 10px rgba(26, 190, 219, 0.1);
+        }
+
+        .btn:hover {
+            background: rgba(26, 190, 219, 0.2);
+            border-color: rgba(26, 190, 219, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(26, 190, 219, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .input-field {
+            pointer-events: auto;
+            background: rgba(2, 4, 10, 0.6);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: var(--text-color);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            outline: none;
+            backdrop-filter: blur(10px);
+            width: 140px;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.1);
+        }
+
+        .input-field:focus {
+            border-color: rgba(139, 92, 246, 0.8);
+            width: 180px;
+            background: rgba(139, 92, 246, 0.1);
+            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
+            letter-spacing: 2px;
+            z-index: 0;
+            transition: opacity 0.5s;
+        }
+
+        /* --- Settings Panel Styles --- */
+        #settings-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.5);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+        }
+
+        #settings-toggle:hover {
+            transform: rotate(90deg) scale(1.1);
+            background: rgba(139, 92, 246, 0.4);
+        }
+
+        #settings-panel {
+            position: absolute;
+            top: 80px;
+            right: 20px;
+            width: 300px;
+            background: rgba(2, 4, 10, 0.85);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            z-index: 99;
+            backdrop-filter: blur(15px);
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: -5px 5px 25px rgba(0, 0, 0, 0.6);
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+
+        #settings-panel.open {
+            transform: translateX(0);
+        }
+
+        .setting-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .setting-group label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .setting-group input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .setting-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--primary);
+            transition: transform 0.1s;
+        }
+
+        .setting-group input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        /* Scrollbar for settings */
+        #settings-panel::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        #settings-panel::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #settings-panel::-webkit-scrollbar-thumb {
+            background: rgba(139, 92, 246, 0.5);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="loading">INITIALIZING PARTICLES...</div>
+    <canvas id="canvas"></canvas>
+
+    <!-- Customization UI -->
+    <button id="settings-toggle" onclick="toggleSettings()">⚙️</button>
+    <div id="settings-panel">
+        <h3
+            style="color: white; margin-bottom: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+            Visual Tweaks</h3>
+
+        <div class="setting-group">
+            <label>Particle Size <span id="val-size">1</span></label>
+            <input type="range" min="0.1" max="4" step="0.1" value="1"
+                oninput="updateConfig('particleSize', this.value, 'val-size')">
+        </div>
+        <div class="setting-group">
+            <label>Particle Density (Gap) <span id="val-density">6</span></label>
+            <!-- Note: changing density requires shape reload on change (mouse release) -->
+            <input type="range" min="3" max="15" step="1" value="6"
+                oninput="updateConfig('density', this.value, 'val-density')" onchange="loadShape(currentShapeIndex)">
+        </div>
+        <div class="setting-group">
+            <label>Repulsion Radius <span id="val-repulsion">15</span>%</label>
+            <input type="range" min="0" max="50" step="1" value="15"
+                oninput="updateConfig('repulsionRadius', this.value, 'val-repulsion')">
+        </div>
+        <div class="setting-group">
+            <label>Spring Force (Lerp) <span id="val-spring">0.05</span></label>
+            <input type="range" min="0.01" max="0.2" step="0.01" value="0.05"
+                oninput="updateConfig('springForce', this.value, 'val-spring')">
+        </div>
+        <div class="setting-group">
+            <label>Fluid Friction <span id="val-friction">0.88</span></label>
+            <input type="range" min="0.5" max="0.99" step="0.01" value="0.88"
+                oninput="updateConfig('friction', this.value, 'val-friction')">
+        </div>
+        <div class="setting-group">
+            <label>Breathing Amplitude <span id="val-wave">8</span></label>
+            <input type="range" min="0" max="40" step="1" value="8"
+                oninput="updateConfig('waveAmplitude', this.value, 'val-wave')">
+        </div>
+        <div class="setting-group">
+            <label>Trail Length (Opacity) <span id="val-trail">0.3</span></label>
+            <input type="range" min="0.05" max="1" step="0.05" value="0.3"
+                oninput="updateConfig('trailOpacity', this.value, 'val-trail')">
+        </div>
+        <div class="setting-group"
+            style="flex-direction: row; align-items: center; justify-content: space-between; margin-top: 10px;">
+            <label style="margin: 0; font-size: 13px;">Show Neural Web</label>
+            <input type="checkbox" checked onchange="updateConfig('showConnections', this.checked)"
+                style="width: 18px; height: 18px; cursor: pointer;">
+        </div>
+        <div class="setting-group"
+            style="flex-direction: row; align-items: center; justify-content: space-between; margin-top: 5px;">
+            <label style="margin: 0; font-size: 13px;">Hover to Assemble</label>
+            <input type="checkbox" checked onchange="updateConfig('hoverAssemble', this.checked)"
+                style="width: 18px; height: 18px; cursor: pointer;">
+        </div>
+
+        <button class="btn" style="width: 100%; margin-top: 20px; font-size: 12px; padding: 10px;"
+            onclick="forceColorUpdate()">Randomize Colors</button>
+    </div>
+
+    <div id="ui-container">
+        <input type="text" id="customTextInput" class="input-field" placeholder="Type here..." maxlength="12"
+            onkeydown="if(event.key === 'Enter') morphCustomText()">
+        <button class="btn" onclick="morphCustomText()">Morph Text</button>
+        <button class="btn" onclick="nextShape()">Next Shape</button>
+        <button class="btn" onclick="toggleAutoPlay()" id="playBtn">Auto: ON</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+        let width, height;
+        let particles = [];
+        let targetPoints = [];
+        let time = 0; // Added for continuous organic animation
+
+        // Configuration State (Customizable via UI)
+        const config = {
+            particleSize: 1,
+            density: window.innerWidth < 768 ? 9 : 6,
+            repulsionRadius: 15,
+            springForce: 0.05,
+            friction: 0.88,
+            waveAmplitude: 8,
+            trailOpacity: 0.3,
+            showConnections: true,
+            hoverAssemble: true,
+            hueMin: 180,
+            hueMax: 290
+        };
+
+        // Interaction variables
+        let mouse = {
+            x: -1000,
+            y: -1000,
+            radius: 120, // Will be overridden dynamically by config
+            force: 0.8
+        };
+
+        // Hover/Scatter State
+        let isHoveringCanvas = false;
+        let forceAssemble = true; // Show first shape initially
+        let forceAssembleTimer = null;
+
+        // Shape management
+        let currentShapeIndex = 0;
+        let autoPlay = true;
+        let autoPlayTimer;
+        const AUTOPLAY_INTERVAL = 4000;
+
+        // Setup Canvas
+        function initCanvas() {
+            // Use Math.max to prevent 0 width/height errors during iframe initialization
+            width = canvas.width = Math.max(1, window.innerWidth);
+            height = canvas.height = Math.max(1, window.innerHeight);
+            mouse.radius = Math.min(width, height) * 0.15; // Responsive repulsion
+        }
+
+        window.addEventListener('resize', () => {
+            initCanvas();
+            loadShape(currentShapeIndex); // Recenter current shape
+        });
+
+        // Event Listeners for Interaction
+        window.addEventListener('mousemove', (e) => {
+            isHoveringCanvas = true;
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        document.addEventListener('mouseleave', () => {
+            isHoveringCanvas = false; // Scatter when mouse leaves window
+            mouse.x = -1000;
+            mouse.y = -1000;
+        });
+
+        window.addEventListener('touchstart', (e) => {
+            isHoveringCanvas = true;
+            mouse.x = e.touches[0].clientX;
+            mouse.y = e.touches[0].clientY;
+        }, { passive: false });
+
+        window.addEventListener('touchmove', (e) => {
+            e.preventDefault(); // Prevent scrolling
+            isHoveringCanvas = true;
+            mouse.x = e.touches[0].clientX;
+            mouse.y = e.touches[0].clientY;
+        }, { passive: false });
+
+        window.addEventListener('touchend', () => {
+            isHoveringCanvas = false; // Scatter on release
+            mouse.x = -1000;
+            mouse.y = -1000;
+        });
+
+        // Particle Class
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.baseX = x;
+                this.baseY = y;
+                this.targetX = x;
+                this.targetY = y;
+
+                // Wander state for distribution
+                this.wanderX = x;
+                this.wanderY = y;
+                this.wanderAngle = Math.random() * Math.PI * 2;
+                this.wanderSpeed = 0.5 + Math.random() * 2;
+
+                this.vx = (Math.random() - 0.5) * 10;
+                this.vy = (Math.random() - 0.5) * 10;
+
+                this.baseSize = Math.random() * 2 + 0.5;
+                this.density = (Math.random() * 30) + 5;
+
+                // Professional Teals, Cyans, and Purples (Configurable)
+                const hue = config.hueMin + Math.random() * (config.hueMax - config.hueMin);
+                this.color = `hsla(${hue}, 100%, 65%, 0.8)`;
+                this.targetColor = this.color;
+
+                // Random phase for organic breathing
+                this.phase = Math.random() * Math.PI * 2;
+                this.speed = 0.02 + Math.random() * 0.02;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.baseSize * config.particleSize, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            update() {
+                // Determine whether to assemble into shape or scatter
+                let shouldAssemble = forceAssemble || isHoveringCanvas || !config.hoverAssemble;
+
+                let currentTargetX, currentTargetY;
+
+                if (shouldAssemble) {
+                    // Organic floating/breathing effect around target
+                    let waveX = Math.sin(time * this.speed + this.phase) * config.waveAmplitude;
+                    let waveY = Math.cos(time * this.speed + this.phase) * config.waveAmplitude;
+                    currentTargetX = this.targetX + waveX;
+                    currentTargetY = this.targetY + waveY;
+
+                    // Sync wander position so they explode from current shape when scattered
+                    this.wanderX = this.x;
+                    this.wanderY = this.y;
+                } else {
+                    // Wander logic for scattered distributed mode
+                    this.wanderAngle += (Math.random() - 0.5) * 0.15;
+                    this.wanderX += Math.cos(this.wanderAngle) * this.wanderSpeed;
+                    this.wanderY += Math.sin(this.wanderAngle) * this.wanderSpeed;
+
+                    // Soft bounds to keep distributed particles on screen
+                    if (this.wanderX < -50) this.wanderX = width + 50;
+                    if (this.wanderX > width + 50) this.wanderX = -50;
+                    if (this.wanderY < -50) this.wanderY = height + 50;
+                    if (this.wanderY > height + 50) this.wanderY = -50;
+
+                    currentTargetX = this.wanderX;
+                    currentTargetY = this.wanderY;
+                }
+
+                // 1. Mouse Repulsion Physics
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+
+                let forceDirectionX = dx / distance;
+                let forceDirectionY = dy / distance;
+
+                let maxDistance = Math.min(width, height) * (config.repulsionRadius / 100);
+                let force = (maxDistance - distance) / maxDistance;
+                let directionX = forceDirectionX * force * this.density;
+                let directionY = forceDirectionY * force * this.density;
+
+                if (distance < maxDistance) {
+                    this.vx -= directionX;
+                    this.vy -= directionY;
+                } else {
+                    // 2. Return to target position (Lerp to floating or wandering target)
+                    let returnForceX = (currentTargetX - this.x) * config.springForce;
+                    let returnForceY = (currentTargetY - this.y) * config.springForce;
+
+                    this.vx += returnForceX;
+                    this.vy += returnForceY;
+                }
+
+                // Apply friction
+                this.vx *= config.friction;
+                this.vy *= config.friction;
+
+                // Update position
+                this.x += this.vx;
+                this.y += this.vy;
+            }
+        }
+
+        // Shape Extraction Logic
+        function getShapePoints(drawFunction, gap = 5) {
+            const offCanvas = document.createElement('canvas');
+            const offCtx = offCanvas.getContext('2d', { willReadFrequently: true });
+
+            // Fallbacks to avoid IndexSizeError if window dimensions are 0 during load
+            const safeWidth = Math.max(1, width);
+            const safeHeight = Math.max(1, height);
+
+            offCanvas.width = safeWidth;
+            offCanvas.height = safeHeight;
+
+            drawFunction(offCtx, safeWidth, safeHeight);
+
+            const imgData = offCtx.getImageData(0, 0, safeWidth, safeHeight).data;
+            const points = [];
+
+            for (let y = 0; y < safeHeight; y += gap) {
+                for (let x = 0; x < safeWidth; x += gap) {
+                    const index = (y * safeWidth + x) * 4;
+                    const alpha = imgData[index + 3];
+                    if (alpha > 128) {
+                        // Extract color if drawn, or assign a dynamic hue
+                        // We'll base color on coordinates for a nice gradient
+                        const hue = (x / safeWidth) * 120 + 180; // Cyans to Purples
+                        points.push({
+                            x: x,
+                            y: y,
+                            color: `hsl(${hue}, 80%, 60%)`
+                        });
+                    }
+                }
+            }
+            return points;
+        }
+
+        // Define our shapes/texts
+        const shapes = [
+            // 1. The "AI Core/Orb" (Perplexity Audio Visualizer vibe)
+            (c, w, h) => {
+                c.strokeStyle = 'white';
+                let cx = w / 2;
+                let cy = h / 2;
+                let r = Math.min(w, h) * 0.15;
+
+                c.lineWidth = 15;
+                c.beginPath(); c.arc(cx, cy, r, 0, Math.PI * 2); c.stroke();
+                c.lineWidth = 8;
+                c.beginPath(); c.arc(cx, cy, r * 1.5, 0, Math.PI * 2); c.stroke();
+                c.lineWidth = 3;
+                c.beginPath(); c.arc(cx, cy, r * 2.2, 0, Math.PI * 2); c.stroke();
+            },
+            // 2. Text: HELLO
+            (c, w, h) => {
+                c.fillStyle = 'white';
+                let fontSize = Math.min(w * 0.2, 200);
+                c.font = `900 ${fontSize}px sans-serif`;
+                c.textAlign = 'center';
+                c.textBaseline = 'middle';
+                c.fillText('HELLO', w / 2, h / 2);
+            },
+            // 2. Text: WORLD
+            (c, w, h) => {
+                c.fillStyle = 'white';
+                let fontSize = Math.min(w * 0.2, 200);
+                c.font = `900 ${fontSize}px sans-serif`;
+                c.textAlign = 'center';
+                c.textBaseline = 'middle';
+                c.fillText('WORLD', w / 2, h / 2);
+            },
+            // 3. Shape: Heart
+            (c, w, h) => {
+                c.fillStyle = 'white';
+                c.translate(w / 2, h / 2);
+                let scale = Math.min(w, h) * 0.012;
+                c.beginPath();
+                for (let t = 0; t <= Math.PI * 2; t += 0.05) {
+                    let x = 16 * Math.pow(Math.sin(t), 3);
+                    let y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+                    if (t === 0) c.moveTo(x * scale, y * scale);
+                    else c.lineTo(x * scale, y * scale);
+                }
+                c.fill();
+            },
+            // 4. Shape: Infinity
+            (c, w, h) => {
+                c.strokeStyle = 'white';
+                c.lineWidth = Math.min(w, h) * 0.08;
+                c.translate(w / 2, h / 2);
+                let scale = Math.min(w, h) * 0.25;
+                c.beginPath();
+                for (let t = 0; t <= Math.PI * 2; t += 0.05) {
+                    let divisor = 1 + Math.sin(t) * Math.sin(t);
+                    let x = (scale * Math.cos(t)) / divisor;
+                    let y = (scale * Math.cos(t) * Math.sin(t)) / divisor;
+                    // Double width for infinity look
+                    x *= 1.5;
+                    if (t === 0) c.moveTo(x, y);
+                    else c.lineTo(x, y);
+                }
+                c.stroke();
+            },
+            // 5. Text: CODE
+            (c, w, h) => {
+                c.fillStyle = 'white';
+                let fontSize = Math.min(w * 0.25, 250);
+                c.font = `900 ${fontSize}px sans-serif`;
+                c.textAlign = 'center';
+                c.textBaseline = 'middle';
+                c.fillText('CODE', w / 2, h / 2);
+            }
+        ];
+
+        // Morphing Logic
+        function loadShape(index) {
+            // Determine density based on screen size to prevent lag on mobile
+            // Now driven by user config settings
+            const gap = config.density;
+
+            targetPoints = getShapePoints(shapes[index], gap);
+
+            // Shuffle target points for organic morphing feeling
+            targetPoints.sort(() => Math.random() - 0.5);
+
+            // Match particle count to target points
+            while (particles.length < targetPoints.length) {
+                // Spawn new particles randomly around the edges
+                let px = Math.random() > 0.5 ? 0 : width;
+                let py = Math.random() * height;
+                particles.push(new Particle(px, py));
+            }
+            while (particles.length > targetPoints.length) {
+                particles.pop(); // Remove excess particles
+            }
+
+            // Assign targets
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].targetX = targetPoints[i].x;
+                particles[i].targetY = targetPoints[i].y;
+                particles[i].color = targetPoints[i].color;
+            }
+
+            // Temporarily force assembly so user can read/see the new shape
+            forceAssemble = true;
+            clearTimeout(forceAssembleTimer);
+            forceAssembleTimer = setTimeout(() => { forceAssemble = false; }, 2500);
+
+            document.getElementById('loading').style.opacity = '0';
+        }
+
+        function nextShape() {
+            currentShapeIndex = (currentShapeIndex + 1) % shapes.length;
+            loadShape(currentShapeIndex);
+
+            // Reset timer if auto play is on
+            if (autoPlay) {
+                clearInterval(autoPlayTimer);
+                autoPlayTimer = setInterval(nextShape, AUTOPLAY_INTERVAL);
+            }
+        }
+
+        function toggleAutoPlay() {
+            autoPlay = !autoPlay;
+            const btn = document.getElementById('playBtn');
+            if (autoPlay) {
+                btn.innerText = 'Auto: ON';
+                autoPlayTimer = setInterval(nextShape, AUTOPLAY_INTERVAL);
+            } else {
+                btn.innerText = 'Auto: OFF';
+                clearInterval(autoPlayTimer);
+            }
+        }
+
+        function morphCustomText() {
+            const input = document.getElementById('customTextInput');
+            const text = input.value.trim();
+
+            if (!text) return;
+
+            // Turn off autoplay when the user makes custom text
+            if (autoPlay) toggleAutoPlay();
+
+            // Create a dynamic shape function for the user's text
+            const customShape = (c, w, h) => {
+                c.fillStyle = 'white';
+                // Dynamically scale font size based on text length and screen width
+                let maxFontSize = Math.min((w * 0.9) / (text.length * 0.6), Math.min(w * 0.3, 300));
+                c.font = `900 ${maxFontSize}px sans-serif`;
+                c.textAlign = 'center';
+                c.textBaseline = 'middle';
+                c.fillText(text.toUpperCase(), w / 2, h / 2);
+            };
+
+            const gap = config.density;
+            targetPoints = getShapePoints(customShape, gap);
+            targetPoints.sort(() => Math.random() - 0.5);
+
+            // Add new particles or remove excess to match the new shape
+            while (particles.length < targetPoints.length) {
+                let px = Math.random() > 0.5 ? 0 : width;
+                let py = Math.random() * height;
+                particles.push(new Particle(px, py));
+            }
+            while (particles.length > targetPoints.length) {
+                particles.pop();
+            }
+
+            // Map particles to their new custom targets
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].targetX = targetPoints[i].x;
+                particles[i].targetY = targetPoints[i].y;
+                particles[i].color = targetPoints[i].color;
+            }
+
+            // Temporarily force assembly so user can read their custom text
+            forceAssemble = true;
+            clearTimeout(forceAssembleTimer);
+            forceAssembleTimer = setTimeout(() => { forceAssemble = false; }, 3000);
+
+            input.value = ''; // Clear input field
+            input.blur();     // Remove focus to dismiss mobile keyboard
+        }
+
+        // Animation Loop
+        function animate() {
+            time++; // Increment time for wave functions
+
+            // Create a trailing effect with deep dark blue
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.fillStyle = `rgba(2, 4, 10, ${config.trailOpacity})`;
+            ctx.fillRect(0, 0, width, height);
+
+            // Professional glowing additive blending
+            ctx.globalCompositeOperation = 'lighter';
+
+            // Draw connections (optimized loop for performance)
+            if (config.showConnections) {
+                ctx.lineWidth = 0.5;
+                for (let i = 0; i < particles.length; i += 2) {
+                    for (let j = i + 2; j < particles.length; j += 4) {
+                        let dx = particles[i].x - particles[j].x;
+                        let dy = particles[i].y - particles[j].y;
+                        let distSq = dx * dx + dy * dy;
+
+                        if (distSq < 3600) { // 60px distance threshold squared
+                            let alpha = 1 - (distSq / 3600);
+                            ctx.strokeStyle = `rgba(139, 92, 246, ${alpha * 0.15})`; // Subtle purple/cyan blend
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // --- Customization Controllers ---
+        function toggleSettings() {
+            const panel = document.getElementById('settings-panel');
+            panel.classList.toggle('open');
+        }
+
+        function updateConfig(key, value, labelId) {
+            config[key] = typeof value === 'boolean' ? value : parseFloat(value);
+            if (labelId) {
+                document.getElementById(labelId).innerText = value;
+            }
+        }
+
+        function forceColorUpdate() {
+            // Pick a new random base hue
+            config.hueMin = Math.random() * 360;
+            config.hueMax = config.hueMin + 60 + Math.random() * 60; // 60 to 120 degree spread
+
+            particles.forEach(p => {
+                const hue = config.hueMin + Math.random() * (config.hueMax - config.hueMin);
+                p.color = `hsla(${hue}, 100%, 65%, 0.8)`;
+            });
+        }
+
+        // Initialization
+        window.onload = () => {
+            initCanvas();
+
+            // Sync initial UI state for density based on screen size defaults
+            document.getElementById('val-density').innerText = config.density;
+            document.querySelector('input[oninput*="density"]').value = config.density;
+
+            loadShape(0); // Load first shape
+            animate();
+
+            if (autoPlay) {
+                autoPlayTimer = setInterval(nextShape, AUTOPLAY_INTERVAL);
+            }
+        };
+
+    </script>
+</body>
+
+</html>
