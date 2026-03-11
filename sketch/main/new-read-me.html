@@ -16,6 +16,7 @@
     <!-- Supabase & Shared Auth -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../../../js/auth.js" defer></script>
+    <script src="../../Pictures/js/supabase-client.js" defer></script>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -1478,44 +1479,35 @@
         let currentAudioUrl = null;
 
         async function loadAllData() {
-            gridView.innerHTML = '<p style="text-align: center; padding: 3rem; opacity: 0.7; color: white;">Loading content...</p>';
+            gridView.innerHTML = '<p style="text-align: center; padding: 3rem; opacity: 0.7; color: white;">Loading sacred content...</p>';
 
             try {
-                // Fetch directly from Supabase
-                if (!window.supabaseClient) {
-                    throw new Error('Supabase client not initialized. Check your connection or scripts.');
-                }
+                // Use the bridge to fetch from Firebase (Primary) or Supabase (Fallback)
+                console.log('Fetching content via database bridge...');
+                const data = await fetchContentFromSupabase();
 
-                const { data, error } = await window.supabaseClient
-                    .from('content')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-
-                if (error) throw error;
-
-                if (data) {
+                if (data && data.length > 0) {
                     allEntries = data;
-                }
+                    console.log(`Loaded ${allEntries.length} entries via bridge`);
 
-                if (allEntries.length === 0) {
+                    categories.clear();
+                    allEntries.forEach(entry => {
+                        if (entry.category) categories.add(entry.category);
+                    });
+
+                    renderCategories();
+                    filterByCategory('all');
+                } else {
                     throw new Error('No entries found in database');
                 }
-
-                categories.clear();
-                allEntries.forEach(entry => {
-                    if (entry.category) categories.add(entry.category);
-                });
-
-                renderCategories();
-                filterByCategory('all');
 
             } catch (error) {
                 console.error('Data Load Error:', error);
                 gridView.innerHTML = `
                     <div style="text-align: center; padding: 3rem; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 12px;">
-                        <h3 style="color: #ef4444; margin-bottom: 1rem;">Error Loading Content</h3>
+                        <h3 style="color: #ef4444; margin-bottom: 1rem;">Connection Error</h3>
                         <p style="color: white;">${error.message}</p>
-                        <p style="color: grey; font-size: 0.8rem; margin-top: 1rem;">Please check your internet connection or Supabase configuration.</p>
+                        <p style="color: grey; font-size: 0.8rem; margin-top: 1rem;">The divine content could not be reached. Please check your connection or try again later.</p>
                     </div>
                 `;
             }
