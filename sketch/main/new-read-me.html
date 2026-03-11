@@ -53,9 +53,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
     <!-- Supabase & Shared Auth -->
+    <script type="importmap">
+    {
+      "imports": {
+        "firebase/app": "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js",
+        "firebase/auth": "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js",
+        "firebase/database": "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js",
+        "firebase/analytics": "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js"
+      }
+    }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../../../js/auth.js" defer></script>
-    <script src="../../Pictures/js/supabase-client.js" defer></script>
+    <script src="../../../js/auth.js" type="module"></script>
+    <script src="../../Pictures/js/supabase-client.js" type="module"></script>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -2342,7 +2352,7 @@
             document.body.classList.toggle('zen-mode', zenMode);
             const icon = zenMode ? 'fa-times' : 'fa-spa';
             document.getElementById('zenToggle').innerHTML = `<i class="fas ${icon}"></i>`;
-            showToast(zenMode ? 'Zen Mode Active' : 'Zen Mode Off');
+            showToast(zenMode ? 'Zen reading activated' : 'Controls restored');
         };
 
         document.getElementById('autoScrollToggle').onclick = () => {
@@ -2485,7 +2495,7 @@
         setInterval(createShootingStar, 8000);
 
         // Initialize Shared Auth & Load Data
-        document.addEventListener('DOMContentLoaded', () => {
+        const init = () => {
             if (window.AuthService) {
                 // Initialize Auth UI
                 AuthService.updateProfileUI('user-auth-btn');
@@ -2496,7 +2506,14 @@
 
             // Load content after auth is ready
             loadAllData();
-        });
+        };
+
+        // If scripts are modules, we can just call init or wait for DOM
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
     </script>
 </body>
 
