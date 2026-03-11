@@ -933,50 +933,94 @@
             cursor: pointer;
         }
 
-        .wrapper-menu {
+        /* Custom Animated Hamburger Menu (Cross Style) */
+        .menu--svg {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu--svg:hover {
+            background: rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .menu--svg label {
+            display: block;
+            cursor: pointer;
             width: 100%;
             height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: transform 330ms ease-out;
-            padding: 8px 0;
+            position: relative;
         }
 
-        .wrapper-menu.open {
-            transform: rotate(-45deg);
+        .menu--svg input {
+            display: none;
         }
 
-        .line-menu {
-            background-color: #fff;
-            border-radius: 3px;
+        .menu--svg svg {
             width: 100%;
-            height: 4px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            height: 100%;
+            display: block;
         }
 
-        .line-menu.half {
-            width: 70%;
+        .menu--svg path {
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 3.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            --length: 24;
+            --offset: -38;
+            stroke-dasharray: var(--length) var(--total-length);
+            stroke-dashoffset: var(--offset);
+            transition: all .6s cubic-bezier(.645, .045, .355, 1);
         }
 
-        .line-menu.start {
-            transition: transform 330ms cubic-bezier(0.54, -0.81, 0.57, 0.57);
-            transform-origin: right;
+        .menu--svg circle {
+            fill: rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .wrapper-menu.open .line-menu.start {
-            transform: rotate(-90deg) translateX(3px);
+        .menu--svg label:hover circle {
+            opacity: 1;
         }
 
-        .line-menu.end {
-            align-self: flex-end;
-            transition: transform 330ms cubic-bezier(0.54, -0.81, 0.57, 0.57);
-            transform-origin: left;
+        /* Menu 2 Specifics (Cross Effect) */
+        .menu--2 .line--1,
+        .menu--2 .line--3 {
+            --total-length: 111.22813415527344;
+            --offset: -50.22813415527344;
         }
 
-        .wrapper-menu.open .line-menu.end {
-            transform: rotate(-90deg) translateX(-3px);
+        .menu--2 .line--2 {
+            --total-length: 99;
+        }
+
+        .menu--2 input:checked+svg path {
+            transform: translateX(30px);
+        }
+
+        .menu--2 input:checked+svg .line--1,
+        .menu--2 input:checked+svg .line--3 {
+            --offset: -16.9705627485;
+            --length: 22.627416998;
+        }
+
+        .menu--2 input:checked+svg .line--2 {
+            --offset: -20;
+            --length: 0;
         }
 
         footer {
@@ -1680,13 +1724,17 @@
                 <i class="fas fa-user"></i>
             </button>
 
-            <button class="control-btn menu-toggle" id="menuToggle">
-                <div class="wrapper-menu" id="wrapperMenu">
-                    <div class="line-menu half start"></div>
-                    <div class="line-menu"></div>
-                    <div class="line-menu half end"></div>
-                </div>
-            </button>
+            <div class="menu cross menu--2 menu--svg" id="menuToggleContainer">
+                <label>
+                    <input type="checkbox" id="menuCheckbox">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="30" />
+                        <path class="line--1" d="M0 70l28-28c2-2 2-2 7-2h64" />
+                        <path class="line--2" d="M0 50h99" />
+                        <path class="line--3" d="M0 30l28 28c2 2 2 2 7 2h64" />
+                    </svg>
+                </label>
+            </div>
             <button class="control-btn" id="backBtn" style="display: none;">
                 <i class="fas fa-arrow-left"></i>
             </button>
@@ -1740,7 +1788,7 @@
                     <ul class="footer-links">
                         <li><a href="#" onclick="filterByCategory('all'); return false;">All Content</a></li>
                         <li><a href="#"
-                                onclick="document.getElementById('menuToggle').click(); return false;">Categories</a>
+                                onclick="document.getElementById('menuCheckbox').click(); return false;">Categories</a>
                         </li>
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Contact</a></li>
@@ -1853,8 +1901,6 @@
         const authorDisplay = document.getElementById('authorDisplay');
         const categoryList = document.getElementById('categoryList');
         const sidebar = document.getElementById('sidebar');
-        const menuToggle = document.getElementById('menuToggle');
-        const wrapperMenu = document.getElementById('wrapperMenu');
         const backBtn = document.getElementById('backBtn');
         const musicToggle = document.getElementById('musicToggle');
         const musicPlayer = document.getElementById('musicPlayer');
@@ -1937,7 +1983,8 @@
 
             renderGrid();
             sidebar.classList.remove('active');
-            wrapperMenu.classList.remove('open');
+            const mc = document.getElementById('menuCheckbox');
+            if (mc) mc.checked = false;
         }
 
         function renderGrid() {
@@ -2392,10 +2439,29 @@
             history.pushState("", document.title, window.location.pathname + window.location.search);
         });
 
-        menuToggle.onclick = () => {
-            sidebar.classList.toggle('active');
-            wrapperMenu.classList.toggle('open');
+        const menuCheckbox = document.getElementById('menuCheckbox');
+        const menuToggleContainer = document.getElementById('menuToggleContainer');
+
+        menuToggleContainer.onclick = (e) => {
+            // Checkbox takes care of the state, but we need to trigger sidebar
+            // Since label handles checkbox, we wait a bit or use change event
         };
+
+        menuCheckbox.onchange = () => {
+            if (menuCheckbox.checked) {
+                sidebar.classList.add('active');
+            } else {
+                sidebar.classList.remove('active');
+            }
+        };
+
+        // Close sidebar and reset checkbox when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && !menuToggleContainer.contains(e.target) && sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+                menuCheckbox.checked = false;
+            }
+        });
 
         musicToggle.onclick = () => {
             if (musicPlayer.classList.contains('active')) {
