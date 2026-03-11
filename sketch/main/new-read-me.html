@@ -5,7 +5,46 @@
     <link rel="icon" href="../../class/logo/v-logo-transparent.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vrindopnishad - Paath</title>
+    <title>Vrindopnishad - Sacred Content & Spiritual Wisdom</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Vrindopnishad - A sacred collection of devotional poetry, spiritual wisdom, and sacred teachings dedicated to divine love and consciousness. Explore Harivansh Mahaprabhu's teachings.">
+    <meta name="keywords"
+        content="Vrindopnishad, Harivansh Mahaprabhu, Radha Vallabh, Braj, Vrindavan, Sacred Poetry, Spiritual Wisdom, Bhakti, Devotion">
+    <meta name="author" content="Vrindopnishad">
+    <link rel="canonical" href="https://vrindopnishad.web.app/sketch/main/new-read-me.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vrindopnishad.web.app/">
+    <meta property="og:title" content="Vrindopnishad - Sacred Content & Spiritual Wisdom">
+    <meta property="og:description" content="A sacred digital sanctuary for devotional poetry and spiritual wisdom.">
+    <meta property="og:image" content="../../class/logo/v-logo-transparent.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://vrindopnishad.web.app/">
+    <meta property="twitter:title" content="Vrindopnishad - Sacred Content & Spiritual Wisdom">
+    <meta property="twitter:description"
+        content="A sacred digital sanctuary for devotional poetry and spiritual wisdom.">
+    <meta property="twitter:image" content="../../class/logo/v-logo-transparent.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Vrindopnishad",
+      "url": "https://vrindopnishad.web.app/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://vrindopnishad.web.app/sketch/main/new-read-me.html?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -39,6 +78,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         html {
@@ -144,7 +184,7 @@
         }
 
         .particle {
-            position: absolute;
+            position: fixed;
             border-radius: 50%;
             background: var(--star-color);
             animation: twinkle 3s ease-in-out infinite;
@@ -152,12 +192,13 @@
         }
 
         .shooting-star {
-            position: absolute;
+            position: fixed;
             width: 100px;
             height: 2px;
             background: linear-gradient(90deg, white, transparent);
             animation: shooting-star 2s linear infinite;
             opacity: 0;
+            z-index: -1;
         }
 
         .nebula {
@@ -338,6 +379,14 @@
             cursor: pointer;
             transition: all 0.3s ease;
             will-change: transform;
+            display: flex;
+            flex-direction: column;
+            word-wrap: break-word;
+            /* Fix for long URLs */
+            overflow-wrap: break-word;
+            hyphens: auto;
+            position: relative;
+            overflow: hidden;
         }
 
         .content-card:hover {
@@ -361,22 +410,51 @@
             margin-bottom: 1rem;
             color: white;
             font-size: 1rem;
+            word-wrap: break-word;
+            /* Ensure URLs wrap */
+            overflow-wrap: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            /* Quick Peek: show 4 lines */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .content-card .tags {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-top: 1rem;
+            margin-top: auto;
+            /* Push tags to bottom */
+            padding-top: 1rem;
+        }
+
+        .url-text {
+            word-break: break-all;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            color: #a78bfa;
+            display: block;
+            margin-top: 0.5rem;
         }
 
         .tag {
-            background: rgba(142, 68, 173, 0.3);
+            background: rgba(139, 92, 246, 0.2);
+            color: #d1d5db;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .tag:hover {
+            background: rgba(139, 92, 246, 0.4);
+            border-color: rgba(167, 139, 250, 0.6);
             color: white;
-            padding: 0.4rem 0.9rem;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            border: 1px solid rgba(142, 68, 173, 0.5);
+            transform: scale(1.05);
         }
 
         .reader-view {
@@ -1176,7 +1254,21 @@
 
             .content-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 1.25rem;
+            }
+
+            .content-card {
+                padding: 1.5rem;
+                border-radius: 16px;
+            }
+
+            .content-card h3 {
+                font-size: 1.3rem;
+            }
+
+            .content-card p {
+                font-size: 0.95rem;
+                margin-bottom: 0.8rem;
             }
 
             .reader {
@@ -1192,6 +1284,10 @@
                 font-size: 1.8rem;
             }
 
+            .search-container {
+                margin: 0 1rem 1.5rem;
+            }
+
             .poem-title {
                 font-size: 1.6rem;
             }
@@ -1199,6 +1295,8 @@
             .poem-content {
                 font-size: 1.1rem;
                 line-height: 1.9;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
             }
 
             .controls {
@@ -1296,11 +1394,260 @@
                 grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             }
         }
+
+        /* Search Bar Styles */
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-wrapper {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.4s var(--transition-bounce);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-wrapper:focus-within {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #8b5cf6;
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .search-icon {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.2rem;
+        }
+
+        .search-wrapper input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            padding: 0.8rem 0;
+            outline: none;
+        }
+
+        .search-wrapper input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+            text-overflow: ellipsis;
+        }
+
+        .search-badge {
+            background: rgba(139, 92, 246, 0.3);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(139, 92, 246, 0.5);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .search-wrapper:focus-within .search-badge,
+        .search-wrapper input:not(:placeholder-shown)~.search-badge {
+            opacity: 1;
+        }
+
+        /* Mobile Adjustments for Search */
+        @media (max-width: 480px) {
+            .search-wrapper {
+                padding: 0.3rem 1.2rem;
+            }
+
+            .search-wrapper input {
+                font-size: 1rem;
+            }
+
+            .search-badge {
+                display: none;
+                /* Hide on very small screens to save space */
+            }
+
+            .header-controls {
+                gap: 0.5rem;
+            }
+
+            #user-auth-btn {
+                width: 40px !important;
+                height: 40px !important;
+            }
+
+            @media (max-width: 380px) {
+                .logo {
+                    font-size: 1.25rem;
+                }
+
+                .author-header {
+                    font-size: 0.75rem;
+                    max-width: 100px;
+                }
+
+                h1.page-title {
+                    font-size: 1.75rem;
+                }
+
+                .content-card {
+                    padding: 1.25rem;
+                }
+            }
+        }
+
+        /* Reading Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1001;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #8b5cf6, #d946ef);
+            width: 0%;
+            transition: width 0.1s ease;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+
+        /* Zen Mode Styles */
+        body.zen-mode header,
+        body.zen-mode .sidebar,
+        body.zen-mode .progress-container,
+        body.zen-mode .controls-row> :not(#themeToggle):not(#zenToggle),
+        body.zen-mode footer {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        body.zen-mode .reader {
+            margin-top: 5vh;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(139, 92, 246, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            z-index: 2000;
+            transition: transform 0.4s var(--transition-bounce);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            font-family: var(--font-body);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Quick Actions in Reader */
+        .reader-actions {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 0.7rem 1.2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .action-btn:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: #8b5cf6;
+            transform: translateY(-2px);
+        }
+
+        /* Auto-scroll active indicator */
+        .auto-scroll-indicator {
+            position: fixed;
+            top: 85px;
+            right: 20px;
+            font-size: 0.8rem;
+            color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            display: none;
+            z-index: 1000;
+        }
+
+        .auto-scroll-indicator.active {
+            display: block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.6;
+            }
+        }
+
+        header {
+            transition: transform 0.3s ease;
+        }
+
+        header.hide {
+            transform: translateY(-100%);
+        }
     </style>
 </head>
 
 <body>
     <div class="nebula"></div>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="auto-scroll-indicator" id="scrollIndicator">
+        <i class="fas fa-magic"></i> Auto-scrolling...
+    </div>
+
+    <div class="toast" id="toast">Text copied to clipboard!</div>
+
     <header>
         <div class="logo">वृंदोपनिषद्</div>
         <div id="authorDisplay" class="author-header"></div>
@@ -1334,6 +1681,17 @@
 
     <div class="grid-container" id="gridContainer">
         <h1 class="page-title">वृंदोपनिषद्</h1>
+
+        <!-- Search Bar Section -->
+        <div class="search-container">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search sacred content, tags, or topics..."
+                    autocomplete="off">
+                <div id="searchBadge" class="search-badge">0 results</div>
+            </div>
+        </div>
+
         <div id="gridView" class="content-grid"></div>
 
         <footer>
@@ -1440,6 +1798,12 @@
             </button>
             <button class="control-btn" id="fontDown">A-</button>
             <button class="control-btn" id="fontUp">A+</button>
+            <button class="control-btn" id="zenToggle" title="Zen Mode">
+                <i class="fas fa-spa"></i>
+            </button>
+            <button class="control-btn" id="autoScrollToggle" title="Auto-Scroll">
+                <i class="fas fa-magic"></i>
+            </button>
             <button class="control-btn" id="themeToggle">
                 <i class="fas fa-moon"></i>
             </button>
@@ -1478,6 +1842,13 @@
 
         let currentAudioUrl = null;
 
+        constprogressBar = document.getElementById('progressBar');
+        constscrollIndicator = document.getElementById('scrollIndicator');
+        consttoast = document.getElementById('toast');
+        let autoScrollInterval = null;
+        let isAutoScrolling = false;
+        let zenMode = false;
+
         async function loadAllData() {
             gridView.innerHTML = '<p style="text-align: center; padding: 3rem; opacity: 0.7; color: white;">Loading sacred content...</p>';
 
@@ -1496,7 +1867,16 @@
                     });
 
                     renderCategories();
-                    filterByCategory('all');
+
+                    // Initialize search
+                    initSearch();
+
+                    // Handle Hash Navigation (Deep Linking)
+                    handleHashNavigation();
+
+                    if (readerContainer.style.display !== 'block') {
+                        filterByCategory('all');
+                    }
                 } else {
                     throw new Error('No entries found in database');
                 }
@@ -1539,17 +1919,24 @@
         }
 
         function renderGrid() {
-            gridView.innerHTML = filteredEntries.map(entry => `
+            gridView.innerHTML = filteredEntries.map(entry => {
+                const description = entry.description || entry.content?.excerpt || '';
+                const displayDescription = description.startsWith('http')
+                    ? `<span class="url-text">${description}</span>`
+                    : description;
+
+                return `
                 <div class="content-card" onclick="openReader('${entry.id}')">
                     <h3>${entry.title || 'Untitled'}</h3>
-                    <p>${entry.description || entry.content?.excerpt || ''}</p>
+                    <p>${displayDescription}</p>
                     ${entry.tags?.length ? `
                         <div class="tags">
                             ${entry.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                         </div>
                     ` : ''}
                 </div>
-            `).join('');
+            `;
+            }).join('');
         }
 
         function openReader(entryId) {
@@ -1557,6 +1944,12 @@
             currentIndex = filteredEntries.findIndex(e => e.id === entryId);
 
             if (!currentEntry) return;
+
+            // Updated SEO Meta Tags dynamically
+            updateSEOForEntry(currentEntry);
+
+            // Hash Navigation & History
+            window.location.hash = entryId;
 
             const poemContent = currentEntry.content || {};
             const contentBody = currentEntry.content_text || poemContent.content || '';
@@ -1570,6 +1963,9 @@
                 authorDisplay.textContent = currentEntry.author || currentEntry.description || poemContent.excerpt || '';
                 dynamicTitle.style.opacity = '1';
                 authorDisplay.style.opacity = '1';
+
+                // Set page title for better UX/SEO
+                document.title = `${dynamicTitle.textContent} - Vrindopnishad`;
             }, 250);
 
             if (currentEntry.audio_url) {
@@ -1597,6 +1993,16 @@
             contentArea.innerHTML = `
                 <div class="reader">
                     <h2 class="poem-title">${currentEntry.title || 'Untitled'}</h2>
+                    <!-- Dynamic Reader Actions -->
+                    <div class="reader-actions">
+                        <button class="action-btn" onclick="copySacredText()">
+                            <i class="fas fa-copy"></i> Copy Text
+                        </button>
+                        <button class="action-btn" onclick="shareSacredLink()">
+                            <i class="fas fa-share-alt"></i> Share
+                        </button>
+                    </div>
+
                     <div class="poem-meta">
                         <div class="poem-author">${currentEntry.description || 'श्री हरिवंश'}</div>
                         <div class="poem-type">${currentEntry.category || 'भाव'}</div>
@@ -1604,10 +2010,10 @@
                     </div>
                     ${currentEntry.tags?.length ? `
                         <div class="poem-tags">
-                            ${currentEntry.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                            ${currentEntry.tags.map(tag => `<span class="tag" onclick="filterByTag('${tag}')">${tag}</span>`).join('')}
                         </div>
                     ` : ''}
-                    <div class="poem-content">${content}</div>
+                    <div class="poem-content" id="poemContentText">${content}</div>
                     ${linkContent}
                     ${audioContent}
                     ${imageContent}
@@ -1619,6 +2025,9 @@
             readerContainer.style.display = 'block';
             backBtn.style.display = 'flex';
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Reset scroll progress
+            if (progressBar) progressBar.style.width = '0%';
         }
 
         function formatContent(content) {
@@ -1800,15 +2209,166 @@
             }
         }
 
-        backBtn.onclick = () => {
+        // Search Functionality
+        function initSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchBadge = document.getElementById('searchBadge');
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+
+                if (!query) {
+                    filteredEntries = allEntries;
+                    searchBadge.textContent = '0 results';
+                } else {
+                    filteredEntries = allEntries.filter(entry => {
+                        const title = (entry.title || '').toLowerCase();
+                        const desc = (entry.description || '').toLowerCase();
+                        const content = (entry.content_text || entry.content?.content || '').toLowerCase();
+                        const tags = (entry.tags || []).join(' ').toLowerCase();
+                        const category = (entry.category || '').toLowerCase();
+
+                        return title.includes(query) ||
+                            desc.includes(query) ||
+                            content.includes(query) ||
+                            tags.includes(query) ||
+                            category.includes(query);
+                    });
+                    searchBadge.textContent = `${filteredEntries.length} results`;
+                }
+
+                renderGrid();
+            });
+
+            // Handle URL search query (?q=something) for Google Sitelinks Search
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialQuery = urlParams.get('q');
+            if (initialQuery) {
+                searchInput.value = initialQuery;
+                searchInput.dispatchEvent(new Event('input'));
+            }
+        }
+
+        // Dynamic SEO Update
+        function updateSEOForEntry(entry) {
+            const title = entry.title || 'Sacred Content';
+            const description = entry.description || entry.content?.excerpt || 'Discover sacred teachings and devotional poetry.';
+
+            // Update Meta Description
+            let metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) metaDesc.setAttribute('content', description);
+
+            // Update Open Graph Tags
+            let ogTitle = document.querySelector('meta[property="og:title"]');
+            if (ogTitle) ogTitle.setAttribute('content', `${title} - Vrindopnishad`);
+
+            let ogDesc = document.querySelector('meta[property="og:description"]');
+            if (ogDesc) ogDesc.setAttribute('content', description);
+        }
+
+        // Deep Linking Support
+        function handleHashNavigation() {
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                openReader(hash);
+            }
+        }
+
+        function filterByTag(tag) {
+            backBtn.click();
+            const searchInput = document.getElementById('searchInput');
+            searchInput.value = tag;
+            searchInput.dispatchEvent(new Event('input'));
+        }
+
+        // UX Features Logic
+        function copySacredText() {
+            const text = document.getElementById('poemContentText').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Sacred text copied!');
+            });
+        }
+
+        function shareSacredLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                showToast('Link copied to share!');
+            });
+        }
+
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function updateProgress() {
+            if (readerContainer.style.display === 'block') {
+                const scroll = window.scrollY;
+                const height = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = (scroll / height) * 100;
+                progressBar.style.width = progress + '%';
+            }
+        }
+
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            updateProgress();
+
+            // Auto-hide header
+            const st = window.pageYOffset || document.documentElement.scrollTop;
+            if (st > lastScrollTop && st > 100) {
+                document.querySelector('header').classList.add('hide');
+            } else {
+                document.querySelector('header').classList.remove('hide');
+            }
+            lastScrollTop = st <= 0 ? 0 : st;
+        });
+
+        document.getElementById('zenToggle').onclick = () => {
+            zenMode = !zenMode;
+            document.body.classList.toggle('zen-mode', zenMode);
+            const icon = zenMode ? 'fa-times' : 'fa-spa';
+            document.getElementById('zenToggle').innerHTML = `<i class="fas ${icon}"></i>`;
+            showToast(zenMode ? 'Zen Mode Active' : 'Zen Mode Off');
+        };
+
+        document.getElementById('autoScrollToggle').onclick = () => {
+            isAutoScrolling = !isAutoScrolling;
+            scrollIndicator.classList.toggle('active', isAutoScrolling);
+
+            if (isAutoScrolling) {
+                autoScrollInterval = setInterval(() => {
+                    window.scrollBy(0, 1);
+                    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                        document.getElementById('autoScrollToggle').click();
+                    }
+                }, 50); // Adjust speed here
+            } else {
+                clearInterval(autoScrollInterval);
+            }
+        };
+
+        backBtn.addEventListener('click', () => {
             readerContainer.style.display = 'none';
             gridContainer.style.display = 'block';
             backBtn.style.display = 'none';
+            dynamicTitle.textContent = '';
             authorDisplay.textContent = '';
+            document.title = 'Vrindopnishad - Sacred Content & Spiritual Wisdom';
+
+            // Zen Mode cleanup
+            if (zenMode) document.getElementById('zenToggle').click();
+            if (isAutoScrolling) document.getElementById('autoScrollToggle').click();
+
+            // Original logic for audio
             musicToggle.style.display = 'none';
             musicPlayer.classList.remove('active');
             audioPlayer.pause();
-        };
+
+            // Reset URL params (removes hash)
+            history.pushState("", document.title, window.location.pathname + window.location.search);
+        });
 
         menuToggle.onclick = () => {
             sidebar.classList.toggle('active');
